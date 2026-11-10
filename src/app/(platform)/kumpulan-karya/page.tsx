@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
+  AlertCircle,
   UploadCloud,
   FileCheck2,
   Github,
@@ -27,6 +28,7 @@ import { submissionSchema } from "@/lib/validations";
 import { WorkSubmission } from "@/types/database";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import confetti from "canvas-confetti";
+import { submitWork, loadMySubmission, type SubmissionRecord } from "@/lib/data-access/submissions";
 
 export default function KumpulanKaryaPage() {
   const [formData, setFormData] = useState({
@@ -54,7 +56,9 @@ export default function KumpulanKaryaPage() {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
-  const [userSubmission, setUserSubmission] = useState<WorkSubmission | null>(null);
+  const [pesanGalat, setPesanGalat] = useState<string | null>(null);
+  const [kodeKarya, setKodeKarya] = useState<string | null>(null);
+  const [userSubmission, setUserSubmission] = useState<SubmissionRecord | null>(null);
 
   // File upload state
   const [screenshotFileName, setScreenshotFileName] = useState("");
@@ -62,6 +66,7 @@ export default function KumpulanKaryaPage() {
 
   // Load profile and existing submission from storage
   useEffect(() => {
+    (async () => {
     try {
       // Auto-fill from profile if available
       const prof = localStorage.getItem("vibe_user_profile");
@@ -76,29 +81,31 @@ export default function KumpulanKaryaPage() {
         }));
       }
 
-      // Check existing submission
-      const existingSub = localStorage.getItem("vibe_user_submission");
-      if (existingSub) {
-        const parsedSub: WorkSubmission = JSON.parse(existingSub);
+      // Ambil data dari DATABASE — supaya peserta yang ganti perangkat
+      // tetap melihat karyanya, dan admin melihat kiriman yang sama.
+      const parsedSub = await loadMySubmission();
+      if (parsedSub) {
         setUserSubmission(parsedSub);
+        setKodeKarya(parsedSub.submission_code ?? null);
         setFormData((prev) => ({
           ...prev,
-          full_name: parsedSub.full_name,
-          email: parsedSub.email,
-          whatsapp: parsedSub.whatsapp,
-          institution: parsedSub.institution,
-          project_title: parsedSub.project_title,
-          project_description: parsedSub.project_description,
-          completed_modules: parsedSub.completed_modules,
-          github_url: parsedSub.github_url,
-          deployment_url: parsedSub.deployment_url,
+          full_name: parsedSub.full_name || prev.full_name,
+          email: parsedSub.email || prev.email,
+          whatsapp: parsedSub.whatsapp || prev.whatsapp,
+          institution: parsedSub.institution || prev.institution,
+          project_title: parsedSub.project_title || prev.project_title,
+          project_description: parsedSub.project_description || prev.project_description,
+          completed_modules: parsedSub.completed_modules || prev.completed_modules,
+          github_url: parsedSub.github_url || prev.github_url,
+          deployment_url: parsedSub.deployment_url || prev.deployment_url,
           screenshot_url: parsedSub.screenshot_url || "",
-          attachment_url: parsedSub.attachment_url || "",
+          attachment_url: (parsedSub as any).attachment_url || "",
         }));
       }
     } catch (e) {
       console.error(e);
     }
+    })();
   }, []);
 
   const handleToggleModule = (moduleTitle: string) => {
@@ -199,22 +206,34 @@ export default function KumpulanKaryaPage() {
         updated_at: new Date().toISOString(),
       };
 
-      // Store in localStorage for student & demo review
-      localStorage.setItem("vibe_user_submission", JSON.stringify(submissionRecord));
+      // ------------------------------------------------------------------
+      // Simpan ke DATABASE, bukan ke browser.
+      // Kalau disimpan ke browser, admin tidak akan pernah melihat karya ini.
+      // ------------------------------------------------------------------
+      const hasil = await submitWork({
+        project_title: formData.project_title,
+        project_description: formData.project_description,
+        github_url: formData.github_url,
+        deployment_url: formData.deployment_url,
+        completed_modules: formData.completed_modules,
+        full_name: formData.full_name,
+        email: formData.email,
+        whatsapp: formData.whatsapp,
+        institution: formData.institution,
+        screenshot_url: formData.screenshot_url,
+      });
 
-      // Append to global submissions list so admin can see it in admin table!
-      const allSubmissions: WorkSubmission[] = JSON.parse(
-        localStorage.getItem("vibe_all_submissions") || "[]"
-      );
-      const existingIdx = allSubmissions.findIndex((s) => s.id === submissionRecord.id);
-      if (existingIdx !== -1) {
-        allSubmissions[existingIdx] = submissionRecord;
-      } else {
-        allSubmissions.unshift(submissionRecord);
+      if (!hasil.ok) {
+        setPesanGalat(hasil.message);
+        setIsSubmitting(false);
+        window.scrollTo({ top: 200, behavior: "smooth" });
+        return;
       }
-      localStorage.setItem("vibe_all_submissions", JSON.stringify(allSubmissions));
 
-      setUserSubmission(submissionRecord);
+      // Baca ulang dari database supaya yang tampil benar-benar data tersimpan
+      const tersimpan = await loadMySubmission();
+      setUserSubmission(tersimpan ?? submissionRecord);
+      setKodeKarya(hasil.submissionCode ?? null);
       setSubmissionSuccess(true);
       setIsSubmitting(false);
 
@@ -312,7 +331,7 @@ export default function KumpulanKaryaPage() {
               </div>
               <div>
                 <strong className="text-slate-900">Modul Selesai: </strong>
-                {userSubmission.completed_modules.length} Modul
+                {(userSubmission.completed_modules || []).length} Modul
               </div>
             </div>
 
@@ -334,9 +353,27 @@ export default function KumpulanKaryaPage() {
               <CheckCircle2 className="w-8 h-8 text-emerald-600 shrink-0" />
               <div>
                 <h3 className="text-base font-bold">Karya Berhasil Dikumpulkan!</h3>
+                {kodeKarya && (
+                  <p className="text-xs font-bold text-emerald-900 mt-1">
+                    Kode karya Anda: <span className="font-mono bg-white px-2 py-0.5 rounded border border-emerald-300">{kodeKarya}</span>
+                  </p>
+                )}
                 <p className="text-xs text-emerald-800 mt-1">
-                  Data proyek Anda telah tersimpan dengan aman dan masuk ke antrean pemeriksaan administrator. Anda dapat memperbarui informasi submission kapan saja sebelum ditinjau.
+                  Karya Anda sudah masuk ke database dan dapat dilihat administrator.
+                  Pengumpulan hanya dapat dilakukan <strong>satu kali</strong> — pastikan semua sudah benar.
                 </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {pesanGalat && (
+          <div className="mb-6 rounded-2xl border border-red-300 bg-red-50 p-5">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+              <div>
+                <h3 className="text-sm font-bold text-red-900">Karya belum tersimpan</h3>
+                <p className="text-xs text-red-800 mt-1">{pesanGalat}</p>
               </div>
             </div>
           </div>
