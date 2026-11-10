@@ -1,6 +1,8 @@
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+
 "use client";
 
-import { LoginGate } from "@/components/auth/login-gate";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -21,7 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MODULES_DATA } from "@/lib/data/curriculum-data";
 
-function KurikulumPageInner() {
+function KurikulumPageContent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
@@ -294,10 +296,18 @@ function KurikulumPageInner() {
   );
 }
 
-export default function KurikulumPage() {
-  return (
-    <LoginGate feature="kurikulum 12 modul">
-      <KurikulumPageInner />
-    </LoginGate>
-  );
+/**
+ * Daftar kurikulum — terkunci.
+ *
+ * Pemeriksaan dilakukan di server: halaman ini hanya berupa daftar judul,
+ * tapi tetap tidak dikirim ke browser sebelum pengunjung terdaftar.
+ */
+export default async function KurikulumPage() {
+  const supabase = await createServerSupabaseClient();
+  if (supabase) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
+  }
+
+  return <KurikulumPageContent />;
 }
