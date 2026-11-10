@@ -4,6 +4,9 @@
 -- ==============================================================================
 
 -- 1. Buat bucket 'work-submissions' jika belum ada
+-- Pastikan fungsi extension (uuid_generate_v4, gen_random_uuid) tersedia
+SET search_path TO public, extensions;
+
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 VALUES (
     'work-submissions',

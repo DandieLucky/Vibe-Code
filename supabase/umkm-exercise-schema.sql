@@ -6,6 +6,9 @@
 -- ==============================================================================
 
 -- 1. Tabel Kategori Produk
+-- Pastikan fungsi extension (uuid_generate_v4, gen_random_uuid) tersedia
+SET search_path TO public, extensions;
+
 CREATE TABLE IF NOT EXISTS public.kategori (
     id SERIAL PRIMARY KEY,
     nama TEXT NOT NULL UNIQUE,

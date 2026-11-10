@@ -1,15 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Code2, Lock, Mail, ArrowRight, ShieldCheck, Check } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Code2, ArrowRight, Check, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { createClient } from "@/lib/supabase/client";
+import { loginSchema } from "@/lib/validations";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/dashboard";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,42 +22,58 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setErrorMsg("");
+    setSuccessMsg("");
 
+    const parsed = loginSchema.safeParse({ email, password });
+    if (!parsed.success) {
+      setErrorMsg(parsed.error.issues[0]?.message ?? "Data login tidak valid.");
+      return;
+    }
+
+    const supabase = createClient();
+    if (!supabase) {
+      setErrorMsg(
+        "Sistem autentikasi belum dikonfigurasi. Hubungi fasilitator untuk mengaktifkan database."
+      );
+      return;
+    }
+
+    setIsLoading(true);
     try {
-      // Check credentials: if demo admin or standard user
-      if (email === "admin@vibecode.id" && password === "admin123") {
-        setSuccessMsg("Login berhasil! Mengalihkan ke Dashboard Admin...");
-        setTimeout(() => {
-          router.push("/admin");
-        }, 1000);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: parsed.data.email,
+        password: parsed.data.password,
+      });
+
+      if (error) {
+        // Terjemahkan pesan error Supabase ke Bahasa Indonesia
+        const msg =
+          error.message === "Invalid login credentials"
+            ? "Email atau password salah."
+            : error.message === "Email not confirmed"
+            ? "Email belum dikonfirmasi. Hubungi fasilitator."
+            : error.message;
+        setErrorMsg(msg);
+        setIsLoading(false);
         return;
       }
 
-      // Demo student login
-      if (email.includes("@") && password.length >= 6) {
-        // Save demo session
-        localStorage.setItem(
-          "vibe_user_profile",
-          JSON.stringify({
-            fullName: email.split("@")[0].toUpperCase(),
-            email: email,
-            whatsapp: "081234567890",
-            institution: "Peserta Terdaftar",
-            role: "student",
-          })
-        );
-        setSuccessMsg("Login berhasil! Mengalihkan ke Dashboard...");
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 1000);
-      } else {
-        setErrorMsg("Email atau password tidak valid (password minimal 6 karakter).");
-        setIsLoading(false);
-      }
+      // Arahkan admin ke panel admin
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", data.user.id)
+        .single();
+
+      const isStaff = profile?.role === "admin" || profile?.role === "instructor";
+      const target = isStaff && redirectTo === "/dashboard" ? "/admin" : redirectTo;
+
+      setSuccessMsg("Login berhasil! Mengalihkan...");
+      router.refresh();
+      setTimeout(() => router.push(target), 400);
     } catch (err: any) {
-      setErrorMsg(err.message || "Terjadi kesalahan saat masuk.");
+      setErrorMsg(err?.message || "Terjadi kesalahan saat masuk.");
       setIsLoading(false);
     }
   };
@@ -61,7 +81,6 @@ export default function LoginPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
       <div className="w-full max-w-md space-y-8 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md">
-        {/* Brand header */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
             <div className="h-10 w-10 rounded-xl bg-slate-900 text-sky-400 flex items-center justify-center font-bold">
@@ -80,8 +99,9 @@ export default function LoginPage() {
         </div>
 
         {errorMsg && (
-          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 font-semibold">
-            {errorMsg}
+          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 font-semibold flex items-start gap-2">
+            <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <span>{errorMsg}</span>
           </div>
         )}
 
@@ -92,19 +112,6 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* Demo Credentials Helper Pill */}
-        <div className="p-3.5 rounded-xl bg-sky-50/80 border border-sky-200 text-xs text-sky-950 space-y-1">
-          <div className="font-bold flex items-center gap-1.5 text-sky-900">
-            <ShieldCheck className="w-4 h-4 text-sky-600" />
-            <span>Akun Uji Coba Cepat (Demo Mode):</span>
-          </div>
-          <div className="text-[11px] font-mono text-slate-700 pl-5">
-            • Admin: <span className="text-sky-800 font-bold">admin@vibecode.id</span> / <span className="text-sky-800 font-bold">admin123</span>
-            <br />
-            • Siswa: Masukkan email & password apapun (min. 6 digit)
-          </div>
-        </div>
-
         <form onSubmit={handleLogin} className="space-y-4">
           <Input
             label="Alamat Email"
@@ -112,6 +119,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="nama@email.com"
+            autoComplete="email"
             required
           />
 
@@ -121,6 +129,7 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
+            autoComplete="current-password"
             required
           />
 
@@ -144,5 +153,19 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[80vh] flex items-center justify-center bg-slate-50">
+          <p className="text-sm text-slate-500">Memuat halaman masuk...</p>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }

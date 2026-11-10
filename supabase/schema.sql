@@ -5,8 +5,14 @@
 -- ==============================================================================
 
 -- 1. EXTENSIONS
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+-- Catatan: Supabase menyediakan pgcrypto & uuid-ossp di schema "extensions".
+-- Migration dijalankan dengan search_path berbeda, jadi kita set eksplisit.
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA extensions;
+CREATE EXTENSION IF NOT EXISTS "pgcrypto" WITH SCHEMA extensions;
+
+-- Pastikan fungsi extension bisa dipanggil tanpa prefix schema
+SET search_path TO public, extensions;
+
 
 -- 2. ENUM TYPES
 DO $$ BEGIN

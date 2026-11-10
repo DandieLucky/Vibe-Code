@@ -7,6 +7,7 @@ import { Code2, ArrowRight, ShieldAlert, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerSchema } from "@/lib/validations";
+import { createClient } from "@/lib/supabase/client";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -25,65 +26,105 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
 
+  // Ambil mode pendaftaran dari tabel site_settings (bukan localStorage)
   useEffect(() => {
-    try {
-      const mode = localStorage.getItem("vibe_reg_mode");
-      if (mode === "invite_only") {
-        setRegistrationMode("invite_only");
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    const supabase = createClient();
+    if (!supabase) return;
+    supabase
+      .from("site_settings")
+      .select("registration_mode")
+      .eq("id", "default")
+      .single()
+      .then(({ data }) => {
+        if (data?.registration_mode === "invite_only") {
+          setRegistrationMode("invite_only");
+        }
+      });
   }, []);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormErrors({});
-    setIsLoading(true);
+    setSuccessMsg("");
 
-    try {
-      // Check invitation code if invite-only mode
-      if (registrationMode === "invite_only") {
-        if (formData.invitation_code !== "CHAT2026" && formData.invitation_code !== "VIBECODE") {
+    const validation = registerSchema.safeParse(formData);
+    if (!validation.success) {
+      const errors: Record<string, string> = {};
+      for (const issue of validation.error.issues) {
+        if (issue.path[0]) errors[issue.path[0].toString()] = issue.message;
+      }
+      setFormErrors(errors);
+      return;
+    }
+
+    // Mode undangan: cek kode undangan ke server (bukan hardcoded di browser)
+    if (registrationMode === "invite_only") {
+      try {
+        const res = await fetch("/api/auth/verify-invite", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code: formData.invitation_code }),
+        });
+        const result = await res.json();
+        if (!result.valid) {
           setFormErrors({
-            invitation_code: "Kode undangan tidak valid. Hubungi fasilitator workshop untuk kode resmi.",
+            invitation_code:
+              result.message || "Kode undangan tidak valid. Hubungi fasilitator workshop.",
           });
-          setIsLoading(false);
           return;
         }
+      } catch {
+        setFormErrors({ invitation_code: "Gagal memverifikasi kode undangan." });
+        return;
       }
+    }
 
-      const validation = registerSchema.safeParse(formData);
-      if (!validation.success) {
-        const errors: Record<string, string> = {};
-        for (const issue of validation.error.issues) {
-          if (issue.path[0]) {
-            errors[issue.path[0].toString()] = issue.message;
-          }
-        }
-        setFormErrors(errors);
+    const supabase = createClient();
+    if (!supabase) {
+      setFormErrors({
+        email:
+          "Sistem autentikasi belum dikonfigurasi. Hubungi fasilitator untuk mengaktifkan database.",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.full_name,
+            institution: formData.institution,
+            whatsapp: formData.whatsapp,
+          },
+        },
+      });
+
+      if (error) {
+        const msg = error.message.includes("already registered")
+          ? "Email ini sudah terdaftar. Silakan masuk atau gunakan email lain."
+          : error.message;
+        setFormErrors({ email: msg });
         setIsLoading(false);
         return;
       }
 
-      // Save user profile to storage
-      localStorage.setItem(
-        "vibe_user_profile",
-        JSON.stringify({
-          fullName: formData.full_name,
-          email: formData.email,
-          whatsapp: formData.whatsapp,
-          institution: formData.institution,
-          role: "student",
-        })
-      );
+      // Jika konfirmasi email masih aktif, tidak ada session
+      if (!data.session) {
+        setSuccessMsg(
+          "Pendaftaran berhasil! Cek email Anda untuk konfirmasi sebelum masuk."
+        );
+        setIsLoading(false);
+        return;
+      }
 
       setSuccessMsg("Pendaftaran berhasil! Mengalihkan ke dashboard...");
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 1200);
+      router.refresh();
+      setTimeout(() => router.push("/dashboard"), 800);
     } catch (err: any) {
-      console.error(err);
+      setFormErrors({ email: err?.message || "Terjadi kesalahan saat mendaftar." });
       setIsLoading(false);
     }
   };
@@ -114,7 +155,7 @@ export default function RegisterPage() {
             <div>
               <strong>Mode Pendaftaran Terbatas (Berdasarkan Undangan):</strong>
               <p className="mt-0.5">
-                Pendaftaran hanya dibuka bagi peserta yang memiliki kode undangan fasilitator. (Kode uji coba: <span className="font-mono font-bold">CHAT2026</span>)
+                Pendaftaran hanya dibuka bagi peserta yang memiliki kode undangan fasilitator.
               </p>
             </div>
           </div>
@@ -131,9 +172,7 @@ export default function RegisterPage() {
           <Input
             label="Nama Lengkap"
             value={formData.full_name}
-            onChange={(e) =>
-              setFormData({ ...formData, full_name: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
             error={formErrors.full_name}
             placeholder="Contoh: Budi Santoso"
             required
@@ -144,19 +183,16 @@ export default function RegisterPage() {
               label="Alamat Email"
               type="email"
               value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               error={formErrors.email}
               placeholder="email@anda.com"
+              autoComplete="email"
               required
             />
             <Input
               label="Nomor WhatsApp"
               value={formData.whatsapp}
-              onChange={(e) =>
-                setFormData({ ...formData, whatsapp: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
               error={formErrors.whatsapp}
               placeholder="081234567890"
               required
@@ -166,9 +202,7 @@ export default function RegisterPage() {
           <Input
             label="Asal Sekolah / Kampus / Nama UMKM"
             value={formData.institution}
-            onChange={(e) =>
-              setFormData({ ...formData, institution: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
             error={formErrors.institution}
             placeholder="SMK / Universitas / Nama Usaha"
             required
@@ -182,7 +216,7 @@ export default function RegisterPage() {
                 setFormData({ ...formData, invitation_code: e.target.value })
               }
               error={formErrors.invitation_code}
-              placeholder="Masukkan kode undangan (contoh: CHAT2026)"
+              placeholder="Masukkan kode undangan dari fasilitator"
               required
             />
           )}
@@ -192,11 +226,10 @@ export default function RegisterPage() {
               label="Password"
               type="password"
               value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               error={formErrors.password}
               placeholder="Minimal 6 karakter"
+              autoComplete="new-password"
               required
             />
             <Input
@@ -208,6 +241,7 @@ export default function RegisterPage() {
               }
               error={formErrors.confirm_password}
               placeholder="Ulangi password"
+              autoComplete="new-password"
               required
             />
           </div>

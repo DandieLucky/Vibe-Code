@@ -14,6 +14,7 @@ import {
   User,
   ShieldCheck,
   LogOut,
+  Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +41,7 @@ export function Navbar() {
     { href: "/", label: "Beranda" },
     { href: "/kurikulum", label: "Kurikulum 12 Modul" },
     { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
+    { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
     { href: "/dashboard", label: "Dashboard Peserta" },
     { href: "/admin", label: "Admin", icon: ShieldCheck },
   ];

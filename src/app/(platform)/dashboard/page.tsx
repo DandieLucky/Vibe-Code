@@ -23,6 +23,11 @@ import { Badge } from "@/components/ui/badge";
 import { MODULES_DATA } from "@/lib/data/curriculum-data";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import { WorkSubmission } from "@/types/database";
+import {
+  loadProgress,
+  migrateLocalProgressToSupabase,
+} from "@/lib/data-access/progress";
+import { loadMySubmission } from "@/lib/data-access/submissions";
 
 export default function DashboardPesertaPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
@@ -30,54 +35,90 @@ export default function DashboardPesertaPage() {
   const [notesList, setNotesList] = useState<{ lessonId: string; note: string; lessonTitle: string }[]>([]);
   const [userSubmission, setUserSubmission] = useState<WorkSubmission | null>(null);
   const [isDemoMode, setIsDemoMode] = useState(true);
+  const [currentUser, setCurrentUser] = useState<{ full_name: string } | null>(null);
 
   const totalLessons = MODULES_DATA.reduce((acc, m) => acc + m.lessons.length, 0);
 
   useEffect(() => {
-    try {
-      // Completed lessons
-      const completed: string[] = JSON.parse(
-        localStorage.getItem("vibe_completed_lessons") || "[]"
-      );
-      setCompletedLessons(completed);
+    let cancelled = false;
 
-      // Bookmarks
-      const bookmarks: string[] = JSON.parse(
-        localStorage.getItem("vibe_bookmarked_lessons") || "[]"
-      );
-      setBookmarkedLessons(bookmarks);
+    (async () => {
+      try {
+        // 1. Pindahkan progres yang tersimpan di browser ke database (sekali, best-effort)
+        await migrateLocalProgressToSupabase().catch(() => null);
 
-      // User submission
-      const sub = localStorage.getItem("vibe_user_submission");
-      if (sub) {
-        setUserSubmission(JSON.parse(sub));
-      }
+        // 2. Muat progres dari Supabase (fallback otomatis ke localStorage bila belum login)
+        const snapshot = await loadProgress();
+        if (cancelled) return;
 
-      // Collect notes from localStorage keys
-      const collectedNotes: { lessonId: string; note: string; lessonTitle: string }[] = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith("vibe_note_")) {
-          const lId = key.replace("vibe_note_", "");
-          const noteText = localStorage.getItem(key) || "";
-          // Find lesson title
+        setCompletedLessons(snapshot.completedLessonIds);
+        setBookmarkedLessons(snapshot.bookmarkedLessonIds);
+        setIsDemoMode(snapshot.source === "local");
+
+        // Nama peserta untuk header
+        try {
+          const { createClient } = await import("@/lib/supabase/client");
+          const sb = createClient();
+          if (sb) {
+            const { data: authData } = await sb.auth.getUser();
+            if (authData.user) {
+              const { data: prof } = await sb
+                .from("profiles")
+                .select("full_name")
+                .eq("id", authData.user.id)
+                .single();
+              if (!cancelled && prof?.full_name) setCurrentUser({ full_name: prof.full_name });
+            }
+          }
+        } catch {
+          /* nama opsional */
+        }
+
+        // 3. Susun daftar catatan dengan judul pelajaran yang sesuai
+        const collected: { lessonId: string; note: string; lessonTitle: string }[] = [];
+        for (const [lessonId, note] of Object.entries(snapshot.notes)) {
+          if (!note.trim()) continue;
           let title = "Materi";
           for (const m of MODULES_DATA) {
-            const found = m.lessons.find((l) => l.id === lId);
+            const found = m.lessons.find((l) => l.id === lessonId);
             if (found) {
               title = `${m.module_number}.${found.lesson_number} ${found.title}`;
               break;
             }
           }
-          if (noteText.trim()) {
-            collectedNotes.push({ lessonId: lId, note: noteText, lessonTitle: title });
-          }
+          collected.push({ lessonId, note, lessonTitle: title });
         }
+        setNotesList(collected);
+
+        // 4. Muat submission milik peserta
+        const sub = await loadMySubmission();
+        if (cancelled) return;
+        if (sub) {
+          setUserSubmission({
+            id: sub.id,
+            user_id: sub.user_id,
+            full_name: "",
+            email: "",
+            whatsapp: "",
+            institution: "",
+            project_title: sub.project_title,
+            project_description: sub.project_description,
+            completed_modules: [],
+            github_url: sub.github_url,
+            deployment_url: sub.deployment_url,
+            submission_status: sub.submission_status,
+            admin_notes: sub.ai_summary ?? undefined,
+            submitted_at: sub.submitted_at,
+          } as unknown as WorkSubmission);
+        }
+      } catch (err) {
+        console.error("Gagal memuat data dashboard:", err);
       }
-      setNotesList(collectedNotes);
-    } catch (err) {
-      console.error(err);
-    }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const totalCompleted = completedLessons.length;
@@ -113,7 +154,9 @@ export default function DashboardPesertaPage() {
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse"></span>
               <span>
-                <strong>Mode Demonstrasi:</strong> Progres belajar saat ini tersimpan di browser Anda (localStorage). Untuk menyinkronkan data ke cloud Supabase, silakan login ke akun Anda.
+                <strong>Mode Demonstrasi:</strong> Progres belajar Anda tersimpan di browser ini saja.
+                Login agar progres tersimpan permanen dan tidak hilang saat berganti perangkat atau
+                membersihkan cache.
               </span>
             </div>
             <Link href="/login">
@@ -133,7 +176,7 @@ export default function DashboardPesertaPage() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                  Peserta Belajar Vibe Code
+                  {currentUser?.full_name ?? "Peserta Belajar Vibe Code"}
                 </h1>
                 <Badge variant="teal" className="text-[10px]">
                   Siswa Aktif
