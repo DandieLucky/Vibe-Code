@@ -9,7 +9,7 @@ export const DEVELOPMENT: BagianTutorial = {
   id: "development",
   judul: "Tutorial development Katalog UMKM",
   pengantar:
-    "Ikuti 15 langkah ini berurutan. Jangan lompat langkah. Setelah satu langkah selesai " +
+    "Ikuti 17 langkah ini berurutan. Jangan lompat langkah. Setelah satu langkah selesai " +
     "dan hasilnya sesuai, tekan tombol Selesai di langkah itu.",
   peringatanAwal:
     "Centang hanya untuk membantumu melacak progres, bukan penilaian. Karyamu dinilai dari link aplikasi yang dikumpulkan.",
