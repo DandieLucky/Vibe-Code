@@ -47,8 +47,15 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const isProtected = path.startsWith("/dashboard") || path.startsWith("/profil");
+  const isProtected =
+    path.startsWith("/dashboard") ||
+    path.startsWith("/profil") ||
+    path.startsWith("/kurikulum") ||
+    path.startsWith("/panduan-deploy");
   const isAdminArea = path.startsWith("/admin");
+  const isPublicPage = ["/", "/beranda", "/login", "/register", "/leaderboard"].some(
+    (p) => path === p || path.startsWith(p + "/")
+  );
 
   if ((isProtected || isAdminArea) && !user) {
     const url = request.nextUrl.clone();
@@ -58,7 +65,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // Ambil profil sekali untuk cek role + status wajib ganti password
-  if (user && (isAdminArea || isProtected)) {
+  // Cek wajib-ganti-password di mana pun pengguna berada (kecuali halaman publik)
+  if (user && !isPublicPage) {
     const { data: profile } = await supabase
       .from("profiles")
       .select("role, must_change_password")
@@ -87,11 +95,10 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // Cakup SEMUA rute kecuali aset statis. Sebelumnya matcher hanya memuat
+  // 5 rute sehingga /kurikulum dan /panduan-deploy lolos begitu saja dari
+  // pemeriksaan wajib-ganti-password.
   matcher: [
-    "/dashboard/:path*",
-    "/profil/:path*",
-    "/admin/:path*",
-    "/login",
-    "/register",
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|txt|xml|woff2?)$).*)",
   ],
 };
