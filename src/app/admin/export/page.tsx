@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { WorkSubmission } from "@/types/database";
+import { ambilSemuaKarya } from "@/lib/data-access/admin";
 import {
   generateExcelBuffer,
   generateCsvString,
@@ -33,15 +34,14 @@ export default function AdminExportPage() {
   const [isExporting, setIsExporting] = useState(false);
   const [downloadSuccessMsg, setDownloadSuccessMsg] = useState("");
 
+  const [memuat, setMemuat] = useState(true);
+
+  // Ekspor harus memuat data yang sama dengan yang dilihat peserta — dari database.
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("vibe_all_submissions");
-      if (stored) {
-        setSubmissions(JSON.parse(stored));
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    (async () => {
+      setSubmissions(await ambilSemuaKarya());
+      setMemuat(false);
+    })();
   }, []);
 
   const filterOptions: ExportFilterOptions = {

@@ -29,6 +29,7 @@ import { Modal } from "@/components/ui/modal";
 import { WorkSubmission, SubmissionStatus } from "@/types/database";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import { formatDate } from "@/lib/utils";
+import { ambilSemuaKarya, simpanPenilaian } from "@/lib/data-access/admin";
 
 export default function AdminSubmissionsPage() {
   const [submissions, setSubmissions] = useState<WorkSubmission[]>([]);
@@ -46,6 +47,7 @@ export default function AdminSubmissionsPage() {
   const [gradingNotes, setGradingNotes] = useState("");
   const [isSavingGrading, setIsSavingGrading] = useState(false);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
+  const [pesanGagal, setPesanGagal] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -67,7 +69,7 @@ export default function AdminSubmissionsPage() {
     setModalOpen(true);
   };
 
-  const handleSaveGrading = (e: React.FormEvent) => {
+  const handleSaveGrading = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedSubmission) return;
     setIsSavingGrading(true);
@@ -80,24 +82,26 @@ export default function AdminSubmissionsPage() {
       updated_at: new Date().toISOString(),
     };
 
-    // Update state & storage
+    // Simpan langsung ke database supaya penilaian berlaku untuk semua admin.
+    const hasil = await simpanPenilaian(updatedSub.id, {
+      status: gradingStatus,
+      skor: gradingScore !== "" ? Number(gradingScore) : null,
+      catatan: gradingNotes,
+    });
+
+    setIsSavingGrading(false);
+
+    if (!hasil.sukses) {
+      setPesanGagal(hasil.pesan ?? "Gagal menyimpan penilaian ke database.");
+      setTimeout(() => setPesanGagal(null), 5000);
+      return;
+    }
+
     const updatedList = submissions.map((s) =>
       s.id === updatedSub.id ? updatedSub : s
     );
     setSubmissions(updatedList);
-    localStorage.setItem("vibe_all_submissions", JSON.stringify(updatedList));
-
-    // Also update if this is current student's submission in demo
-    const currentSub = localStorage.getItem("vibe_user_submission");
-    if (currentSub) {
-      const parsed = JSON.parse(currentSub);
-      if (parsed.id === updatedSub.id) {
-        localStorage.setItem("vibe_user_submission", JSON.stringify(updatedSub));
-      }
-    }
-
     setSelectedSubmission(updatedSub);
-    setIsSavingGrading(false);
     setSaveSuccessMsg(true);
     setTimeout(() => setSaveSuccessMsg(false), 2000);
   };

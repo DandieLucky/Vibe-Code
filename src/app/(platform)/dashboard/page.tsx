@@ -18,6 +18,7 @@ import {
   UploadCloud,
   FileCheck2,
   ExternalLink,
+  Rocket,
   ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -139,7 +140,31 @@ function DashboardPesertaInner() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
+    <div className="bg-slate-50 min-h-screen">
+        {/* Pintasan tutorial */}
+        <div className="bg-slate-900 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <p className="text-sm font-bold flex items-center gap-2">
+                <Rocket className="w-4 h-4 text-sky-400" />
+                Ikuti tutorial langkah demi langkah — lengkap dengan gambar panduan
+              </p>
+              <div className="flex gap-2">
+                <Link href="/tutorial/persiapan">
+                  <Button size="sm" variant="outline" className="border-slate-600 text-white hover:bg-slate-800 font-semibold">
+                    Persiapan
+                  </Button>
+                </Link>
+                <Link href="/tutorial/development">
+                  <Button size="sm" variant="accent" className="font-bold">
+                    Development
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div className="py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
@@ -432,6 +457,7 @@ function DashboardPesertaInner() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

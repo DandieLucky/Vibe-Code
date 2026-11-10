@@ -22,91 +22,45 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MODULES_DATA } from "@/lib/data/curriculum-data";
 import { WorkSubmission } from "@/types/database";
+import { ambilSemuaKarya, ambilRingkasanPeserta, ambilStatistikKarya, type RingkasanPeserta } from "@/lib/data-access/admin";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import { formatDate } from "@/lib/utils";
 
-// Seed sample demo submissions if storage empty
-const INITIAL_DEMO_SUBMISSIONS: WorkSubmission[] = [
-  {
-    id: "sub-101",
-    user_id: "user-1",
-    full_name: "Ahmad Fauzi",
-    email: "ahmad.fauzi@gmail.com",
-    whatsapp: "081288990011",
-    institution: "SMKN 1 Yogyakarta",
-    project_title: "Katalog UMKM Batik & Tenun Jogja",
-    project_description: "Katalog produk batik tulis dan lurik khas Yogyakarta dengan pemesanan WhatsApp otomatis dan database Supabase.",
-    completed_modules: ["Modul 1 s/d Modul 7"],
-    github_url: "https://github.com/ahmadfauzi/katalog-batik-jogja",
-    deployment_url: "https://katalog-batik-jogja.vercel.app",
-    screenshot_url: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600",
-    submission_status: "pending",
-    score: undefined,
-    admin_notes: "Menunggu peninjauan fasilitator.",
-    submitted_at: new Date(Date.now() - 3600000 * 2).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: "sub-102",
-    user_id: "user-2",
-    full_name: "Siti Rahmawati",
-    email: "siti.rahma@student.ac.id",
-    whatsapp: "085677889900",
-    institution: "Universitas Gadjah Mada",
-    project_title: "Katalog Digital Sambal & Kuliner Nusantara",
-    project_description: "Aplikasi e-katalog untuk aneka olahan sambal kemasan rumahan dengan filter kategori dan login admin.",
-    completed_modules: ["Modul 1 s/d Modul 11"],
-    github_url: "https://github.com/sitirahma/katalog-sambal-nusantara",
-    deployment_url: "https://katalog-sambal-nusantara.vercel.app",
-    screenshot_url: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=600",
-    submission_status: "accepted",
-    score: 95,
-    admin_notes: "Luar biasa! Fitur US-01 sampai US-06 berfungsi mulus, desain sangat responsif dan rapi.",
-    submitted_at: new Date(Date.now() - 3600000 * 24).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: "sub-103",
-    user_id: "user-3",
-    full_name: "Dedi Prasetyo",
-    email: "dedi.prasetyo@umkm.id",
-    whatsapp: "081900112233",
-    institution: "Paguyuban Pengrajin Rotan Jepara",
-    project_title: "Katalog Furnitur & Kerajinan Anyaman",
-    project_description: "Katalog produk kerajinan tangan ekspor dengan rute dinamis dan WhatsApp ordering.",
-    completed_modules: ["Modul 1 s/d Modul 7"],
-    github_url: "https://github.com/dedipras/katalog-rotan-jepara",
-    deployment_url: "https://katalog-rotan-jepara.vercel.app",
-    screenshot_url: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600",
-    submission_status: "revision_needed",
-    score: 75,
-    admin_notes: "Link WhatsApp belum mencantumkan nama produk otomatis di query URL. Mohon periksa komponen TombolWhatsApp.jsx.",
-    submitted_at: new Date(Date.now() - 3600000 * 48).toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-];
-
 export default function AdminOverviewPage() {
   const [submissions, setSubmissions] = useState<WorkSubmission[]>([]);
+  const [peserta, setPeserta] = useState<RingkasanPeserta[]>([]);
+  const [statistik, setStatistik] = useState<{
+    totalPeserta: number; totalKarya: number; menunggu: number; diterima: number;
+    perluRevisi: number; ditolak: number; rataRataSkor: number | null;
+    tertinggi: number | null; sudahKumpul: number; belumKumpul: number;
+  } | null>(null);
+  const [memuat, setMemuat] = useState(true);
+  const [galat, setGalat] = useState<string | null>(null);
 
-  useEffect(() => {
+  // ------------------------------------------------------------------
+  // Dashboard admin membaca DATABASE, bukan data contoh.
+  // Angka di layar harus selalu sama dengan isi database.
+  // ------------------------------------------------------------------
+  const muatData = React.useCallback(async () => {
+    setMemuat(true);
+    setGalat(null);
     try {
-      const stored = localStorage.getItem("vibe_all_submissions");
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (parsed.length > 0) {
-          setSubmissions(parsed);
-          return;
-        }
-      }
-      // Populate initial demo seed
-      localStorage.setItem("vibe_all_submissions", JSON.stringify(INITIAL_DEMO_SUBMISSIONS));
-      setSubmissions(INITIAL_DEMO_SUBMISSIONS);
+      const [karya, ringkasan, stat] = await Promise.all([
+        ambilSemuaKarya(),
+        ambilRingkasanPeserta(),
+        ambilStatistikKarya(),
+      ]);
+      setSubmissions(karya);
+      setPeserta(ringkasan);
+      setStatistik(stat);
     } catch (e) {
-      console.error(e);
-      setSubmissions(INITIAL_DEMO_SUBMISSIONS);
+      setGalat(e instanceof Error ? e.message : "Gagal memuat data dari database.");
+    } finally {
+      setMemuat(false);
     }
   }, []);
+
+  useEffect(() => { muatData(); }, [muatData]);
 
   const totalModules = MODULES_DATA.length;
   const totalLessons = MODULES_DATA.reduce((acc, m) => acc + m.lessons.length, 0);
@@ -310,6 +264,112 @@ export default function AdminOverviewPage() {
 
       {/* Recent Submissions Table */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
+        {/* ----------------------------------------------------------- */}
+        {/* Progres belajar seluruh peserta — dari database, bukan contoh */}
+        {/* ----------------------------------------------------------- */}
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-base font-bold text-slate-900">Progres Peserta</h2>
+            <p className="text-xs text-slate-500">
+              {statistik
+                ? `${statistik.sudahKumpul} sudah mengumpulkan karya, ${statistik.belumKumpul} belum`
+                : "Memuat data peserta..."}
+            </p>
+          </div>
+          <Button variant="outline" size="sm" className="text-xs gap-2" onClick={muatData} disabled={memuat}>
+            <RefreshCw className={`w-3.5 h-3.5 ${memuat ? "animate-spin" : ""}`} />
+            Muat Ulang
+          </Button>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs mb-8">
+          {galat && (
+            <div className="p-4 bg-red-50 border-b border-red-200">
+              <p className="text-xs font-bold text-red-800 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4" />
+                Gagal memuat data: {galat}
+              </p>
+            </div>
+          )}
+
+          {memuat ? (
+            <div className="p-10 text-center text-sm text-slate-400">Memuat data peserta...</div>
+          ) : peserta.length === 0 ? (
+            <div className="p-10 text-center">
+              <Users className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+              <p className="text-sm font-bold text-slate-700 mb-1">Belum ada peserta terdaftar</p>
+              <p className="text-xs text-slate-500">
+                Peserta akan muncul di sini setelah mereka mendaftar di halaman /register.
+              </p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Peserta</th>
+                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 text-center">Materi Selesai</th>
+                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 text-center">Status Karya</th>
+                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 text-center">Skor</th>
+                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Waktu Kumpul</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {peserta.map((pp) => {
+                    const persenMateri = Math.min(100, Math.round((pp.jumlah_pelajaran_selesai / totalLessons) * 100));
+                    return (
+                      <tr key={pp.id} className="hover:bg-slate-50/60 transition-colors">
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center gap-2.5">
+                            <span className="h-8 w-8 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white text-[11px] font-bold flex items-center justify-center shrink-0">
+                              {(pp.full_name || pp.email || "?").charAt(0).toUpperCase()}
+                            </span>
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-800 truncate">{pp.full_name || "(belum diisi)"}</p>
+                              <p className="text-[10px] text-slate-500 truncate">{pp.email}</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center gap-2 justify-center">
+                            <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                              <div className="h-full bg-sky-500 rounded-full" style={{ width: `${persenMateri}%` }} />
+                            </div>
+                            <span className="text-[11px] font-bold text-slate-600 tabular-nums">
+                              {pp.jumlah_pelajaran_selesai}/{totalLessons}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-4 text-center">
+                          {pp.sudah_kumpul ? (
+                            <Badge variant="teal" className="text-[10px]">Sudah Kumpul</Badge>
+                          ) : (
+                            <Badge variant="outline" className="text-[10px] text-slate-500">Belum Kumpul</Badge>
+                          )}
+                        </td>
+                        <td className="py-3.5 px-4 text-center">
+                          {typeof pp.skor_akhir === "number" ? (
+                            <span className={`text-sm font-extrabold tabular-nums ${
+                              pp.skor_akhir >= 85 ? "text-emerald-600" : pp.skor_akhir >= 70 ? "text-sky-600" : "text-amber-600"
+                            }`}>{pp.skor_akhir}</span>
+                          ) : (
+                            <span className="text-xs text-slate-300">—</span>
+                          )}
+                        </td>
+                        <td className="py-3.5 px-4">
+                          <span className="text-[11px] text-slate-500">
+                            {pp.submitted_at ? formatDate(pp.submitted_at) : "—"}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-base font-bold text-slate-900">
