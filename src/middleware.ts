@@ -51,11 +51,16 @@ export async function middleware(request: NextRequest) {
     path.startsWith("/dashboard") ||
     path.startsWith("/profil") ||
     path.startsWith("/kurikulum") ||
-    path.startsWith("/panduan-deploy");
+    path.startsWith("/panduan-deploy") ||
+    path === "/leaderboard" ||
+    path.startsWith("/leaderboard/");
   const isAdminArea = path.startsWith("/admin");
-  const isPublicPage = ["/", "/beranda", "/login", "/register", "/leaderboard"].some(
+  const isPublicPage = ["/", "/beranda", "/login", "/register"].some(
     (p) => path === p || path.startsWith(p + "/")
   );
+
+  // Papan peringkat khusus administrator — peserta tidak boleh melihatnya.
+  const isAdminOnly = path === "/leaderboard" || path.startsWith("/leaderboard/");
 
   if ((isProtected || isAdminArea) && !user) {
     const url = request.nextUrl.clone();
@@ -79,6 +84,14 @@ export async function middleware(request: NextRequest) {
       const url = request.nextUrl.clone();
       url.pathname = "/profil";
       url.searchParams.set("ganti-password", "wajib");
+      return NextResponse.redirect(url);
+    }
+
+    // Papan peringkat hanya untuk admin
+    if (isAdminOnly && profile?.role !== "admin" && profile?.role !== "instructor") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/dashboard";
+      url.search = "";
       return NextResponse.redirect(url);
     }
 

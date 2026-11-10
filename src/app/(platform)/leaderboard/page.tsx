@@ -16,6 +16,8 @@ import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 /**
  * Papan peringkat hanya untuk administrator.
@@ -56,7 +58,8 @@ export default async function LeaderboardPage() {
   // Pemeriksaan dilakukan di server, jadi tidak bisa dilewati.
   // ---------------------------------------------------------------
   const supabase = await createServerSupabaseClient();
-  if (supabase) {
+  if (!supabase) redirect("/login?redirect=" + encodeURIComponent("/leaderboard"));
+  {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) redirect("/login?redirect=" + encodeURIComponent("/leaderboard"));
 
