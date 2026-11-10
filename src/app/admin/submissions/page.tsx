@@ -53,16 +53,30 @@ export default function AdminSubmissionsPage() {
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
   const [pesanGagal, setPesanGagal] = useState<string | null>(null);
 
-  useEffect(() => {
+  // ---------------------------------------------------------------
+  // Data karya dibaca dari database lewat API server — bukan localStorage.
+  // Dengan begitu admin mana pun melihat daftar yang sama dan terbaru.
+  // ---------------------------------------------------------------
+  const [memuat, setMemuat] = useState(true);
+  const [galat, setGalat] = useState("");
+
+  const muatKarya = React.useCallback(async () => {
+    setMemuat(true);
+    setGalat("");
     try {
-      const stored = localStorage.getItem("vibe_all_submissions");
-      if (stored) {
-        setSubmissions(JSON.parse(stored));
-      }
+      const data = await ambilKaryaLewatServer();
+      setSubmissions(data);
     } catch (e) {
+      setGalat("Gagal memuat daftar karya. Coba muat ulang halaman.");
       console.error(e);
+    } finally {
+      setMemuat(false);
     }
   }, []);
+
+  useEffect(() => {
+    muatKarya();
+  }, [muatKarya]);
 
   const handleOpenDetail = (sub: WorkSubmission) => {
     setSelectedSubmission(sub);
@@ -313,10 +327,27 @@ export default function AdminSubmissionsPage() {
           </table>
         </div>
 
-        {paginated.length === 0 && (
+        {memuat && (
+          <div className="text-center py-12 p-4">
+            <Clock className="w-10 h-10 text-slate-300 mx-auto mb-2 animate-pulse" />
+            <h3 className="text-sm font-bold text-slate-700">Memuat karya peserta…</h3>
+          </div>
+        )}
+
+        {!memuat && galat && (
+          <div className="text-center py-12 p-4">
+            <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-2" />
+            <h3 className="text-sm font-bold text-slate-700">{galat}</h3>
+            <Button type="button" variant="outline" size="sm" className="mt-3" onClick={muatKarya}>
+              Muat Ulang
+            </Button>
+          </div>
+        )}
+
+        {!memuat && !galat && paginated.length === 0 && (
           <div className="text-center py-12 p-4">
             <FolderGit2 className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-slate-700">Tidak ada karya yang sesuai filter</h3>
+            <h3 className="text-sm font-bold text-slate-700">Belum ada karya yang dikumpulkan</h3>
             <p className="text-xs text-slate-400 mt-1">Coba sesuaikan kata kunci atau status pencarian.</p>
           </div>
         )}

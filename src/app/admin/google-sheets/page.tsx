@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { WorkSubmission } from "@/types/database";
+import { ambilKaryaLewatServer } from "@/lib/data-access/admin";
 
 export default function AdminGoogleSheetsPage() {
   const [spreadsheetId, setSpreadsheetId] = useState("");
@@ -33,8 +34,9 @@ export default function AdminGoogleSheetsPage() {
 
   useEffect(() => {
     try {
-      const storedSub = localStorage.getItem("vibe_all_submissions");
-      if (storedSub) setSubmissions(JSON.parse(storedSub));
+      // Daftar karya dibaca dari database (lewat API server) supaya yang
+      // diekspor ke Google Sheets selalu data terbaru, bukan salinan lama.
+      ambilKaryaLewatServer().then(setSubmissions).catch(() => {});
 
       const storedSheetId = localStorage.getItem("vibe_sheets_id");
       if (storedSheetId) {
