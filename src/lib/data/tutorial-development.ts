@@ -30,19 +30,16 @@ export const DEVELOPMENT: BagianTutorial = {
         "Klik gambar pratinjau atau tombol Continue to Project, lalu klik link domain yang berakhiran .vercel.app.",
         "Catat link ini, nanti dikumpulkan.",
       ],
-      gambar: [
-        { src: "/panduan/install-vercel.png", alt: "Login Vercel dengan Continue with GitHub" },
-        { src: "/panduan/github-public.png", alt: "Proses clone Repository" },
-        { src: "/panduan/deploy-1.png", alt: "Halaman Congratulations setelah deploy" },
-        { src: "/panduan/deploy-2.png", alt: "Continue to Project" },
-        { src: "/panduan/vercel-deployed.png", alt: "Tampilan Project yang berhasil di domain .vercel.app" },
-      ],
       hasilDiharapkan:
         "Halaman Toko Contoh tampil dengan 6 produk contoh dan tulisan \"Masih data contoh\". " +
         "Ini normal: aplikasimu sudah online, tapi belum tersambung ke database.",
       troubleshooting: [
         { masalah: "Muncul \"Build failed\"", solusi: "Panggil pendamping, jangan ulang dari awal." },
         { masalah: "Nama repo sudah dipakai", solusi: "Tambahkan angka, misalnya katalog-budi-2." },
+      ],
+      gambar: [
+        { src: "/panduan/dev-vercel-import.png", alt: "Pilih repositori template lalu klik Import" },
+        { src: "/panduan/dev-vercel-deploy.png", alt: "Alamat aplikasi tampil setelah deploy selesai" },
       ],
     },
     {
@@ -57,13 +54,11 @@ export const DEVELOPMENT: BagianTutorial = {
         "Pilih Region: Southeast Asia (Singapore).",
         "Klik Create new project, lalu tunggu sampai selesai (±2 menit).",
       ],
-      gambar: [
-        { src: "/panduan/supabase.png", alt: "Halaman login Supabase" },
-        { src: "/panduan/supabase-organization.png", alt: "Tombol New Organization" },
-        { src: "/panduan/supabase-project.png", alt: "Tombol Create new project" },
-      ],
       hasilDiharapkan:
         "Dashboard proyek terbuka, menu di kiri berisi Table Editor, SQL Editor, Authentication, dan lainnya.",
+      gambar: [
+        { src: "/panduan/dev-supabase-buat-proyek.png", alt: "Isi nama proyek dan password database" },
+      ],
     },
     {
       id: "d3-jalankan-schema",
@@ -78,16 +73,14 @@ export const DEVELOPMENT: BagianTutorial = {
         "Klik tombol Run di kanan atas.",
         "Buka menu Table Editor, klik tabel produk.",
       ],
-      gambar: [
-        { src: "/panduan/schema-sql.png", alt: "File docs/schema.sql di repo GitHub" },
-        { src: "/panduan/supabase-sql_editor.png", alt: "Tombol Run dan hasil Success" },
-        { src: "/panduan/supabase-table.png", alt: "Tabel produk di Table Editor" },
-      ],
       hasilDiharapkan:
         "Muncul tulisan \"Success. No rows returned\", dan di Table Editor tabel produk berisi 6 baris produk.",
       troubleshooting: [
         { masalah: "Ada pesan error merah", solusi: "Pastikan seluruh isi file tersalin dari baris pertama sampai terakhir, lalu klik Run lagi. Skrip aman dijalankan ulang." },
         { masalah: "Muncul peringatan \"destructive operation\"", solusi: "Klik Run this query. Itu karena skrip menghapus aturan lama sebelum membuat yang baru." },
+      ],
+      gambar: [
+        { src: "/panduan/dev-supabase-jalankan-sql.png", alt: "Tempel skrip di SQL Editor lalu klik Run" },
       ],
     },
     {
@@ -102,15 +95,12 @@ export const DEVELOPMENT: BagianTutorial = {
         "Centang Auto Confirm User, lalu klik Create user.",
         "Masih di Authentication, buka Sign In / Providers. Matikan pilihan Allow new users to sign up, lalu klik Save.",
       ],
-      gambar: [
-        { src: "/panduan/supabase-auth.png", alt: "Menu Authentication → Users" },
-        { src: "/panduan/supabase-create_user.png", alt: "Add user → Create new user" },
-        { src: "/panduan/supabase-create_user-1.png", alt: "Isian email dan password admin" },
-        { src: "/panduan/supabase-auth_provider.png", alt: "Mematikan Allow new users to sign up" },
-      ],
       hasilDiharapkan:
         "Ada 1 pengguna di daftar Users, dan pendaftaran akun baru sudah dimatikan " +
         "(supaya orang lain tidak bisa membuat akun admin di tokomu).",
+      gambar: [
+        { src: "/panduan/dev-supabase-buat-admin.png", alt: "Buat akun admin di Authentication > Users" },
+      ],
     },
     {
       id: "d5-env-vercel",
@@ -127,13 +117,6 @@ export const DEVELOPMENT: BagianTutorial = {
         "Key:   SUPABASE_PUBLISHABLE_KEY\nValue: (Publishable key)",
         "Key:   SUPABASE_SECRET_KEY\nValue: (Secret key)",
       ],
-      gambar: [
-        { src: "/panduan/supabase-menu-project_settings.png", alt: "Lokasi Project URL dan API keys" },
-        { src: "/panduan/supabase-data_api.png", alt: "Project Settings → Data API" },
-        { src: "/panduan/supabase-apikey.png", alt: "Project Settings → API Keys" },
-        { src: "/panduan/vercel-env.png", alt: "Settings → Environment Variables di Vercel" },
-        { src: "/panduan/vercel-add_secret.png", alt: "Tiga environment variable sudah terisi" },
-      ],
       hasilDiharapkan: "Kunci terpasang di Vercel dan siap dipakai.",
       peringatan: {
         judul: "Penting",
@@ -142,6 +125,9 @@ export const DEVELOPMENT: BagianTutorial = {
       troubleshooting: [
         { masalah: "Nilai kunci salah tempel", solusi: "Hapus variabelnya, tambahkan ulang dengan teliti. Setelah itu wajib Redeploy." },
       ],
+      gambar: [
+        { src: "/panduan/dev-vercel-env.png", alt: "Tambah dua variabel lingkungan di Vercel" },
+      ],
     },
     {
       id: "d6-redeploy",
@@ -149,10 +135,12 @@ export const DEVELOPMENT: BagianTutorial = {
       instruksi: [
         "Buka tab Deployments, klik titik tiga (⋯) di deploy paling atas, pilih Redeploy, lalu Redeploy lagi.",
       ],
-      gambar: [{ src: "/panduan/vercel-redeploy.png", alt: "Menu Redeploy di tab Deployments" }],
       hasilDiharapkan:
         "Deploy ulang selesai tanpa error. Halaman aplikasi masih menampilkan data contoh. " +
         "Ini normal: kuncinya sudah terpasang, tapi kodenya baru disambungkan ke database di Langkah 9.",
+      gambar: [
+        { src: "/panduan/dev-vercel-redeploy.png", alt: "Redeploy supaya variabel baru terbaca" },
+      ],
     },
     {
       id: "d7-clone-vscode",
@@ -165,10 +153,7 @@ export const DEVELOPMENT: BagianTutorial = {
       ],
       kode: ["cd Documents", "git clone https://github.com/akunmu/katalog-budi.git"],
       gambar: [
-        { src: "/panduan/github-clone.png", alt: "Tombol Code dan link HTTPS di GitHub" },
-        { src: "/panduan/vscode-terminal.png", alt: "Menu Terminal → New Terminal" },
-        { src: "/panduan/vscode-terminal_view.png", alt: "Tampilan Terminal" },
-        { src: "/panduan/vscode-terminal_zoom.png", alt: "Perintah git clone di terminal" },
+        { src: "/panduan/dev-vscode-clone.png", alt: "Clone repositori lewat terminal VS Code" },
       ],
     },
     {
@@ -179,11 +164,6 @@ export const DEVELOPMENT: BagianTutorial = {
         "Buka terminal baru (Terminal → New Terminal). Terminal baru ini otomatis berada di folder katalog-budi. Kalau VS Code meminta memilih folder, pilih katalog-budi. Lalu pasang komponen aplikasi.",
       ],
       kode: ["npm install"],
-      gambar: [
-        { src: "/panduan/vscode-add_folder.png", alt: "Menu File → Add Folder to Workspace" },
-        { src: "/panduan/vscode-add_folder-select.png", alt: "Memilih folder proyek" },
-        { src: "/panduan/vscode-npm_install.png", alt: "npm install selesai di terminal" },
-      ],
       hasilDiharapkan:
         "Di panel Explorer (kiri) VS Code terlihat folder katalog-budi. Klik folder itu untuk " +
         "membukanya kalau isinya belum terlihat: di dalamnya ada folder app, components, docs, " +
@@ -194,6 +174,9 @@ export const DEVELOPMENT: BagianTutorial = {
         { masalah: "npm install error ENOENT / tidak menemukan package.json", solusi: "Terminal belum berada di folder proyek. Ketik cd katalog-budi (atau cd Documents/katalog-budi), lalu ulangi npm install." },
         { masalah: "Folder tidak muncul di Explorer", solusi: "Ulangi File → Add Folder to Workspace... dan pastikan yang dipilih folder katalog-budi, bukan folder Documents." },
         { masalah: "Saat menutup VS Code ditanya menyimpan workspace", solusi: "Boleh pilih Don't Save, folder proyekmu tetap aman. Saat membuka VS Code lagi, ulangi File → Add Folder to Workspace..." },
+      ],
+      gambar: [
+        { src: "/panduan/dev-npm-install-jalan.png", alt: "npm install lalu npm run dev di terminal" },
       ],
     },
     {
@@ -208,17 +191,15 @@ export const DEVELOPMENT: BagianTutorial = {
         "Buka browser ke http://localhost:3000.",
       ],
       kode: ["cp .env.example .env.local          # macOS / Linux", "copy .env.example .env.local        # Windows", "npm run dev"],
-      gambar: [
-        { src: "/panduan/vscode-env_local.png", alt: "Membuat file .env.local di terminal" },
-        { src: "/panduan/vscode-env_local-view.png", alt: "Isi file .env.local" },
-        { src: "/panduan/vscode-npm_running.png", alt: "npm run dev berjalan di terminal" },
-        { src: "/panduan/toko-contoh.png", alt: "Aplikasi tampil di localhost:3000" },
-      ],
       hasilDiharapkan: "Tampilan sama persis dengan link Vercel-mu: Toko Contoh dengan 6 produk contoh.",
       peringatan: {
         judul: "Ingat",
         isi: "Biarkan terminal npm run dev tetap berjalan selama bekerja. Setiap kali kamu mengubah file .env.local, hentikan dulu (Ctrl+C di terminal), lalu jalankan lagi npm run dev.",
       },
+      gambar: [
+        { src: "/panduan/dev-env-local.png", alt: "Isi file .env.local dengan alamat dan kunci Supabase" },
+        { src: "/panduan/dev-supabase-ambil-kunci.png", alt: "Ambil Project URL dan anon key dari Supabase" },
+      ],
     },
     // ---------- BAGIAN 2: Jadikan toko milikmu ----------
     {

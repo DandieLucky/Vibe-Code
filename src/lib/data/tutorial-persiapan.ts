@@ -64,7 +64,7 @@ export const PERSIAPAN: BagianTutorial = {
         "Bawa charger. Pastikan ruang kosong minimal 10 GB.",
       ],
       gambar: [
-        { src: "/panduan/account-google-new.png", alt: "Contoh tampilan halaman yang akan kamu temui" },
+        { src: "/panduan/cek-laptop.png", alt: "Syarat laptop: Windows 10/11 atau macOS Apple Silicon, ruang kosong 10 GB" },
       ],
     },
     {
@@ -81,7 +81,7 @@ export const PERSIAPAN: BagianTutorial = {
         "Tutup lalu buka lagi terminal (Windows: Command Prompt atau PowerShell; macOS: Terminal), lalu cek:",
       ],
       kode: ["node -v", "npm -v"],
-      gambar: [{ src: "/panduan/node-js.png", alt: "Halaman unduhan Node.js" }],
+      gambar: [{ src: "/panduan/nodejs-pilih-versi.png", alt: "Halaman unduhan Node.js" }],
       hasilItem: [
         "node -v menampilkan v24.… (atau v26.…), dan",
         "npm -v menampilkan angka versi, misalnya 11.…",
@@ -101,7 +101,7 @@ export const PERSIAPAN: BagianTutorial = {
         "Cek hasilnya:",
       ],
       kode: ["git --version"],
-      gambar: [{ src: "/panduan/git.png", alt: "Halaman unduhan Git" }],
+      gambar: [{ src: "/panduan/git-pasang.png", alt: "Halaman unduhan Git" }],
       hasilItem: ["Muncul tulisan seperti git version 2.…"],
     },
     {
@@ -119,9 +119,9 @@ export const PERSIAPAN: BagianTutorial = {
         "Klik ikon Antigravity di Activity Bar (deretan ikon paling kiri VS Code), lalu login dengan akun Google-mu.",
       ],
       gambar: [
-        { src: "/panduan/vscode.png", alt: "Halaman unduhan VS Code" },
-        { src: "/panduan/antigravity-extention.png", alt: "Ekstensi Google Antigravity di panel Extensions" },
-        { src: "/panduan/antigravity-login.png", alt: "Ikon Antigravity di Activity Bar dan halaman login" },
+        { src: "/panduan/vscode-antigravity.png", alt: "Halaman unduhan VS Code" },
+        { src: "/panduan/nodejs-cek-terminal.png", alt: "Ekstensi Google Antigravity di panel Extensions" },
+        { src: "/panduan/siapkan-akun.png", alt: "Ikon Antigravity di Activity Bar dan halaman login" },
       ],
       hasilItem: [
         "VS Code terbuka, ekstensi Google Antigravity terpasang,",
@@ -143,9 +143,9 @@ export const PERSIAPAN: BagianTutorial = {
         "Akun Vercel dan Supabase dibuat saat acara, cukup login memakai GitHub.",
       ],
       gambar: [
-        { src: "/panduan/account-github.png", alt: "Membuat akun GitHub" },
-        { src: "/panduan/account-vercel.png", alt: "Login Vercel memakai GitHub" },
-        { src: "/panduan/account-supabase.png", alt: "Login Supabase memakai GitHub" },
+        { src: "/panduan/siapkan-akun.png", alt: "Membuat akun GitHub" },
+        { src: "/panduan/siapkan-akun.png", alt: "Login Vercel memakai GitHub" },
+        { src: "/panduan/siapkan-akun.png", alt: "Login Supabase memakai GitHub" },
       ],
     },
   ],
