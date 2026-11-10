@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MODULES_DATA } from "@/lib/data/curriculum-data";
 import { WorkSubmission } from "@/types/database";
-import { ambilSemuaKarya, ambilRingkasanPeserta, ambilStatistikKarya, type RingkasanPeserta } from "@/lib/data-access/admin";
+import { ambilKaryaLewatServer, ambilRingkasanPeserta, hitungStatistik, type RingkasanPeserta } from "@/lib/data-access/admin";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import { formatDate } from "@/lib/utils";
 
@@ -45,11 +45,9 @@ export default function AdminOverviewPage() {
     setMemuat(true);
     setGalat(null);
     try {
-      const [karya, ringkasan, stat] = await Promise.all([
-        ambilSemuaKarya(),
-        ambilRingkasanPeserta(),
-        ambilStatistikKarya(),
-      ]);
+      const karya = await ambilKaryaLewatServer();
+      const ringkasan = await ambilRingkasanPeserta();
+      const stat = hitungStatistik(karya, ringkasan);
       setSubmissions(karya);
       setPeserta(ringkasan);
       setStatistik(stat);

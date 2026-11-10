@@ -64,13 +64,11 @@ export function Navbar() {
         { href: "/tutorial", label: "Tutorial", icon: BookOpen },
         { href: "/kurikulum", label: "Kurikulum 12 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
-        { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
       ]
     : [
         { href: "/", label: "Beranda" },
         { href: "/#kurikulum", label: "Kurikulum 12 Modul" },
         { href: "/#karya", label: "Galeri Karya" },
-        { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
       ];
 
   return (

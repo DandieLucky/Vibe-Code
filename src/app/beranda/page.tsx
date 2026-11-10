@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  LogIn,
   BookOpen, Trophy, Layers, Sparkles, ArrowRight, Github, Rocket, Globe,
   Users, ShieldCheck, GraduationCap, Code2, CheckCircle2, Lock, PlayCircle,
 } from "lucide-react";
@@ -284,10 +285,10 @@ export default function DashboardUtamaPage() {
                   Daftar Sekarang
                 </Button>
               </Link>
-              <Link href="/leaderboard">
+              <Link href="/login">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto font-semibold border-white/40 text-white hover:bg-white/10">
-                  <Trophy className="w-4 h-4 mr-2" />
-                  Lihat Papan Peringkat
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Masuk ke Akun Saya
                 </Button>
               </Link>
             </div>

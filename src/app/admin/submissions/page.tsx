@@ -29,7 +29,7 @@ import { Modal } from "@/components/ui/modal";
 import { WorkSubmission, SubmissionStatus } from "@/types/database";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import { formatDate } from "@/lib/utils";
-import { ambilSemuaKarya, simpanPenilaian } from "@/lib/data-access/admin";
+import { ambilKaryaLewatServer, simpanPenilaianLewatServer } from "@/lib/data-access/admin";
 
 export default function AdminSubmissionsPage() {
   const [submissions, setSubmissions] = useState<WorkSubmission[]>([]);
@@ -44,6 +44,10 @@ export default function AdminSubmissionsPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [gradingStatus, setGradingStatus] = useState<SubmissionStatus>("pending");
   const [gradingScore, setGradingScore] = useState<number | string>("");
+  const [gradingTechnical, setGradingTechnical] = useState<number | string>("");
+  const [gradingAi, setGradingAi] = useState<number | string>("");
+  const [gradingPenalty, setGradingPenalty] = useState<number | string>("");
+  const [gradingPenaltyReason, setGradingPenaltyReason] = useState("");
   const [gradingNotes, setGradingNotes] = useState("");
   const [isSavingGrading, setIsSavingGrading] = useState(false);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState(false);
@@ -63,7 +67,12 @@ export default function AdminSubmissionsPage() {
   const handleOpenDetail = (sub: WorkSubmission) => {
     setSelectedSubmission(sub);
     setGradingStatus(sub.submission_status);
-    setGradingScore(sub.score !== undefined && sub.score !== null ? sub.score : "");
+    const sk: any = sub;
+    setGradingScore(sk.final_score ?? sk.score ?? "");
+    setGradingTechnical(sk.technical_score ?? "");
+    setGradingAi(sk.ai_score ?? "");
+    setGradingPenalty(sk.penalty_applied ?? "");
+    setGradingPenaltyReason(sk.penalty_reason ?? "");
     setGradingNotes(sub.admin_notes || "");
     setSaveSuccessMsg(false);
     setModalOpen(true);
@@ -82,11 +91,14 @@ export default function AdminSubmissionsPage() {
       updated_at: new Date().toISOString(),
     };
 
-    // Simpan langsung ke database supaya penilaian berlaku untuk semua admin.
-    const hasil = await simpanPenilaian(updatedSub.id, {
-      status: gradingStatus,
-      skor: gradingScore !== "" ? Number(gradingScore) : null,
-      catatan: gradingNotes,
+    // Simpan lewat API server supaya penilaian berlaku untuk semua admin.
+    const hasil = await simpanPenilaianLewatServer(updatedSub.id, {
+      submission_status: gradingStatus,
+      technical_score: gradingTechnical !== "" ? Number(gradingTechnical) : null,
+      ai_score: gradingAi !== "" ? Number(gradingAi) : null,
+      penalty_applied: gradingPenalty !== "" ? Number(gradingPenalty) : null,
+      penalty_reason: gradingPenaltyReason,
+      admin_notes: gradingNotes,
     });
 
     setIsSavingGrading(false);
@@ -447,16 +459,65 @@ export default function AdminSubmissionsPage() {
                   </select>
                 </div>
 
-                {/* Score Input */}
-                <Input
-                  label="Nilai / Skor Akhir (0 - 100)"
-                  type="number"
-                  min="0"
-                  max="100"
-                  value={gradingScore}
-                  onChange={(e) => setGradingScore(e.target.value)}
-                  placeholder="Contoh: 90"
-                />
+                {/* --------------------------------------------------------- */}
+                {/* Penilaian — hasil otomatis tetap ada, admin bisa mengubah */}
+                {/* --------------------------------------------------------- */}
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">
+                    Penilaian
+                  </p>
+                  <p className="text-[11px] text-slate-500 mb-3 leading-relaxed">
+                    Nilai di bawah diisi otomatis oleh sistem. Ubah bagian mana pun untuk menyesuaikan,
+                    atau kosongkan untuk membiarkan nilai otomatis apa adanya.
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <Input
+                      label="Nilai Teknis (0 - 100)"
+                      type="number" min="0" max="100"
+                      value={gradingTechnical}
+                      onChange={(e) => setGradingTechnical(e.target.value)}
+                      placeholder="Otomatis dari GitHub + situs live"
+                    />
+                    <Input
+                      label="Nilai AI (0 - 100)"
+                      type="number" min="0" max="100"
+                      value={gradingAi}
+                      onChange={(e) => setGradingAi(e.target.value)}
+                      placeholder="Otomatis dari analisis kode"
+                    />
+                    <Input
+                      label="Potongan Nilai (penalti)"
+                      type="number" min="0" max="100"
+                      value={gradingPenalty}
+                      onChange={(e) => setGradingPenalty(e.target.value)}
+                      placeholder="Contoh: 20"
+                    />
+                    <Input
+                      label="Alasan Potongan"
+                      type="text"
+                      value={gradingPenaltyReason}
+                      onChange={(e) => setGradingPenaltyReason(e.target.value)}
+                      placeholder="Contoh: situs tidak dapat dibuka"
+                    />
+                  </div>
+
+                  <div className="mt-3 rounded-lg bg-white border border-slate-200 px-3 py-2.5">
+                    <p className="text-[11px] text-slate-500">
+                      Skor akhir = <strong>40% nilai teknis + 60% nilai AI − potongan</strong>
+                    </p>
+                    <p className="text-lg font-extrabold text-slate-900 mt-0.5">
+                      {(() => {
+                        const t = gradingTechnical === "" ? 0 : Number(gradingTechnical);
+                        const a = gradingAi === "" ? 0 : Number(gradingAi);
+                        const pen = gradingPenalty === "" ? 0 : Number(gradingPenalty);
+                        if (gradingTechnical === "" && gradingAi === "") return "—";
+                        return Math.max(0, Math.round(t * 0.4 + a * 0.6 - pen));
+                      })()}
+                      <span className="text-xs font-semibold text-slate-400"> / 100</span>
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Admin Notes */}

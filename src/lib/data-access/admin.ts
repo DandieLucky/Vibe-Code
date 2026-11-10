@@ -97,3 +97,75 @@ export async function simpanPenilaian(
   }
   return { sukses: true };
 }
+
+
+/**
+ * Mengambil karya lewat API server (bukan langsung dari browser).
+ *
+ * ALASAN: kunci anon yang tertanam di browser ditolak oleh database
+ * ("Invalid API key"), sedangkan kunci server bekerja normal. Karena itu
+ * semua pembacaan data admin lewat /api/admin/karya.
+ */
+export async function ambilKaryaLewatServer(): Promise<WorkSubmission[]> {
+  try {
+    const r = await fetch("/api/admin/karya", { cache: "no-store" });
+    if (!r.ok) {
+      const pesan = await r.json().catch(() => ({}));
+      console.error("ambilKaryaLewatServer:", pesan.error ?? r.status);
+      return [];
+    }
+    const d = await r.json();
+    return (d.karya ?? []) as WorkSubmission[];
+  } catch (e) {
+    console.error("ambilKaryaLewatServer:", e);
+    return [];
+  }
+}
+
+/** Menyimpan penilaian admin lewat API server. */
+export async function simpanPenilaianLewatServer(
+  id: string,
+  data: {
+    submission_status?: string;
+    technical_score?: number | null;
+    ai_score?: number | null;
+    penalty_applied?: number | null;
+    penalty_reason?: string;
+    admin_notes?: string;
+  }
+): Promise<{ sukses: boolean; pesan?: string; karya?: WorkSubmission }> {
+  try {
+    const r = await fetch("/api/admin/karya", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, ...data }),
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) return { sukses: false, pesan: d.error ?? `Gagal menyimpan (${r.status}).` };
+    return { sukses: true, karya: d.karya };
+  } catch (e) {
+    return { sukses: false, pesan: e instanceof Error ? e.message : "Gagal menyimpan." };
+  }
+}
+
+
+/** Hitung kartu ringkasan dari daftar karya + daftar peserta yang sudah dibaca. */
+export function hitungStatistik(karya: WorkSubmission[], peserta: RingkasanPeserta[]) {
+  const hitung = (st: string) => karya.filter((k) => k.submission_status === st).length;
+  const skor = karya
+    .map((k) => (k as any).final_score ?? k.score)
+    .filter((v): v is number => typeof v === "number");
+
+  return {
+    totalPeserta: peserta.length,
+    totalKarya: karya.length,
+    menunggu: hitung("pending"),
+    diterima: hitung("accepted"),
+    perluRevisi: hitung("revision_needed"),
+    ditolak: hitung("rejected"),
+    rataRataSkor: skor.length ? Math.round(skor.reduce((a, b) => a + b, 0) / skor.length) : null,
+    tertinggi: skor.length ? Math.max(...skor) : null,
+    sudahKumpul: peserta.filter((x) => x.sudah_kumpul).length,
+    belumKumpul: peserta.filter((x) => !x.sudah_kumpul).length,
+  };
+}

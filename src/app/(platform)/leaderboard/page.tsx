@@ -12,8 +12,15 @@ import {
 } from "lucide-react";
 import { getLeaderboard } from "@/lib/scoring/engine";
 import { Badge } from "@/components/ui/badge";
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+
+/**
+ * Papan peringkat hanya untuk administrator.
+ * Peserta diarahkan ke dashboard-nya masing-masing.
+ */
 
 function formatDate(iso: string | null) {
   if (!iso) return "-";
@@ -44,6 +51,25 @@ function RankIcon({ rank }: { rank: number }) {
 }
 
 export default async function LeaderboardPage() {
+  // ---------------------------------------------------------------
+  // Kunci akses: peserta tidak boleh membuka halaman ini.
+  // Pemeriksaan dilakukan di server, jadi tidak bisa dilewati.
+  // ---------------------------------------------------------------
+  const supabase = await createServerSupabaseClient();
+  if (supabase) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/login?redirect=" + encodeURIComponent("/leaderboard"));
+
+    const { data: peran } = await supabase.rpc("is_admin");
+    let admin = peran === true;
+    if (!admin) {
+      const { data: prof } = await supabase
+        .from("profiles").select("role").eq("id", user.id).maybeSingle();
+      admin = (prof as any)?.role === "admin";
+    }
+    if (!admin) redirect("/dashboard");
+  }
+
   let entries: any[] = [];
   let dbUnavailable = false;
 
