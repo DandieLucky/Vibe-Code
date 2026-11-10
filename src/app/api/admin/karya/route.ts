@@ -106,7 +106,6 @@ export async function PATCH(req: NextRequest) {
     penalty_applied: penalti,
     final_score: skorAkhir,
     score: skorAkhir,
-    is_manual_review: true,
   };
   if (body.submission_status) ubah.submission_status = body.submission_status;
   if (body.admin_notes !== undefined) ubah.admin_notes = body.admin_notes;
