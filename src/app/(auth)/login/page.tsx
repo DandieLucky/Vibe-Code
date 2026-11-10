@@ -42,14 +42,28 @@ function LoginForm() {
       return;
     }
 
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+    // Rapikan spasi yang tidak sengaja ikut tersalin (paling sering dari
+    // copy-paste password di file atau WhatsApp). Tanpa ini, login ditolak
+    // dengan pesan "password salah" padahal passwordnya benar.
+    const cleanEmail = email.trim();
+    const cleanPassword = password.trim();
+
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email: cleanEmail,
+      password: cleanPassword,
+    });
 
     if (signInError) {
-      setError(
-        signInError.message.includes("Invalid login credentials")
-          ? "Email atau password salah. Periksa kembali."
-          : signInError.message
-      );
+      if (signInError.message.includes("Invalid login credentials")) {
+        const adaSpasi = password !== cleanPassword || email !== cleanEmail;
+        setError(
+          adaSpasi
+            ? "Email atau password salah. Catatan: password Anda tadi mengandung spasi di awal/akhir — sudah otomatis dibersihkan, silakan coba lagi."
+            : "Email atau password salah. Periksa kembali. Tip: salin password dengan klik-3x pada kata, jangan menyeret dari ujung baris."
+        );
+      } else {
+        setError(signInError.message);
+      }
       setIsLoading(false);
       return;
     }
