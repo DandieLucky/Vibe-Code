@@ -68,11 +68,24 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Ganti password memakai sesi user yang bersangkutan
+    // 2. Ganti password memakai sesi user yang bersangkutan.
+    //    Token harus dipasang lewat setSession — memasang header Authorization
+    //    saja tidak cukup, GoTrue tetap menolak dengan "Auth session missing!".
     const userClient = createClient(url, anon, {
       auth: { autoRefreshToken: false, persistSession: false },
-      global: { headers: { Authorization: `Bearer ${signIn.session.access_token}` } },
     });
+
+    const { error: sessionError } = await userClient.auth.setSession({
+      access_token: signIn.session.access_token,
+      refresh_token: signIn.session.refresh_token,
+    });
+
+    if (sessionError) {
+      return NextResponse.json(
+        { ok: false, message: "Gagal membuka sesi: " + sessionError.message },
+        { status: 500 }
+      );
+    }
 
     const { error: updateError } = await userClient.auth.updateUser({
       password: newPassword,
