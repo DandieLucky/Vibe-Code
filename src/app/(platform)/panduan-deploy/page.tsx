@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { ChevronRight, Github, Rocket, Globe, CheckCircle2, AlertTriangle, Terminal, ExternalLink } from "lucide-react";
 
@@ -107,7 +109,14 @@ const faqs = [
    "Alamat https://proyek-anda.vercel.app selalu tetap. Yang berubah hanya alamat preview (yang ada tulisan acak di depan). Gunakan yang tanpa awalan acak."],
 ];
 
-export default function PanduanDeployPage() {
+export default async function PanduanDeployPage() {
+  // Panduan deploy hanya untuk peserta terdaftar.
+  const supabase = await createServerSupabaseClient();
+  if (supabase) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/login?redirect=" + encodeURIComponent("/panduan-deploy"));
+  }
+
   return (
     <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

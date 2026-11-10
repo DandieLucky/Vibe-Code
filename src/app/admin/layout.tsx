@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -21,11 +23,34 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // ------------------------------------------------------------------
+  // Pertahanan berlapis: middleware sudah menahan, tapi layout memeriksa
+  // ulang di server. Kalau suatu saat rute admin ditambahkan tanpa lewat
+  // middleware, peserta tetap tidak bisa melihat isi portal admin.
+  // ------------------------------------------------------------------
+  const supabase = await createServerSupabaseClient();
+  if (supabase) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/login?redirect=" + encodeURIComponent("/admin"));
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role, must_change_password")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.must_change_password) redirect("/profil?ganti-password=wajib");
+
+    if (profile?.role !== "admin" && profile?.role !== "instructor") {
+      redirect("/dashboard?error=akses_admin_ditolak");
+    }
+  }
+
   const adminNav = [
     { href: "/admin", label: "Overview Dashboard", icon: LayoutDashboard },
     { href: "/admin/submissions", label: "Kumpulan Karya & Penilaian", icon: FolderGit2, badge: "Prioritas" },

@@ -1,15 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Code2, ArrowRight, ShieldAlert, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerSchema } from "@/lib/validations";
 import { createClient } from "@/lib/supabase/client";
 
-export default function RegisterPage() {
+function RegisterPageInner() {
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect");
   const router = useRouter();
   const [formData, setFormData] = useState({
     full_name: "",
@@ -120,9 +122,10 @@ export default function RegisterPage() {
         return;
       }
 
-      setSuccessMsg("Pendaftaran berhasil! Mengalihkan ke dashboard...");
+      setSuccessMsg("Pendaftaran berhasil! Mengalihkan...");
       router.refresh();
-      setTimeout(() => router.push("/dashboard"), 800);
+      // Kembali ke halaman yang tadi dituju (mis. materi yang terkunci)
+      setTimeout(() => router.push(redirectTo || "/dashboard"), 800);
     } catch (err: any) {
       setFormErrors({ email: err?.message || "Terjadi kesalahan saat mendaftar." });
       setIsLoading(false);
@@ -266,5 +269,15 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+
+/** Dibungkus Suspense karena membaca parameter URL (?redirect=). */
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[85vh] bg-slate-50" />}>
+      <RegisterPageInner />
+    </Suspense>
   );
 }

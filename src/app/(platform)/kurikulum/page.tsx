@@ -1,5 +1,7 @@
 "use client";
 
+import { LoginGate } from "@/components/auth/login-gate";
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
@@ -19,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MODULES_DATA } from "@/lib/data/curriculum-data";
 
-export default function KurikulumPage() {
+function KurikulumPageInner() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
@@ -289,5 +291,13 @@ export default function KurikulumPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function KurikulumPage() {
+  return (
+    <LoginGate feature="kurikulum 12 modul">
+      <KurikulumPageInner />
+    </LoginGate>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { LoginGate } from "@/components/auth/login-gate";
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
@@ -29,7 +31,7 @@ import {
 } from "@/lib/data-access/progress";
 import { loadMySubmission } from "@/lib/data-access/submissions";
 
-export default function DashboardPesertaPage() {
+function DashboardPesertaInner() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [bookmarkedLessons, setBookmarkedLessons] = useState<string[]>([]);
   const [notesList, setNotesList] = useState<{ lessonId: string; note: string; lessonTitle: string }[]>([]);
@@ -431,5 +433,17 @@ export default function DashboardPesertaPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+/**
+ * Dashboard peserta — hanya untuk yang sudah login.
+ * Pengunjung yang belum punya akun diarahkan ke halaman pendaftaran.
+ */
+export default function DashboardPesertaPage() {
+  return (
+    <LoginGate feature="dashboard peserta">
+      <DashboardPesertaInner />
+    </LoginGate>
   );
 }

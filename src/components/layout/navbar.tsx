@@ -15,10 +15,14 @@ import {
   ShieldCheck,
   LogOut,
   Trophy,
+  UserCircle2,
+  GraduationCap,
   Rocket,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,15 +42,35 @@ export function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
-  const navLinks = [
-    { href: "/", label: "Beranda" },
-    { href: "/kurikulum", label: "Kurikulum 12 Modul" },
-    { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
-    { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
-    { href: "/panduan-deploy", label: "Panduan Deploy", icon: Rocket },
-    { href: "/dashboard", label: "Dashboard Peserta" },
-    { href: "/admin", label: "Admin", icon: ShieldCheck },
-  ];
+  const { user, isAuthenticated, isAdmin, isLoading, signOut } = useCurrentUser();
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  // ----------------------------------------------------------------------
+  // Menu menyesuaikan siapa yang sedang melihat.
+  // Tamu tidak pernah melihat menu personal; peserta tidak pernah melihat
+  // menu Admin — jadi tidak ada tombol yang berujung "akses ditolak".
+  // ----------------------------------------------------------------------
+  const navLinks = isAdmin
+    ? [
+        { href: "/", label: "Beranda" },
+        { href: "/kurikulum", label: "Kurikulum 12 Modul" },
+        { href: "/kumpulan-karya", label: "Kumpulan Karya" },
+        { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
+      ]
+    : isAuthenticated
+    ? [
+        { href: "/dashboard", label: "Dashboard Saya", icon: GraduationCap },
+        { href: "/kurikulum", label: "Kurikulum 12 Modul" },
+        { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
+        { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
+        { href: "/panduan-deploy", label: "Panduan Deploy", icon: Rocket },
+      ]
+    : [
+        { href: "/", label: "Beranda" },
+        { href: "/#kurikulum", label: "Kurikulum 12 Modul" },
+        { href: "/#karya", label: "Galeri Karya" },
+        { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
+      ];
 
   return (
     <header
@@ -108,28 +132,97 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right Action CTA Buttons */}
+          {/* Right Action CTA Buttons — menyesuaikan status login */}
           <div className="hidden sm:flex items-center gap-3">
-            <Link href="/login">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-slate-300 hover:text-white hover:bg-slate-800"
-              >
-                <User className="w-4 h-4 mr-1.5" />
-                Masuk
-              </Button>
-            </Link>
-            <Link href="/kurikulum">
-              <Button
-                variant="accent"
-                size="sm"
-                className="font-bold shadow-md shadow-sky-600/20"
-              >
-                <Sparkles className="w-4 h-4 mr-1.5" />
-                Mulai Belajar
-              </Button>
-            </Link>
+            {isLoading ? (
+              <div className="h-8 w-28 rounded-lg bg-slate-800 animate-pulse" />
+            ) : isAuthenticated && user ? (
+              /* Sudah login: menu pengguna */
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center gap-2 pl-1 pr-2.5 py-1.5 rounded-xl hover:bg-slate-800 transition-colors"
+                >
+                  <span className="h-8 w-8 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white text-xs font-extrabold shrink-0">
+                    {(user.full_name || user.email).charAt(0).toUpperCase()}
+                  </span>
+                  <span className="text-left hidden lg:block">
+                    <span className="block text-xs font-bold text-white leading-tight max-w-[120px] truncate">
+                      {user.full_name}
+                    </span>
+                    <span className="block text-[10px] text-sky-400 font-semibold">
+                      {isAdmin ? "Administrator" : "Peserta"}
+                    </span>
+                  </span>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                </button>
+
+                {userMenuOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
+                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-slate-900 border border-slate-700 shadow-xl z-50 overflow-hidden">
+                      <div className="px-3 py-2.5 border-b border-slate-800">
+                        <p className="text-xs font-bold text-white truncate">{user.full_name}</p>
+                        <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
+                      </div>
+
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2 px-3 py-2.5 text-xs font-semibold text-sky-300 hover:bg-slate-800 border-b border-slate-800"
+                        >
+                          <ShieldCheck className="w-4 h-4" />
+                          Buka Dashboard Admin
+                        </Link>
+                      )}
+
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                      >
+                        <GraduationCap className="w-4 h-4" />
+                        Dashboard Saya
+                      </Link>
+                      <Link
+                        href="/profil"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                      >
+                        <UserCircle2 className="w-4 h-4" />
+                        Pengaturan Profil
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => { setUserMenuOpen(false); signOut(); }}
+                        className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-rose-300 hover:bg-slate-800 border-t border-slate-800"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Keluar
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              /* Belum login: satu pintu masuk untuk admin maupun peserta */
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white hover:bg-slate-800">
+                    <User className="w-4 h-4 mr-1.5" />
+                    Masuk
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button variant="accent" size="sm" className="font-bold shadow-md shadow-sky-600/20">
+                    <Sparkles className="w-4 h-4 mr-1.5" />
+                    Daftar Gratis
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Hamburger Toggle Button */}

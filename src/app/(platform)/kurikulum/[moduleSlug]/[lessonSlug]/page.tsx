@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -28,6 +30,18 @@ interface LessonPageProps {
 }
 
 export default async function LessonDetailPage({ params }: LessonPageProps) {
+  // Gerbang kurikulum: materi hanya terbuka setelah login.
+  // Dicek di server supaya isi pelajaran tidak pernah dikirim ke browser
+  // sebelum hak akses terbukti.
+  const supabase = await createServerSupabaseClient();
+  if (!supabase) {
+    // Supabase belum dikonfigurasi — platform berjalan dalam mode demo
+    return null as never;
+  }
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
+
+
   const { moduleSlug, lessonSlug } = await params;
 
   const currentModule = MODULES_DATA.find((m) => m.slug === moduleSlug);

@@ -1,156 +1,181 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Code2, ArrowRight, Check, ShieldAlert } from "lucide-react";
+import { Mail, Lock, LogIn, ArrowRight, ShieldCheck, GraduationCap, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
-import { loginSchema } from "@/lib/validations";
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/dashboard";
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMsg("");
-    setSuccessMsg("");
-
-    const parsed = loginSchema.safeParse({ email, password });
-    if (!parsed.success) {
-      setErrorMsg(parsed.error.issues[0]?.message ?? "Data login tidak valid.");
-      return;
+  useEffect(() => {
+    if (searchParams.get("ganti") === "sukses") {
+      setNotice("Password berhasil diganti. Silakan masuk dengan password baru Anda.");
     }
+    if (searchParams.get("daftar") === "sukses") {
+      setNotice("Pendaftaran berhasil! Silakan masuk dengan akun Anda.");
+    }
+    if (searchParams.get("redirect")) {
+      setNotice("Silakan masuk dulu untuk membuka halaman tersebut.");
+    }
+  }, [searchParams]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setNotice("");
+    setIsLoading(true);
 
     const supabase = createClient();
     if (!supabase) {
-      setErrorMsg(
-        "Sistem autentikasi belum dikonfigurasi. Hubungi fasilitator untuk mengaktifkan database."
-      );
+      setError("Supabase belum dikonfigurasi. Hubungi fasilitator.");
+      setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: parsed.data.email,
-        password: parsed.data.password,
-      });
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
 
-      if (error) {
-        // Terjemahkan pesan error Supabase ke Bahasa Indonesia
-        const msg =
-          error.message === "Invalid login credentials"
-            ? "Email atau password salah."
-            : error.message === "Email not confirmed"
-            ? "Email belum dikonfirmasi. Hubungi fasilitator."
-            : error.message;
-        setErrorMsg(msg);
-        setIsLoading(false);
-        return;
-      }
-
-      // Arahkan admin ke panel admin
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", data.user.id)
-        .single();
-
-      const isStaff = profile?.role === "admin" || profile?.role === "instructor";
-      const target = isStaff && redirectTo === "/dashboard" ? "/admin" : redirectTo;
-
-      setSuccessMsg("Login berhasil! Mengalihkan...");
-      router.refresh();
-      setTimeout(() => router.push(target), 400);
-    } catch (err: any) {
-      setErrorMsg(err?.message || "Terjadi kesalahan saat masuk.");
+    if (signInError) {
+      setError(
+        signInError.message.includes("Invalid login credentials")
+          ? "Email atau password salah. Periksa kembali."
+          : signInError.message
+      );
       setIsLoading(false);
+      return;
     }
+
+    // Arahkan sesuai peran: admin ke portal admin, peserta ke dashboard
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role, must_change_password")
+      .eq("id", data.user.id)
+      .single();
+
+    // Password sementara dari fasilitator → wajib diganti dulu
+    if (profile?.must_change_password) {
+      router.push("/profil?ganti-password=wajib");
+      router.refresh();
+      return;
+    }
+
+    const explicit = searchParams.get("redirect");
+    const target =
+      explicit ? explicit :
+      profile?.role === "admin" || profile?.role === "instructor" ? "/admin" : "/dashboard";
+
+    router.push(target);
+    router.refresh();
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
-      <div className="w-full max-w-md space-y-8 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md">
-        <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="h-10 w-10 rounded-xl bg-slate-900 text-sky-400 flex items-center justify-center font-bold">
-              <Code2 className="w-6 h-6" />
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex items-center gap-2.5 mb-5">
+            <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg">
+              <GraduationCap className="w-6 h-6 text-white" />
             </div>
-            <span className="font-extrabold text-xl text-slate-900 tracking-tight">
-              VIBE CODE
-            </span>
+            <span className="text-2xl font-extrabold text-slate-900 tracking-tight">VIBE CODE</span>
           </Link>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Masuk ke Akun Anda
-          </h2>
-          <p className="mt-1 text-xs text-slate-500">
-            Akses progres kurikulum, riwayat catatan, dan kumpulan karya
+          <h1 className="text-2xl font-extrabold text-slate-900">Masuk ke Akun Anda</h1>
+          <p className="mt-1.5 text-sm text-slate-500">
+            Satu pintu untuk peserta dan administrator
           </p>
         </div>
 
-        {errorMsg && (
-          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 font-semibold flex items-start gap-2">
-            <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-            <span>{errorMsg}</span>
+        {/* Penjelasan: satu form untuk dua peran */}
+        <div className="mb-5 grid grid-cols-2 gap-2.5">
+          <div className="rounded-xl border border-sky-200 bg-sky-50 p-3">
+            <GraduationCap className="w-4 h-4 text-sky-600 mb-1.5" />
+            <p className="text-[11px] font-bold text-sky-900">Peserta</p>
+            <p className="text-[10px] text-sky-700 leading-snug">
+              Buka kurikulum, simpan progres, kumpulkan karya
+            </p>
           </div>
-        )}
-
-        {successMsg && (
-          <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-semibold flex items-center gap-2">
-            <Check className="w-4 h-4 text-emerald-600" />
-            <span>{successMsg}</span>
+          <div className="rounded-xl border border-slate-300 bg-slate-100 p-3">
+            <ShieldCheck className="w-4 h-4 text-slate-700 mb-1.5" />
+            <p className="text-[11px] font-bold text-slate-900">Administrator</p>
+            <p className="text-[10px] text-slate-600 leading-snug">
+              Kelola karya, penilaian, dan pengaturan
+            </p>
           </div>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-4">
-          <Input
-            label="Alamat Email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="nama@email.com"
-            autoComplete="email"
-            required
-          />
-
-          <Input
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-            autoComplete="current-password"
-            required
-          />
-
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            isLoading={isLoading}
-            className="w-full font-bold mt-2 shadow-md"
-          >
-            Masuk Sekarang
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </form>
-
-        <div className="text-center pt-2 border-t border-slate-100 text-xs text-slate-500">
-          Belum memiliki akun?{" "}
-          <Link href="/register" className="font-bold text-sky-600 hover:underline">
-            Daftar Sekarang
-          </Link>
         </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
+          {notice && (
+            <div className="mb-5 p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+              <span>{notice}</span>
+            </div>
+          )}
+          {error && (
+            <div className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="relative">
+              <Mail className="absolute left-3 top-[38px] w-4 h-4 text-slate-400 pointer-events-none" />
+              <Input
+                label="Alamat Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="nama@email.com"
+                className="pl-10"
+                autoComplete="email"
+                required
+              />
+            </div>
+            <div className="relative">
+              <Lock className="absolute left-3 top-[38px] w-4 h-4 text-slate-400 pointer-events-none" />
+              <Input
+                label="Password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password Anda"
+                className="pl-10"
+                autoComplete="current-password"
+                required
+              />
+            </div>
+
+            <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full font-bold">
+              <LogIn className="w-4 h-4 mr-1.5" />
+              Masuk
+            </Button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
+            <p className="text-xs text-slate-500 mb-3">
+              Belum punya akun? Pendaftaran terbuka untuk umum.
+            </p>
+            <Link href="/register">
+              <Button variant="outline" size="sm" className="w-full font-semibold">
+                Daftar Sebagai Peserta
+                <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        <p className="mt-6 text-center text-[11px] text-slate-400">
+          Akun administrator dibuat oleh fasilitator. Jika Anda peserta,
+          silakan daftar sendiri lewat tombol di atas.
+        </p>
       </div>
     </div>
   );
@@ -158,13 +183,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-[80vh] flex items-center justify-center bg-slate-50">
-          <p className="text-sm text-slate-500">Memuat halaman masuk...</p>
-        </div>
-      }
-    >
+    <Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
       <LoginForm />
     </Suspense>
   );
