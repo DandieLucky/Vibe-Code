@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PERKS = [
-  { icon: BookOpen,  title: "6 Modul Terstruktur",    desc: "Dari instalasi Android Studio sampai aplikasi SakuSiswa selesai" },
-  { icon: Save,      title: "Progres Tersimpan",       desc: "Lanjutkan kapan saja, dari perangkat mana saja" },
-  { icon: Trophy,    title: "Ikut Papan Peringkat",    desc: "Karya Anda dinilai otomatis dan diperingkat" },
+  { icon: BookOpen, title: "6 Modul Terstruktur", desc: "Dari instalasi Android Studio sampai aplikasi SakuSiswa selesai" },
+  { icon: Save, title: "Progres Tersimpan", desc: "Lanjutkan kapan saja, dari perangkat mana saja" },
+  { icon: Trophy, title: "Ikut Papan Peringkat", desc: "Karya Anda dinilai otomatis dan diperingkat" },
   { icon: ShieldCheck, title: "Sertifikat & Umpan Balik", desc: "Penilaian kualitas kode Kotlin & Room oleh AI" },
 ];
 
@@ -79,7 +79,7 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
               </Link>
               <Link href={`/login?redirect=${encodeURIComponent(pathname)}`} className="sm:flex-1">
                 <Button variant="outline" size="lg" className="w-full font-semibold">
-                  Sudah Punya Akun? Masuk
+                  Masuk
                   <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Button>
               </Link>
