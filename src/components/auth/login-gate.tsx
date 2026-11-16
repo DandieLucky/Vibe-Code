@@ -57,7 +57,6 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
             <p className="text-sm text-ink-2 leading-relaxed mb-7 max-w-lg mx-auto">
               Kurikulum ComposeLab dikhususkan untuk peserta terdaftar. Dengan mendaftar,
               progres belajar Anda tersimpan otomatis dan karya Anda bisa ikut dinilai.
-              Gratis, tanpa biaya.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 text-left">
@@ -74,7 +73,7 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
               <Link href={`/register?redirect=${encodeURIComponent(pathname)}`} className="sm:flex-1">
                 <Button variant="primary" size="lg" className="w-full font-bold">
                   <GraduationCap className="w-4 h-4 mr-1.5" />
-                  Daftar Gratis Sekarang
+                  Daftar Sekarang
                 </Button>
               </Link>
               <Link href={`/login?redirect=${encodeURIComponent(pathname)}`} className="sm:flex-1">
