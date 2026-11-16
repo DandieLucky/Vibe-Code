@@ -151,7 +151,7 @@ export default async function LeaderboardPage() {
                       <div className={`text-3xl font-extrabold ${style.text} leading-none`}>
                         {Math.round(e.final_score ?? 0)}
                       </div>
-                      <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
+                      <div className="text-[10px] font-bold text-muted mt-0.5">
                         Skor
                       </div>
                     </div>
@@ -160,30 +160,30 @@ export default async function LeaderboardPage() {
                   {/* Info karya */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <h3 className="font-bold text-slate-900 truncate">{e.project_title}</h3>
+                      <h3 className="font-bold text-ink truncate">{e.project_title}</h3>
                       {e.submission_code && (
-                        <span className="text-[10px] font-mono font-bold text-slate-400 bg-white border border-slate-200 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] font-mono font-bold text-muted bg-sheet border border-rule px-1.5 py-0.5 rounded">
                           {e.submission_code}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-600">
+                    <p className="text-xs text-ink-2">
                       {e.full_name}
-                      {e.institution ? ` · ${e.institution}` : ""}
+                      {e.institution ? `, ${e.institution}` : ""}
                     </p>
 
                     {/* Sub-skor */}
                     <div className="flex items-center gap-3 mt-2 flex-wrap text-[11px]">
-                      <span className="text-slate-500">
-                        Teknis: <strong className="text-slate-700">{Math.round(e.technical_score ?? 0)}</strong>
+                      <span className="text-muted">
+                        Teknis: <strong className="text-ink-2">{Math.round(e.technical_score ?? 0)}</strong>
                       </span>
-                      <span className="text-slate-500">
-                        AI: <strong className="text-slate-700">{Math.round(e.ai_score ?? 0)}</strong>
+                      <span className="text-muted">
+                        AI: <strong className="text-ink-2">{Math.round(e.ai_score ?? 0)}</strong>
                       </span>
                       {e.lighthouse_performance != null && (
-                        <span className="text-slate-500 flex items-center gap-1">
+                        <span className="text-muted flex items-center gap-1">
                           <Star className="w-3 h-3 text-amber-500" />
-                          Performa: <strong className="text-slate-700">{Math.round(e.lighthouse_performance)}</strong>
+                          Performa: <strong className="text-ink-2">{Math.round(e.lighthouse_performance)}</strong>
                         </span>
                       )}
                       {Number(e.penalty_applied) > 0 && (
@@ -194,10 +194,10 @@ export default async function LeaderboardPage() {
                     </div>
 
                     {e.penalty_reason && (
-                      <p className="text-[11px] text-rose-600 mt-1">⚠ {e.penalty_reason}</p>
+                      <p className="text-[11px] text-rose-600 mt-1">Catatan penalti: {e.penalty_reason}</p>
                     )}
 
-                    <p className="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1">
+                    <p className="text-[11px] text-muted mt-1.5 flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       Dikumpulkan: {formatDate(e.submitted_at)}
                     </p>
@@ -209,32 +209,30 @@ export default async function LeaderboardPage() {
                       href={e.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
+                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-ink text-sheet text-xs font-semibold hover:bg-umber transition-colors"
                     >
                       <Github className="w-3.5 h-3.5" />
                       GitHub
                     </a>
-                    <a
-                      href={e.deployment_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                        e.is_deployment_live
-                          ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                          : "bg-slate-200 text-slate-500 hover:bg-slate-300"
-                      }`}
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      {e.is_deployment_live ? "Situs Live" : "Situs Mati"}
-                    </a>
+                    {(e.apk_url || e.deployment_url) && (
+                      <a
+                        href={e.apk_url || e.deployment_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors bg-accent text-sheet hover:bg-rubber-lo"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        {e.apk_url ? "Unduh APK" : "Buka Tautan"}
+                      </a>
+                    )}
                   </div>
                 </div>
 
                 {/* Ringkasan AI */}
                 {e.ai_summary && (
-                  <div className="mt-3 pt-3 border-t border-slate-200/70">
-                    <p className="text-[11px] text-slate-600 leading-relaxed">
-                      <strong className="text-slate-700">Penilaian AI:</strong> {e.ai_summary}
+                  <div className="mt-3 pt-3 border-t border-rule">
+                    <p className="text-[11px] text-ink-2 leading-relaxed">
+                      <strong className="text-ink">Penilaian AI:</strong> {e.ai_summary}
                     </p>
                   </div>
                 )}
@@ -243,8 +241,8 @@ export default async function LeaderboardPage() {
           })}
         </div>
 
-        <p className="text-center text-[11px] text-slate-400 mt-8">
-          Peringkat dihitung otomatis: 40% penilaian teknis · 60% penilaian AI · dikurangi penalti.
+        <p className="text-center text-[11px] text-muted mt-8">
+          Peringkat dihitung otomatis (40% penilaian teknis, 60% penilaian AI, dikurangi penalti).
           Jika skor sama, yang mengumpulkan lebih awal berada di atas.
         </p>
       </div>

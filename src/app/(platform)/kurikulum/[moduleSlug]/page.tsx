@@ -66,10 +66,10 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
         </div>
 
         {/* Hero Card */}
-        <div className="rounded-2xl border border-[#3F3128] bg-[#2B211B] text-[#FDFBF7] p-6 sm:p-8 shadow-md mb-8">
+        <div className="rounded-2xl border border-umber bg-ink text-sheet p-6 sm:p-8 shadow-md mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-[#C4552D]/20 text-[#F3B69B] border border-[#C4552D]/40">
-              MODUL {module.module_number} DARI {MODULES_DATA.length}
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-accent-soft text-accent-2 border border-rule">
+              Modul {module.module_number} dari {MODULES_DATA.length}
             </span>
             <Badge
               variant={
@@ -82,23 +82,23 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
             >
               {module.difficulty_level}
             </Badge>
-            <span className="text-xs text-slate-400 flex items-center gap-1 font-mono">
+            <span className="text-xs text-paper-3 flex items-center gap-1">
               <Clock className="w-3.5 h-3.5" />
               Estimasi: {module.estimated_minutes} Menit
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-sheet tracking-tight">
             {module.title}
           </h1>
-          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed max-w-3xl">
+          <p className="mt-3 text-sm sm:text-base text-paper-3 leading-relaxed max-w-3xl">
             {module.description}
           </p>
 
-          <div className="mt-6 pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
-            <div className="text-xs text-slate-400">
+          <div className="mt-6 pt-6 border-t border-umber flex flex-wrap items-center justify-between gap-4">
+            <div className="text-xs text-paper-3">
               Terdiri atas{" "}
-              <strong className="text-white font-bold">{module.lessons.length} materi praktik</strong> terstruktur.
+              <strong className="text-sheet font-bold">{module.lessons.length} materi praktik</strong> terstruktur.
             </div>
             {module.lessons.length > 0 && (
               <Link href={`/kurikulum/${module.slug}/${module.lessons[0].slug}`}>
@@ -113,32 +113,32 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
 
         {/* Lessons List in this Module */}
         <div className="space-y-4 mb-10">
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-sky-600" />
+          <h2 className="text-lg font-bold text-ink flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-accent" />
             <span>Daftar Materi Pembelajaran</span>
           </h2>
 
-          <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs divide-y divide-slate-100">
+          <div className="rounded-2xl border border-rule bg-sheet overflow-hidden shadow-xs divide-y divide-rule">
             {module.lessons.map((lesson, idx) => (
               <Link
                 key={lesson.id}
                 href={`/kurikulum/${module.slug}/${lesson.slug}`}
-                className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 hover:bg-slate-50 transition-colors gap-3"
+                className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 hover:bg-paper transition-colors gap-3"
               >
                 <div className="flex items-start sm:items-center gap-3.5">
-                  <span className="flex items-center justify-center h-7 w-7 rounded-full bg-slate-100 text-slate-700 font-bold text-xs shrink-0 mt-0.5 sm:mt-0 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                  <span className="flex items-center justify-center h-7 w-7 rounded-full bg-paper-2 text-ink font-bold text-xs shrink-0 mt-0.5 sm:mt-0 group-hover:bg-accent group-hover:text-sheet transition-colors">
                     {idx + 1}
                   </span>
                   <div>
-                    <h3 className="text-sm font-bold text-slate-900 group-hover:text-sky-600 transition-colors">
+                    <h3 className="text-sm font-bold text-ink group-hover:text-accent transition-colors">
                       {lesson.title}
                     </h3>
-                    <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
+                    <p className="text-xs text-muted mt-0.5 line-clamp-1">
                       {lesson.description}
                     </p>
                     {lesson.antigravity_prompt && (
-                      <div className="mt-1 flex items-center gap-1.5 text-[11px] text-sky-600 font-medium">
-                        <Sparkles className="w-3 h-3 text-sky-500" />
+                      <div className="mt-1 flex items-center gap-1.5 text-[11px] text-accent font-medium">
+                        <Sparkles className="w-3 h-3 text-accent" />
                         <span>Termasuk Prompt AI Terstruktur (Formula 6-Bagian)</span>
                       </div>
                     )}
@@ -146,11 +146,11 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
                 </div>
 
                 <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto text-xs">
-                  <span className="text-slate-400 font-mono">
-                    ±{lesson.estimated_minutes}m
+                  <span className="text-muted">
+                    ±{lesson.estimated_minutes} menit
                   </span>
                   <Button variant="outline" size="sm" className="text-xs">
-                    Buka Materi &rarr;
+                    Buka Materi
                   </Button>
                 </div>
               </Link>

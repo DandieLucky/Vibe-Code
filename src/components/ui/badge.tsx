@@ -12,19 +12,19 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variants = {
-    default: "bg-[#F3ECE2] text-[#2B211B] border-[#E6DDD2]",
-    info: "bg-[#C4552D]/10 text-[#9F3F1D] border-[#C4552D]/25",
+    default: "bg-paper-2 text-ink border-rule",
+    info: "bg-accent-soft text-accent border-rule",
     success: "bg-emerald-50 text-emerald-700 border-emerald-200",
     warning: "bg-amber-50 text-amber-800 border-amber-200",
     destructive: "bg-rose-50 text-rose-700 border-rose-200",
-    teal: "bg-teal-50 text-teal-700 border-teal-200",
-    outline: "bg-transparent text-[#4A3B31] border-[#D8CCBE]",
+    teal: "bg-paper-2 text-ink-2 border-rule",
+    outline: "bg-transparent text-ink-2 border-rule",
   };
 
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium tracking-wide transition-colors",
+        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors",
         variants[variant],
         className
       )}

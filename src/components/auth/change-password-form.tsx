@@ -138,7 +138,7 @@ export function ChangePasswordForm({ email, forced = false }: Props) {
             <div className="mt-2">
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                  <div className={`h-full ${strengthColor} transition-all duration-300`} style={{ width: `${strengthPct}%` }} />
+                  <div className={`h-full ${strengthColor} transition-colors duration-300`} style={{ width: `${strengthPct}%` }} />
                 </div>
                 <span className="text-[10px] font-bold text-slate-500 w-20 text-right">{strengthLabel}</span>
               </div>

@@ -14,6 +14,9 @@ export interface GithubCheckResult {
   kotlinFileCount: number;
   hasGradleFile: boolean;
   hasManifest: boolean;
+  hasCompose: boolean;
+  hasRoom: boolean;
+  hasCredentialManager: boolean;
   language: string | null;
   hasReadme: boolean;
   lastCommit: string | null;
@@ -22,6 +25,13 @@ export interface GithubCheckResult {
   error: string | null;
   /** 0-100 */
   score: number;
+}
+
+interface GitTreeBlob {
+  path?: string;
+  type?: string;
+  sha?: string;
+  size?: number;
 }
 
 /** Ubah URL GitHub apa pun menjadi "owner/repo". */
@@ -38,7 +48,7 @@ export function parseGithubRepo(url: string): string | null {
   }
 }
 
-function githubHeaders(): HeadersInit {
+export function githubHeaders(): HeadersInit {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
@@ -58,6 +68,9 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
     kotlinFileCount: 0,
     hasGradleFile: false,
     hasManifest: false,
+    hasCompose: false,
+    hasRoom: false,
+    hasCredentialManager: false,
     language: null,
     hasReadme: false,
     lastCommit: null,
@@ -106,6 +119,9 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
     let kotlinFileCount = 0;
     let hasGradleFile = false;
     let hasManifest = false;
+    let hasCompose = false;
+    let hasRoom = false;
+    let hasCredentialManager = false;
     let hasReadme = false;
     try {
       const treeRes = await fetch(
@@ -114,20 +130,30 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
       );
       if (treeRes.ok) {
         const tree = await treeRes.json();
-        const blobs = (tree.tree ?? []).filter((t: any) => t.type === "blob");
+        const rawTree: GitTreeBlob[] = Array.isArray(tree.tree) ? tree.tree : [];
+        const blobs = rawTree.filter((t) => t.type === "blob");
         fileCount = blobs.length;
-        hasReadme = blobs.some((b: any) =>
+        hasReadme = blobs.some((b) =>
           /^readme(\.md|\.txt)?$/i.test((b.path ?? "").split("/").pop() ?? "")
         );
-        hasGradleFile = blobs.some((b: any) =>
+        hasGradleFile = blobs.some((b) =>
           /build\.gradle(\.kts)?$/i.test(b.path ?? "")
         );
-        hasManifest = blobs.some((b: any) =>
+        hasManifest = blobs.some((b) =>
           /AndroidManifest\.xml$/i.test(b.path ?? "")
         );
-        kotlinFileCount = blobs.filter((b: any) =>
+        kotlinFileCount = blobs.filter((b) =>
           /\.kt$/i.test(b.path ?? "")
         ).length;
+        hasRoom = blobs.some((b) =>
+          /(Entity|Dao|Database)\.kt$/i.test(b.path ?? "")
+        );
+        hasCompose = blobs.some((b) =>
+          /(Screen|Card|Dialog|Theme)\.kt$/i.test(b.path ?? "")
+        );
+        hasCredentialManager = blobs.some((b) =>
+          /(Auth|Credential|Login).*\.kt$/i.test(b.path ?? "")
+        );
       }
     } catch {
       /* tree opsional */
@@ -135,15 +161,17 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
 
     // Skor teknis repo Android (0-100)
     let score = 0;
-    score += 30; // publik & bisa diakses
-    if (hasGradleFile) score += 15;
+    score += 25; // publik & bisa diakses
+    if (hasGradleFile) score += 10;
     if (hasManifest) score += 10;
-    if (kotlinFileCount >= 5) score += 20;
-    else if (kotlinFileCount >= 2) score += 12;
-    else if (fileCount >= 5) score += 8;
+    if (kotlinFileCount >= 5) score += 15;
+    else if (kotlinFileCount >= 2) score += 8;
+    else if (fileCount >= 5) score += 5;
+    if (hasRoom) score += 10;
+    if (hasCompose) score += 5;
+    if (hasCredentialManager) score += 5;
     if (hasReadme) score += 15;
     if (data.description) score += 5;
-    if (data.language) score += 5;
 
     return {
       reachable: true,
@@ -153,6 +181,9 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
       kotlinFileCount,
       hasGradleFile,
       hasManifest,
+      hasCompose,
+      hasRoom,
+      hasCredentialManager,
       language: data.language ?? null,
       hasReadme,
       lastCommit: data.pushed_at ?? null,

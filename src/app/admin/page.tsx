@@ -75,8 +75,8 @@ export default function AdminOverviewPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-700 bg-sky-100 px-2 py-0.5 rounded">
-              ADMINISTRATOR DASHBOARD
+            <span className="text-xs font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded">
+              Dashboard Administrator
             </span>
             <Badge variant="teal">Sistem Aktif</Badge>
           </div>
@@ -108,7 +108,7 @@ export default function AdminOverviewPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
           <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider">Total Karya</span>
+            <span className="text-xs font-bold">Total Karya</span>
             <FolderGit2 className="w-5 h-5 text-sky-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
@@ -119,7 +119,7 @@ export default function AdminOverviewPage() {
 
         <div className="rounded-2xl border border-amber-200 bg-amber-50/50 p-5 shadow-xs">
           <div className="flex items-center justify-between text-amber-700 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider">Menunggu Review</span>
+            <span className="text-xs font-bold">Menunggu Review</span>
             <Clock className="w-5 h-5 text-amber-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-amber-800">
@@ -130,7 +130,7 @@ export default function AdminOverviewPage() {
 
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-5 shadow-xs">
           <div className="flex items-center justify-between text-emerald-700 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider">Karya Diterima</span>
+            <span className="text-xs font-bold">Karya Diterima</span>
             <CheckCircle2 className="w-5 h-5 text-emerald-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-emerald-800">
@@ -141,7 +141,7 @@ export default function AdminOverviewPage() {
 
         <div className="rounded-2xl border border-orange-200 bg-orange-50/50 p-5 shadow-xs">
           <div className="flex items-center justify-between text-orange-700 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider">Perlu Revisi</span>
+            <span className="text-xs font-bold">Perlu Revisi</span>
             <AlertTriangle className="w-5 h-5 text-orange-600" />
           </div>
           <div className="text-2xl sm:text-3xl font-extrabold text-orange-800">
@@ -155,13 +155,13 @@ export default function AdminOverviewPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Total Modul Kurikulum
             </span>
             <div className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
               {totalModules} Modul
             </div>
-            <p className="text-[11px] text-slate-400 mt-0.5">Dari Setup hingga Deployment</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Dari Setup hingga Rilis APK</p>
           </div>
           <div className="h-12 w-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 font-bold">
             <BookOpen className="w-6 h-6 text-sky-600" />
@@ -170,7 +170,7 @@ export default function AdminOverviewPage() {
 
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Total Materi Praktik
             </span>
             <div className="text-xl sm:text-2xl font-extrabold text-sky-600 mt-1">
@@ -185,7 +185,7 @@ export default function AdminOverviewPage() {
 
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            <span className="text-xs font-bold text-slate-500">
               Prompt AI Terstruktur
             </span>
             <div className="text-xl sm:text-2xl font-extrabold text-teal-600 mt-1">
@@ -210,7 +210,7 @@ export default function AdminOverviewPage() {
               Komposisi persentase kelulusan dan peninjauan karya peserta
             </p>
           </div>
-          <span className="text-xs font-mono font-bold text-slate-600">
+          <span className="text-xs font-bold text-slate-600">
             Total {totalSubmissions} Karya Terkumpul
           </span>
         </div>
@@ -219,22 +219,22 @@ export default function AdminOverviewPage() {
         <div className="w-full bg-slate-100 rounded-full h-4 overflow-hidden flex mb-4">
           <div
             style={{ width: `${(countAccepted / (totalSubmissions || 1)) * 100}%` }}
-            className="bg-emerald-500 transition-all duration-500"
+            className="bg-emerald-500 transition-colors duration-500"
             title={`Diterima: ${countAccepted}`}
           />
           <div
             style={{ width: `${(countPending / (totalSubmissions || 1)) * 100}%` }}
-            className="bg-amber-400 transition-all duration-500"
+            className="bg-amber-400 transition-colors duration-500"
             title={`Menunggu: ${countPending}`}
           />
           <div
             style={{ width: `${(countRevision / (totalSubmissions || 1)) * 100}%` }}
-            className="bg-orange-500 transition-all duration-500"
+            className="bg-orange-500 transition-colors duration-500"
             title={`Perlu Revisi: ${countRevision}`}
           />
           <div
             style={{ width: `${(countRejected / (totalSubmissions || 1)) * 100}%` }}
-            className="bg-rose-500 transition-all duration-500"
+            className="bg-rose-500 transition-colors duration-500"
             title={`Ditolak: ${countRejected}`}
           />
         </div>
@@ -263,7 +263,7 @@ export default function AdminOverviewPage() {
       {/* Recent Submissions Table */}
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
         {/* ----------------------------------------------------------- */}
-        {/* Progres belajar seluruh peserta — dari database, bukan contoh */}
+        {/* Progres belajar seluruh peserta - dari database, bukan contoh */}
         {/* ----------------------------------------------------------- */}
         <div className="flex items-center justify-between mb-4">
           <div>
@@ -271,11 +271,11 @@ export default function AdminOverviewPage() {
             <p className="text-xs text-slate-500">
               {statistik
                 ? `${statistik.sudahKumpul} sudah mengumpulkan karya, ${statistik.belumKumpul} belum`
-                : "Memuat data peserta..."}
+                : "Memuat data peserta…"}
             </p>
           </div>
           <Button variant="outline" size="sm" className="text-xs gap-2" onClick={muatData} disabled={memuat}>
-            <RefreshCw className={`w-3.5 h-3.5 ${memuat ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${memuat ? "animate-spin motion-reduce:animate-none" : ""}`} />
             Muat Ulang
           </Button>
         </div>
@@ -291,7 +291,7 @@ export default function AdminOverviewPage() {
           )}
 
           {memuat ? (
-            <div className="p-10 text-center text-sm text-slate-400">Memuat data peserta...</div>
+            <div className="p-10 text-center text-sm text-slate-400">Memuat data peserta…</div>
           ) : peserta.length === 0 ? (
             <div className="p-10 text-center">
               <Users className="w-10 h-10 text-slate-300 mx-auto mb-3" />
@@ -305,11 +305,11 @@ export default function AdminOverviewPage() {
               <table className="w-full text-left">
                 <thead className="bg-slate-50 border-b border-slate-200">
                   <tr>
-                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Peserta</th>
-                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 text-center">Materi Selesai</th>
-                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 text-center">Status Karya</th>
-                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 text-center">Skor</th>
-                    <th className="py-3 px-4 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Waktu Kumpul</th>
+                    <th className="py-3 px-4 text-[11px] font-extrabold text-slate-500">Peserta</th>
+                    <th className="py-3 px-4 text-[11px] font-extrabold text-slate-500 text-center">Materi Selesai</th>
+                    <th className="py-3 px-4 text-[11px] font-extrabold text-slate-500 text-center">Status Karya</th>
+                    <th className="py-3 px-4 text-[11px] font-extrabold text-slate-500 text-center">Skor</th>
+                    <th className="py-3 px-4 text-[11px] font-extrabold text-slate-500">Waktu Kumpul</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -319,7 +319,7 @@ export default function AdminOverviewPage() {
                       <tr key={pp.id} className="hover:bg-slate-50/60 transition-colors">
                         <td className="py-3.5 px-4">
                           <div className="flex items-center gap-2.5">
-                            <span className="h-8 w-8 rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-white text-[11px] font-bold flex items-center justify-center shrink-0">
+                            <span className="h-8 w-8 rounded-full bg-accent text-sheet text-[11px] font-bold flex items-center justify-center shrink-0">
                               {(pp.full_name || pp.email || "?").charAt(0).toUpperCase()}
                             </span>
                             <div className="min-w-0">
@@ -351,12 +351,12 @@ export default function AdminOverviewPage() {
                               pp.skor_akhir >= 85 ? "text-emerald-600" : pp.skor_akhir >= 70 ? "text-sky-600" : "text-amber-600"
                             }`}>{pp.skor_akhir}</span>
                           ) : (
-                            <span className="text-xs text-slate-300">—</span>
+                            <span className="text-xs text-slate-300">-</span>
                           )}
                         </td>
                         <td className="py-3.5 px-4">
                           <span className="text-[11px] text-slate-500">
-                            {pp.submitted_at ? formatDate(pp.submitted_at) : "—"}
+                            {pp.submitted_at ? formatDate(pp.submitted_at) : "-"}
                           </span>
                         </td>
                       </tr>
@@ -379,7 +379,7 @@ export default function AdminOverviewPage() {
           </div>
           <Link href="/admin/submissions">
             <Button variant="outline" size="sm" className="text-xs">
-              Lihat Seluruh Karya &rarr;
+              Lihat Seluruh Karya
             </Button>
           </Link>
         </div>
@@ -387,7 +387,7 @@ export default function AdminOverviewPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-wider text-[11px] bg-slate-50/75">
+              <tr className="border-b border-slate-200 text-slate-400 text-[11px] bg-slate-50/75">
                 <th className="py-3 px-4 font-semibold">Peserta</th>
                 <th className="py-3 px-4 font-semibold">Institusi</th>
                 <th className="py-3 px-4 font-semibold">Judul Proyek</th>
@@ -414,7 +414,7 @@ export default function AdminOverviewPage() {
                       href={sub.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sky-600 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                      className="text-sky-600 hover:underline flex items-center gap-1 font-medium text-[11px]"
                     >
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
@@ -424,9 +424,31 @@ export default function AdminOverviewPage() {
                         href={sub.apk_url || sub.deployment_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                        className="text-emerald-700 hover:underline flex items-center gap-1 font-medium text-[11px]"
                       >
                         <span>{sub.apk_url ? "Link APK" : "Live URL"}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {sub.demo_video_url && (
+                      <a
+                        href={sub.demo_video_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-amber-700 hover:underline flex items-center gap-1 font-medium text-[11px]"
+                      >
+                        <span>Video Demo</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {sub.screenshot_url && (
+                      <a
+                        href={sub.screenshot_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-600 hover:underline flex items-center gap-1 font-medium text-[11px]"
+                      >
+                        <span>Screenshot</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}

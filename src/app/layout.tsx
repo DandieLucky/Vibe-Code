@@ -55,7 +55,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#FAF6F0] text-[#2B211B] antialiased selection:bg-[#C4552D] selection:text-[#FDFBF7]">
+      <body className="min-h-screen flex flex-col bg-paper text-ink antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

@@ -11,7 +11,7 @@
  * terkendali dan tetap dalam batas free tier.
  */
 
-import { parseGithubRepo } from "./github-check";
+import { parseGithubRepo, githubHeaders } from "./github-check";
 
 export interface AiScores {
   codeQuality: number;
@@ -70,16 +70,6 @@ function scoreFile(path: string): number {
   return 10;
 }
 
-function ghHeaders(): HeadersInit {
-  const h: Record<string, string> = {
-    Accept: "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-    "User-Agent": "composelab-smkn1-scoring",
-  };
-  if (process.env.GITHUB_TOKEN) h.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-  return h;
-}
-
 /** Ambil isi file paling informatif dari repo. */
 export async function fetchRepoCode(
   url: string
@@ -89,7 +79,7 @@ export async function fetchRepoCode(
 
   try {
     const metaRes = await fetch(`https://api.github.com/repos/${repoPath}`, {
-      headers: ghHeaders(),
+      headers: githubHeaders(),
       cache: "no-store",
     });
     if (!metaRes.ok) {
@@ -99,7 +89,7 @@ export async function fetchRepoCode(
 
     const treeRes = await fetch(
       `https://api.github.com/repos/${repoPath}/git/trees/${meta.default_branch}?recursive=1`,
-      { headers: ghHeaders(), cache: "no-store" }
+      { headers: githubHeaders(), cache: "no-store" }
     );
     if (!treeRes.ok) {
       return { files: [], error: `Tidak bisa membaca daftar file (HTTP ${treeRes.status}).` };
@@ -123,7 +113,7 @@ export async function fetchRepoCode(
       try {
         const blobRes = await fetch(
           `https://api.github.com/repos/${repoPath}/git/blobs/${f.sha}`,
-          { headers: ghHeaders(), cache: "no-store" }
+          { headers: githubHeaders(), cache: "no-store" }
         );
         if (!blobRes.ok) continue;
         const blob = await blobRes.json();

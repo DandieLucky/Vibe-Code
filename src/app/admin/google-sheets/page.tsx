@@ -169,7 +169,7 @@ export default function AdminGoogleSheetsPage() {
           </div>
           <p className="mt-1 pl-7">{syncStatus.message}</p>
           {syncStatus.lastSyncTime && (
-            <div className="mt-2 pl-7 text-[11px] font-mono text-slate-500">
+            <div className="mt-2 pl-7 text-[11px] text-slate-500">
               Waktu sinkronisasi terakhir: {new Date(syncStatus.lastSyncTime).toLocaleString("id-ID")}
             </div>
           )}

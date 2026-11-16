@@ -140,18 +140,18 @@ function DashboardPesertaInner() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="bg-paper min-h-screen">
         {/* Pintasan tutorial */}
-        <div className="bg-slate-900 text-white">
+        <div className="bg-ink text-sheet">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <p className="text-sm font-bold flex items-center gap-2">
-                <Rocket className="w-4 h-4 text-sky-400" />
-                Ikuti tutorial langkah demi langkah — lengkap dengan gambar panduan
+                <Rocket className="w-4 h-4 text-accent-2" />
+                Ikuti tutorial langkah demi langkah, lengkap dengan panduan hasil
               </p>
               <div className="flex gap-2">
                 <Link href="/tutorial/persiapan">
-                  <Button size="sm" variant="outline" className="border-slate-600 text-white hover:bg-slate-800 font-semibold">
+                  <Button size="sm" variant="outline" className="border-umber bg-umber text-sheet hover:bg-ink font-semibold">
                     Persiapan
                   </Button>
                 </Link>
@@ -167,19 +167,18 @@ function DashboardPesertaInner() {
       <div className="py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
-          <Link href="/" className="hover:text-slate-800">
+        <div className="flex items-center gap-2 text-xs text-muted mb-4">
+          <Link href="/beranda" className="hover:text-ink">
             Beranda
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="font-semibold text-slate-800">Dashboard Peserta</span>
+          <span className="font-semibold text-ink">Dashboard Peserta</span>
         </div>
 
         {/* Demo Mode Notice Banner */}
         {isDemoMode && (
-          <div className="mb-6 rounded-xl border border-sky-200 bg-sky-50/70 p-4 text-xs text-sky-900 flex items-center justify-between flex-wrap gap-2">
+          <div className="mb-6 rounded-xl border border-rule bg-paper-2 p-4 text-xs text-ink flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse"></span>
               <span>
                 <strong>Mode Demonstrasi:</strong> Progres belajar Anda tersimpan di browser ini saja.
                 Login agar progres tersimpan permanen dan tidak hilang saat berganti perangkat atau
@@ -195,22 +194,22 @@ function DashboardPesertaInner() {
         )}
 
         {/* User Profile Header Card */}
-        <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-6 sm:p-8 shadow-xs mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-2xl bg-[#C4552D] text-[#FDFBF7] flex items-center justify-center font-bold text-2xl shadow-sm">
+            <div className="h-16 w-16 rounded-2xl bg-accent text-sheet flex items-center justify-center font-bold text-2xl shadow-sm">
               <User className="w-8 h-8" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-extrabold text-[#2B211B]">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-ink">
                   {currentUser?.full_name ?? "Siswa ComposeLab SMKN 1"}
                 </h1>
                 <Badge variant="teal" className="text-[10px]">
                   Siswa Aktif
                 </Badge>
               </div>
-              <p className="text-xs sm:text-sm text-[#5D4E43] mt-1">
-                Program Pelatihan Android Kotlin, Jetpack Compose &amp; Room Database — SMKN 1 Jakarta
+              <p className="text-xs sm:text-sm text-ink-2 mt-1">
+                Program Pelatihan Android Kotlin, Jetpack Compose &amp; Room Database, SMKN 1 Jakarta
               </p>
             </div>
           </div>
@@ -232,65 +231,62 @@ function DashboardPesertaInner() {
 
         {/* Key Metrics Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-          <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-5 shadow-2xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6A5A4E]">
+          <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
+            <span className="text-xs font-bold text-muted">
               Total Modul
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#2B211B] mt-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-ink mt-1">
               {MODULES_DATA.length} Modul
             </div>
-            <p className="text-[11px] text-[#6A5A4E] mt-1">Pelatihan 3 Hari</p>
+            <p className="text-[11px] text-muted mt-1">Pelatihan 3 Hari</p>
           </div>
 
-          <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-5 shadow-2xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#6A5A4E]">
+          <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
+            <span className="text-xs font-bold text-muted">
               Materi Selesai
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[#C4552D] mt-1">
-              {totalCompleted} <span className="text-sm text-[#6A5A4E] font-normal">/ {totalLessons}</span>
+            <div className="text-2xl sm:text-3xl font-extrabold text-accent mt-1">
+              {totalCompleted} <span className="text-sm text-muted font-normal">/ {totalLessons}</span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">Praktik Tuntas</p>
+            <p className="text-[11px] text-muted mt-1">Praktik Tuntas</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
+            <span className="text-xs font-bold text-muted">
               Persentase Progres
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-teal-600 mt-1">
+            <div className="text-2xl sm:text-3xl font-extrabold text-emerald-700 mt-1">
               {progressPercent}%
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">Kelulusan Kurikulum</p>
+            <p className="text-[11px] text-muted mt-1">Kelulusan Kurikulum</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
+            <span className="text-xs font-bold text-muted">
               Status Karya
             </span>
             <div className="mt-2">
               {userSubmission ? (
                 <SubmissionStatusBadge status={userSubmission.submission_status} />
               ) : (
-                <span className="text-xs font-semibold text-slate-500">
+                <span className="text-xs font-semibold text-muted">
                   Belum Dikumpulkan
                 </span>
               )}
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">Evaluasi Fasilitator</p>
+            <p className="text-[11px] text-muted mt-1">Evaluasi Fasilitator</p>
           </div>
         </div>
 
         {/* Next Lesson Recommendation Card */}
         {nextLessonToStudy && (
-          <div className="rounded-2xl border-2 border-sky-300 bg-gradient-to-r from-sky-50 via-white to-white p-6 shadow-sm mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="rounded-2xl border-2 border-rule bg-paper-2 p-6 shadow-sm mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-sky-700 mb-1">
-                <Sparkles className="w-4 h-4 text-sky-600" />
-                <span>Rekomendasi Materi Selanjutnya</span>
-              </div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900">
-                Modul {nextLessonToStudy.module.module_number}.{nextLessonToStudy.lesson.lesson_number}: {nextLessonToStudy.lesson.title}
+              <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span>Rekomendasi Materi: Modul {nextLessonToStudy.module.module_number}.{nextLessonToStudy.lesson.lesson_number} {nextLessonToStudy.lesson.title}</span>
               </h2>
-              <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">
+              <p className="text-xs text-ink-2 mt-1 line-clamp-1">
                 {nextLessonToStudy.lesson.description}
               </p>
             </div>
@@ -299,7 +295,7 @@ function DashboardPesertaInner() {
               className="shrink-0"
             >
               <Button variant="accent" size="md" className="font-bold shadow-sm">
-                Lanjutkan Belajar &rarr;
+                Lanjutkan Belajar
               </Button>
             </Link>
           </div>
@@ -308,9 +304,9 @@ function DashboardPesertaInner() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Module Progress Breakdown */}
           <div className="lg:col-span-8 space-y-6">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <h2 className="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-sky-600" />
+            <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+              <h2 className="text-base font-bold text-ink mb-4 flex items-center gap-2">
+                <Layers className="w-4 h-4 text-accent" />
                 <span>Rincian Progres Per Modul</span>
               </h2>
 
@@ -324,22 +320,22 @@ function DashboardPesertaInner() {
                   return (
                     <div
                       key={module.id}
-                      className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+                      className="p-4 rounded-xl border border-rule bg-paper hover:bg-paper-2 transition-colors"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <Link
                           href={`/kurikulum/${module.slug}`}
-                          className="text-xs sm:text-sm font-bold text-slate-800 hover:text-sky-600 transition-colors"
+                          className="text-xs sm:text-sm font-bold text-ink hover:text-accent transition-colors"
                         >
                           Modul {module.module_number}: {module.title}
                         </Link>
-                        <span className="font-mono text-xs font-semibold text-slate-600">
+                        <span className="font-mono text-xs font-semibold text-ink-2">
                           {doneInMod}/{module.lessons.length} ({modPct}%)
                         </span>
                       </div>
-                      <div className="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+                      <div className="w-full bg-paper-3 rounded-full h-1.5 overflow-hidden">
                         <div
-                          className="bg-sky-600 h-1.5 rounded-full transition-all duration-300"
+                          className="bg-accent h-1.5 rounded-full transition-colors duration-300"
                           style={{ width: `${modPct}%` }}
                         />
                       </div>

@@ -101,18 +101,18 @@ export default function ProfilPage() {
 
   if (loading) {
     return (
-      <div className="bg-slate-50 min-h-screen flex items-center justify-center">
-        <p className="text-sm text-slate-500">Memuat profil...</p>
+      <div className="bg-paper min-h-screen flex items-center justify-center">
+        <p className="text-sm text-muted">Memuat profil…</p>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div className="bg-slate-50 min-h-screen flex items-center justify-center px-4">
+      <div className="bg-paper min-h-screen flex items-center justify-center px-4">
         <div className="max-w-md text-center">
           <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-3" />
-          <p className="text-sm text-slate-600">{errorMsg || "Profil tidak dapat dimuat."}</p>
+          <p className="text-sm text-ink-2">{errorMsg || "Profil tidak dapat dimuat."}</p>
           <Link href="/login" className="inline-block mt-4">
             <Button variant="primary" size="sm">Masuk</Button>
           </Link>
@@ -126,27 +126,27 @@ export default function ProfilPage() {
     profile.role === "instructor" ? "Instruktur" : "Peserta";
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
+    <div className="bg-paper min-h-screen py-10 sm:py-14">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
-          <Link href="/" className="hover:text-slate-800">Beranda</Link>
+        <div className="flex items-center gap-2 text-xs text-muted mb-4">
+          <Link href="/beranda" className="hover:text-ink">Beranda</Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="font-semibold text-slate-800">Pengaturan Profil</span>
+          <span className="font-semibold text-ink">Pengaturan Profil</span>
         </div>
 
         <div className="flex items-center gap-4 mb-8">
-          <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center shadow-md">
+          <div className="h-16 w-16 rounded-2xl bg-accent text-sheet flex items-center justify-center shadow-sm">
             <User className="w-8 h-8" />
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-ink">
               {profile.full_name || "Peserta"}
             </h1>
             <div className="flex items-center gap-2 mt-1">
               <Badge variant={profile.role === "admin" ? "teal" : "default"} className="text-[10px]">
                 {roleLabel}
               </Badge>
-              <span className="text-xs text-slate-500">{profile.email}</span>
+              <span className="text-xs text-muted">{profile.email}</span>
             </div>
           </div>
         </div>

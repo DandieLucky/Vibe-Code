@@ -2,6 +2,7 @@
  * hero: Corridor · nav: masthead · footer: statement · imagery: the product · signature: interactive SakuSiswa prompt-to-compose workbench
  * axes: light/grotesk-sans/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: none, scoped under .bloom-page to preserve shared app routes */
+/* Hallmark · waive 26b · interactive controls on /beranda are navigation links and tab buttons with no disabled state · SakuSiswa workbench tabs are always enabled */
 @import "./tokens.css";
 
 .bloom-page {

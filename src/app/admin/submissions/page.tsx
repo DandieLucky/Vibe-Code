@@ -189,7 +189,7 @@ export default function AdminSubmissionsPage() {
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Cari nama, email, institusi, atau judul..."
+            placeholder="Cari nama, email, institusi, atau judul…"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -242,7 +242,7 @@ export default function AdminSubmissionsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[11px] bg-slate-50">
+              <tr className="border-b border-slate-200 text-slate-500 text-[11px] bg-slate-50">
                 <th className="py-3 px-3.5 font-bold w-12 text-center">No</th>
                 <th className="py-3 px-4 font-bold">Identitas Peserta</th>
                 <th className="py-3 px-4 font-bold">Institusi</th>
@@ -281,7 +281,7 @@ export default function AdminSubmissionsPage() {
                       href={sub.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sky-600 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                      className="text-sky-600 hover:underline flex items-center gap-1 font-medium text-[11px]"
                     >
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
@@ -291,7 +291,7 @@ export default function AdminSubmissionsPage() {
                         href={sub.apk_url || sub.deployment_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-emerald-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                        className="text-emerald-700 hover:underline flex items-center gap-1 font-medium text-[11px]"
                       >
                         <span>{sub.apk_url ? "Link APK" : "Live URL"}</span>
                         <ExternalLink className="w-3 h-3" />
@@ -302,9 +302,20 @@ export default function AdminSubmissionsPage() {
                         href={sub.demo_video_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-amber-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                        className="text-amber-700 hover:underline flex items-center gap-1 font-medium text-[11px]"
                       >
                         <span>Video Demo</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {sub.screenshot_url && (
+                      <a
+                        href={sub.screenshot_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-600 hover:underline flex items-center gap-1 font-medium text-[11px]"
+                      >
+                        <span>Screenshot</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
@@ -342,7 +353,7 @@ export default function AdminSubmissionsPage() {
 
         {memuat && (
           <div className="text-center py-12 p-4">
-            <Clock className="w-10 h-10 text-slate-300 mx-auto mb-2 animate-pulse" />
+            <Clock className="w-10 h-10 text-slate-300 mx-auto mb-2 animate-pulse motion-reduce:animate-none" />
             <h3 className="text-sm font-bold text-slate-700">Memuat karya peserta…</h3>
           </div>
         )}
@@ -492,7 +503,7 @@ export default function AdminSubmissionsPage() {
                   Keputusan Penilaian Administrator
                 </h3>
                 {saveSuccessMsg && (
-                  <span className="text-xs text-emerald-600 font-bold flex items-center gap-1 animate-in fade-in">
+                  <span className="text-xs text-emerald-600 font-bold flex items-center gap-1">
                     <Check className="w-4 h-4" /> Penilaian Berhasil Disimpan!
                   </span>
                 )}
@@ -501,7 +512,7 @@ export default function AdminSubmissionsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Status Selection */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700">
                     Status Kelulusan Karya
                   </label>
                   <select
@@ -517,10 +528,10 @@ export default function AdminSubmissionsPage() {
                 </div>
 
                 {/* --------------------------------------------------------- */}
-                {/* Penilaian — hasil otomatis tetap ada, admin bisa mengubah */}
+                {/* Penilaian - hasil otomatis tetap ada, admin bisa mengubah */}
                 {/* --------------------------------------------------------- */}
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">
+                  <p className="text-[11px] font-extrabold text-slate-500 mb-1">
                     Penilaian
                   </p>
                   <p className="text-[11px] text-slate-500 mb-3 leading-relaxed">
@@ -534,7 +545,7 @@ export default function AdminSubmissionsPage() {
                       type="number" min="0" max="100"
                       value={gradingTechnical}
                       onChange={(e) => setGradingTechnical(e.target.value)}
-                      placeholder="Otomatis dari GitHub + situs live"
+                      placeholder="Otomatis dari GitHub + APK"
                     />
                     <Input
                       label="Nilai AI (0 - 100)"
@@ -555,20 +566,20 @@ export default function AdminSubmissionsPage() {
                       type="text"
                       value={gradingPenaltyReason}
                       onChange={(e) => setGradingPenaltyReason(e.target.value)}
-                      placeholder="Contoh: situs tidak dapat dibuka"
+                      placeholder="Contoh: repository tidak dapat dibuka"
                     />
                   </div>
 
                   <div className="mt-3 rounded-lg bg-white border border-slate-200 px-3 py-2.5">
                     <p className="text-[11px] text-slate-500">
-                      Skor akhir = <strong>40% nilai teknis + 60% nilai AI − potongan</strong>
+                      Skor akhir = <strong>40% nilai teknis + 60% nilai AI - potongan</strong>
                     </p>
                     <p className="text-lg font-extrabold text-slate-900 mt-0.5">
                       {(() => {
                         const t = gradingTechnical === "" ? 0 : Number(gradingTechnical);
                         const a = gradingAi === "" ? 0 : Number(gradingAi);
                         const pen = gradingPenalty === "" ? 0 : Number(gradingPenalty);
-                        if (gradingTechnical === "" && gradingAi === "") return "—";
+                        if (gradingTechnical === "" && gradingAi === "") return "-";
                         return Math.max(0, Math.round(t * 0.4 + a * 0.6 - pen));
                       })()}
                       <span className="text-xs font-semibold text-slate-400"> / 100</span>
@@ -583,7 +594,7 @@ export default function AdminSubmissionsPage() {
                 rows={3}
                 value={gradingNotes}
                 onChange={(e) => setGradingNotes(e.target.value)}
-                placeholder="Tuliskan apresiasi, kriteria yang belum terpenuhi, atau instruksi perbaikan untuk siswa..."
+                placeholder="Tuliskan apresiasi, kriteria yang belum terpenuhi, atau instruksi perbaikan untuk siswa…"
               />
 
               <div className="flex justify-end gap-3 pt-2">

@@ -52,10 +52,10 @@ export function CopyButton({
         onClick={handleCopy}
         aria-label="Salin ke clipboard"
         className={cn(
-          "inline-flex items-center justify-center h-8 w-8 rounded-lg border transition-all duration-200 focus:outline-none",
+          "inline-flex items-center justify-center h-8 w-8 rounded-lg border transition-colors duration-200 focus:outline-none",
           copied
             ? "bg-emerald-50 border-emerald-300 text-emerald-600"
-            : "bg-white border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+            : "bg-sheet border-rule text-ink-2 hover:bg-paper-2 hover:text-ink",
           className
         )}
       >
@@ -70,21 +70,21 @@ export function CopyButton({
         type="button"
         onClick={handleCopy}
         className={cn(
-          "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200 focus:outline-none",
+          "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors duration-200 focus:outline-none",
           copied
             ? "bg-emerald-50 border-emerald-400 text-emerald-700"
-            : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50",
+            : "bg-sheet border-rule text-ink-2 hover:bg-paper-2",
           className
         )}
       >
         {copied ? (
           <>
-            <Check className="w-3.5 h-3.5 text-emerald-600 animate-in zoom-in" />
+            <Check className="w-3.5 h-3.5 text-emerald-600" />
             <span>{copiedLabel}</span>
           </>
         ) : (
           <>
-            <Copy className="w-3.5 h-3.5 text-slate-500" />
+            <Copy className="w-3.5 h-3.5 text-muted" />
             <span>{label}</span>
           </>
         )}
@@ -98,10 +98,10 @@ export function CopyButton({
       type="button"
       onClick={handleCopy}
       className={cn(
-        "inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold shadow-sm transition-all duration-200 active:scale-95",
+        "inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold shadow-sm transition-colors duration-200 active:scale-95",
         copied
           ? "bg-emerald-600 text-white hover:bg-emerald-700 ring-2 ring-emerald-300"
-          : "bg-sky-600 text-white hover:bg-sky-700 ring-1 ring-sky-700/20",
+          : "bg-accent text-sheet hover:bg-rubber-lo",
         className
       )}
     >

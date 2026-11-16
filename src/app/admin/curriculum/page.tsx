@@ -258,9 +258,9 @@ export default function AdminCurriculumCMSPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: 12 Modules Nav List */}
+        {/* Left Column: 6 Modules Nav List */}
         <div className="lg:col-span-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-2">
             <span>Daftar Modul ({modules.length})</span>
             <span>Urutan</span>
           </div>
@@ -272,7 +272,7 @@ export default function AdminCurriculumCMSPage() {
                 <div
                   key={m.id}
                   onClick={() => setSelectedModule(m)}
-                  className={`p-3.5 rounded-xl border cursor-pointer transition-all ${
+                  className={`p-3.5 rounded-xl border cursor-pointer transition-colors ${
                     isSelected
                       ? "bg-slate-900 text-white border-slate-900 shadow-sm"
                       : "bg-white text-slate-800 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
@@ -280,13 +280,13 @@ export default function AdminCurriculumCMSPage() {
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span
-                      className={`font-mono text-[10px] font-bold px-1.5 py-0.2 rounded ${
+                      className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
                         isSelected
                           ? "bg-sky-500/20 text-sky-300"
                           : "bg-slate-100 text-slate-600"
                       }`}
                     >
-                      MODUL {m.module_number}
+                      Modul {m.module_number}
                     </span>
                     <span className="text-[11px] opacity-75">
                       {m.lessons.length} Materi
@@ -306,13 +306,13 @@ export default function AdminCurriculumCMSPage() {
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="font-mono text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
-                    MODUL {selectedModule.module_number}
+                  <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                    Modul {selectedModule.module_number}
                   </span>
                   <Badge variant="default" className="text-[10px]">
                     {selectedModule.difficulty_level}
                   </Badge>
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-slate-400">
                     ±{selectedModule.estimated_minutes} Menit
                   </span>
                 </div>
@@ -351,7 +351,7 @@ export default function AdminCurriculumCMSPage() {
 
             {/* Lessons Section Header */}
             <div className="pt-4 flex items-center justify-between">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <h3 className="text-xs font-bold text-slate-500">
                 Materi di Modul Ini ({selectedModule.lessons.length})
               </h3>
               <Button
@@ -371,7 +371,7 @@ export default function AdminCurriculumCMSPage() {
               {selectedModule.lessons.map((lesson) => (
                 <div
                   key={lesson.id}
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-slate-50/60 hover:bg-white transition-all gap-3"
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-slate-50/60 hover:bg-white transition-colors gap-3"
                 >
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs font-bold text-slate-400 w-8">
@@ -389,7 +389,7 @@ export default function AdminCurriculumCMSPage() {
 
                   <div className="flex items-center gap-2 shrink-0">
                     {lesson.antigravity_prompt && (
-                      <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-mono font-medium hidden sm:inline">
+                      <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-medium hidden sm:inline">
                         Prompt AI
                       </span>
                     )}
@@ -440,7 +440,7 @@ export default function AdminCurriculumCMSPage() {
               required
             />
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase text-slate-700">
+              <label className="text-xs font-bold text-slate-700">
                 Tingkat Kesulitan
               </label>
               <select
@@ -569,7 +569,7 @@ export default function AdminCurriculumCMSPage() {
 
           {/* Antigravity Prompt Builder Fields */}
           <div className="p-4 rounded-xl bg-sky-50/50 border border-sky-100 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-900 block">
+            <span className="text-xs font-bold text-sky-900 block">
               Prompt AI Terstruktur (Formula 6-Bagian)
             </span>
             <Input
@@ -581,7 +581,7 @@ export default function AdminCurriculumCMSPage() {
                   promptTujuan: e.target.value,
                 })
               }
-              placeholder="Apa yang akan dibuat oleh AI..."
+              placeholder="Apa yang akan dibuat oleh AI…"
             />
             <Textarea
               label="Instruksi Teknis (Satu per baris)"
@@ -593,7 +593,7 @@ export default function AdminCurriculumCMSPage() {
                   promptInstruksi: e.target.value,
                 })
               }
-              placeholder="1. Buat file X&#10;2. Tambahkan fungsi Y..."
+              placeholder="1. Buat file X&#10;2. Tambahkan fungsi Y…"
             />
             <Textarea
               label="Batasan (Satu per baris)"
@@ -605,7 +605,7 @@ export default function AdminCurriculumCMSPage() {
                   promptBatasan: e.target.value,
                 })
               }
-              placeholder="Jangan ubah file layout&#10;Gunakan hanya Tailwind CSS..."
+              placeholder="Jangan ubah file layout&#10;Gunakan hanya Jetpack Compose Material 3…"
             />
           </div>
 

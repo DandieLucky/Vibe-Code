@@ -175,7 +175,7 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
                           type="button"
                           onClick={() => handleSelectQuizOption(qIdx, optIdx)}
                           disabled={isChecked}
-                          className={`w-full text-left px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between ${optionClasses}`}
+                          className={`w-full text-left px-4 py-2.5 rounded-xl border text-xs sm:text-sm transition-colors flex items-center justify-between ${optionClasses}`}
                         >
                           <span>{opt}</span>
                           {isChecked && optIdx === q.correctIndex && (
@@ -228,7 +228,7 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
             </h3>
           </div>
           {noteSaved && (
-            <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1 animate-in fade-in">
+            <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
               <Check className="w-3.5 h-3.5" /> Tersimpan!
             </span>
           )}
@@ -237,8 +237,8 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
           rows={3}
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="Tuliskan catatan penting, nomor port, atau ringkasan pemahaman Anda di sini (tersimpan otomatis di browser)..."
-          className="w-full p-3 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-slate-50/50"
+          placeholder="Tuliskan catatan penting, alur logika, atau ringkasan pemahaman Anda di sini (tersimpan otomatis di browser)…"
+          className="w-full p-3 rounded-xl border border-rule text-xs sm:text-sm text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent bg-paper"
         />
         <div className="mt-2.5 flex justify-end">
           <Button
@@ -255,26 +255,26 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
       </div>
 
       {/* 3. Action Bar: Bookmark & Mark as Completed */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-md">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-ink text-sheet shadow-md">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={toggleBookmark}
-            className={`p-2.5 rounded-xl border transition-all ${
+            className={`p-2.5 rounded-xl border transition-colors ${
               isBookmarked
                 ? "bg-amber-500/20 text-amber-300 border-amber-400/40"
-                : "bg-slate-800 text-slate-300 border-slate-700 hover:text-white"
+                : "bg-umber text-paper-3 border-rule hover:text-white"
             }`}
             title={isBookmarked ? "Hapus dari Bookmark" : "Simpan ke Bookmark"}
           >
             <Bookmark className={`w-5 h-5 ${isBookmarked ? "fill-amber-400" : ""}`} />
           </button>
           <div>
-            <div className="text-xs font-semibold text-slate-300">
+            <div className="text-xs font-semibold text-paper">
               {isBookmarked ? "Tersimpan di Bookmark" : "Simpan materi untuk dibuka lagi nanti"}
             </div>
-            <div className="text-[11px] text-slate-400">
-              Progres tersimpan di browser & database akun Anda
+            <div className="text-[11px] text-paper-3">
+              Progres tersimpan di browser &amp; database akun Anda
             </div>
           </div>
         </div>
@@ -283,7 +283,7 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
           type="button"
           onClick={toggleComplete}
           variant={isCompleted ? "teal" : "accent"}
-          className={`font-bold px-6 py-2.5 text-sm shadow-md transition-all ${
+          className={`font-bold px-6 py-2.5 text-sm shadow-md transition-colors ${
             isCompleted ? "bg-emerald-600 hover:bg-emerald-700 ring-2 ring-emerald-300" : ""
           }`}
         >

@@ -133,21 +133,21 @@ function RegisterPageInner() {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FAF6F0]">
-      <div className="w-full max-w-lg space-y-8 bg-[#FDFBF7] p-8 sm:p-10 rounded-2xl border border-[#E6DDD2] shadow-sm">
+    <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-paper">
+      <div className="w-full max-w-lg space-y-8 bg-sheet p-8 sm:p-10 rounded-2xl border border-rule shadow-sm">
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="h-10 w-10 rounded-xl bg-[#C4552D] text-[#FDFBF7] flex items-center justify-center font-bold">
+            <div className="h-10 w-10 rounded-xl bg-accent text-sheet flex items-center justify-center font-bold">
               <Code2 className="w-6 h-6" />
             </div>
-            <span className="font-extrabold text-xl text-[#2B211B] tracking-tight">
+            <span className="font-extrabold text-xl text-ink tracking-tight">
               COMPOSELAB SMKN 1
             </span>
           </Link>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-[#2B211B] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-extrabold text-ink tracking-tight">
             Pendaftaran Siswa Baru
           </h2>
-          <p className="mt-1 text-xs text-[#6A5A4E]">
+          <p className="mt-1 text-xs text-muted">
             Daftar untuk menyimpan progres belajar dan pengumpulan karya Android
           </p>
         </div>
@@ -207,7 +207,7 @@ function RegisterPageInner() {
             value={formData.institution}
             onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
             error={formErrors.institution}
-            placeholder="Contoh: X RPL 1 — SMKN 1 Jakarta"
+            placeholder="Contoh: X RPL 1, SMKN 1 Jakarta"
             required
           />
 
@@ -251,18 +251,19 @@ function RegisterPageInner() {
 
           <Button
             type="submit"
+            variant="accent"
             size="lg"
             isLoading={isLoading}
-            className="w-full font-bold mt-2 shadow-sm bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7]"
+            className="w-full font-bold mt-2 shadow-sm"
           >
             Daftar Sekarang
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </form>
 
-        <div className="text-center pt-2 border-t border-[#E6DDD2] text-xs text-[#6A5A4E]">
+        <div className="text-center pt-2 border-t border-rule text-xs text-muted">
           Sudah memiliki akun?{" "}
-          <Link href="/login" className="font-bold text-[#C4552D] hover:underline">
+          <Link href="/login" className="font-bold text-accent hover:underline">
             Masuk di Sini
           </Link>
         </div>
@@ -275,7 +276,7 @@ function RegisterPageInner() {
 /** Dibungkus Suspense karena membaca parameter URL (?redirect=). */
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="min-h-[85vh] bg-[#FAF6F0]" />}>
+    <Suspense fallback={<div className="min-h-[85vh] bg-paper" />}>
       <RegisterPageInner />
     </Suspense>
   );

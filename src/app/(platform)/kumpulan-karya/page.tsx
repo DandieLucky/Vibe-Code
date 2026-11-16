@@ -255,7 +255,7 @@ export default function KumpulanKaryaPage() {
   };
 
   return (
-    <div className="bg-[#FAF6F0] min-h-screen py-10 sm:py-14">
+    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
@@ -269,8 +269,8 @@ export default function KumpulanKaryaPage() {
         {/* Header Title & Notice */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded border border-sky-200">
-              MODUL WAJIB EVALUASI
+            <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded border border-sky-200">
+              Modul Wajib Evaluasi
             </span>
             <Badge variant="teal">Sertifikasi & Penilaian</Badge>
           </div>
@@ -287,7 +287,7 @@ export default function KumpulanKaryaPage() {
           <div className="mb-8 rounded-2xl border-2 border-emerald-300 bg-emerald-50/60 p-6 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-emerald-200">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                <span className="text-xs font-bold text-emerald-800">
                   Status Karya Anda:
                 </span>
                 <div className="mt-1">
@@ -321,17 +321,32 @@ export default function KumpulanKaryaPage() {
                   {userSubmission.github_url}
                 </a>
               </div>
-              <div>
-                <strong className="text-slate-900">Link Deployment Vercel: </strong>
-                <a
-                  href={userSubmission.deployment_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sky-700 font-semibold hover:underline"
-                >
-                  {userSubmission.deployment_url}
-                </a>
-              </div>
+              {(userSubmission.apk_url || userSubmission.deployment_url) && (
+                <div>
+                  <strong className="text-slate-900">Link File APK / Rilis: </strong>
+                  <a
+                    href={userSubmission.apk_url || userSubmission.deployment_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sky-700 font-semibold hover:underline"
+                  >
+                    {userSubmission.apk_url || userSubmission.deployment_url}
+                  </a>
+                </div>
+              )}
+              {userSubmission.demo_video_url && (
+                <div>
+                  <strong className="text-slate-900">Link Video Demo: </strong>
+                  <a
+                    href={userSubmission.demo_video_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sky-700 font-semibold hover:underline"
+                  >
+                    {userSubmission.demo_video_url}
+                  </a>
+                </div>
+              )}
               <div>
                 <strong className="text-slate-900">Modul Selesai: </strong>
                 {(userSubmission.completed_modules || []).length} Modul
@@ -351,7 +366,7 @@ export default function KumpulanKaryaPage() {
 
         {/* Submission Success Alert */}
         {submissionSuccess && (
-          <div className="mb-8 rounded-2xl border border-emerald-300 bg-emerald-50 p-6 text-emerald-900 animate-in fade-in">
+          <div className="mb-8 rounded-2xl border border-emerald-300 bg-emerald-50 p-6 text-emerald-900">
             <div className="flex items-center gap-3">
               <CheckCircle2 className="w-8 h-8 text-emerald-600 shrink-0" />
               <div>
@@ -363,7 +378,7 @@ export default function KumpulanKaryaPage() {
                 )}
                 <p className="text-xs text-emerald-800 mt-1">
                   Karya Anda sudah masuk ke database dan dapat dilihat administrator.
-                  Pengumpulan hanya dapat dilakukan <strong>satu kali</strong> — pastikan semua sudah benar.
+                  Pengumpulan hanya dapat dilakukan <strong>satu kali</strong>, pastikan semua sudah benar.
                 </p>
               </div>
             </div>
@@ -398,7 +413,7 @@ export default function KumpulanKaryaPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Identity Group */}
             <div className="space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <h3 className="text-xs font-bold text-slate-400">
                 1. Identitas Peserta
               </h3>
 
@@ -452,7 +467,7 @@ export default function KumpulanKaryaPage() {
 
             {/* Project Details Group */}
             <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <h3 className="text-xs font-bold text-slate-400">
                 2. Rincian Proyek Aplikasi
               </h3>
 
@@ -463,7 +478,7 @@ export default function KumpulanKaryaPage() {
                   setFormData({ ...formData, project_title: e.target.value })
                 }
                 error={formErrors.project_title}
-                placeholder="Contoh: SakuSiswa — Aplikasi Tugas Harian X RPL 1"
+                placeholder="Contoh: SakuSiswa, Aplikasi Tugas Harian X RPL 1"
                 required
               />
 
@@ -478,7 +493,7 @@ export default function KumpulanKaryaPage() {
                   })
                 }
                 error={formErrors.project_description}
-                placeholder="Jelaskan fitur utama aplikasi Android SakuSiswa, implementasi Room Database + Google Login, dan fitur kreasi tambahan Anda..."
+                placeholder="Jelaskan fitur utama aplikasi Android SakuSiswa, implementasi Room Database + Google Login, dan fitur kreasi tambahan Anda…"
                 required
               />
             </div>
@@ -486,10 +501,10 @@ export default function KumpulanKaryaPage() {
             {/* Completed Modules Checkbox Group */}
             <div className="space-y-3 pt-4 border-t border-slate-100">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                <h3 className="text-xs font-bold text-slate-400">
                   3. Modul yang Telah Diselesaikan
                 </h3>
-                <span className="text-xs text-sky-600 font-semibold font-mono">
+                <span className="text-xs text-sky-600 font-semibold">
                   {formData.completed_modules.length} dari {MODULES_DATA.length} Modul Dipilih
                 </span>
               </div>
@@ -510,8 +525,8 @@ export default function KumpulanKaryaPage() {
                       key={m.id}
                       className={`flex items-center gap-2.5 p-2 rounded-lg text-xs font-medium cursor-pointer transition-colors ${
                         isChecked
-                          ? "bg-sky-50 text-sky-900 border border-sky-200"
-                          : "bg-white text-slate-700 border border-slate-200/60 hover:bg-slate-100"
+                        ? "bg-sky-50 text-sky-900 border border-sky-200"
+                        : "bg-white text-slate-700 border border-slate-200/60 hover:bg-slate-100"
                       }`}
                     >
                       <input
@@ -529,7 +544,7 @@ export default function KumpulanKaryaPage() {
 
             {/* Repository & Android Links Group */}
             <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <h3 className="text-xs font-bold text-slate-400">
                 4. Tautan Karya Android
               </h3>
 
@@ -553,7 +568,7 @@ export default function KumpulanKaryaPage() {
                     setFormData({ ...formData, apk_url: e.target.value })
                   }
                   error={formErrors.apk_url}
-                  placeholder="https://github.com/username/sakusiswa/releases/..."
+                  placeholder="https://github.com/username/sakusiswa/releases"
                   helperText="Link GitHub Releases atau Google Drive (akses publik)"
                 />
 
@@ -564,7 +579,7 @@ export default function KumpulanKaryaPage() {
                     setFormData({ ...formData, demo_video_url: e.target.value })
                   }
                   error={formErrors.demo_video_url}
-                  placeholder="https://youtube.com/... atau https://drive.google.com/..."
+                  placeholder="https://youtube.com/watch atau https://drive.google.com"
                   helperText="Rekaman layar singkat pengujian CRUD & Login Google"
                 />
               </div>
@@ -579,7 +594,7 @@ export default function KumpulanKaryaPage() {
 
             {/* File Upload Group */}
             <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              <h3 className="text-xs font-bold text-slate-400">
                 5. Lampiran Berkas & Tangkapan Layar (Screenshot)
               </h3>
 

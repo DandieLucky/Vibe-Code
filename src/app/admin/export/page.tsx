@@ -53,10 +53,10 @@ export default function AdminExportPage() {
 
   const previewList = filterSubmissionsForExport(submissions, filterOptions);
 
-  const handleExportExcel = () => {
+  const handleExportExcel = async () => {
     setIsExporting(true);
     try {
-      const buffer = generateExcelBuffer(previewList);
+      const buffer = await generateExcelBuffer(previewList);
       const blob = new Blob([buffer as any], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
@@ -119,7 +119,7 @@ export default function AdminExportPage() {
       </div>
 
       {downloadSuccessMsg && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-semibold flex items-center gap-2">
           <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
           <span>{downloadSuccessMsg}</span>
         </div>
@@ -135,7 +135,7 @@ export default function AdminExportPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Status Filter */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase text-slate-700">
+            <label className="text-xs font-bold text-slate-700">
               Filter Berdasarkan Status
             </label>
             <select
@@ -153,7 +153,7 @@ export default function AdminExportPage() {
 
           {/* Start Date */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase text-slate-700">
+            <label className="text-xs font-bold text-slate-700">
               Periode Dari Tanggal
             </label>
             <input
@@ -166,7 +166,7 @@ export default function AdminExportPage() {
 
           {/* End Date */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase text-slate-700">
+            <label className="text-xs font-bold text-slate-700">
               Sampai Tanggal
             </label>
             <input
@@ -220,13 +220,13 @@ export default function AdminExportPage() {
             <Table className="w-4 h-4 text-sky-600" />
             <span>Pratinjau Data yang Akan Diekspor ({previewList.length} Baris)</span>
           </h3>
-          <span className="text-xs text-slate-400 font-mono">Format Tabel Bersih & Rapi</span>
+          <span className="text-xs text-slate-400">Format Tabel Bersih & Rapi</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[10px] bg-slate-50">
+              <tr className="border-b border-slate-200 text-slate-500 text-[11px] bg-slate-50">
                 <th className="py-2.5 px-3 font-bold">No</th>
                 <th className="py-2.5 px-3 font-bold">Nama Lengkap</th>
                 <th className="py-2.5 px-3 font-bold">Institusi</th>

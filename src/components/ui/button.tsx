@@ -12,23 +12,23 @@ export interface ButtonProps
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", isLoading = false, children, disabled, ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]";
+      "inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]";
 
     const variants = {
       primary:
-        "bg-[#2B211B] text-[#FDFBF7] hover:bg-[#3F3128] focus-visible:ring-[#C4552D] shadow-sm",
+        "bg-ink text-sheet hover:bg-umber focus-visible:ring-accent shadow-sm",
       secondary:
-        "bg-[#F3ECE2] text-[#2B211B] hover:bg-[#E6DDD2] focus-visible:ring-[#C4552D]",
+        "bg-paper-2 text-ink hover:bg-paper-3 focus-visible:ring-accent",
       outline:
-        "border border-[#D8CCBE] bg-[#FDFBF7] text-[#2B211B] hover:bg-[#F3ECE2] focus-visible:ring-[#C4552D]",
+        "border border-rule bg-sheet text-ink hover:bg-paper-2 focus-visible:ring-accent",
       ghost:
-        "text-[#5D4E43] hover:bg-[#F3ECE2] hover:text-[#2B211B] focus-visible:ring-[#C4552D]",
+        "text-ink-2 hover:bg-paper-2 hover:text-ink focus-visible:ring-accent",
       danger:
         "bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500 shadow-sm",
       teal:
-        "bg-teal-700 text-white hover:bg-teal-800 focus-visible:ring-teal-600 shadow-sm",
+        "bg-umber text-sheet hover:bg-ink focus-visible:ring-accent shadow-sm",
       accent:
-        "bg-[#C4552D] text-[#FDFBF7] hover:bg-[#A94420] focus-visible:ring-[#C4552D] shadow-sm",
+        "bg-accent text-sheet hover:bg-rubber-lo focus-visible:ring-accent shadow-sm",
     };
 
     const sizes = {

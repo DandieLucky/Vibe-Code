@@ -61,21 +61,21 @@ export default async function AdminLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF6F0] flex flex-col md:flex-row">
+    <div className="min-h-screen bg-paper flex flex-col md:flex-row">
       {/* Admin Sidebar */}
-      <aside className="w-full md:w-64 bg-[#F3ECE2] text-[#4A3B31] border-r border-[#E6DDD2] shrink-0 flex flex-col justify-between">
+      <aside className="w-full md:w-64 bg-paper-2 text-ink-2 border-r border-rule shrink-0 flex flex-col justify-between">
         <div>
           {/* Admin Header */}
-          <div className="p-6 border-b border-[#E6DDD2] flex items-center justify-between">
+          <div className="p-6 border-b border-rule flex items-center justify-between">
             <Link href="/admin" className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-[#C4552D] text-[#FDFBF7] flex items-center justify-center font-bold">
+              <div className="h-8 w-8 rounded-lg bg-accent text-sheet flex items-center justify-center font-bold">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <span className="font-extrabold text-sm text-[#2B211B] tracking-tight">
+                <span className="font-extrabold text-sm text-ink tracking-tight">
                   ADMIN PORTAL
                 </span>
-                <span className="block text-[10px] text-[#9F3F1D] font-mono">
+                <span className="block text-[10px] text-accent font-semibold">
                   Fasilitator SMKN 1
                 </span>
               </div>
@@ -90,14 +90,14 @@ export default async function AdminLayout({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-[#4A3B31] hover:text-[#2B211B] hover:bg-[#EFE7DC] transition-colors"
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-ink-2 hover:text-ink hover:bg-paper-3 transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon className="w-4 h-4 text-[#C4552D]" />
+                    <Icon className="w-4 h-4 text-accent" />
                     <span>{item.label}</span>
                   </div>
                   {item.badge && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-[#C4552D]/15 text-[#9F3F1D] border border-[#C4552D]/30">
+                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-accent/15 text-accent border border-accent/30">
                       {item.badge}
                     </span>
                   )}
@@ -108,18 +108,18 @@ export default async function AdminLayout({
         </div>
 
         {/* Bottom Sidebar Action */}
-        <div className="p-4 border-t border-[#E6DDD2] space-y-2">
+        <div className="p-4 border-t border-rule space-y-2">
           <Link
             href="/beranda"
             target="_blank"
-            className="flex items-center justify-between px-3 py-2 rounded-lg text-xs text-[#5D4E43] hover:text-[#2B211B] hover:bg-[#EFE7DC] transition-colors"
+            className="flex items-center justify-between px-3 py-2 rounded-lg text-xs text-muted hover:text-ink hover:bg-paper-3 transition-colors"
           >
             <span>Buka Website Publik</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
           <Link
             href="/login"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-rose-700 hover:text-rose-800 hover:bg-rose-50 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Keluar Sesi Admin</span>

@@ -92,43 +92,43 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF6F0] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-paper flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-5">
-            <div className="h-11 w-11 rounded-2xl bg-[#C4552D] flex items-center justify-center shadow-sm">
-              <GraduationCap className="w-6 h-6 text-[#FDFBF7]" />
+            <div className="h-11 w-11 rounded-2xl bg-accent flex items-center justify-center shadow-sm">
+              <GraduationCap className="w-6 h-6 text-sheet" />
             </div>
-            <span className="text-2xl font-extrabold text-[#2B211B] tracking-tight">COMPOSELAB SMKN 1</span>
+            <span className="text-2xl font-extrabold text-ink tracking-tight">COMPOSELAB SMKN 1</span>
           </Link>
-          <h1 className="text-2xl font-extrabold text-[#2B211B]">Masuk ke Akun Anda</h1>
-          <p className="mt-1.5 text-sm text-[#6A5A4E]">
+          <h1 className="text-2xl font-extrabold text-ink">Masuk ke Akun Anda</h1>
+          <p className="mt-1.5 text-sm text-muted">
             Satu pintu untuk siswa dan fasilitator
           </p>
         </div>
 
         {/* Penjelasan: satu form untuk dua peran */}
         <div className="mb-5 grid grid-cols-2 gap-2.5">
-          <div className="rounded-xl border border-[#C4552D]/25 bg-[#F3ECE2] p-3">
-            <GraduationCap className="w-4 h-4 text-[#C4552D] mb-1.5" />
-            <p className="text-[11px] font-bold text-[#2B211B]">Siswa</p>
-            <p className="text-[10px] text-[#5D4E43] leading-snug">
+          <div className="rounded-xl border border-rule bg-paper-2 p-3">
+            <GraduationCap className="w-4 h-4 text-accent mb-1.5" />
+            <p className="text-[11px] font-bold text-ink">Siswa</p>
+            <p className="text-[10px] text-ink-2 leading-snug">
               Buka kurikulum, simpan progres, kumpulkan karya
             </p>
           </div>
-          <div className="rounded-xl border border-[#E6DDD2] bg-[#FDFBF7] p-3">
-            <ShieldCheck className="w-4 h-4 text-[#4A3B31] mb-1.5" />
-            <p className="text-[11px] font-bold text-[#2B211B]">Administrator</p>
-            <p className="text-[10px] text-[#6A5A4E] leading-snug">
+          <div className="rounded-xl border border-rule bg-sheet p-3">
+            <ShieldCheck className="w-4 h-4 text-ink-2 mb-1.5" />
+            <p className="text-[11px] font-bold text-ink">Administrator</p>
+            <p className="text-[10px] text-muted leading-snug">
               Kelola karya, penilaian, dan pengaturan
             </p>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-6 sm:p-8 shadow-xs">
+        <div className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs">
           {notice && (
-            <div className="mb-5 p-3 rounded-xl bg-[#F3ECE2] border border-[#D8CCBE] text-xs text-[#2B211B] flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#C4552D] shrink-0 mt-0.5" />
+            <div className="mb-5 p-3 rounded-xl bg-paper-2 border border-rule text-xs text-ink flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-accent shrink-0 mt-0.5" />
               <span>{notice}</span>
             </div>
           )}
@@ -141,7 +141,7 @@ function LoginForm() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
-              <Mail className="absolute left-3 top-[38px] w-4 h-4 text-[#6A5A4E] pointer-events-none" />
+              <Mail className="absolute left-3 top-[38px] w-4 h-4 text-muted pointer-events-none" />
               <Input
                 label="Alamat Email"
                 type="email"
@@ -154,7 +154,7 @@ function LoginForm() {
               />
             </div>
             <div className="relative">
-              <Lock className="absolute left-3 top-[38px] w-4 h-4 text-[#6A5A4E] pointer-events-none" />
+              <Lock className="absolute left-3 top-[38px] w-4 h-4 text-muted pointer-events-none" />
               <Input
                 label="Password"
                 type="password"
@@ -167,18 +167,18 @@ function LoginForm() {
               />
             </div>
 
-            <Button type="submit" size="lg" isLoading={isLoading} className="w-full font-bold bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7]">
+            <Button type="submit" variant="accent" size="lg" isLoading={isLoading} className="w-full font-bold">
               <LogIn className="w-4 h-4 mr-1.5" />
               Masuk
             </Button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[#E6DDD2] text-center">
-            <p className="text-xs text-[#6A5A4E] mb-3">
+          <div className="mt-6 pt-5 border-t border-rule text-center">
+            <p className="text-xs text-muted mb-3">
               Belum punya akun? Pendaftaran terbuka untuk siswa kelas 10.
             </p>
             <Link href="/register">
-              <Button variant="outline" size="sm" className="w-full font-semibold border-[#D8CCBE] text-[#2B211B] hover:bg-[#F3ECE2]">
+              <Button variant="outline" size="sm" className="w-full font-semibold">
                 Daftar Sebagai Siswa
                 <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
@@ -186,7 +186,7 @@ function LoginForm() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-[11px] text-[#6A5A4E]">
+        <p className="mt-6 text-center text-[11px] text-muted">
           Akun administrator dibuat oleh fasilitator. Jika Anda siswa,
           silakan daftar sendiri lewat tombol di atas.
         </p>
@@ -197,7 +197,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAF6F0]" />}>
+    <Suspense fallback={<div className="min-h-screen bg-paper" />}>
       <LoginForm />
     </Suspense>
   );

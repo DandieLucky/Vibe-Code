@@ -62,7 +62,7 @@ export default function AdminSettingsPage() {
       </div>
 
       {saveSuccess && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-semibold flex items-center gap-2">
           <Check className="w-4 h-4 text-emerald-600" />
           <span>Seluruh pengaturan platform berhasil disimpan!</span>
         </div>
@@ -81,7 +81,7 @@ export default function AdminSettingsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <label
-              className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3 ${
+              className={`p-4 rounded-xl border cursor-pointer transition-colors flex items-start gap-3 ${
                 registrationMode === "open"
                   ? "bg-sky-50 border-sky-500 ring-1 ring-sky-300"
                   : "bg-slate-50/50 border-slate-200 hover:bg-slate-100"
@@ -106,7 +106,7 @@ export default function AdminSettingsPage() {
             </label>
 
             <label
-              className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3 ${
+              className={`p-4 rounded-xl border cursor-pointer transition-colors flex items-start gap-3 ${
                 registrationMode === "invite_only"
                   ? "bg-sky-50 border-sky-500 ring-1 ring-sky-300"
                   : "bg-slate-50/50 border-slate-200 hover:bg-slate-100"
@@ -162,7 +162,7 @@ export default function AdminSettingsPage() {
             />
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase text-slate-700">
+              <label className="text-xs font-bold text-slate-700">
                 Status Formulir Karya
               </label>
               <div className="pt-2">

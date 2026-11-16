@@ -64,6 +64,7 @@ export async function syncSubmissionsToGoogleSheets(
       "Modul Selesai",
       "Link GitHub",
       "Link APK / Rilis",
+      "Link Video Demo",
       "Status Penilaian",
       "Skor",
       "Catatan Admin",
@@ -82,6 +83,7 @@ export async function syncSubmissionsToGoogleSheets(
       Array.isArray(sub.completed_modules) ? sub.completed_modules.join(", ") : sub.completed_modules || "",
       sub.github_url || "",
       sub.apk_url || sub.deployment_url || "",
+      sub.demo_video_url || "",
       formatSubmissionStatus(sub.submission_status),
       sub.score !== undefined && sub.score !== null ? sub.score : "",
       sub.admin_notes || "",
@@ -95,7 +97,7 @@ export async function syncSubmissionsToGoogleSheets(
     // Check sheet status / clear previous content or overwrite range
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: "Sheet1!A1:N" + (values.length + 5),
+      range: "Sheet1!A1:O" + (values.length + 5),
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values,

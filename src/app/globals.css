@@ -1,21 +1,59 @@
+/* Hallmark · shape: App Shell · genre: playful · theme: Bloom (deal 1/3, seed composelab-smkn-platform-pembelajaran-3a97·1a0c6aab·2026-11-16·r0) · job: join · draw: 9bdb76
+ * hero: Corridor · nav: masthead · footer: statement · imagery: the product · signature: interactive SakuSiswa prompt-to-compose workbench
+ * axes: light/grotesk-sans/warm · posture: committed · contrast: pass · fold: pass · redesign: restyle · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: none, unified Bloom tokens across all platform routes and components */
+@import "./beranda/tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #faf6f0;
-  --foreground: #2b211b;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-code);
 }
 
 html,
 body {
   overflow-x: clip;
+  scrollbar-color: var(--color-muted) var(--color-paper);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+button:active:not(:disabled),
+a:active {
+  transform: translateY(1px);
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 /* Custom scrollbars */
@@ -25,19 +63,30 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--color-paper-2);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--color-rule);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--color-muted);
 }
 
 /* Smooth code block styling */
 pre {
   font-feature-settings: "liga" 1, "calt" 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

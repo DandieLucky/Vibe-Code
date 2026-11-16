@@ -15,23 +15,23 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
   const [activeTab, setActiveTab] = useState<"structured" | "raw">("structured");
 
   return (
-    <div className="rounded-2xl border-2 border-[#D8CCBE] bg-[#FDFBF7] shadow-sm overflow-hidden">
+    <div className="rounded-2xl border-2 border-rule bg-sheet shadow-sm overflow-hidden">
       {/* Top Banner Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-[#2B211B] text-[#FDFBF7]">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-ink text-sheet">
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#C4552D]/20 text-[#F3B69B] border border-[#C4552D]/40">
+          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-accent-soft text-accent-2 border border-rule">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#F3B69B]">
-                PROMPT DISKUSI &amp; IMPLEMENTASI AI
+              <span className="text-xs font-bold text-accent-2">
+                Prompt Diskusi &amp; Implementasi AI
               </span>
-              <Badge variant="teal" className="text-[10px] py-0 px-2 bg-[#3F3128] text-[#FAF6F0] border-[#6A5A4E]">
+              <Badge variant="teal" className="text-[10px] py-0 px-2 bg-umber text-paper border-rule">
                 Formula 6-Bagian
               </Badge>
             </div>
-            <p className="text-xs text-[#D8CCBE] mt-0.5 font-mono">
+            <p className="text-xs text-paper-3 mt-0.5">
               Berpikir Terstruktur • Pahami Kode Sebelum Diterapkan
             </p>
           </div>
@@ -40,14 +40,14 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
           {/* View Mode Toggle */}
-          <div className="inline-flex rounded-lg bg-[#3F3128] p-0.5 border border-[#6A5A4E] text-xs">
+          <div className="inline-flex rounded-lg bg-umber p-0.5 border border-rule text-xs">
             <button
               type="button"
               onClick={() => setActiveTab("structured")}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 activeTab === "structured"
-                  ? "bg-[#C4552D] text-[#FDFBF7] shadow-sm"
-                  : "text-[#D8CCBE] hover:text-white"
+                  ? "bg-accent text-sheet shadow-sm"
+                  : "text-paper-3 hover:text-white"
               }`}
             >
               Terstruktur
@@ -57,8 +57,8 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
               onClick={() => setActiveTab("raw")}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 activeTab === "raw"
-                  ? "bg-[#C4552D] text-[#FDFBF7] shadow-sm"
-                  : "text-[#D8CCBE] hover:text-white"
+                  ? "bg-accent text-sheet shadow-sm"
+                  : "text-paper-3 hover:text-white"
               }`}
             >
               Raw Text
@@ -68,8 +68,8 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
           {/* Master Copy Button */}
           <CopyButton
             textToCopy={prompt.rawPrompt}
-            label="SALIN PROMPT LENGKAP"
-            copiedLabel="PROMPT TERSALIN!"
+            label="Salin Prompt Lengkap"
+            copiedLabel="Prompt Tersalin"
             className="text-xs py-2 px-4 font-bold shadow-md"
           />
         </div>
@@ -80,37 +80,37 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
         {activeTab === "structured" ? (
           <div className="space-y-4">
             {/* A. TUJUAN */}
-            <div className="rounded-xl border border-sky-100 bg-sky-50/50 p-4">
-              <div className="flex items-center gap-2 text-sky-900 font-bold text-xs uppercase tracking-wider mb-1.5">
-                <Target className="w-4 h-4 text-sky-600" />
-                <span>A. TUJUAN</span>
+            <div className="rounded-xl border border-rule bg-paper p-4">
+              <div className="flex items-center gap-2 text-ink font-bold text-xs mb-1.5">
+                <Target className="w-4 h-4 text-accent" />
+                <span>A. Tujuan</span>
               </div>
-              <p className="text-sm font-semibold text-slate-800 leading-snug">
+              <p className="text-sm font-semibold text-ink leading-snug">
                 {prompt.tujuan}
               </p>
             </div>
 
             {/* B. KONTEKS */}
-            <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 p-4">
-              <div className="flex items-center gap-2 text-slate-700 font-bold text-xs uppercase tracking-wider mb-1.5">
-                <FileCode className="w-4 h-4 text-slate-600" />
-                <span>B. KONTEKS PROYEK & FILE</span>
+            <div className="rounded-xl border border-rule bg-paper-2 p-4">
+              <div className="flex items-center gap-2 text-ink-2 font-bold text-xs mb-1.5">
+                <FileCode className="w-4 h-4 text-muted" />
+                <span>B. Konteks Proyek &amp; File</span>
               </div>
-              <p className="text-sm text-slate-700 font-mono bg-white p-2.5 rounded-lg border border-slate-200">
+              <p className="text-sm text-ink-2 font-mono bg-sheet p-2.5 rounded-lg border border-rule">
                 {prompt.konteks}
               </p>
             </div>
 
             {/* C. INSTRUKSI */}
-            <div className="rounded-xl border border-slate-200/80 bg-white p-4 shadow-xs">
-              <div className="flex items-center gap-2 text-slate-900 font-bold text-xs uppercase tracking-wider mb-2.5">
-                <Terminal className="w-4 h-4 text-sky-600" />
-                <span>C. INSTRUKSI TEKNIS LANGKAH DEMI LANGKAH</span>
+            <div className="rounded-xl border border-rule bg-sheet p-4 shadow-xs">
+              <div className="flex items-center gap-2 text-ink font-bold text-xs mb-2.5">
+                <Terminal className="w-4 h-4 text-accent" />
+                <span>C. Instruksi Teknis Langkah demi Langkah</span>
               </div>
               <ol className="space-y-2">
                 {prompt.instruksi.map((step, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 leading-relaxed">
-                    <span className="flex items-center justify-center h-5 w-5 rounded-full bg-sky-100 text-sky-700 text-xs font-bold shrink-0 mt-0.5">
+                  <li key={idx} className="flex items-start gap-2.5 text-sm text-ink-2 leading-relaxed">
+                    <span className="flex items-center justify-center h-5 w-5 rounded-full bg-accent-soft text-accent text-xs font-bold shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <span>{step}</span>
@@ -123,9 +123,9 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* D. BATASAN */}
               <div className="rounded-xl border border-rose-100 bg-rose-50/30 p-4">
-                <div className="flex items-center gap-2 text-rose-800 font-bold text-xs uppercase tracking-wider mb-2">
+                <div className="flex items-center gap-2 text-rose-800 font-bold text-xs mb-2">
                   <ShieldAlert className="w-4 h-4 text-rose-600" />
-                  <span>D. BATASAN (DILARANG UBAH)</span>
+                  <span>D. Batasan (Jangan Dilanggar)</span>
                 </div>
                 <ul className="space-y-1.5">
                   {prompt.batasan.map((bat, idx) => (
@@ -139,9 +139,9 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
 
               {/* E. HASIL AKHIR */}
               <div className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-4">
-                <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs uppercase tracking-wider mb-2">
+                <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs mb-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>E. HASIL AKHIR YANG DIHARAPKAN</span>
+                  <span>E. Hasil Akhir yang Diharapkan</span>
                 </div>
                 <p className="text-xs text-emerald-950 leading-relaxed">
                   {prompt.hasilAkhir}
@@ -151,11 +151,11 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
 
             {/* F. VALIDASI */}
             <div className="rounded-xl border border-amber-200 bg-amber-50/40 p-4">
-              <div className="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wider mb-1.5">
+              <div className="flex items-center gap-2 text-amber-900 font-bold text-xs mb-1.5">
                 <span className="flex items-center justify-center h-4 w-4 rounded-full bg-amber-500 text-white text-[10px] font-bold">
                   ✓
                 </span>
-                <span>F. VALIDASI OTOMATIS OLEH AI</span>
+                <span>F. Validasi Keberhasilan</span>
               </div>
               <p className="text-xs text-amber-950 font-medium">
                 {prompt.validasi}
@@ -173,20 +173,19 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
                 copiedLabel="Tersalin!"
               />
             </div>
-            <pre className="p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-slate-800">
+            <pre className="p-4 rounded-xl bg-ink text-paper font-mono text-xs overflow-x-auto whitespace-pre-wrap leading-relaxed border border-umber">
               {prompt.rawPrompt}
             </pre>
           </div>
         )}
 
         {/* Quick Instructions Footer */}
-        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        <div className="mt-4 pt-3 border-t border-rule flex items-center justify-between text-xs text-muted">
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
             Pahami dulu alur logikanya, lalu salin prompt ini untuk berdiskusi dengan asisten AI.
           </span>
-          <span className="font-mono text-[11px] text-slate-400">
-            Karakter: {prompt.rawPrompt.length}
+          <span className="text-[11px] text-muted">
+            {prompt.rawPrompt.length} karakter
           </span>
         </div>
       </div>

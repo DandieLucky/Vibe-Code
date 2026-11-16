@@ -175,6 +175,7 @@ export const BONUS_FEATURES: BonusFeature[] = [
       "Hanya menghapus tugas milik user yang login dan berstatus isCompleted = true",
       "Dilengkapi dialog konfirmasi sebelum menghapus masal",
     ],
+    recommendedPromptTemplate: `[PIKIRKAN DULU] Query hapus masal wajib memfilter userEmail DAN isCompleted = 1 agar tugas aktif atau milik user lain tidak ikut terhapus.\n[TUJUAN] Menambahkan fitur Bersihkan Tugas Selesai di TaskDao, TaskViewModel, dan HomeScreen.\n[KONTEKS] Room Database + Jetpack Compose Material 3.\n[INSTRUKSI] Tambahkan @Query("DELETE FROM tasks WHERE userEmail = :email AND isCompleted = 1") suspend fun clearCompletedTasks(email: String) dan tombol konfirmasi di TopAppBar.\n[BATASAN] Tampilkan tombol hanya jika ada minimal 1 tugas yang sudah selesai.\n[VALIDASI] Semua tugas selesai hilang sementara tugas aktif tetap utuh.`,
   },
   {
     id: "AND-12",
@@ -187,11 +188,8 @@ export const BONUS_FEATURES: BonusFeature[] = [
       "Menggunakan MaterialTheme.colorScheme untuk seluruh warna kartu dan teks (bukan warna hardcoded)",
       "Kontras teks tetap terbaca jelas saat HP berada dalam Dark Mode",
     ],
+    recommendedPromptTemplate: `[PIKIRKAN DULU] Mengapa kita memakai MaterialTheme.colorScheme.surface dibanding Color.White langsung?\n[TUJUAN] Menyesuaikan palet LightColorScheme dan DarkColorScheme di Theme.kt.\n[KONTEKS] Jetpack Compose Material 3 proyek SakuSiswa.\n[INSTRUKSI] Definisikan pasangan warna primary, onPrimary, surface, dan onSurface di Color.kt lalu terapkan di Theme.kt.\n[BATASAN] Pastikan rasio kontras teks memenuhi standar keterbacaan.\n[VALIDASI] Aktifkan Dark Theme di pengaturan HP dan pastikan semua teks tetap jelas terbaca.`,
   },
-
-  // =========================================================================
-  // 4. KUALITAS KODE, KEAMANAN & PENGUMPULAN
-  // =========================================================================
   {
     id: "AND-13",
     title: "Null-Safety Ketat Tanpa Operator !! & Penanganan Error",
@@ -204,6 +202,7 @@ export const BONUS_FEATURES: BonusFeature[] = [
       "Tidak mencetak ID Token Google ke Log.d()",
       "Aplikasi diuji di Logcat dengan filter package:mine level:error tanpa crash",
     ],
+    recommendedPromptTemplate: `[PIKIRKAN DULU] Di bagian mana data dari luar (seperti GoogleIdTokenCredential) bisa bernilai null?\n[TUJUAN] Memeriksa dan membersihkan kode Kotlin dari penggunaan operator !! serta memastikan error tertangani.\n[KONTEKS] Seluruh file .kt di package data, viewmodel, dan ui.\n[INSTRUKSI] Ganti setiap penggunaan !! dengan Elvis operator (?:) atau ?.let { ... }, dan pastikan GetCredentialException ditangkap di try-catch.\n[BATASAN] Jangan mencetak token rahasia ke Logcat.\n[VALIDASI] Filter Logcat package:mine level:error bersih dari exception saat diuji.`,
   },
   {
     id: "AND-14",
@@ -217,5 +216,19 @@ export const BONUS_FEATURES: BonusFeature[] = [
       "README.md menjelaskan fitur Login Google, Room Database, CRUD, dan fitur kreasi siswa",
       "Screenshot aplikasi dan link APK/GitHub dikirimkan di halaman Kumpulan Karya",
     ],
+    recommendedPromptTemplate: `[PIKIRKAN DULU] Informasi apa yang dibutuhkan guru saat memeriksa repository GitHub milikmu?\n[TUJUAN] Menyusun dokumentasi README.md yang menjelaskan arsitektur MVVM, Room Database, dan Login Google SakuSiswa.\n[KONTEKS] Repository GitHub publik proyek Android SakuSiswa.\n[INSTRUKSI] Buat README.md berisi deskripsi aplikasi, daftar fitur CRUD, struktur package (data, viewmodel, ui), dan cara menjalankan di Android Studio.\n[BATASAN] Gunakan format Markdown yang rapi.\n[VALIDASI] README.md tampil lengkap di halaman utama repository GitHub.`,
+  },
+  {
+    id: "AND-15",
+    title: "Pengingat Deadline & Indikator Tugas Mendesak",
+    category: "UI/UX & Kreasi Mandiri",
+    points: 15,
+    description:
+      "Menampilkan indikator pengingat visual (atau notifikasi lokal) untuk tugas yang belum selesai dan mendekati tenggat waktu pengumpulan.",
+    criteria: [
+      "Kartu tugas yang belum selesai menampilkan badge pengingat tenggat yang menonjol",
+      "Jumlah tugas mendesak ditampilkan sebagai pengingat di bagian atas HomeScreen",
+    ],
+    recommendedPromptTemplate: `[PIKIRKAN DULU] Bagaimana cara menandai tugas yang tenggatnya hari ini atau besok agar siswa langsung sadar saat membuka aplikasi?\n[TUJUAN] Menambahkan indikator pengingat deadline pada TaskItemCard dan ringkasan di HomeScreen.\n[KONTEKS] Proyek Android SakuSiswa dengan Jetpack Compose Material 3.\n[INSTRUKSI] Tampilkan banner pengingat di atas daftar jika ada tugas aktif yang memiliki kata kunci tenggat mendesak (misal 'Hari ini' atau 'Besok'), dan beri warna aksen pada badge tenggat di TaskItemCard.\n[BATASAN] Jangan mengubah struktur tabel yang sudah berjalan jika cukup dievaluasi dari dueDate.\n[VALIDASI] Tugas yang bertenggat 'Besok' langsung menampilkan pengingat di bagian atas layar.`,
   },
 ];

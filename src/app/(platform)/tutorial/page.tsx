@@ -33,7 +33,7 @@ export default async function HalamanTutorial() {
       judul: "Tutorial persiapan laptop Android",
       ringkas: "Pasang Android Studio, siapkan HP USB Debugging / Emulator, Git, serta akun GitHub & Google Cloud.",
       total: PERSIAPAN.langkah.length,
-      warna: "bg-[#C4552D]",
+      warna: "bg-accent",
     },
     {
       slug: "development",
@@ -41,25 +41,25 @@ export default async function HalamanTutorial() {
       judul: "Tutorial development SakuSiswa",
       ringkas: `${DEVELOPMENT.langkah.length} langkah terstruktur membangun aplikasi Android SakuSiswa (Compose, Google Login, Room CRUD) sampai kumpul karya.`,
       total: DEVELOPMENT.langkah.length,
-      warna: "bg-[#2B211B]",
+      warna: "bg-ink",
     },
   ];
 
   return (
-    <div className="bg-[#FAF6F0] min-h-screen py-10 sm:py-14">
+    <div className="bg-paper min-h-screen py-10 sm:py-14">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
-          <div className="flex items-center gap-2 text-xs text-[#6A5A4E] mb-2">
-            <Link href="/dashboard" className="hover:text-[#2B211B]">Dashboard</Link>
+          <div className="flex items-center gap-2 text-xs text-muted mb-2">
+            <Link href="/dashboard" className="hover:text-ink">Dashboard</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-[#2B211B]">Tutorial</span>
+            <span className="font-semibold text-ink">Tutorial</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2B211B] mb-2">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-ink mb-2">
             Panduan Langkah demi Langkah
           </h1>
-          <p className="text-sm text-[#5D4E43] leading-relaxed max-w-2xl">
+          <p className="text-sm text-ink-2 leading-relaxed max-w-2xl">
             Setiap langkah memuat panduan detail, hasil yang diharapkan, dan solusi kalau ada kendala.
-            Tekan <strong>Selesai</strong> di setiap langkah — progresmu tersimpan otomatis.
+            Tekan <strong>Selesai</strong> di setiap langkah; progresmu tersimpan otomatis.
           </p>
         </div>
 
@@ -69,14 +69,14 @@ export default async function HalamanTutorial() {
             const persen = t.total > 0 ? Math.round((sudah / t.total) * 100) : 0;
             return (
               <Link key={t.slug} href={`/tutorial/${t.slug}`} className="group">
-                <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-6 shadow-xs hover:border-[#C4552D]/50 transition-colors">
+                <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs hover:border-accent transition-colors">
                   <div className="flex items-start gap-4">
                     <div className={`h-14 w-14 rounded-2xl ${t.warna} flex items-center justify-center shrink-0 shadow-xs`}>
-                      <t.icon className="w-7 h-7 text-[#FDFBF7]" />
+                      <t.icon className="w-7 h-7 text-sheet" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-3 mb-1.5">
-                        <h2 className="font-extrabold text-[#2B211B] text-base sm:text-lg group-hover:text-[#C4552D] transition-colors">
+                        <h2 className="font-extrabold text-ink text-base sm:text-lg group-hover:text-accent transition-colors">
                           {t.judul}
                         </h2>
                         {persen === 100 && (
@@ -85,18 +85,18 @@ export default async function HalamanTutorial() {
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#5D4E43] leading-relaxed mb-3">{t.ringkas}</p>
+                      <p className="text-xs text-ink-2 leading-relaxed mb-3">{t.ringkas}</p>
 
                       <div className="flex items-center gap-3">
-                        <div className="flex-1 h-1.5 bg-[#EFE7DC] rounded-full overflow-hidden">
-                          <div className="h-full bg-[#C4552D] transition-all" style={{ width: `${persen}%` }} />
+                        <div className="flex-1 h-1.5 bg-paper-3 rounded-full overflow-hidden">
+                          <div className="h-full bg-accent transition-colors" style={{ width: `${persen}%` }} />
                         </div>
-                        <span className="text-[11px] font-bold text-[#6A5A4E] shrink-0">
+                        <span className="text-[11px] font-bold text-muted shrink-0">
                           {sudah} / {t.total} langkah
                         </span>
                       </div>
                     </div>
-                    <ChevronRight className="w-5 h-5 text-[#D8CCBE] group-hover:text-[#C4552D] shrink-0 mt-4" />
+                    <ChevronRight className="w-5 h-5 text-muted group-hover:text-accent shrink-0 mt-4" />
                   </div>
                 </div>
               </Link>
@@ -104,11 +104,11 @@ export default async function HalamanTutorial() {
           })}
         </div>
 
-        <div className="mt-8 rounded-2xl border border-[#E6DDD2] bg-[#F3ECE2] p-5 flex gap-3">
-          <BookOpen className="w-5 h-5 text-[#C4552D] shrink-0 mt-0.5" />
+        <div className="mt-8 rounded-2xl border border-rule bg-paper-2 p-5 flex gap-3">
+          <BookOpen className="w-5 h-5 text-accent shrink-0 mt-0.5" />
           <div>
-            <p className="text-xs font-bold text-[#2B211B] mb-1">Catatan tentang progres</p>
-            <p className="text-[11px] text-[#5D4E43] leading-relaxed">
+            <p className="text-xs font-bold text-ink mb-1">Catatan tentang progres</p>
+            <p className="text-[11px] text-ink-2 leading-relaxed">
               Centang langkah hanya untuk membantumu melacak progres, bukan penilaian.
               Karyamu dinilai dari repository GitHub, screenshot aplikasi Android, dan fitur CRUD + Google Login.
             </p>

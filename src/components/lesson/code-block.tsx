@@ -24,7 +24,7 @@ export function CodeBlock({
           <span className="font-semibold text-slate-200">
             {filename || `example.${language}`}
           </span>
-          <span className="text-[10px] uppercase tracking-wider text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
+          <span className="text-[10px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
             {language}
           </span>
         </div>

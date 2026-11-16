@@ -74,31 +74,38 @@ export function Navbar() {
 
   const brandHref = isAdmin ? "/admin" : isAuthenticated ? "/dashboard" : "/beranda";
 
+  const isNavLinkActive = (href: string) =>
+    href.includes("#")
+      ? false
+      : href === "/beranda"
+      ? pathname === "/beranda" || pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${
         scrolled
-          ? "bg-[#FAF6F0]/95 backdrop-blur-md border-[#E6DDD2] shadow-xs text-[#2B211B]"
-          : "bg-[#FAF6F0] border-[#E6DDD2] text-[#2B211B]"
+          ? "bg-paper/95 backdrop-blur-md border-rule shadow-xs text-ink"
+          : "bg-paper border-rule text-ink"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Brand Identity */}
           <Link href={brandHref} className="flex items-center gap-3 group shrink-0">
-            <div className="h-10 w-10 rounded-xl bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-xl bg-accent flex items-center justify-center text-sheet shadow-sm shrink-0 group-hover:scale-105 transition-transform">
               <Code2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2 whitespace-nowrap">
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-[#2B211B] group-hover:text-[#C4552D] transition-colors">
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-ink group-hover:text-accent transition-colors">
                   COMPOSELAB
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#C4552D]/10 text-[#9F3F1D] border border-[#C4552D]/25 whitespace-nowrap">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-accent-soft text-accent border border-rule whitespace-nowrap">
                   SMKN 1 JKT
                 </span>
               </div>
-              <p className="text-[11px] text-[#6A5A4E] hidden xl:block whitespace-nowrap">
+              <p className="text-[11px] text-muted hidden xl:block whitespace-nowrap">
                 Android Kotlin, Compose &amp; AI Prompting
               </p>
             </div>
@@ -107,11 +114,7 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive = link.href.includes("#")
-                ? false
-                : link.href === "/beranda"
-                ? pathname === "/beranda" || pathname === "/"
-                : pathname === link.href || pathname.startsWith(`${link.href}/`);
+              const isActive = isNavLinkActive(link.href);
 
               return (
                 <Link
@@ -119,14 +122,14 @@ export function Navbar() {
                   href={link.href}
                   className={`relative px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
-                      ? "text-[#9F3F1D] bg-[#EFE7DC] font-semibold"
-                      : "text-[#4A3B31] hover:text-[#2B211B] hover:bg-[#F3ECE2]"
+                      ? "text-accent bg-paper-3 font-semibold"
+                      : "text-ink-2 hover:text-ink hover:bg-paper-2"
                   }`}
                 >
-                  {link.icon && <link.icon className="w-4 h-4 text-[#C4552D]" />}
+                  {link.icon && <link.icon className="w-4 h-4 text-accent" />}
                   <span>{link.label}</span>
                   {link.badge && (
-                    <span className="text-[10px] bg-[#C4552D]/15 text-[#9F3F1D] border border-[#C4552D]/30 px-1.5 py-0.2 rounded-full font-bold ml-1">
+                    <span className="text-[10px] bg-accent-soft text-accent border border-rule px-1.5 py-0.2 rounded-full font-bold ml-1">
                       {link.badge}
                     </span>
                   )}
@@ -138,43 +141,43 @@ export function Navbar() {
           {/* Right Action CTA Buttons — menyesuaikan status login */}
           <div className="hidden sm:flex items-center gap-3">
             {isLoading ? (
-              <div className="h-8 w-28 rounded-lg bg-[#EFE7DC] animate-pulse" />
+              <div className="h-8 w-28 rounded-lg bg-paper-3 animate-pulse motion-reduce:animate-none" />
             ) : isAuthenticated && user ? (
               /* Sudah login: menu pengguna */
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 pl-1 pr-2.5 py-1.5 rounded-xl hover:bg-[#F3ECE2] transition-colors"
+                  className="flex items-center gap-2 pl-1 pr-2.5 py-1.5 rounded-xl hover:bg-paper-2 transition-colors"
                 >
-                  <span className="h-8 w-8 rounded-lg bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] text-xs font-extrabold shrink-0">
+                  <span className="h-8 w-8 rounded-lg bg-accent flex items-center justify-center text-sheet text-xs font-extrabold shrink-0">
                     {(user.full_name || user.email).charAt(0).toUpperCase()}
                   </span>
                   <span className="text-left hidden lg:block">
-                    <span className="block text-xs font-bold text-[#2B211B] leading-tight max-w-[120px] truncate">
+                    <span className="block text-xs font-bold text-ink leading-tight max-w-[120px] truncate">
                       {user.full_name}
                     </span>
-                    <span className="block text-[10px] text-[#9F3F1D] font-semibold">
+                    <span className="block text-[10px] text-accent font-semibold">
                       {isAdmin ? "Administrator" : "Peserta"}
                     </span>
                   </span>
-                  <ChevronDown className="w-3.5 h-3.5 text-[#6A5A4E]" />
+                  <ChevronDown className="w-3.5 h-3.5 text-muted" />
                 </button>
 
                 {userMenuOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-[#FDFBF7] border border-[#E6DDD2] shadow-xl z-50 overflow-hidden">
-                      <div className="px-3 py-2.5 border-b border-[#E6DDD2]">
-                        <p className="text-xs font-bold text-[#2B211B] truncate">{user.full_name}</p>
-                        <p className="text-[10px] text-[#6A5A4E] truncate">{user.email}</p>
+                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-sheet border border-rule shadow-md z-50 overflow-hidden">
+                      <div className="px-3 py-2.5 border-b border-rule">
+                        <p className="text-xs font-bold text-ink truncate">{user.full_name}</p>
+                        <p className="text-[10px] text-muted truncate">{user.email}</p>
                       </div>
 
                       {isAdmin && (
                         <Link
                           href="/admin"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-3 py-2.5 text-xs font-semibold text-[#9F3F1D] hover:bg-[#F3ECE2] border-b border-[#E6DDD2]"
+                          className="flex items-center gap-2 px-3 py-2.5 text-xs font-semibold text-accent hover:bg-paper-2 border-b border-rule"
                         >
                           <ShieldCheck className="w-4 h-4" />
                           Buka Dashboard Admin
@@ -184,7 +187,7 @@ export function Navbar() {
                       <Link
                         href="/dashboard"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-[#4A3B31] hover:bg-[#F3ECE2] hover:text-[#2B211B]"
+                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-ink-2 hover:bg-paper-2 hover:text-ink"
                       >
                         <GraduationCap className="w-4 h-4" />
                         Dashboard Saya
@@ -192,7 +195,7 @@ export function Navbar() {
                       <Link
                         href="/profil"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-[#4A3B31] hover:bg-[#F3ECE2] hover:text-[#2B211B]"
+                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-ink-2 hover:bg-paper-2 hover:text-ink"
                       >
                         <UserCircle2 className="w-4 h-4" />
                         Pengaturan Profil
@@ -200,7 +203,7 @@ export function Navbar() {
                       <button
                         type="button"
                         onClick={() => { setUserMenuOpen(false); signOut(); }}
-                        className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-rose-700 hover:bg-rose-50 border-t border-[#E6DDD2]"
+                        className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-rose-700 hover:bg-rose-50 border-t border-rule"
                       >
                         <LogOut className="w-4 h-4" />
                         Keluar
@@ -213,13 +216,13 @@ export function Navbar() {
               /* Belum login: satu pintu masuk untuk admin maupun peserta */
               <>
                 <Link href="/login">
-                  <Button variant="ghost" size="sm" className="text-[#4A3B31] hover:text-[#2B211B] hover:bg-[#F3ECE2]">
+                  <Button variant="ghost" size="sm">
                     <User className="w-4 h-4 mr-1.5" />
                     Masuk
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button size="sm" className="bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7] font-bold shadow-sm">
+                  <Button variant="accent" size="sm" className="font-bold">
                     <Sparkles className="w-4 h-4 mr-1.5" />
                     Daftar Gratis
                   </Button>
@@ -233,7 +236,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-[#6A5A4E] hover:text-[#2B211B] hover:bg-[#F3ECE2] focus:outline-none"
+              className="p-2 rounded-lg text-muted hover:text-ink hover:bg-paper-2 focus:outline-none"
               aria-label="Toggle Menu Navigasi"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -244,13 +247,9 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="lg:hidden border-t border-[#E6DDD2] bg-[#FAF6F0] px-4 pt-3 pb-6 space-y-2">
+        <div className="lg:hidden border-t border-rule bg-paper px-4 pt-3 pb-6 space-y-2">
           {navLinks.map((link) => {
-            const isActive = link.href.includes("#")
-              ? false
-              : link.href === "/beranda"
-              ? pathname === "/beranda" || pathname === "/"
-              : pathname === link.href || pathname.startsWith(`${link.href}/`);
+            const isActive = isNavLinkActive(link.href);
 
             return (
               <Link
@@ -258,12 +257,12 @@ export function Navbar() {
                 href={link.href}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
                   isActive
-                    ? "bg-[#EFE7DC] text-[#9F3F1D] font-semibold"
-                    : "text-[#4A3B31] hover:bg-[#F3ECE2] hover:text-[#2B211B]"
+                    ? "bg-paper-3 text-accent font-semibold"
+                    : "text-ink-2 hover:bg-paper-2 hover:text-ink"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  {link.icon && <link.icon className="w-4 h-4 text-[#C4552D]" />}
+                  {link.icon && <link.icon className="w-4 h-4 text-accent" />}
                   <span>{link.label}</span>
                 </div>
                 {link.badge && (
@@ -274,14 +273,14 @@ export function Navbar() {
               </Link>
             );
           })}
-          <div className="pt-4 border-t border-[#E6DDD2] flex flex-col gap-2">
+          <div className="pt-4 border-t border-rule flex flex-col gap-2">
             <Link href="/login" className="w-full">
-              <Button variant="outline" className="w-full justify-center bg-[#FDFBF7] border-[#D8CCBE] text-[#2B211B]">
+              <Button variant="outline" className="w-full justify-center">
                 Masuk ke Akun
               </Button>
             </Link>
             <Link href="/register" className="w-full">
-              <Button className="w-full justify-center bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7] font-bold">
+              <Button variant="accent" className="w-full justify-center font-bold">
                 Daftar &amp; Mulai Belajar
               </Button>
             </Link>

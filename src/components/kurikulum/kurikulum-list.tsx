@@ -58,44 +58,44 @@ export default function KurikulumList() {
   });
 
   return (
-    <div className="bg-[#FAF6F0] min-h-screen py-10 sm:py-16">
+    <div className="bg-paper min-h-screen py-10 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Breadcrumb & Title */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-xs text-[#6A5A4E] mb-2">
-            <Link href="/beranda" className="hover:text-[#2B211B]">
+          <div className="flex items-center gap-2 text-xs text-muted mb-2">
+            <Link href="/beranda" className="hover:text-ink">
               Beranda
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-[#2B211B]">Kurikulum 6 Modul</span>
+            <span className="font-semibold text-ink">Kurikulum 6 Modul</span>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#E6DDD2]">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-rule">
             <div>
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-[#2B211B] tracking-tight">
+              <h1 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">
                 Kurikulum Lengkap Android Kotlin &amp; Compose
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-[#5D4E43] max-w-2xl">
+              <p className="mt-2 text-sm sm:text-base text-ink-2 max-w-2xl">
                 6 modul padat untuk pelatihan 3 hari. Dilengkapi alur berpikir terstruktur dan prompt AI siap diskusi.
               </p>
             </div>
 
             {/* Overall Progress Widget */}
-            <div className="bg-[#FDFBF7] rounded-2xl border border-[#E6DDD2] p-4 sm:p-5 shadow-xs shrink-0 min-w-[280px]">
-              <div className="flex items-center justify-between text-xs font-bold text-[#2B211B] mb-2">
+            <div className="bg-sheet rounded-2xl border border-rule p-4 sm:p-5 shadow-xs shrink-0 min-w-[280px]">
+              <div className="flex items-center justify-between text-xs font-bold text-ink mb-2">
                 <span>Progres Belajar Anda</span>
-                <span className="text-[#C4552D] font-mono text-sm">{progressPercent}%</span>
+                <span className="text-accent font-mono text-sm">{progressPercent}%</span>
               </div>
-              <div className="w-full bg-[#EFE7DC] rounded-full h-2.5 overflow-hidden">
+              <div className="w-full bg-paper-3 rounded-full h-2.5 overflow-hidden">
                 <div
-                  className="bg-[#C4552D] h-2.5 rounded-full transition-all duration-500"
+                  className="bg-accent h-2.5 rounded-full transition-colors duration-500"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              <div className="flex items-center justify-between mt-2.5 text-[11px] text-[#6A5A4E]">
+              <div className="flex items-center justify-between mt-2.5 text-[11px] text-muted">
                 <span>{totalCompleted} dari {totalLessons} materi selesai</span>
-                <Link href="/dashboard" className="text-[#C4552D] font-semibold hover:underline">
-                  Buka Dashboard &rarr;
+                <Link href="/dashboard" className="text-accent font-semibold hover:underline">
+                  Buka Dashboard
                 </Link>
               </div>
             </div>
@@ -106,13 +106,13 @@ export default function KurikulumList() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
           {/* Search bar */}
           <div className="relative w-full sm:w-96">
-            <Search className="w-4 h-4 text-[#6A5A4E] absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Cari modul atau materi (contoh: Room Database, Compose, Google Login)..."
+              placeholder="Cari modul atau materi (contoh: Room Database, Compose, Google Login)…"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#D8CCBE] bg-[#FDFBF7] text-sm text-[#2B211B] placeholder:text-[#6A5A4E] focus:outline-none focus:ring-2 focus:ring-[#C4552D]"
+              className="w-full pl-10 pr-4 py-2 rounded-xl border border-rule bg-sheet text-sm text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
@@ -130,8 +130,8 @@ export default function KurikulumList() {
                 onClick={() => setSelectedDifficulty(lvl.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors shrink-0 ${
                   selectedDifficulty === lvl.id
-                    ? "bg-[#2B211B] text-[#FDFBF7] shadow-xs"
-                    : "bg-[#FDFBF7] text-[#4A3B31] border border-[#D8CCBE] hover:bg-[#F3ECE2]"
+                    ? "bg-ink text-sheet shadow-xs"
+                    : "bg-sheet text-ink-2 border border-rule hover:bg-paper-2"
                 }`}
               >
                 {lvl.label}
@@ -153,14 +153,14 @@ export default function KurikulumList() {
             return (
               <div
                 key={module.id}
-                className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] shadow-xs overflow-hidden transition-colors duration-200 hover:border-[#D8CCBE]"
+                className="rounded-2xl border border-rule bg-sheet shadow-xs overflow-hidden transition-colors duration-200 hover:border-muted"
               >
                 {/* Module Header Bar */}
-                <div className="p-6 bg-[#2B211B] text-[#FDFBF7] flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="p-6 bg-ink text-sheet flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">
-                        MODUL {module.module_number}
+                      <span className="text-xs font-bold px-2 py-0.5 rounded bg-accent-soft text-accent-2 border border-rule">
+                        Modul {module.module_number}
                       </span>
                       <Badge
                         variant={
@@ -174,15 +174,15 @@ export default function KurikulumList() {
                       >
                         {module.difficulty_level}
                       </Badge>
-                      <span className="text-xs text-slate-400 flex items-center gap-1">
+                      <span className="text-xs text-paper-3 flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5" />
                         ±{module.estimated_minutes} Menit
                       </span>
                     </div>
-                    <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                    <h2 className="text-lg sm:text-xl font-bold text-sheet tracking-tight">
                       {module.title}
                     </h2>
-                    <p className="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">
+                    <p className="text-xs sm:text-sm text-paper-3 max-w-3xl leading-relaxed">
                       {module.description}
                     </p>
                   </div>
@@ -190,10 +190,10 @@ export default function KurikulumList() {
                   {/* Module Completion Meter */}
                   <div className="flex items-center gap-3 shrink-0 self-start md:self-auto">
                     <div className="text-right">
-                      <div className="text-xs font-bold text-slate-200">
+                      <div className="text-xs font-bold text-paper">
                         {completedInModule} / {module.lessons.length} Selesai
                       </div>
-                      <div className="text-[11px] text-slate-400 font-mono">
+                      <div className="text-[11px] text-paper-3">
                         {modulePercent}% Selesai
                       </div>
                     </div>
@@ -206,7 +206,7 @@ export default function KurikulumList() {
                 </div>
 
                 {/* Lessons List in Module */}
-                <div className="divide-y divide-slate-100">
+                <div className="divide-y divide-rule">
                   {module.lessons.map((lesson) => {
                     const isDone = completedLessons.includes(lesson.id);
 
@@ -214,44 +214,44 @@ export default function KurikulumList() {
                       <Link
                         key={lesson.id}
                         href={`/kurikulum/${module.slug}/${lesson.slug}`}
-                        className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:px-6 hover:bg-slate-50 transition-colors gap-3"
+                        className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:px-6 hover:bg-paper transition-colors gap-3"
                       >
                         <div className="flex items-start sm:items-center gap-3.5">
                           {isDone ? (
                             <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5 sm:mt-0" />
                           ) : (
-                            <Circle className="w-5 h-5 text-slate-300 group-hover:text-sky-500 shrink-0 mt-0.5 sm:mt-0" />
+                            <Circle className="w-5 h-5 text-rule group-hover:text-accent shrink-0 mt-0.5 sm:mt-0" />
                           )}
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-semibold text-slate-400">
+                              <span className="font-mono text-xs font-semibold text-muted">
                                 #{module.module_number}.{lesson.lesson_number}
                               </span>
-                              <h3 className="text-sm font-bold text-slate-800 group-hover:text-sky-600 transition-colors">
+                              <h3 className="text-sm font-bold text-ink group-hover:text-accent transition-colors">
                                 {lesson.title}
                               </h3>
                               {lesson.antigravity_prompt && (
-                                <span className="text-[10px] bg-sky-50 text-sky-700 border border-sky-200 px-1.5 py-0.2 rounded font-mono font-medium">
+                                <span className="text-[10px] bg-accent-soft text-accent border border-rule px-1.5 py-0.2 rounded font-medium">
                                   +Prompt AI
                                 </span>
                               )}
                             </div>
-                            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                            <p className="text-xs text-muted line-clamp-1 mt-0.5">
                               {lesson.description}
                             </p>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-3 shrink-0 self-end sm:self-auto text-xs">
-                          <span className="text-slate-400 flex items-center gap-1 font-mono">
+                          <span className="text-muted flex items-center gap-1">
                             <Clock className="w-3.5 h-3.5" />
-                            {lesson.estimated_minutes}m
+                            {lesson.estimated_minutes} menit
                           </span>
                           <span
                             className={`px-2 py-0.5 rounded text-[11px] font-semibold ${
                               isDone
                                 ? "bg-emerald-50 text-emerald-700"
-                                : "bg-slate-100 text-slate-600 group-hover:bg-sky-50 group-hover:text-sky-700"
+                                : "bg-paper-2 text-ink-2 group-hover:bg-accent-soft group-hover:text-accent"
                             }`}
                           >
                             {isDone ? "Selesai" : "Pelajari"}

@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PERKS = [
-  { icon: BookOpen,  title: "12 Modul Terstruktur",   desc: "Dari setup environment sampai deploy ke internet" },
+  { icon: BookOpen,  title: "6 Modul Terstruktur",    desc: "Dari instalasi Android Studio sampai aplikasi SakuSiswa selesai" },
   { icon: Save,      title: "Progres Tersimpan",       desc: "Lanjutkan kapan saja, dari perangkat mana saja" },
   { icon: Trophy,    title: "Ikut Papan Peringkat",    desc: "Karya Anda dinilai otomatis dan diperingkat" },
-  { icon: ShieldCheck, title: "Sertifikat & Umpan Balik", desc: "Penilaian kualitas kode oleh AI" },
+  { icon: ShieldCheck, title: "Sertifikat & Umpan Balik", desc: "Penilaian kualitas kode Kotlin & Room oleh AI" },
 ];
 
 /**
@@ -35,8 +35,8 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-10 w-10 rounded-full border-3 border-slate-200 border-t-sky-500 animate-spin" />
-          <p className="text-xs text-slate-400 font-medium">Memeriksa akses...</p>
+          <div className="h-10 w-10 rounded-full border-3 border-rule border-t-accent animate-spin motion-reduce:animate-none" />
+          <p className="text-xs text-muted font-medium">Memeriksa akses…</p>
         </div>
       </div>
     );
