@@ -101,34 +101,34 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen py-8 sm:py-12">
+    <div className="bg-[#FAF6F0] min-h-screen py-8 sm:py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6 flex-wrap">
-          <Link href="/" className="hover:text-slate-800">
+        <nav className="flex items-center gap-1.5 text-xs text-[#6A5A4E] mb-6 flex-wrap">
+          <Link href="/beranda" className="hover:text-[#2B211B]">
             Beranda
           </Link>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-          <Link href="/kurikulum" className="hover:text-slate-800">
+          <Link href="/kurikulum" className="hover:text-[#2B211B]">
             Kurikulum
           </Link>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
           <Link
             href={`/kurikulum/${currentModule.slug}`}
-            className="hover:text-slate-800 font-medium truncate max-w-[180px]"
+            className="hover:text-[#2B211B] font-medium truncate max-w-[180px]"
           >
             Modul {currentModule.module_number}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-          <span className="font-semibold text-slate-900 truncate max-w-[200px]">
+          <span className="font-semibold text-[#2B211B] truncate max-w-[200px]">
             {lesson.title}
           </span>
         </nav>
 
         {/* Lesson Header Banner */}
-        <header className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs mb-8">
+        <header className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-6 sm:p-8 shadow-xs mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
+            <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-[#C4552D]/10 text-[#9F3F1D] border border-[#C4552D]/25">
               MODUL {currentModule.module_number} · MATERI {lesson.lesson_number}
             </span>
             <Badge

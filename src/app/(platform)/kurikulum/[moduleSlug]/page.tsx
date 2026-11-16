@@ -66,10 +66,10 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
         </div>
 
         {/* Hero Card */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 text-white p-6 sm:p-8 shadow-md mb-8">
+        <div className="rounded-2xl border border-[#3F3128] bg-[#2B211B] text-[#FDFBF7] p-6 sm:p-8 shadow-md mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">
-              MODUL {module.module_number} DARI 12
+            <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-[#C4552D]/20 text-[#F3B69B] border border-[#C4552D]/40">
+              MODUL {module.module_number} DARI {MODULES_DATA.length}
             </span>
             <Badge
               variant={

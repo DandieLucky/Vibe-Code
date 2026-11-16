@@ -255,7 +255,7 @@ export default function KumpulanKaryaPage() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
+    <div className="bg-[#FAF6F0] min-h-screen py-10 sm:py-14">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">

@@ -15,23 +15,23 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
   const [activeTab, setActiveTab] = useState<"structured" | "raw">("structured");
 
   return (
-    <div className="rounded-2xl border-2 border-sky-200/80 bg-gradient-to-b from-sky-50/40 via-white to-white shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <div className="rounded-2xl border-2 border-[#D8CCBE] bg-[#FDFBF7] shadow-sm overflow-hidden">
       {/* Top Banner Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-slate-900 text-white">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-[#2B211B] text-[#FDFBF7]">
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-400/30">
-            <Sparkles className="w-4 h-4 animate-pulse" />
+          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-[#C4552D]/20 text-[#F3B69B] border border-[#C4552D]/40">
+            <Sparkles className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-sky-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#F3B69B]">
                 PROMPT DISKUSI &amp; IMPLEMENTASI AI
               </span>
-              <Badge variant="teal" className="text-[10px] py-0 px-2 bg-teal-950 text-teal-300 border-teal-800">
+              <Badge variant="teal" className="text-[10px] py-0 px-2 bg-[#3F3128] text-[#FAF6F0] border-[#6A5A4E]">
                 Formula 6-Bagian
               </Badge>
             </div>
-            <p className="text-xs text-slate-300 mt-0.5 font-mono">
+            <p className="text-xs text-[#D8CCBE] mt-0.5 font-mono">
               Berpikir Terstruktur • Pahami Kode Sebelum Diterapkan
             </p>
           </div>
@@ -40,14 +40,14 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
           {/* View Mode Toggle */}
-          <div className="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700 text-xs">
+          <div className="inline-flex rounded-lg bg-[#3F3128] p-0.5 border border-[#6A5A4E] text-xs">
             <button
               type="button"
               onClick={() => setActiveTab("structured")}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 activeTab === "structured"
-                  ? "bg-sky-600 text-white shadow-sm"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#C4552D] text-[#FDFBF7] shadow-sm"
+                  : "text-[#D8CCBE] hover:text-white"
               }`}
             >
               Terstruktur
@@ -57,8 +57,8 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
               onClick={() => setActiveTab("raw")}
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 activeTab === "raw"
-                  ? "bg-sky-600 text-white shadow-sm"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#C4552D] text-[#FDFBF7] shadow-sm"
+                  : "text-[#D8CCBE] hover:text-white"
               }`}
             >
               Raw Text

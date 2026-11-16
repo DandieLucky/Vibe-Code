@@ -195,21 +195,21 @@ function DashboardPesertaInner() {
         )}
 
         {/* User Profile Header Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-6 sm:p-8 shadow-xs mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white flex items-center justify-center font-bold text-2xl shadow-md">
+            <div className="h-16 w-16 rounded-2xl bg-[#C4552D] text-[#FDFBF7] flex items-center justify-center font-bold text-2xl shadow-sm">
               <User className="w-8 h-8" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-[#2B211B]">
                   {currentUser?.full_name ?? "Siswa ComposeLab SMKN 1"}
                 </h1>
                 <Badge variant="teal" className="text-[10px]">
                   Siswa Aktif
                 </Badge>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              <p className="text-xs sm:text-sm text-[#5D4E43] mt-1">
                 Program Pelatihan Android Kotlin, Jetpack Compose &amp; Room Database — SMKN 1 Jakarta
               </p>
             </div>
@@ -232,22 +232,22 @@ function DashboardPesertaInner() {
 
         {/* Key Metrics Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-5 shadow-2xs">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6A5A4E]">
               Total Modul
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
-              12 Modul
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#2B211B] mt-1">
+              {MODULES_DATA.length} Modul
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">Kurikulum Terstandar</p>
+            <p className="text-[11px] text-[#6A5A4E] mt-1">Pelatihan 3 Hari</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-5 shadow-2xs">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6A5A4E]">
               Materi Selesai
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-sky-600 mt-1">
-              {totalCompleted} <span className="text-sm text-slate-400 font-normal">/ {totalLessons}</span>
+            <div className="text-2xl sm:text-3xl font-extrabold text-[#C4552D] mt-1">
+              {totalCompleted} <span className="text-sm text-[#6A5A4E] font-normal">/ {totalLessons}</span>
             </div>
             <p className="text-[11px] text-slate-400 mt-1">Praktik Tuntas</p>
           </div>

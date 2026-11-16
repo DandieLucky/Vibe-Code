@@ -58,43 +58,43 @@ export default function KurikulumList() {
   });
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-16">
+    <div className="bg-[#FAF6F0] min-h-screen py-10 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Breadcrumb & Title */}
         <div className="mb-8">
-          <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
-            <Link href="/" className="hover:text-slate-800">
+          <div className="flex items-center gap-2 text-xs text-[#6A5A4E] mb-2">
+            <Link href="/beranda" className="hover:text-[#2B211B]">
               Beranda
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-slate-800">Kurikulum 6 Modul</span>
+            <span className="font-semibold text-[#2B211B]">Kurikulum 6 Modul</span>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-[#E6DDD2]">
             <div>
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-2xl sm:text-4xl font-extrabold text-[#2B211B] tracking-tight">
                 Kurikulum Lengkap Android Kotlin &amp; Compose
               </h1>
-              <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
+              <p className="mt-2 text-sm sm:text-base text-[#5D4E43] max-w-2xl">
                 6 modul padat untuk pelatihan 3 hari. Dilengkapi alur berpikir terstruktur dan prompt AI siap diskusi.
               </p>
             </div>
 
             {/* Overall Progress Widget */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs shrink-0 min-w-[280px]">
-              <div className="flex items-center justify-between text-xs font-bold text-slate-700 mb-2">
+            <div className="bg-[#FDFBF7] rounded-2xl border border-[#E6DDD2] p-4 sm:p-5 shadow-xs shrink-0 min-w-[280px]">
+              <div className="flex items-center justify-between text-xs font-bold text-[#2B211B] mb-2">
                 <span>Progres Belajar Anda</span>
-                <span className="text-sky-600 font-mono text-sm">{progressPercent}%</span>
+                <span className="text-[#C4552D] font-mono text-sm">{progressPercent}%</span>
               </div>
-              <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div className="w-full bg-[#EFE7DC] rounded-full h-2.5 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-sky-500 to-teal-500 h-2.5 rounded-full transition-all duration-500"
+                  className="bg-[#C4552D] h-2.5 rounded-full transition-all duration-500"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
-              <div className="flex items-center justify-between mt-2.5 text-[11px] text-slate-500">
+              <div className="flex items-center justify-between mt-2.5 text-[11px] text-[#6A5A4E]">
                 <span>{totalCompleted} dari {totalLessons} materi selesai</span>
-                <Link href="/dashboard" className="text-sky-600 font-semibold hover:underline">
+                <Link href="/dashboard" className="text-[#C4552D] font-semibold hover:underline">
                   Buka Dashboard &rarr;
                 </Link>
               </div>
@@ -106,13 +106,13 @@ export default function KurikulumList() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
           {/* Search bar */}
           <div className="relative w-full sm:w-96">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#6A5A4E] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Cari modul atau materi (contoh: Room Database, Compose, Google Login)..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#D8CCBE] bg-[#FDFBF7] text-sm text-[#2B211B] placeholder:text-[#6A5A4E] focus:outline-none focus:ring-2 focus:ring-[#C4552D]"
             />
           </div>
 
@@ -130,8 +130,8 @@ export default function KurikulumList() {
                 onClick={() => setSelectedDifficulty(lvl.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors shrink-0 ${
                   selectedDifficulty === lvl.id
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-100"
+                    ? "bg-[#2B211B] text-[#FDFBF7] shadow-xs"
+                    : "bg-[#FDFBF7] text-[#4A3B31] border border-[#D8CCBE] hover:bg-[#F3ECE2]"
                 }`}
               >
                 {lvl.label}
@@ -153,10 +153,10 @@ export default function KurikulumList() {
             return (
               <div
                 key={module.id}
-                className="rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden transition-all duration-200 hover:border-slate-300"
+                className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] shadow-xs overflow-hidden transition-colors duration-200 hover:border-[#D8CCBE]"
               >
                 {/* Module Header Bar */}
-                <div className="p-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="p-6 bg-[#2B211B] text-[#FDFBF7] flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2.5">
                       <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">

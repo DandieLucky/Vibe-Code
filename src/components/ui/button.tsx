@@ -16,19 +16,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-brand-primary text-white hover:bg-slate-800 focus-visible:ring-slate-900 shadow-sm",
+        "bg-[#2B211B] text-[#FDFBF7] hover:bg-[#3F3128] focus-visible:ring-[#C4552D] shadow-sm",
       secondary:
-        "bg-slate-100 text-slate-800 hover:bg-slate-200 focus-visible:ring-slate-400",
+        "bg-[#F3ECE2] text-[#2B211B] hover:bg-[#E6DDD2] focus-visible:ring-[#C4552D]",
       outline:
-        "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-400",
+        "border border-[#D8CCBE] bg-[#FDFBF7] text-[#2B211B] hover:bg-[#F3ECE2] focus-visible:ring-[#C4552D]",
       ghost:
-        "text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-300",
+        "text-[#5D4E43] hover:bg-[#F3ECE2] hover:text-[#2B211B] focus-visible:ring-[#C4552D]",
       danger:
         "bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500 shadow-sm",
       teal:
-        "bg-teal-600 text-white hover:bg-teal-700 focus-visible:ring-teal-500 shadow-sm",
+        "bg-teal-700 text-white hover:bg-teal-800 focus-visible:ring-teal-600 shadow-sm",
       accent:
-        "bg-sky-600 text-white hover:bg-sky-700 focus-visible:ring-sky-500 shadow-sm",
+        "bg-[#C4552D] text-[#FDFBF7] hover:bg-[#A94420] focus-visible:ring-[#C4552D] shadow-sm",
     };
 
     const sizes = {
