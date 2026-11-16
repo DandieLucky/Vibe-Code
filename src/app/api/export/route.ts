@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Default: Excel .xlsx
-    const excelBuffer = generateExcelBuffer(filteredData);
+    const excelBuffer = await generateExcelBuffer(filteredData);
 
     return new NextResponse(excelBuffer as unknown as BodyInit, {
       status: 200,

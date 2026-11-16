@@ -1,4 +1,4 @@
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import type { WorkSubmission } from "../../types/database.ts";
 import { formatDate } from "../utils.ts";
 
@@ -60,54 +60,52 @@ export function formatSubmissionStatus(status: string): string {
   }
 }
 
-export function generateExcelBuffer(submissions: WorkSubmission[]): Buffer {
-  const rows = submissions.map((sub, index) => ({
-    No: index + 1,
-    "Nama Lengkap": sub.full_name || "-",
-    Email: sub.email || "-",
-    WhatsApp: sub.whatsapp || "-",
-    "Asal Institusi / Sekolah": sub.institution || "-",
-    "Judul Proyek": sub.project_title || "-",
-    "Modul Diselesaikan": Array.isArray(sub.completed_modules)
-      ? sub.completed_modules.join(", ")
-      : sub.completed_modules || "-",
-    "Link Repository GitHub": sub.github_url || "-",
-    "Link Deployment Vercel": sub.deployment_url || "-",
-    "Screenshot URL": sub.screenshot_url || "-",
-    "Dokumen Lampiran": sub.attachment_url || "-",
-    "Status Penilaian": formatSubmissionStatus(sub.submission_status),
-    "Nilai / Skor": sub.score !== undefined && sub.score !== null ? sub.score : "-",
-    "Catatan Review Admin": sub.admin_notes || "-",
-    "Tanggal Pengumpulan": formatDate(sub.submitted_at),
-  }));
+export async function generateExcelBuffer(submissions: WorkSubmission[]): Promise<Buffer> {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet("Kumpulan Karya Peserta");
 
-  const worksheet = XLSX.utils.json_to_sheet(rows);
-
-  // Auto-width columns for neat readability
-  const colWidths = [
-    { wch: 5 },  // No
-    { wch: 25 }, // Nama
-    { wch: 25 }, // Email
-    { wch: 18 }, // WhatsApp
-    { wch: 25 }, // Institusi
-    { wch: 30 }, // Judul
-    { wch: 30 }, // Modul
-    { wch: 45 }, // GitHub
-    { wch: 45 }, // Vercel
-    { wch: 40 }, // Screenshot
-    { wch: 40 }, // Attachment
-    { wch: 25 }, // Status
-    { wch: 12 }, // Skor
-    { wch: 35 }, // Catatan
-    { wch: 22 }, // Tanggal
+  worksheet.columns = [
+    { header: "No", key: "no", width: 5 },
+    { header: "Nama Lengkap", key: "full_name", width: 25 },
+    { header: "Email", key: "email", width: 25 },
+    { header: "WhatsApp", key: "whatsapp", width: 18 },
+    { header: "Asal Institusi / Sekolah", key: "institution", width: 25 },
+    { header: "Judul Proyek", key: "project_title", width: 30 },
+    { header: "Modul Diselesaikan", key: "completed_modules", width: 30 },
+    { header: "Link Repository GitHub", key: "github_url", width: 45 },
+    { header: "Link Deployment Vercel", key: "deployment_url", width: 45 },
+    { header: "Screenshot URL", key: "screenshot_url", width: 40 },
+    { header: "Dokumen Lampiran", key: "attachment_url", width: 40 },
+    { header: "Status Penilaian", key: "submission_status", width: 25 },
+    { header: "Nilai / Skor", key: "score", width: 12 },
+    { header: "Catatan Review Admin", key: "admin_notes", width: 35 },
+    { header: "Tanggal Pengumpulan", key: "submitted_at", width: 22 },
   ];
-  worksheet["!cols"] = colWidths;
 
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Kumpulan Karya Peserta");
+  submissions.forEach((sub, index) => {
+    worksheet.addRow({
+      no: index + 1,
+      full_name: sub.full_name || "-",
+      email: sub.email || "-",
+      whatsapp: sub.whatsapp || "-",
+      institution: sub.institution || "-",
+      project_title: sub.project_title || "-",
+      completed_modules: Array.isArray(sub.completed_modules)
+        ? sub.completed_modules.join(", ")
+        : sub.completed_modules || "-",
+      github_url: sub.github_url || "-",
+      deployment_url: sub.deployment_url || "-",
+      screenshot_url: sub.screenshot_url || "-",
+      attachment_url: sub.attachment_url || "-",
+      submission_status: formatSubmissionStatus(sub.submission_status),
+      score: sub.score !== undefined && sub.score !== null ? sub.score : "-",
+      admin_notes: sub.admin_notes || "-",
+      submitted_at: formatDate(sub.submitted_at),
+    });
+  });
 
-  const buffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
-  return buffer;
+  const arrayBuffer = await workbook.xlsx.writeBuffer();
+  return Buffer.from(arrayBuffer);
 }
 
 export function generateCsvString(submissions: WorkSubmission[]): string {

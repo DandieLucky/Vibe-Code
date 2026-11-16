@@ -115,7 +115,7 @@ test("Ekspor Data: Menghasilkan buffer Excel dan CSV yang valid", async () => {
   ];
 
   // Test Excel
-  const excelBuffer = generateExcelBuffer(sampleSubmissions);
+  const excelBuffer = await generateExcelBuffer(sampleSubmissions);
   assert.ok(excelBuffer instanceof Buffer, "Hasil harus berupa Buffer");
   assert.ok(excelBuffer.length > 500, "Ukuran file Excel harus substantif");
 
