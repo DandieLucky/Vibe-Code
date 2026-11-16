@@ -223,7 +223,7 @@
 }
 
 .bloom-tab[aria-selected="true"] {
-  background: var(--color-umber);
+  background: var(--umber);
   color: var(--color-accent-ink);
 }
 
