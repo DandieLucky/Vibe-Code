@@ -41,35 +41,31 @@ const MAX_CHARS_PER_FILE = 6000;
 const MAX_TOTAL_CHARS = 60000;
 
 const SKIP_DIRS =
-  /(^|\/)(node_modules|\.next|dist|build|out|coverage|\.git|vendor|__pycache__)(\/|$)/i;
+  /(^|\/)(node_modules|\.next|\.gradle|\.idea|gradle\/wrapper|dist|build|out|coverage|\.git|vendor|__pycache__)(\/|$)/i;
 const SKIP_EXT =
-  /\.(png|jpe?g|gif|svg|ico|webp|mp4|mp3|woff2?|ttf|eot|pdf|zip|lock|map)$/i;
+  /\.(png|jpe?g|gif|svg|ico|webp|mp4|mp3|woff2?|ttf|eot|pdf|zip|jar|apk|aab|keystore|jks|lock|map)$/i;
 
-/** File yang paling menunjukkan kualitas karya — diurutkan prioritas. */
+/** File yang paling menunjukkan kualitas karya Android Kotlin — diurutkan prioritas. */
 const PRIORITY_PATTERNS: Array<[RegExp, number]> = [
   [/^readme\.md$/i, 100],
-  [/^package\.json$/i, 95],
-  [/^app\/(page|layout)\.(tsx?|jsx?)$/i, 90],
-  [/^src\/app\/page\.(tsx?|jsx?)$/i, 90],
-  [/^src\/app\/.*\/page\.(tsx?|jsx?)$/i, 80],
-  [/^app\/.*\/page\.(tsx?|jsx?)$/i, 80],
-  [/^src\/components\/.*\.(tsx?|jsx?)$/i, 70],
-  [/^components\/.*\.(tsx?|jsx?)$/i, 70],
-  [/route\.(ts|js)$/i, 75],
-  [/^src\/lib\/.*\.(ts|js)$/i, 60],
-  [/^supabase\/.*\.sql$/i, 65],
-  [/^src\/types\/.*\.ts$/i, 55],
-  [/tailwind\.config\.(ts|js|mjs)$/i, 50],
-  [/\/page\.(tsx?|jsx?)$/i, 45],
+  [/app\/build\.gradle(\.kts)?$/i, 95],
+  [/gradle\/libs\.versions\.toml$/i, 90],
+  [/AndroidManifest\.xml$/i, 88],
+  [/(Entity|Dao|Database)\.kt$/i, 92],
+  [/(Auth|GoogleAuth|Credential).*\.kt$/i, 90],
+  [/ViewModel\.kt$/i, 88],
+  [/MainActivity\.kt$/i, 86],
+  [/(Screen|Dialog|Card).*\.kt$/i, 82],
+  [/\.kt$/i, 70],
+  [/build\.gradle(\.kts)?$/i, 60],
 ];
 
 function scoreFile(path: string): number {
   for (const [pattern, weight] of PRIORITY_PATTERNS) {
     if (pattern.test(path)) return weight;
   }
-  if (path.endsWith(".ts") || path.endsWith(".tsx")) return 40;
-  if (path.endsWith(".js") || path.endsWith(".jsx")) return 35;
-  if (path.endsWith(".json")) return 25;
+  if (path.endsWith(".kt")) return 70;
+  if (path.endsWith(".xml")) return 40;
   if (path.endsWith(".md")) return 30;
   return 10;
 }
@@ -78,7 +74,7 @@ function ghHeaders(): HeadersInit {
   const h: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
-    "User-Agent": "vibecode-scoring",
+    "User-Agent": "composelab-smkn1-scoring",
   };
   if (process.env.GITHUB_TOKEN) h.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   return h;
@@ -149,16 +145,16 @@ export async function fetchRepoCode(
   }
 }
 
-const SYSTEM_PROMPT = `Anda adalah penilai teknis untuk pelatihan web development pemula di Indonesia.
+const SYSTEM_PROMPT = `Anda adalah penilai teknis untuk pelatihan pengembangan aplikasi Android pemula (Siswa Kelas 10 SMK Negeri 1 Jakarta).
 
-Peserta adalah PEMULA yang membangun aplikasi web full-stack (Next.js + Supabase) dengan bantuan AI coding agent.
+Peserta adalah SISWA PEMULA yang membangun aplikasi Android lokal (Kotlin + Jetpack Compose Material 3 + Room Database KSP + Google Credential Manager + CRUD) dengan bantuan AI secara terstruktur.
 
 Tugas Anda: nilai 4 aspek, masing-masing skor 0-100, dengan kalibrasi berikut:
 - 0-30: tidak ada / sangat kurang
-- 31-55: ada tapi banyak kekurangan mendasar
-- 56-70: berfungsi, cukup untuk pemula
-- 71-85: bagus, rapi, melampaui ekspektasi pemula
-- 86-100: sangat bagus, setara developer junior profesional
+- 31-55: ada tapi banyak kekurangan mendasar (misal tidak ada Room atau tidak ada CRUD)
+- 56-70: berfungsi, cukup untuk siswa kelas 10 (ada Compose, Room Entity/DAO, dan CRUD dasar)
+- 71-85: bagus, rapi, ada Login Google Credential Manager + Room + CRUD + filter/pencarian
+- 86-100: sangat bagus, struktur MVVM bersih, null-safe, ada fitur kreasi mandiri & README lengkap
 
 KALIBRASI PENTING: peserta adalah pemula. Jangan menilai dengan standar engineer senior.
 Beri apresiasi pada usaha dan hal yang berhasil berjalan. Yang penting adalah Anda KONSISTEN,
@@ -180,7 +176,7 @@ export async function evaluateWithAi(
   projectTitle: string,
   projectDescription: string,
   githubUrl: string,
-  deploymentUrl: string
+  apkUrl?: string
 ): Promise<AiEvaluation> {
   const empty: AiEvaluation = {
     available: false,
@@ -221,7 +217,7 @@ JUDUL PROYEK: ${projectTitle}
 DESKRIPSI YANG DITULIS PESERTA:
 ${projectDescription || "(peserta tidak menulis deskripsi)"}
 
-LINK SITUS LIVE: ${deploymentUrl}
+LINK APK / RILIS: ${apkUrl || "(opsional — tidak dilampirkan)"}
 
 KODE SUMBER (${files.length} file terpilih):
 ${codeBlock}

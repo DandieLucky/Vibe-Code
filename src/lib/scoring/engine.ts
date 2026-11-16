@@ -15,7 +15,6 @@
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { checkGithubRepo } from "./github-check";
-import { checkDeployment, runLighthouse } from "./web-check";
 import { evaluateWithAi } from "./ai-evaluator";
 
 export interface ScoringConfig {
@@ -162,42 +161,35 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     });
   };
 
-  // ---------- 1. GITHUB ----------
+  // ---------- 1. GITHUB & STRUKTUR ANDROID ----------
   const github = await checkGithubRepo(sub.github_url);
   await log("github_check", github.error ? "failed" : "success", {
     repo: github.repoName,
     fileCount: github.fileCount,
+    kotlinFileCount: github.kotlinFileCount,
+    hasGradleFile: github.hasGradleFile,
+    hasManifest: github.hasManifest,
     hasReadme: github.hasReadme,
     score: github.score,
   }, undefined, github.error ?? undefined);
 
-  // ---------- 2. SITUS LIVE ----------
-  const web = await checkDeployment(sub.deployment_url);
-  await log("deployment_check", web.live ? "success" : "failed", {
-    httpStatus: web.httpStatus,
-    responseTimeMs: web.responseTimeMs,
-    score: web.score,
-  }, web.httpStatus ?? undefined, web.error ?? undefined);
+  // ---------- 2. KELENGKAPAN ARTEFAK ANDROID (Screenshot & Opsional APK) ----------
+  const hasScreenshot = Boolean(sub.screenshot_url && String(sub.screenshot_url).trim().length > 0);
+  const hasApk = Boolean(sub.apk_url && String(sub.apk_url).trim().length > 0);
+  const artifactScore = Math.min(100, (hasScreenshot ? 70 : 0) + (hasApk ? 30 : 15));
 
-  // ---------- 3. LIGHTHOUSE ----------
-  const lighthouse = web.live
-    ? await runLighthouse(sub.deployment_url)
-    : { available: false, performance: null, accessibility: null, bestPractices: null, seo: null, score: 0, error: "Dilewati karena situs tidak aktif." };
+  await log("android_artifacts", hasScreenshot ? "success" : "skipped", {
+    hasScreenshot,
+    hasApk,
+    score: artifactScore,
+  });
 
-  await log(
-    "lighthouse",
-    lighthouse.available ? "success" : "skipped",
-    { performance: lighthouse.performance, score: lighthouse.score },
-    undefined,
-    lighthouse.error ?? undefined
-  );
-
-  // ---------- 4. AI ----------
+  // ---------- 3. AI (GEMINI) ----------
   const ai = await evaluateWithAi(
     sub.project_title,
     sub.project_description,
     sub.github_url,
-    sub.deployment_url
+    sub.apk_url ?? undefined
   );
   await log(
     "ai_eval",
@@ -207,22 +199,17 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     ai.error ?? undefined
   );
 
-  // ---------- 5. GABUNGKAN ----------
-  // 5a. Skor teknis (sub-bobot dinormalisasi agar Lighthouse opsional tidak menekan skor)
-  const tcWeights = [config.weight_tc_github, config.weight_tc_deployment];
-  const tcValues = [github.score, web.score];
-
-  if (lighthouse.available) {
-    tcWeights.push(config.weight_tc_lighthouse);
-    tcValues.push(lighthouse.score);
-  }
+  // ---------- 4. GABUNGKAN ----------
+  // 4a. Skor teknis Android (GitHub + Struktur Kotlin/Gradle + Artefak Screenshot/APK)
+  const tcWeights = [config.weight_tc_github, config.weight_tc_deployment || 30];
+  const tcValues = [github.score, artifactScore];
 
   const tcNorm = normalize(tcWeights);
   const technicalScore = Math.round(
     tcValues.reduce((sum, v, i) => sum + v * (tcNorm[i] / 100), 0)
   );
 
-  // 5b. Skor AI
+  // 4b. Skor AI
   let aiScore = 0;
   if (ai.available) {
     const aiWeights = [
@@ -241,7 +228,7 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     aiScore = Math.round(aiValues.reduce((sum, v, i) => sum + v * (aiNorm[i] / 100), 0));
   }
 
-  // 5c. Skor akhir — kalau AI tidak tersedia, skor teknis jadi penentu tunggal
+  // 4c. Skor akhir — kalau AI tidak tersedia, skor teknis jadi penentu tunggal
   let finalScore: number;
   if (ai.available) {
     const mainNorm = normalize([config.weight_technical, config.weight_ai]);
@@ -250,14 +237,10 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     finalScore = technicalScore;
   }
 
-  // 5d. Penalti
+  // 4d. Penalti (khusus Android: repo private/tidak bisa diakses & tidak ada README)
   const penalties: string[] = [];
   let penaltyTotal = 0;
 
-  if (!web.live) {
-    penaltyTotal += config.penalty_deployment_down;
-    penalties.push(`situs tidak dapat dibuka (-${config.penalty_deployment_down})`);
-  }
   if (github.repoName && !github.isPublic) {
     penaltyTotal += config.penalty_github_private;
     penalties.push(`repository tidak publik (-${config.penalty_github_private})`);
@@ -273,17 +256,17 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
   const finalWithPenalty = Math.max(0, Math.round((finalScore - penaltyTotal) * 100) / 100);
   const duration = Date.now() - started;
 
-  // ---------- 6. SIMPAN ----------
+  // ---------- 5. SIMPAN ----------
   await admin
     .from("work_submissions")
     .update({
       is_github_public: github.isPublic,
-      is_deployment_live: web.live,
-      deployment_http_status: web.httpStatus,
-      lighthouse_performance: lighthouse.performance,
-      lighthouse_accessibility: lighthouse.accessibility,
-      lighthouse_best_practices: lighthouse.bestPractices,
-      lighthouse_seo: lighthouse.seo,
+      is_deployment_live: hasApk || hasScreenshot,
+      deployment_http_status: null,
+      lighthouse_performance: null,
+      lighthouse_accessibility: null,
+      lighthouse_best_practices: null,
+      lighthouse_seo: null,
       repo_file_count: github.fileCount,
       repo_language: github.language,
       repo_has_readme: github.hasReadme,
@@ -309,8 +292,8 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     {
       submission_id: submissionId,
       score_github_reachable: github.score,
-      score_deployment_live: web.score,
-      score_lighthouse: lighthouse.available ? lighthouse.score : null,
+      score_deployment_live: artifactScore,
+      score_lighthouse: null,
       score_code_quality: ai.available ? ai.scores.codeQuality : null,
       score_feature_completeness: ai.available ? ai.scores.featureCompleteness : null,
       score_ui_ux: ai.available ? ai.scores.uiUx : null,
@@ -321,11 +304,9 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
       ai_verdict: ai.verdict || null,
       technical_checks: {
         github,
-        deployment: web,
+        androidArtifacts: { hasScreenshot, hasApk, score: artifactScore },
       },
-      lighthouse_json: lighthouse.available
-        ? (lighthouse as unknown as Record<string, unknown>)
-        : null,
+      lighthouse_json: null,
     },
     { onConflict: "submission_id" }
   );
@@ -339,12 +320,18 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     penaltyReason: penalties.length ? penalties.join("; ") : null,
     message: "Penilaian selesai.",
     detail: {
-      github: { pass: github.reachable, score: github.score, error: github.error },
-      deployment: { live: web.live, status: web.httpStatus, score: web.score, error: web.error },
-      lighthouse: {
-        available: lighthouse.available,
-        score: lighthouse.score,
-        error: lighthouse.error,
+      github: {
+        pass: github.reachable,
+        kotlinFileCount: github.kotlinFileCount,
+        hasGradleFile: github.hasGradleFile,
+        hasManifest: github.hasManifest,
+        score: github.score,
+        error: github.error,
+      },
+      androidArtifacts: {
+        hasScreenshot,
+        hasApk,
+        score: artifactScore,
       },
       ai: { available: ai.available, score: ai.available ? aiScore : null, error: ai.error },
       durationMs: duration,

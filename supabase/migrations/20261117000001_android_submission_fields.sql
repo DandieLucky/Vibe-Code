@@ -7,3 +7,4 @@ ALTER TABLE public.work_submissions
 ALTER TABLE public.work_submissions
   ADD COLUMN IF NOT EXISTS apk_url text,
   ADD COLUMN IF NOT EXISTS demo_video_url text;
+

@@ -11,6 +11,9 @@ export interface GithubCheckResult {
   isPublic: boolean;
   repoName: string | null;
   fileCount: number;
+  kotlinFileCount: number;
+  hasGradleFile: boolean;
+  hasManifest: boolean;
   language: string | null;
   hasReadme: boolean;
   lastCommit: string | null;
@@ -39,7 +42,7 @@ function githubHeaders(): HeadersInit {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",
-    "User-Agent": "vibecode-scoring",
+    "User-Agent": "composelab-smkn1-scoring",
   };
   const token = process.env.GITHUB_TOKEN;
   if (token) headers.Authorization = `Bearer ${token}`;
@@ -52,6 +55,9 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
     isPublic: false,
     repoName: null,
     fileCount: 0,
+    kotlinFileCount: 0,
+    hasGradleFile: false,
+    hasManifest: false,
     language: null,
     hasReadme: false,
     lastCommit: null,
@@ -95,8 +101,11 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
 
     const data = await res.json();
 
-    // Hitung jumlah file di root tree (kedalaman 1, cukup untuk indikator kelengkapan)
+    // Hitung jumlah file & deteksi struktur proyek Android Kotlin
     let fileCount = 0;
+    let kotlinFileCount = 0;
+    let hasGradleFile = false;
+    let hasManifest = false;
     let hasReadme = false;
     try {
       const treeRes = await fetch(
@@ -110,27 +119,40 @@ export async function checkGithubRepo(url: string): Promise<GithubCheckResult> {
         hasReadme = blobs.some((b: any) =>
           /^readme(\.md|\.txt)?$/i.test((b.path ?? "").split("/").pop() ?? "")
         );
+        hasGradleFile = blobs.some((b: any) =>
+          /build\.gradle(\.kts)?$/i.test(b.path ?? "")
+        );
+        hasManifest = blobs.some((b: any) =>
+          /AndroidManifest\.xml$/i.test(b.path ?? "")
+        );
+        kotlinFileCount = blobs.filter((b: any) =>
+          /\.kt$/i.test(b.path ?? "")
+        ).length;
       }
     } catch {
       /* tree opsional */
     }
 
-    // Skor teknis repo (0-100)
+    // Skor teknis repo Android (0-100)
     let score = 0;
-    score += 40; // publik & bisa diakses
-    if (fileCount >= 20) score += 25;
-    else if (fileCount >= 10) score += 18;
-    else if (fileCount >= 5) score += 10;
-    else if (fileCount > 0) score += 5;
-    if (hasReadme) score += 20;
+    score += 30; // publik & bisa diakses
+    if (hasGradleFile) score += 15;
+    if (hasManifest) score += 10;
+    if (kotlinFileCount >= 5) score += 20;
+    else if (kotlinFileCount >= 2) score += 12;
+    else if (fileCount >= 5) score += 8;
+    if (hasReadme) score += 15;
     if (data.description) score += 5;
-    if (data.language) score += 10;
+    if (data.language) score += 5;
 
     return {
       reachable: true,
       isPublic: !data.private,
       repoName: repoPath,
       fileCount,
+      kotlinFileCount,
+      hasGradleFile,
+      hasManifest,
       language: data.language ?? null,
       hasReadme,
       lastCommit: data.pushed_at ?? null,
