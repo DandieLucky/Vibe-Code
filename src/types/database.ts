@@ -69,6 +69,7 @@ export interface Lesson {
   prerequisites?: string[];
   concept_explanation?: string;
   preparation?: string[];
+  thinking_steps?: string[];
   step_instructions?: string[];
   antigravity_prompt?: AntigravityPromptFormat;
   code_snippets?: {

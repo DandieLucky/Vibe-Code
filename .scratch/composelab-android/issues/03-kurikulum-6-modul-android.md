@@ -4,9 +4,9 @@
 
 **Blocked by:** 01: Rebranding Platform ke "ComposeLab SMKN 1" & Penyesuaian Shell Global
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] `COURSE_INFO` dan `MODULES_DATA` berisi 6 modul lengkap dengan materi Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager API yang relevan dengan standar 2026
-- [ ] Setiap lesson memiliki panduan berpikir terstruktur sebelum prompt AI agar siswa belajar merancang logika, bukan vibecoding
-- [ ] Halaman `/kurikulum`, `/kurikulum/[slug]`, dan `/dashboard` menampilkan 6 modul dengan progres yang tetap berfungsi normal
+- [x] `COURSE_INFO` dan `MODULES_DATA` berisi 6 modul lengkap dengan materi Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager API yang relevan dengan standar 2026
+- [x] Setiap lesson memiliki panduan berpikir terstruktur (`thinking_steps`) sebelum prompt AI agar siswa belajar merancang logika, bukan vibecoding
+- [x] Halaman `/kurikulum`, `/kurikulum/[slug]`, dan `/dashboard` menampilkan 6 modul dengan progres yang tetap berfungsi normal
 

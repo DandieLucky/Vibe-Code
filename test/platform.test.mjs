@@ -2,12 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 // 1. Test Curriculum Structure Integrity
-test("Kurikulum: Harus memiliki tepat 12 modul pembelajaran", async () => {
+test("Kurikulum: Harus memiliki tepat 6 modul pembelajaran", async () => {
   const { MODULES_DATA } = await import("../src/lib/data/curriculum-data.ts");
-  assert.equal(MODULES_DATA.length, 12, "Jumlah modul harus tepat 12");
+  assert.equal(MODULES_DATA.length, 6, "Jumlah modul harus tepat 6");
 
-  // Every module must have module_number from 1 to 12
-  for (let i = 0; i < 12; i++) {
+  // Every module must have module_number from 1 to 6
+  for (let i = 0; i < 6; i++) {
     assert.equal(
       MODULES_DATA[i].module_number,
       i + 1,
@@ -53,7 +53,7 @@ test("Sistem Prompt Antigravity: Memenuhi format formula 6-bagian baku", async (
     }
   }
 
-  assert.ok(promptCount >= 12, `Harus ada minimal 12 prompt Antigravity terstruktur, ditemukan: ${promptCount}`);
+  assert.ok(promptCount >= 24, `Harus ada minimal 24 prompt AI terstruktur, ditemukan: ${promptCount}`);
 });
 
 // 2. Test Zod Validation Schemas

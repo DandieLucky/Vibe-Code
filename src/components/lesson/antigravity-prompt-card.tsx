@@ -25,14 +25,14 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-sky-400">
-                PROMPT GOOGLE ANTIGRAVITY
+                PROMPT DISKUSI &amp; IMPLEMENTASI AI
               </span>
               <Badge variant="teal" className="text-[10px] py-0 px-2 bg-teal-950 text-teal-300 border-teal-800">
-                Siap Salin
+                Formula 6-Bagian
               </Badge>
             </div>
             <p className="text-xs text-slate-300 mt-0.5 font-mono">
-              Formula 6-Bagian Presisi • Anti-Halusinasi
+              Berpikir Terstruktur • Pahami Kode Sebelum Diterapkan
             </p>
           </div>
         </div>

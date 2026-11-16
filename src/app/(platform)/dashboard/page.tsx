@@ -385,7 +385,7 @@ function DashboardPesertaInner() {
               ) : (
                 <div className="text-center py-4 space-y-3">
                   <p className="text-xs text-slate-500 leading-relaxed">
-                    Anda belum mengumpulkan hasil karya aplikasi katalog UMKM.
+                    Anda belum mengumpulkan hasil karya aplikasi Android SakuSiswa.
                   </p>
                   <Link href="/kumpulan-karya" className="block">
                     <Button variant="accent" size="sm" className="w-full font-bold">

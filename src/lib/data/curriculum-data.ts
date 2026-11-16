@@ -1,40 +1,38 @@
-import type { Module, Lesson, DifficultyLevel } from "../../types/database.ts";
+import type { Module, Lesson } from "../../types/database.ts";
 
 export interface FullModule extends Module {
   lessons: Lesson[];
 }
 
 export const COURSE_INFO = {
-  id: "course-web-dev-antigravity",
-  slug: "web-development-antigravity",
-  title: "Full-Stack Web Development Modern dengan Google Antigravity & Supabase",
+  id: "course-android-compose-smkn1",
+  slug: "android-kotlin-jetpack-compose-sakusiswa",
+  title: "Pengembangan Aplikasi Android Modern dengan Kotlin, Jetpack Compose & AI Prompting",
   description:
-    "Pelajari pembuatan aplikasi web modern berskala produksi dari nol tanpa harus menguasai coding konvensional, dipandu langsung oleh AI Coding Agent Google Antigravity, Next.js, dan Supabase.",
-  cover_image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200",
-  total_modules: 12,
-  total_estimated_hours: 24,
+    "Kurikulum intensif 3 hari (6 modul padat) khusus siswa Kelas 10 SMK Negeri 1 Jakarta. Belajar merancang aplikasi Android SakuSiswa (Catatan & Tugas Sekolah) menggunakan Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager dengan pola berpikir terstruktur.",
+  cover_image: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=1200",
+  total_modules: 6,
+  total_estimated_hours: 18,
   target_audience: [
-    "Mahasiswa & Akademisi",
-    "Guru & Dosen",
-    "Pelajar & Pemula",
-    "Pelaku UMKM Digital",
-    "Masyarakat Umum Non-IT",
+    "Siswa Kelas 10 RPL / PPLG SMK Negeri 1 Jakarta",
+    "Pemula Pemrograman Android",
+    "Guru & Fasilitator Produktif SMK",
   ],
 };
 
 export const MODULES_DATA: FullModule[] = [
   // =========================================================================
-  // MODUL 1: PENGENALAN WEB DEVELOPMENT
+  // MODUL 1 (HARI 1 PAGI): BERPIKIR KOMPUTASIONAL, PROMPTING AI & ANDROID STUDIO
   // =========================================================================
   {
     id: "modul-1",
-    course_id: "course-web-dev-antigravity",
+    course_id: "course-android-compose-smkn1",
     module_number: 1,
-    title: "Pengenalan Web Development & AI Coding Agent",
-    slug: "modul-1-pengenalan-web-development",
+    title: "Berpikir Komputasional, Prompting AI Bijak & Persiapan Android Studio",
+    slug: "modul-1-fondasi-prompting-dan-android-studio",
     description:
-      "Memahami anatomi aplikasi web modern, pemisahan Frontend, Backend, dan Database, serta revolusi pengembangan software dengan AI coding agent.",
-    estimated_minutes: 60,
+      "Membangun pola pikir rekayasa perangkat lunak (Input-Proses-Output), cara memanfaatkan AI sebagai teman diskusi tanpa terjebak vibecoding, serta menyiapkan Android Studio dan struktur proyek.",
+    estimated_minutes: 150,
     difficulty_level: "Pemula",
     is_published: true,
     order_index: 1,
@@ -44,258 +42,449 @@ export const MODULES_DATA: FullModule[] = [
         id: "m1-l1",
         module_id: "modul-1",
         lesson_number: 1,
-        title: "Pengertian Website dan Aplikasi Web Modern",
-        slug: "pengertian-website-dan-aplikasi-web",
-        description: "Membedakan website statis tradisional dengan aplikasi web interaktif dinamis yang terhubung ke basis data.",
-        estimated_minutes: 15,
+        title: "Berpikir Terstruktur vs Vibecoding: Cara Kerja Aplikasi Android",
+        slug: "berpikir-terstruktur-vs-vibecoding",
+        description:
+          "Memahami mengapa programmer profesional merancang alur data terlebih dahulu sebelum meminta bantuan AI, serta mengenal komponen utama aplikasi SakuSiswa.",
+        estimated_minutes: 35,
         order_index: 1,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memahami perbedaan mendasar antara dokumen HTML statis dan web app interaktif serta arsitektur modern.",
-        prerequisites: ["Kemampuan mengoperasikan komputer dan browser modern"],
-        concept_explanation:
-          "Website statis hanya menyajikan konten yang sama untuk setiap pengunjung tanpa interaksi database. Sebaliknya, Aplikasi Web (Web App) seperti Toko Online, WhatsApp Web, atau Dashboard Admin memproses input pengguna, mengelola sesi login, dan memperbarui data secara dinamis dari database tanpa memuat ulang seluruh halaman.",
+        objective:
+          "Siswa mampu membedakan penggunaan AI yang terarah (AI-Assisted Engineering) dengan menyalin kode secara buta (vibecoding), serta memetakan Input-Proses-Output aplikasi SakuSiswa.",
+        prerequisites: ["Menguasai penggunaan dasar laptop dan browser"],
+        concept_explanation: `Bayangkan kamu ingin membangun rumah. Jika kamu langsung menyuruh tukang "tolong bangunkan rumah yang bagus" tanpa gambar denah, hasilnya pasti berantakan dan sulit diperbaiki ketika bocor. Di dunia pemrograman, menyuruh AI membuat seluruh aplikasi tanpa kamu pahami alurnya disebut "vibecoding". Saat terjadi error, kamu akan panik karena tidak tahu bagian mana yang rusak.
+
+Sebaliknya, seorang Software Engineer menggunakan pendekatan Berpikir Komputasional (Computational Thinking):
+1. Dekomposisi: Memecah aplikasi besar menjadi bagian-bagian kecil (Layar Login, Daftar Tugas, Form Tambah Tugas, Database Lokal).
+2. Pola Input -> Proses -> Penyimpanan -> Output:
+   - Input: Siswa mengetik judul tugas "PR Matematika Bab Aljabar" dan memilih mata pelajaran.
+   - Proses: Aplikasi memeriksa apakah judul tidak kosong, lalu melampirkan email Google siswa yang sedang login.
+   - Penyimpanan: Data disimpan ke tabel lokal di HP menggunakan Room Database.
+   - Output: Layar Jetpack Compose otomatis menampilkan kartu tugas baru di daftar.
+
+Dalam pelatihan 3 hari ini, kita akan membangun satu aplikasi utuh bernama "SakuSiswa" (Aplikasi Catatan & Manajemen Tugas Siswa) dengan tiga pilar wajib: Login Google (Credential Manager), Database Lokal (Room Database), dan fitur CRUD (Create, Read, Update, Delete).`,
         preparation: [
-          "Buka browser Chrome atau Edge versi terbaru",
-          "Buka Developer Tools (tekan tombol F12 atau klik kanan -> Inspect)",
-          "Buka tab Network untuk mengamati lalu lintas request data",
+          "Siapkan buku catatan atau aplikasi catatan di laptop untuk menggambar alur aplikasi",
+          "Buka halaman Beranda ComposeLab SMKN 1 dan amati simulasi alur SakuSiswa",
+        ],
+        thinking_steps: [
+          "Data apa saja yang wajib dicatat saat seorang siswa kelas 10 menambahkan satu tugas sekolah baru?",
+          "Mengapa kita perlu menyimpan email akun Google siswa di setiap baris tugas pada database lokal?",
+          "Apa yang harus terjadi di layar jika siswa menekan tombol Simpan ketika kolom Judul Tugas masih kosong?",
         ],
         step_instructions: [
-          "Buka situs web statis sederhana dan amati tab Network pada DevTools.",
-          "Buka situs web dinamis (seperti e-commerce) dan lakukan pencarian produk.",
-          "Perhatikan bagaimana data produk dimuat dalam format JSON secara dinamis melalui API.",
+          "Buat satu dokumen teks atau catatan baru bernama 'Blueprint-SakuSiswa.md' di folder kerjamu.",
+          "Tuliskan daftar 4 fitur utama yang harus ada di aplikasi SakuSiswa: Login Google, Tambah Tugas (Create), Lihat & Filter Tugas (Read), Ubah Status/Isi Tugas (Update), dan Hapus Tugas (Delete).",
+          "Tuliskan daftar kolom data yang dibutuhkan untuk satu tugas: id, userEmail, mataPelajaran, judulTugas, catatan, tenggatWaktu, dan isCompleted.",
+          "Diskusikan dengan teman sebangku atau guru mengapa setiap tugas harus memiliki 'id' yang unik.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat visualisasi diagram interaktif yang menjelaskan alur kerja Website Statis vs Aplikasi Web Modern.",
-          konteks: "Proyek Next.js 15 App Router menggunakan Tailwind CSS dan Lucide Icons.",
+          tujuan:
+            "Berdiskusi dengan AI untuk memvalidasi rancangan tabel data dan alur Input-Proses-Output aplikasi SakuSiswa.",
+          konteks:
+            "Siswa kelas 10 SMK sedang merancang aplikasi Android SakuSiswa menggunakan Kotlin, Jetpack Compose, Room Database lokal, dan Login Google.",
           instruksi: [
-            "Buat komponen React bernama 'WebConceptCard.tsx' di folder src/components/demo.",
-            "Tampilkan perbandingan side-by-side antara Website Statis (HTML/CSS tradisional) dan Web App (Next.js + Supabase).",
-            "Sediakan tombol toggle interaktif untuk melihat perbedaan kecepatan dan fleksibilitas data.",
+            "Periksa apakah rancangan kolom data tugas (id, userEmail, subject, title, description, dueDate, isDone) sudah cukup untuk kebutuhan pencatatan tugas harian siswa SMK.",
+            "Jelaskan dengan bahasa sederhana untuk siswa kelas 10 bagaimana alur data mengalir dari tombol Simpan di Jetpack Compose menuju Room Database.",
+            "Berikan 3 contoh skenario pengujian (test case) sederhana untuk memastikan fitur tambah tugas berjalan benar.",
           ],
           batasan: [
-            "Gunakan hanya Tailwind CSS untuk styling.",
-            "Pastikan komponen responsif di tampilan mobile (stack vertikal di layar kecil).",
+            "Jangan langsung memberikan ratusan baris kode; fokus pada penjelasan diagram alur dan struktur data.",
+            "Gunakan analogi kehidupan sekolah sehari-hari.",
           ],
-          hasilAkhir: "Komponen interaktif yang dapat diuji pada halaman perkenalan.",
-          validasi: "Pastikan tidak ada error TypeScript dan layout rapi di resolusi mobile maupun desktop.",
-          rawPrompt: `[TUJUAN]\nMembuat visualisasi interaktif perbandingan Website Statis vs Aplikasi Web Modern.\n\n[KONTEKS]\nNext.js 15 App Router, TypeScript, Tailwind CSS, Lucide Icons di komponen src/components/demo/WebConceptCard.tsx.\n\n[INSTRUKSI]\n1. Buat komponen React 'WebConceptCard' yang menampilkan kartu perbandingan side-by-side antara Website Statis dan Web App Dinamis.\n2. Berikan toggle interaktif untuk melihat aliran data (Static Files vs Client-Server-Database JSON).\n3. Terapkan warna Navy (#0F172A) untuk card border dan Accent Blue (#0284C7) untuk highlight aktif.\n\n[BATASAN]\nJangan menggunakan dependensi css eksternal di luar Tailwind.\n\n[HASIL AKHIR]\nKomponen visual perbandingan yang bersih, elegan, dan informatif.\n\n[VALIDASI]\nPastikan komponen dapat di-import tanpa error lint dan responsif di layar smartphone.`,
+          hasilAkhir:
+            "Ringkasan blueprint arsitektur SakuSiswa dan 3 skenario pengujian yang dipahami siswa.",
+          validasi:
+            "Siswa dapat menjelaskan kembali fungsi setiap kolom data tanpa membaca teks.",
+          rawPrompt: `[TUJUAN]\nMemvalidasi rancangan tabel data dan alur Input-Proses-Output aplikasi Android SakuSiswa.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK yang sedang merancang aplikasi Android "SakuSiswa" (pencatat tugas & materi sekolah) dengan Kotlin, Jetpack Compose, Room Database lokal, dan Login Google.\n\n[INSTRUKSI]\n1. Evaluasi rancangan kolom tabel tugas saya: id (Int), userEmail (String), subject (String), title (String), notes (String), dueDate (String), isCompleted (Boolean).\n2. Jelaskan dengan analogi sederhana bagaimana alur data bergerak sejak pengguna menekan tombol "Simpan Tugas" di layar Compose hingga tersimpan di Room Database.\n3. Berikan 3 skenario uji coba (test case) termasuk ketika pengguna salah memasukkan input.\n\n[BATASAN]\nJangan langsung menulis kode lengkap. Jelaskan secara bertahap agar saya memahami logikanya terlebih dahulu.\n\n[HASIL AKHIR]\nPenjelasan alur data Input-Proses-Output dan tabel rancangan data SakuSiswa.\n\n[VALIDASI]\nAjukan 2 pertanyaan singkat di akhir penjelasan untuk menguji apakah saya sudah paham.`,
         },
-        expected_result: "Peserta memahami alur data web app dinamis dan siap melangkah ke arsitektur client-server.",
+        code_snippets: [
+          {
+            filename: "Blueprint-SakuSiswa.md",
+            language: "markdown",
+            code: `# Blueprint Aplikasi SakuSiswa (Kelas 10 SMKN 1 Jakarta)
+
+## 1. Alur Input - Proses - Output
+- **Input**: Akun Google Siswa + Form Tugas (Mata Pelajaran, Judul, Catatan, Tenggat)
+- **Proses**: Validasi input tidak kosong -> Simpan/Ubah/Hapus melalui ViewModel & DAO
+- **Penyimpanan Lokal**: Room Database (SQLite di dalam perangkat Android)
+- **Output**: Daftar kartu tugas interaktif di Jetpack Compose yang terfilter per akun
+
+## 2. Struktur Tabel Tugas (tasks)
+| Nama Kolom   | Tipe Data | Keterangan                                  |
+| ------------ | --------- | ------------------------------------------- |
+| id           | Int (PK)  | Nomor unik otomatis (autoGenerate = true)   |
+| userEmail    | String    | Email Google siswa pemilik tugas            |
+| subject      | String    | Nama mata pelajaran (misal: Dasar PPLG)     |
+| title        | String    | Judul tugas atau PR                         |
+| notes        | String    | Detail instruksi atau catatan tambahan      |
+| dueDate      | String    | Tanggal pengumpulan (misal: 20 Nov 2026)    |
+| isCompleted  | Boolean   | Status tugas (false = Belum, true = Selesai)|`,
+          },
+        ],
+        expected_result:
+          "Siswa memiliki blueprint tertulis aplikasi SakuSiswa dan memahami alur kerja aplikasi sebelum menulis satu baris kode pun.",
         validation_check: [
-          "Dapat menyebutkan 3 perbedaan website statis dan dinamis",
-          "Mengetahui letak tab Network dan Console pada browser",
+          "Dapat menyebutkan 4 komponen utama: UI Compose, ViewModel, Room Database, dan Google Auth",
+          "Memahami mengapa vibecoding berbahaya saat aplikasi mengalami bug",
         ],
         common_errors: [
           {
-            error: "Mengira web app harus selalu membutuhkan instalasi aplikasi native di smartphone.",
-            solution: "Web app berjalan di browser dan dapat diakses langsung via link URL tanpa instalasi App Store.",
+            error: "Langsung meminta AI 'buatkan aplikasi catatan tugas lengkap' dalam satu prompt.",
+            solution:
+              "Pecah pembuatan aplikasi per lapis: mulai dari rancangan data, tampilan UI statis, koneksi Room Database, baru autentikasi Google.",
           },
         ],
-        exercise: "Jelaskan mengapa toko katalog UMKM memerlukan web dinamis dan bukan sekadar gambar poster brosur statis.",
+        exercise:
+          "Tambahkan 1 contoh kasus di catatanmu: apa yang terjadi jika dua siswa berbeda login bergantian di HP yang sama menggunakan aplikasi SakuSiswa?",
         quiz: [
           {
-            question: "Komponen apa yang membuat aplikasi web dapat menyimpan dan menampilkan data stok produk secara real-time?",
-            options: ["File HTML lokal", "Database", "File CSS", "Ekstensi Browser"],
+            question: "Mengapa kita perlu merancang alur Input-Proses-Output sebelum memberikan prompt ke AI?",
+            options: [
+              "Agar AI bekerja lebih lambat",
+              "Agar kita memahami struktur data dan bisa memverifikasi serta memperbaiki kode yang dihasilkan AI",
+              "Karena Android Studio tidak bisa berjalan tanpa dokumen Markdown",
+              "Supaya tidak perlu melakukan pengujian aplikasi",
+            ],
             correctIndex: 1,
-            explanation: "Database menyimpan data dinamis secara terpusat di cloud sehingga perubahan stok langsung terupdate bagi semua pengguna.",
+            explanation:
+              "Dengan memahami alur logika terlebih dahulu, kita memegang kendali penuh atas arsitektur program dan tahu letak kesalahan jika muncul bug.",
           },
         ],
         references: [
-          { title: "MDN Web Docs - How the Web Works", url: "https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works" },
+          {
+            title: "Guide to App Architecture — Android Developers",
+            url: "https://developer.android.com/topic/architecture",
+          },
         ],
       },
       {
         id: "m1-l2",
         module_id: "modul-1",
         lesson_number: 2,
-        title: "Cara Kerja Frontend, Backend, dan Database",
-        slug: "cara-kerja-frontend-backend-database",
-        description: "Memahami trilogi arsitektur web: Frontend sebagai antarmuka, Backend sebagai pengolah logika, dan Database sebagai penyimpan data.",
-        estimated_minutes: 15,
+        title: "Formula Prompt 6-Bagian: Cara Berdiskusi dengan AI Secara Efektif",
+        slug: "formula-prompt-6-bagian-android",
+        description:
+          "Menguasai teknik menyusun prompt presisi (Tujuan, Konteks, Instruksi, Batasan, Hasil Akhir, Validasi) agar AI menghasilkan kode Kotlin yang bersih dan memberikan penjelasan yang mudah dipahami.",
+        estimated_minutes: 35,
         order_index: 2,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menguasai konsep komunikasi Request-Response antara browser (frontend), server (backend), dan database Postgres.",
-        prerequisites: ["Materi 1: Pengertian Website dan Aplikasi Web"],
-        concept_explanation:
-          "Frontend adalah apa yang dilihat dan disentuh pengguna di browser (React/Next.js). Backend adalah dapur tempat logika bisnis, validasi, dan autentikasi berjalan aman dari akses publik. Database (Supabase PostgreSQL) adalah gudang data tempat produk, user, dan transaksi tersimpan rapi.",
+        objective:
+          "Siswa mampu menulis prompt terstruktur 6-bagian untuk meminta bantuan pembuatan komponen Android sekaligus meminta penjelasan baris demi baris.",
+        prerequisites: ["Menyelesaikan Materi 1.1 tentang Berpikir Terstruktur"],
+        concept_explanation: `AI (seperti Gemini, ChatGPT, atau Claude) sangat pintar, tetapi ia tidak bisa membaca pikiranmu. Jika kamu hanya mengetik "buatkan database tugas", AI mungkin akan membuatkan kode Java lama, atau memakai library yang sudah kadaluarsa (deprecated) seperti 'kapt' atau 'GoogleSignInClient'.
+
+Agar AI selalu memberikan jawaban yang relevan dengan standar Android terbaru (2026) dan sesuai dengan proyekmu, gunakan **Formula Prompt 6-Bagian**:
+1. **[TUJUAN]**: Satu kalimat tegas tentang apa yang ingin dicapai.
+2. **[KONTEKS]**: Versi bahasa, library, dan nama file di proyekmu (misal: Kotlin, Jetpack Compose Material 3, Room Database dengan KSP).
+3. **[INSTRUKSI]**: Langkah-langkah detail yang harus dikerjakan AI, termasuk meminta AI menjelaskan bagian yang sulit.
+4. **[BATASAN]**: Hal yang dilarang (misal: Jangan gunakan XML Layout, jangan gunakan kapt, jangan gunakan library berbayar).
+5. **[HASIL AKHIR]**: Bentuk output yang kamu harapkan (kode per file + penjelasan fungsi).
+6. **[VALIDASI]**: Cara kamu memastikan kodenya benar di Android Studio.`,
         preparation: [
-          "Buka terminal atau command prompt untuk memahami konsep client-server",
+          "Buka asisten AI yang kamu gunakan di browser atau editor",
+          "Perhatikan struktur kartu Prompt AI Terstruktur di halaman ini",
+        ],
+        thinking_steps: [
+          "Apa bedanya prompt 'buatkan login google android' dengan prompt yang menyebutkan 'gunakan Android Credential Manager API dan Jetpack Compose'?",
+          "Mengapa bagian [BATASAN] sangat penting saat kita meminta kode Android kepada AI?",
+          "Kalimat apa yang harus kita tambahkan di [INSTRUKSI] agar kita ikut pintar dan tidak sekadar menyalin kode?",
         ],
         step_instructions: [
-          "Pelajari analogi restoran: Pelanggan (Frontend Browser), Pelayan (Backend API/Server Actions), Koki & Gudang Bahan (Database).",
-          "Ketahui kapan logika harus dijalankan di Frontend (validasi interaktif formulir) dan kapan di Backend (pengecekan password & otorisasi rahasia).",
+          "Baca contoh perbandingan Prompt Buruk vs Prompt 6-Bagian pada blok kode di bawah.",
+          "Salin template kosong Formula Prompt 6-Bagian ke catatan pribadimu.",
+          "Latih dirimu menulis 1 prompt 6-bagian untuk meminta AI menjelaskan perbedaan 'val' dan 'var' di bahasa Kotlin.",
+          "Kirim prompt tersebut ke AI, lalu baca penjelasannya dan catat poin intinya.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat diagram simulasi Request-Response interaktif antara Frontend, Backend, dan Database.",
-          konteks: "Next.js App Router dengan Server Actions dan Tailwind CSS.",
+          tujuan:
+            "Melatih penggunaan Formula Prompt 6-Bagian untuk mempelajari konsep dasar Kotlin dan Jetpack Compose bersama AI.",
+          konteks:
+            "Proyek belajar Android SakuSiswa untuk siswa kelas 10 SMK menggunakan Kotlin dan Jetpack Compose Material 3.",
           instruksi: [
-            "Buat file komponen 'RequestCycleSimulator.tsx'.",
-            "Sediakan tombol simulasi: 'Klik Pesan Produk'.",
-            "Tampilkan animasi langkah demi langkah: 1. Frontend mengirim data -> 2. Server memvalidasi -> 3. Database menyimpan pesanan -> 4. Frontend menampilkan status sukses.",
+            "Jelaskan mengapa Android modern menggunakan Jetpack Compose dibandingkan XML Layout lama.",
+            "Tunjukkan 1 contoh fungsi @Composable paling sederhana yang menampilkan teks sapaan nama siswa.",
+            "Jelaskan arti anotasi @Composable dan @Preview baris demi baris.",
           ],
-          batasan: ["Animasi menggunakan transisi CSS Tailwind murni (transition-all, duration-300)."],
-          hasilAkhir: "Simulasi interaktif alur pesanan dari browser hingga database.",
-          validasi: "Setiap langkah memiliki indikator lampu status yang menyala berurutan.",
-          rawPrompt: `[TUJUAN]\nMembuat simulasi visual alur komunikasi Frontend -> Backend -> Database.\n\n[KONTEKS]\nNext.js 15, React, Tailwind CSS.\n\n[INSTRUKSI]\n1. Buat komponen interaktif 'RequestCycleSimulator' dengan 3 node visual (Frontend, Backend, Database).\n2. Ketika pengguna mengklik 'Uji Request', jalankan animasi berpindah dari node 1 ke 2 lalu ke 3 dan kembali dengan respon sukses.\n3. Berikan deskripsi singkat pada tiap node saat aktif.\n\n[BATASAN]\nGunakan Tailwind transition dan timer state standar tanpa dependensi berat.\n\n[HASIL AKHIR]\nAlat bantu visual yang memudahkan pemula memahami cara kerja server.\n\n[VALIDASI]\nPastikan animasi dapat di-reset dan tidak membocorkan interval memory leak.`,
+          batasan: [
+            "Jangan gunakan XML atau Activity lama (AppCompatActivity).",
+            "Gunakan bahasa Indonesia yang ramah untuk siswa kelas 10 SMK.",
+          ],
+          hasilAkhir:
+            "Penjelasan ringkas dan 1 potongan kode fungsi @Composable beserta penjelasannya.",
+          validasi:
+            "Siswa memahami fungsi @Composable dan @Preview sebelum membuka Android Studio.",
+          rawPrompt: `[TUJUAN]\nMemahami konsep dasar fungsi @Composable dan @Preview pada Jetpack Compose.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK yang baru belajar membuat aplikasi Android menggunakan bahasa Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Jelaskan secara singkat mengapa Android modern beralih dari XML ke Jetpack Compose.\n2. Berikan 1 contoh kode fungsi @Composable bernama GreetingSiswa(nama: String, kelas: String).\n3. Jelaskan fungsi setiap baris kode tersebut, terutama arti @Composable dan @Preview.\n\n[BATASAN]\nJangan gunakan XML Layout. Gunakan komponen Material 3 (androidx.compose.material3).\n\n[HASIL AKHIR]\nPotongan kode Kotlin singkat disertai penjelasan baris demi baris.\n\n[VALIDASI]\nBerikan 1 soal tebak output singkat di bagian akhir untuk menguji pemahaman saya.`,
         },
-        expected_result: "Pemula mengerti mengapa password dan secret key tidak boleh ditaruh di Frontend.",
+        code_snippets: [
+          {
+            filename: "Perbandingan-Prompt.txt",
+            language: "markdown",
+            code: `❌ CONTOH PROMPT BURUK (Vibecoding):
+"Buatkan aplikasi catatan tugas Android pakai database."
+-> Akibat: AI bingung, memakai kode XML kuno, atau menghasilkan 10 file sekaligus yang penuh error saat di-run.
+
+✅ CONTOH PROMPT TERSTRUKTUR (6-Bagian):
+[TUJUAN] Membuat data class Entity Room untuk tabel tugas siswa.
+[KONTEKS] Proyek Android Kotlin, Jetpack Compose, Room Database 2.6+ dengan KSP.
+[INSTRUKSI]
+1. Buat file TaskEntity.kt dengan anotasi @Entity(tableName = "tasks").
+2. Sertakan kolom id (PrimaryKey autoGenerate), userEmail, subject, title, dueDate, dan isCompleted.
+3. Jelaskan fungsi @PrimaryKey(autoGenerate = true) untuk pemula.
+[BATASAN] Hanya buat file TaskEntity.kt dulu, jangan buat DAO atau UI dulu.
+[HASIL AKHIR] Kode TaskEntity.kt yang bersih beserta penjelasan anotasi Room.
+[VALIDASI] Pastikan tidak ada error import pada paket androidx.room.`,
+          },
+        ],
+        expected_result:
+          "Siswa terbiasa menyusun prompt dengan 6 bagian lengkap dan selalu meminta penjelasan logika dari AI.",
         validation_check: [
-          "Dapat menjelaskan bahaya menempatkan database secret key di Frontend",
-          "Memahami peran Next.js Server Actions sebagai jembatan Backend",
+          "Menghafal 6 komponen prompt: Tujuan, Konteks, Instruksi, Batasan, Hasil Akhir, Validasi",
+          "Mampu menyebutkan minimal 2 batasan teknis penting di proyek Android kita (tanpa XML, gunakan KSP bukan kapt)",
         ],
         common_errors: [
           {
-            error: "Menyimpan data langsung di variabel JavaScript frontend dan mengira data tersimpan permanen.",
-            solution: "Variabel frontend hilang saat halaman di-refresh. Data harus disimpan ke database cloud melalui backend.",
+            error: "Meminta AI membuat seluruh layar, database, dan login sekaligus dalam satu pesan.",
+            solution:
+              "Selalu minta satu komponen atau satu file per satu prompt agar mudah diuji dan dipahami.",
           },
         ],
-        exercise: "Tuliskan dalam satu paragraf apa yang terjadi ketika pembeli mengklik tombol 'Beli via WhatsApp' di katalog UMKM.",
+        exercise:
+          "Buatlah satu prompt 6-bagian di buku catatanmu untuk meminta AI membuatkan tampilan tombol 'Tambah Tugas' berwarna terracotta di Jetpack Compose!",
         quiz: [
           {
-            question: "Di manakah tempat yang aman untuk menyimpan Secret Key database dan melakukan enkripsi password?",
-            options: ["Di file CSS browser", "Di LocalStorage pengguna", "Di Backend Server", "Di atribut HTML"],
-            correctIndex: 2,
-            explanation: "Backend server terlindung dari akses publik browser sehingga rahasia autentikasi dan database tetap aman.",
+            question: "Bagian mana dalam Formula Prompt 6-Bagian yang mencegah AI menggunakan teknologi Android yang sudah usang seperti XML atau kapt?",
+            options: [
+              "Bagian Hasil Akhir",
+              "Bagian Konteks dan Batasan",
+              "Bagian Judul Aplikasi",
+              "Bagian Tombol Salin",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Konteks dan Batasan memberi pagar tegas kepada AI tentang teknologi yang wajib dipakai (Jetpack Compose, KSP) dan yang dilarang (XML, kapt).",
           },
-        ],
-        references: [
-          { title: "Next.js Server Actions Documentation", url: "https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations" },
         ],
       },
       {
         id: "m1-l3",
         module_id: "modul-1",
         lesson_number: 3,
-        title: "Pengenalan Ekosistem Web Modern: Next.js, Supabase, Vercel",
-        slug: "pengenalan-teknologi-web-modern",
-        description: "Mengenal stack teknologi modern standar industri yang digunakan oleh startup dan perusahaan teknologi global.",
-        estimated_minutes: 15,
+        title: "Instalasi Android Studio, SDK & Menyiapkan Emulator / HP Android",
+        slug: "instalasi-android-studio-dan-emulator",
+        description:
+          "Menyiapkan peralatan tempur utama: Android Studio terbaru, JDK bawaan (JBR 17/21), Android SDK, serta menghubungkan HP Android fisik dengan USB Debugging atau membuat Virtual Device (Emulator).",
+        estimated_minutes: 45,
         order_index: 3,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memahami mengapa stack Next.js + Supabase + Vercel menjadi standar tercepat membangun web app berskala tinggi.",
-        prerequisites: ["Materi 2: Cara Kerja Frontend, Backend, dan Database"],
-        concept_explanation:
-          "Next.js adalah framework React full-stack paling populer di dunia dengan fitur Server-Side Rendering (SSR) dan Server Actions. Supabase adalah alternatif open-source Firebase bertenaga PostgreSQL enterprise. Vercel adalah platform cloud deployment otomatis dengan jaringan CDN global.",
-        preparation: ["Koneksi internet stabil untuk mengakses dokumentasi teknologi"],
+        objective:
+          "Siswa berhasil memasang Android Studio, membuat proyek Empty Activity (Jetpack Compose), dan menjalankannya di HP Android atau Emulator.",
+        prerequisites: ["Laptop Windows 10/11 atau macOS dengan ruang kosong minimal 15 GB"],
+        concept_explanation: `Untuk membuat aplikasi Android, kita menggunakan IDE (Integrated Development Environment) resmi dari Google bernama **Android Studio**. Di dalam Android Studio sudah terdapat:
+1. **Code Editor Pintar**: Tempat kita menulis kode Kotlin dengan fitur auto-complete dan deteksi error langsung.
+2. **JDK (Java Development Kit / JetBrains Runtime)**: Mesin penerjemah kode Kotlin agar bisa dikompilasi menjadi aplikasi Android.
+3. **Android SDK (Software Development Kit)**: Kumpulan pustaka sistem Android (misalnya API Level 34 / Android 14 atau API Level 35 / Android 15).
+4. **Gradle**: Sistem otomatis yang mengunduh library (seperti Room Database dan Credential Manager) serta merakit kode menjadi file \`.apk\`.
+
+Untuk menguji aplikasi, kamu punya 2 pilihan:
+- **Pilihan A (Sangat Disarankan untuk Laptop RAM 8 GB)**: Menggunakan **HP Android Fisik** milikmu sendiri dengan kabel data USB dan mengaktifkan fitur **USB Debugging** di Opsi Pengembang (Developer Options). Cara ini jauh lebih ringan bagi laptop!
+- **Pilihan B (Laptop RAM 16 GB+)**: Menggunakan **Android Emulator** (HP virtual di layar laptop) melalui menu Device Manager.`,
+        preparation: [
+          "Pastikan koneksi internet stabil untuk mengunduh komponen Gradle pertama kali",
+          "Siapkan kabel data USB (yang bisa transfer data, bukan hanya cas) jika ingin memakai HP Android sendiri",
+        ],
+        thinking_steps: [
+          "Mengapa menggunakan HP Android fisik via USB Debugging lebih disarankan jika RAM laptopmu 8 GB?",
+          "Apa fungsi Gradle saat pertama kali kita membuka proyek baru di Android Studio?",
+        ],
         step_instructions: [
-          "Ketahui fungsi masing-masing teknologi dalam proyek katalog UMKM kita.",
-          "Next.js: Antarmuka toko, katalog produk, dan dashboard admin.",
-          "Supabase: Menyimpan tabel produk, autentikasi login admin, dan file foto produk.",
-          "Vercel: Memublikasikan website ke internet agar bisa dibuka pelanggan di seluruh dunia.",
+          "Buka Android Studio, lalu klik tombol 'New Project'.",
+          "Pada daftar template, pilih 'Empty Activity' (yang memiliki ikon logo Jetpack Compose), lalu klik Next.",
+          "Isi Name dengan 'SakuSiswa', Package name dengan 'id.smkn1jakarta.sakusiswa', Minimum SDK pilih 'API 26 (Android 8.0)', dan Build configuration language pilih 'Kotlin DSL (build.gradle.kts) [Recommended]'.",
+          "Klik Finish dan tunggu proses 'Gradle Sync' di pojok kanan bawah selesai (jangan panik jika butuh beberapa menit saat pertama kali).",
+          "Jika memakai HP fisik: buka Pengaturan HP -> Tentang Ponsel -> ketuk 'Nomor Versi / Build Number' 7 kali sampai muncul 'Anda adalah pengembang'. Masuk ke Opsi Pengembang -> aktifkan 'Debugging USB', lalu colokkan HP ke laptop dan pilih 'Izinkan / Allow'.",
+          "Klik tombol segitiga hijau 'Run app' di bagian atas Android Studio dan pastikan layar 'Hello Android!' tampil di HP atau Emulator.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat tabel ringkasan arsitektur teknologi Next.js, Supabase, dan Vercel.",
-          konteks: "Halaman pengenalan platform pembelajaran.",
+          tujuan:
+            "Memahami langkah pemecahan masalah (troubleshooting) jika proses Gradle Sync atau deteksi HP USB Debugging mengalami kendala.",
+          konteks:
+            "Siswa baru pertama kali membuat project 'Empty Activity' (Jetpack Compose) di Android Studio dengan Kotlin DSL.",
           instruksi: [
-            "Buat tabel responsif dengan kolom: Teknologi, Peran, Keunggulan Utama, dan Ekivalen Konvensional.",
-            "Tampilkan badge status 'Production Ready' untuk tiap teknologi.",
+            "Jelaskan apa yang sedang dilakukan Android Studio saat status bar menampilkan 'Gradle Download / Indexing'.",
+            "Berikan panduan langkah demi langkah mengaktifkan USB Debugging di HP Xiaomi/Samsung/Oppo/Vivo.",
+            "Jelaskan solusi jika muncul error 'SDK location not found' atau 'Cachedajar/Gradle sync failed'.",
           ],
-          batasan: ["Gunakan Tailwind CSS typography dan card styling."],
-          hasilAkhir: "Tabel perbandingan ringkas dan profesional.",
-          validasi: "Tabel memiliki horizontal scroll pada smartphone agar tidak terpotong.",
-          rawPrompt: `[TUJUAN]\nMembuat kartu info arsitektur modern (Next.js + Supabase + Vercel).\n\n[KONTEKS]\nDesain sistem web edukasi di platform Vibe Code.\n\n[INSTRUKSI]\n1. Buat komponen TechStackOverview yang menampilkan 3 kartu interaktif (Next.js, Supabase, Vercel).\n2. Setiap kartu memiliki icon SVG, deskripsi peran, dan keunggulan untuk pemula.\n3. Tambahkan badge status 'Active' dengan aksen teal (#0D9488).\n\n[BATASAN]\nGunakan Lucide Icons.\n\n[HASIL AKHIR]\nKomponen visual tech-stack yang siap ditampilkan di modul 1.\n\n[VALIDASI]\nPastikan responsive pada breakpoint sm, md, dan lg.`,
+          batasan: [
+            "Berikan langkah praktis yang aman dilakukan oleh siswa pemula tanpa mengubah pengaturan sistem operasi yang berbahaya.",
+          ],
+          hasilAkhir:
+            "Panduan ringkas mengatasi kendala awal Android Studio dan USB Debugging.",
+          validasi:
+            "Nama perangkat HP atau Emulator muncul di dropdown daftar device Android Studio.",
+          rawPrompt: `[TUJUAN]\nMengatasi kendala awal pembuatan proyek baru Android Studio dan koneksi USB Debugging.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK menggunakan Android Studio untuk proyek baru "SakuSiswa" dengan template Empty Activity (Jetpack Compose) dan Kotlin DSL.\n\n[INSTRUKSI]\n1. Jelaskan secara sederhana apa yang terjadi saat proses "Gradle Sync" berlangsung.\n2. Berikan langkah praktis mengaktifkan Developer Options & USB Debugging di HP Android.\n3. Berikan 3 solusi paling efektif jika HP sudah dicolokkan ke laptop tetapi belum muncul di daftar device Android Studio.\n\n[BATASAN]\nGunakan bahasa yang jelas, singkat, dan mudah diikuti pemula.\n\n[HASIL AKHIR]\nChecklist langkah koneksi HP ke Android Studio.\n\n[VALIDASI]\nPastikan saya tahu cara mengecek status perangkat lewat tab Device Manager.`,
         },
-        expected_result: "Peserta memiliki peta konsep menyeluruh sebelum mulai menginstal aplikasi di Modul 2.",
-        validation_check: ["Mengetahui fungsi Next.js, Supabase, dan Vercel"],
+        code_snippets: [
+          {
+            filename: "Konfigurasi-Project-Baru.txt",
+            language: "yaml",
+            code: `Template Project : Empty Activity (Jetpack Compose)
+Name             : SakuSiswa
+Package Name     : id.smkn1jakarta.sakusiswa
+Save Location    : Folder kerja masing-masing siswa
+Minimum SDK      : API 26 ("Oreo"; Android 8.0)
+Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
+          },
+        ],
+        expected_result:
+          "Proyek SakuSiswa berhasil dibuat, Gradle Sync selesai dengan tanda centang hijau, dan aplikasi awal 'Hello Android!' tampil di HP atau Emulator.",
+        validation_check: [
+          "Tidak ada garis merah pada file MainActivity.kt",
+          "Perangkat HP atau Emulator terdeteksi di toolbar atas Android Studio",
+          "Aplikasi pertama berhasil terbuka saat tombol Run (▶) ditekan",
+        ],
         common_errors: [
           {
-            error: "Mengira Next.js hanya untuk frontend statis.",
-            solution: "Next.js memiliki App Router yang mencakup backend Server Actions dan Route Handlers penuh.",
+            error: "Salah memilih 'Empty Views Activity' (XML) bukannya 'Empty Activity' (berlogo Compose).",
+            solution:
+              "Pastikan memilih 'Empty Activity' paling pertama yang memiliki ikon kubus biru-hijau Jetpack Compose.",
+          },
+          {
+            error: "HP sudah dicolokkan ke laptop tapi tidak terdeteksi di Android Studio.",
+            solution:
+              "Ganti kabel USB dengan kabel yang mendukung transfer data, ubah mode USB di notifikasi HP dari 'Hanya Mengisi Daya' ke 'Transfer File / MTP', dan centang 'Selalu izinkan dari komputer ini' pada pop-up RSA di layar HP.",
           },
         ],
-        exercise: "Sebutkan 3 alasan mengapa Supabase lebih unggul daripada membuat database lokal di laptop sendiri.",
+        exercise:
+          "Ubah teks 'Android' di dalam fungsi Greeting(\"Android\") pada file MainActivity.kt menjadi nama lengkapmu, lalu tekan tombol Run lagi!",
         quiz: [
           {
-            question: "Platform apa yang digunakan untuk hosting dan deployment otomatis proyek Next.js?",
-            options: ["Vercel", "Photoshop", "Notepad++", "Google Drive"],
-            correctIndex: 0,
-            explanation: "Vercel adalah platform cloud pencipta Next.js yang memfasilitasi continuous deployment otomatis dari GitHub.",
+            question: "Template proyek manakah yang wajib kita pilih di Android Studio untuk membangun UI modern dengan Jetpack Compose?",
+            options: [
+              "Empty Views Activity",
+              "Empty Activity (dengan logo Jetpack Compose)",
+              "Basic Views Activity",
+              "Native C++",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Empty Activity dengan logo Jetpack Compose sudah otomatis menyiapkan MainActivity berbasis ComponentActivity dan fungsi @Composable tanpa file XML.",
           },
-        ],
-        references: [
-          { title: "Supabase Architecture Overview", url: "https://supabase.com/docs/guides/architecture" },
-          { title: "Next.js Official Overview", url: "https://nextjs.org" },
         ],
       },
       {
         id: "m1-l4",
         module_id: "modul-1",
         lesson_number: 4,
-        title: "Pengenalan AI Coding Agent & Google Antigravity",
-        slug: "pengenalan-ai-coding-agent-google-antigravity",
-        description: "Bagaimana AI coding agent mengubah paradigma pemrograman dari mengetik sintaks manual menjadi orkestrasi arsitektur berbasis instruksi terstruktur.",
-        estimated_minutes: 15,
+        title: "Anatomi Proyek Android: Manifest, MainActivity & Gradle Version Catalog",
+        slug: "anatomi-proyek-android-modern",
+        description:
+          "Mengenal peta folder di Android Studio agar tidak tersesat: perbedaan build.gradle.kts (Project vs Module), libs.versions.toml, AndroidManifest.xml, dan MainActivity.kt.",
+        estimated_minutes: 35,
         order_index: 4,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memahami peran Google Antigravity sebagai co-developer otonom yang mampu membaca proyek, mengeksekusi perintah terminal, dan memodifikasi file.",
-        prerequisites: ["Pemahaman dasar teknologi web"],
-        concept_explanation:
-          "AI Chatbot biasa (seperti ChatGPT atau Gemini chat) hanya bisa memberikan teks jawaban yang harus Anda salin dan tempel manual. Sebaliknya, Google Antigravity adalah AI Agent yang memiliki mata (membaca seluruh file codebase) dan tangan (menjalankan terminal, membuat file, mengedit baris kode secara presisi).",
-        preparation: ["Menyiapkan akun Google untuk masuk ke ekosistem Antigravity"],
+        objective:
+          "Siswa memahami fungsi setiap file dan folder utama pada proyek Android modern serta tahu di mana harus meletakkan file baru.",
+        prerequisites: ["Proyek SakuSiswa sudah terbuka di Android Studio"],
+        concept_explanation: `Saat kamu mengubah tampilan panel kiri Android Studio ke mode **"Android"**, kamu akan melihat dua bagian besar: **app** dan **Gradle Scripts**. Mari kita kenali fungsinya satu per satu:
+
+1. **app/manifests/AndroidManifest.xml**: "KTP" dari aplikasimu. Di sini tercatat nama aplikasi, ikon, izin akses (seperti izin internet untuk Login Google), dan Activity mana yang pertama kali dibuka.
+2. **app/kotlin+java/id.smkn1jakarta.sakusiswa/**: Tempat seluruh kode program Kotlin kita berada! Di dalamnya ada \`MainActivity.kt\` (pintu masuk utama aplikasi) dan folder \`ui.theme\` (pengaturan warna & font).
+3. **app/res/**: Tempat menyimpan gambar (drawable), ikon aplikasi (mipmap), dan teks statis (values/strings.xml).
+4. **Gradle Scripts/libs.versions.toml**: Daftar katalog versi library (Version Catalog). Di Android modern, kita mendaftarkan versi Room dan Credential Manager di sini agar rapi.
+5. **Gradle Scripts/build.gradle.kts (Module :app)**: Tempat kita memasang plugin (seperti KSP) dan menambahkan \`implementation(...)\` library yang dibutuhkan aplikasi.`,
+        preparation: [
+          "Pastikan dropdown di pojok kiri atas panel Project Android Studio diatur ke tampilan 'Android' (bukan 'Project')",
+        ],
+        thinking_steps: [
+          "Mengapa ada dua file bernama build.gradle.kts di bagian Gradle Scripts? Apa bedanya yang bertuliskan (Project: SakuSiswa) dan (Module :app)?",
+          "Jika nanti kita ingin menambahkan library Room Database, file mana yang harus kita buka?",
+        ],
         step_instructions: [
-          "Pahami perbedaan 'Chat Mode' dan 'Agent Mode'.",
-          "Dalam Agent Mode, Antigravity menganalisis konteks direktori kerja Anda.",
-          "Agent dapat menjalankan linter, memeriksa error build, dan langsung memperbaikinya secara mandiri.",
+          "Klik dua kali pada file 'AndroidManifest.xml' dan temukan baris android:label=\"@string/app_name\".",
+          "Buka 'app/kotlin+java/id.smkn1jakarta.sakusiswa/MainActivity.kt' dan perhatikan fungsi onCreate() serta blok setContent { ... }.",
+          "Buka 'Gradle Scripts -> build.gradle.kts (Module :app)' dan amati blok android { ... } serta dependencies { ... }.",
+          "Buat 3 package (folder) baru di dalam 'id.smkn1jakarta.sakusiswa' dengan cara klik kanan -> New -> Package: beri nama 'data', 'ui', dan 'viewmodel' untuk persiapan arsitektur rapi kita.",
         ],
         antigravity_prompt: {
-          tujuan: "Menghasilkan ringkasan panduan pola interaksi terbaik antara Developer dan AI Coding Agent.",
-          konteks: "Dokumen panduan siswa di `docs/AGENTS.md`.",
+          tujuan:
+            "Memahami fungsi blok kode di dalam MainActivity.kt dan build.gradle.kts (Module :app).",
+          konteks:
+            "Proyek Android Studio SakuSiswa dengan package id.smkn1jakarta.sakusiswa menggunakan Kotlin DSL.",
           instruksi: [
-            "Buat file panduan aturan komunikasi AI Agent.",
-            "Tuliskan aturan 1: Berikan konteks file yang jelas.",
-            "Tuliskan aturan 2: Tentukan batasan file yang dilarang diubah.",
-            "Tuliskan aturan 3: Perintahkan agent melakukan validasi error setelah modifikasi.",
+            "Jelaskan fungsi ComponentActivity(), onCreate(), enableEdgeToEdge(), dan setContent {} di dalam MainActivity.kt.",
+            "Jelaskan perbedaan namespace dan applicationId di dalam build.gradle.kts (Module :app).",
+            "Jelaskan mengapa kita membagi kode ke dalam 3 package: data, ui, dan viewmodel.",
           ],
-          batasan: ["Format dalam Markdown bersih bahasa Indonesia."],
-          hasilAkhir: "Dokumen aturan interaksi agent yang siap dipakai peserta di proyek katalog.",
-          validasi: "File markdown memiliki heading terstruktur dan daftar poin yang mudah dipahami.",
-          rawPrompt: `[TUJUAN]\nMembuat dokumen panduan aturan interaksi AI Coding Agent di docs/AGENTS.md.\n\n[KONTEKS]\nProyek pengembangan aplikasi web terintegrasi dengan Google Antigravity.\n\n[INSTRUKSI]\n1. Buat file markdown docs/AGENTS.md.\n2. Tuliskan 5 prinsip utama memberi perintah kepada Antigravity (Spesifik, Beri Konteks, Batasi Ruang Lingkup, Minta Validasi, Cek Keamanan).\n3. Berikan contoh prompt yang buruk vs prompt yang efektif.\n\n[BATASAN]\nJangan mengubah file konfigurasi lain.\n\n[HASIL AKHIR]\nFile docs/AGENTS.md yang rapi dan siap menjadi pedoman proyek.\n\n[VALIDASI]\nPeriksa keterbacaan file dengan cat atau preview markdown.`,
+          batasan: [
+            "Jelaskan dengan kalimat pendek dan poin-poin yang mudah dicerna siswa kelas 10.",
+          ],
+          hasilAkhir:
+            "Kamus ringkas fungsi bagian-bagian MainActivity.kt dan struktur package proyek.",
+          validasi:
+            "Siswa sudah membuat package data, ui, dan viewmodel di dalam package utama proyek.",
+          rawPrompt: `[TUJUAN]\nMemahami isi file MainActivity.kt dan struktur package aplikasi SakuSiswa.\n\n[KONTEKS]\nProyek Android Kotlin Jetpack Compose dengan package id.smkn1jakarta.sakusiswa.\n\n[INSTRUKSI]\n1. Jelaskan fungsi baris kode berikut kepada siswa kelas 10 SMK: class MainActivity : ComponentActivity(), override fun onCreate(), enableEdgeToEdge(), dan setContent {}.\n2. Jelaskan mengapa memisahkan kode ke dalam package 'data', 'ui', dan 'viewmodel' jauh lebih rapi dibandingkan menumpuk semua kode di satu file MainActivity.kt.\n\n[BATASAN]\nGunakan analogi sederhana (misal: dapur restoran, pelayan, dan meja pelanggan).\n\n[HASIL AKHIR]\nPenjelasan per bagian kode dan analogi arsitektur folder.\n\n[VALIDASI]\nPastikan saya paham file mana yang harus diedit ketika ingin menambah library baru.`,
         },
-        expected_result: "Peserta siap memberikan instruksi terarah dan tidak lagi frustrasi dengan jawaban AI yang melantur.",
-        validation_check: ["Mampu menjelaskan perbedaan AI Chatbot konvensional dengan AI Agent otonom"],
+        code_snippets: [
+          {
+            filename: "Struktur-Package-SakuSiswa.txt",
+            language: "markdown",
+            code: `id.smkn1jakarta.sakusiswa/
+├── data/          # Tempat menyimpan Room Entity (TaskEntity), DAO (TaskDao), Database, & GoogleAuthManager
+├── viewmodel/     # Tempat menyimpan pengatur logika layar (TaskViewModel)
+├── ui/            # Tempat menyimpan layar Compose (LoginScreen, HomeScreen, TaskDialog) & theme/
+└── MainActivity.kt # Pintu masuk utama yang menghubungkan semuanya`,
+          },
+        ],
+        expected_result:
+          "Siswa mengenali letak file penting di Android Studio dan telah menyiapkan 3 folder package (data, viewmodel, ui) untuk proyek SakuSiswa.",
+        validation_check: [
+          "Dapat menunjukkan letak build.gradle.kts (Module :app) tanpa salah buka",
+          "Memiliki package data, viewmodel, dan ui di dalam id.smkn1jakarta.sakusiswa",
+        ],
         common_errors: [
           {
-            error: "Memberikan instruksi terlalu pendek dan ambigu seperti 'Buatkan web bagus'.",
-            solution: "Gunakan format prompt standar: TUJUAN, KONTEKS, INSTRUKSI, BATASAN, HASIL AKHIR, VALIDASI.",
+            error: "Menambahkan dependencies library di build.gradle.kts (Project: SakuSiswa) bukan di (Module :app).",
+            solution:
+              "Selalu perhatikan keterangan di dalam tanda kurung di sebelah nama file: library aplikasi selalu ditambahkan di (Module :app).",
           },
         ],
-        exercise: "Tuliskan prompt terstruktur untuk meminta AI menambahkan tombol WhatsApp berwarna hijau di halaman profil toko.",
+        exercise:
+          "Buka file res/values/strings.xml, lalu ubah nilai app_name dari 'SakuSiswa' menjadi 'SakuSiswa SMKN 1', jalankan ulang aplikasi dan lihat nama aplikasinya di daftar menu HP!",
         quiz: [
           {
-            question: "Apa keunggulan utama AI Coding Agent (seperti Google Antigravity) dibandingkan chatbot teks biasa?",
+            question: "Di manakah kita menambahkan daftar library (dependencies) seperti Room Database dan Credential Manager pada proyek Android?",
             options: [
-              "Agent dapat membaca file proyek dan mengeksekusi perubahan kode secara langsung di workspace",
-              "Agent hanya bisa menjawab pertanyaan teori",
-              "Agent tidak membutuhkan koneksi internet",
-              "Agent menggantikan fungsi laptop sepenuhnya",
+              "Di dalam file AndroidManifest.xml",
+              "Di dalam file build.gradle.kts (Module :app)",
+              "Di dalam file strings.xml",
+              "Di dalam folder res/drawable",
             ],
-            correctIndex: 0,
-            explanation: "AI Agent memiliki kapabilitas alat (tools) untuk mengedit file, membaca codebase, dan menjalankan terminal.",
+            correctIndex: 1,
+            explanation:
+              "File build.gradle.kts (Module :app) memiliki blok dependencies { ... } yang bertugas mengatur pustaka apa saja yang dipakai oleh modul aplikasi.",
           },
-        ],
-        references: [
-          { title: "Google DeepMind Advanced Agentic Coding", url: "https://deepmind.google/technologies" },
         ],
       },
     ],
   },
 
   // =========================================================================
-  // MODUL 2: PERSIAPAN LINGKUNGAN PENGEMBANGAN
+  // MODUL 2 (HARI 1 SIANG): DASAR KOTLIN & JETPACK COMPOSE MATERIAL 3
   // =========================================================================
   {
     id: "modul-2",
-    course_id: "course-web-dev-antigravity",
+    course_id: "course-android-compose-smkn1",
     module_number: 2,
-    title: "Persiapan Lingkungan Pengembangan",
-    slug: "modul-2-persiapan-lingkungan-pengembangan",
+    title: "Dasar Bahasa Kotlin & Membangun UI dengan Jetpack Compose",
+    slug: "modul-2-dasar-kotlin-dan-jetpack-compose",
     description:
-      "Instalasi dan konfigurasi perangkat lunak wajib: Node.js 24 LTS, Git, VS Code, Google Antigravity, serta pembuatan akun GitHub, Supabase, dan Vercel.",
-    estimated_minutes: 75,
+      "Menguasai pondasi bahasa Kotlin yang paling sering dipakai di Android (val/var, Null-Safety, data class, fungsi) serta merakit tampilan interaktif menggunakan Jetpack Compose dan Material 3.",
+    estimated_minutes: 180,
     difficulty_level: "Pemula",
     is_published: true,
     order_index: 2,
@@ -305,258 +494,568 @@ export const MODULES_DATA: FullModule[] = [
         id: "m2-l1",
         module_id: "modul-2",
         lesson_number: 1,
-        title: "Instalasi Node.js 24 LTS dan Terminal",
-        slug: "instalasi-nodejs-dan-terminal",
-        description: "Memasang runtime JavaScript modern Node.js 24 LTS dan menguji ketersediaan perintah node serta npm di terminal.",
-        estimated_minutes: 15,
+        title: "Variabel Kotlin (val vs var), Tipe Data & Null-Safety Anti-Crash",
+        slug: "variabel-kotlin-dan-null-safety",
+        description:
+          "Memahami cara menyimpan data di memori menggunakan val dan var, merangkai teks dengan String Template ($), serta fitur unggulan Kotlin Null-Safety (? dan ?:) agar aplikasi tidak mudah Force Close.",
+        estimated_minutes: 45,
         order_index: 1,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memastikan Node.js versi 24 LTS dan package manager npm terpasang sempurna di sistem operasi peserta (Windows/macOS/Linux).",
-        prerequisites: ["Hak akses administrator di komputer masing-masing"],
-        concept_explanation:
-          "Node.js adalah mesin yang memungkinkan kita menjalankan JavaScript di luar browser untuk membangun server, mengompilasi kode Next.js, dan mengelola pustaka pihak ketiga menggunakan npm (Node Package Manager).",
+        objective:
+          "Siswa mampu menggunakan val, var, String Template, dan operator Elvis (?:) untuk menangani data kosong dengan aman.",
+        prerequisites: ["Menyelesaikan Modul 1"],
+        concept_explanation: `Bahasa **Kotlin** dipilih Google sebagai bahasa utama Android karena ringkas dan aman. Ada 3 aturan dasar yang wajib kamu kuasai:
+
+1. **\`val\` vs \`var\`**:
+   - Gunakan **\`val\`** (Value / Tetap) untuk data yang tidak berubah setelah diisi, misalnya NISN atau ID tugas. Biasakan selalu memakai \`val\` terlebih dahulu!
+   - Gunakan **\`var\`** (Variable / Bisa Berubah) hanya jika nilainya memang perlu diganti, misalnya teks yang sedang diketik pengguna.
+2. **String Template (\`$nama\`)**:
+   - Kita bisa menyisipkan isi variabel langsung ke dalam tanda kutip teks menggunakan tanda dolar, contohnya: \`"Halo, $namaSiswa dari kelas $kelas"\`.
+3. **Null-Safety (\`?\` dan \`?:\`)**:
+   - Penyebab aplikasi Android paling sering *Force Close* (keluar sendiri) adalah \`NullPointerException\` (mencoba membaca data yang ternyata kosong/null).
+   - Di Kotlin, variabel biasa **dilarang** bernilai \`null\`. Jika suatu data *boleh* kosong (misalnya foto profil Google belum ada), kita wajib memberi tanda tanya \`String?\`.
+   - Saat menampilkannya, kita gunakan operator Elvis \`?:\` untuk memberi nilai cadangan, contoh: \`val namaTampil = namaGoogle ?: "Siswa SMKN 1"\`.`,
         preparation: [
-          "Buka situs resmi nodejs.org",
-          "Pilih varian LTS (Long Term Support) yang direkomendasikan untuk stabilitas produksi",
+          "Buka proyek SakuSiswa di Android Studio",
+        ],
+        thinking_steps: [
+          "Saat pengguna login dengan akun Google, bagaimana jika akun Google tersebut tidak mengatur nama tampilan (displayName bernilai null)?",
+          "Manakah yang sebaiknya menggunakan 'val' dan manakah yang menggunakan 'var': (a) Email akun Google yang login, (b) Status centang tugas selesai/belum?",
         ],
         step_instructions: [
-          "Unduh installer Node.js 24 LTS dari https://nodejs.org.",
-          "Jalankan installer dan ikuti wizard instalasi standar hingga selesai.",
-          "Buka Terminal (macOS/Linux) atau Command Prompt / PowerShell (Windows).",
-          "Ketik perintah verifikasi: `node -v` dan `npm -v`.",
+          "Buka file MainActivity.kt dan perhatikan bagaimana variabel dideklarasikan.",
+          "Cobalah membuat variabel 'val namaSiswa: String = \"Budi\"' dan 'val panggilan: String? = null' di dalam fungsi @Composable.",
+          "Gunakan operator Elvis 'val sapaan = panggilan ?: namaSiswa' lalu tampilkan ke komponen Text().",
+          "Lihat hasilnya melalui panel Split / Preview di sebelah kanan editor Android Studio.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat skrip pengecekan lingkungan lokal otomatis untuk mendeteksi kesiapan sistem peserta.",
-          konteks: "Skrip Bash/Node helper di `scripts/check-environment.mjs`.",
+          tujuan:
+            "Memahami penggunaan val, var, dan Null-Safety (?.) serta operator Elvis (?:) pada kasus profil siswa di aplikasi SakuSiswa.",
+          konteks:
+            "Belajar dasar Kotlin untuk aplikasi Android SakuSiswa kelas 10 SMK.",
           instruksi: [
-            "Buat skrip `scripts/check-environment.mjs`.",
-            "Periksa versi node (harus >= 20, direkomendasikan 24).",
-            "Periksa ketersediaan git di sistem.",
-            "Cetak laporan visual berwarna hijau jika siap, atau instruksi langkah unduh jika belum.",
+            "Berikan contoh kode Kotlin singkat yang memperlihatkan perbedaan val dan var.",
+            "Tunjukkan bagaimana cara aman menangani data profil Google (displayName: String?, email: String?) menggunakan operator Elvis (?:).",
+            "Berikan penjelasan mengapa Kotlin melarang nilai null pada tipe String biasa (tanpa tanda tanya).",
           ],
-          batasan: ["Gunakan API bawaan node tanpa dependensi npm tambahan."],
-          hasilAkhir: "Skrip CLI yang dapat dijalankan dengan `node scripts/check-environment.mjs`.",
-          validasi: "Jalankan skrip dan pastikan keluar output status sistem yang rapi.",
-          rawPrompt: `[TUJUAN]\nMembuat skrip utilitas pengecekan kesiapan sistem pengembang di scripts/check-environment.mjs.\n\n[KONTEKS]\nNode.js murni tanpa dependensi eksternal.\n\n[INSTRUKSI]\n1. Buat scripts/check-environment.mjs.\n2. Baca process.version dan validasi major version >= 20.\n3. Jalankan 'git --version' via child_process.execSync.\n4. Tampilkan checklist ramah pemula dengan emoji centang hijau dan petunjuk perbaikan jika gagal.\n\n[BATASAN]\nJangan memasang package pihak ketiga.\n\n[HASIL AKHIR]\nSkrip yang menghasilkan checklist status ramah pengguna.\n\n[VALIDASI]\nUji dengan 'node scripts/check-environment.mjs'.`,
+          batasan: [
+            "Gunakan contoh kasus siswa SMK dan tugas sekolah.",
+          ],
+          hasilAkhir:
+            "Contoh kode pendek dan penjelasan Null-Safety yang mudah dipahami.",
+          validasi:
+            "Siswa dapat memperbaiki error 'Null can not be a value of a non-null type String'.",
+          rawPrompt: `[TUJUAN]\nMenguasai penggunaan val, var, dan Null-Safety (? dan ?:) di Kotlin.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK yang sedang belajar Kotlin untuk membuat aplikasi Android SakuSiswa.\n\n[INSTRUKSI]\n1. Berikan contoh perbedaan val dan var menggunakan kasus data siswa.\n2. Tunjukkan contoh penggunaan nullable type (String?) dan Elvis operator (?:) ketika mengambil nama akun Google yang mungkin kosong (null).\n3. Jelaskan mengapa muncul pesan error "Null can not be a value of a non-null type String" dan bagaimana cara memperbaikinya.\n\n[BATASAN]\nGunakan contoh kode singkat maksimal 20 baris.\n\n[HASIL AKHIR]\nPenjelasan ringkas dan contoh kode Kotlin yang aman dari NullPointerException.\n\n[VALIDASI]\nBerikan 2 baris kode yang sengaja salah soal null, lalu minta saya menebak perbaikannya.`,
         },
-        expected_result: "Terminal menampilkan nomor versi v24.x.x dan npm 11.x.x.",
+        code_snippets: [
+          {
+            filename: "LatihanKotlinDasar.kt",
+            language: "kotlin",
+            code: `// 1. val (tidak bisa diubah) vs var (bisa diubah)
+val sekolah = "SMK Negeri 1 Jakarta"
+var jumlahTugasSelesai = 0
+jumlahTugasSelesai = jumlahTugasSelesai + 1 // Boleh karena var
+
+// 2. Nullable (?) dan Operator Elvis (?:)
+val namaAkunGoogle: String? = null // Bisa saja kosong dari Google
+val namaYangDitampilkan: String = namaAkunGoogle ?: "Siswa Kelas 10"
+
+// 3. String Template ($)
+val pesanHeader = "Halo, $namaYangDitampilkan dari $sekolah! Kamu sudah menyelesaikan $jumlahTugasSelesai tugas."`,
+          },
+        ],
+        expected_result:
+          "Siswa memahami kapan menggunakan val/var dan cara melindungi aplikasi dari error data kosong (null) dengan operator Elvis (?:).",
         validation_check: [
-          "Perintah node -v menghasilkan nomor versi tanpa error",
-          "Perintah npm -v menghasilkan nomor versi tanpa error",
+          "Dapat menjelaskan perbedaan String dan String?",
+          "Dapat menggunakan ?: untuk memberi teks cadangan ketika variabel bernilai null",
         ],
         common_errors: [
           {
-            error: "'node' is not recognized as an internal or external command di Windows.",
-            solution: "Centang opsi 'Add to PATH' saat instalasi Node.js, lalu restart aplikasi terminal Anda.",
+            error: "Menggunakan operator !! (double bang) seperti namaAkunGoogle!! yang memaksa data tidak null.",
+            solution:
+              "Hindari penggunaan !! karena jika datanya benar-benar null, aplikasi akan langsung Force Close. Gunakan ?: (Elvis operator) sebagai gantinya.",
           },
         ],
-        exercise: "Jalankan 'node -e \"console.log('Halo Web Developer!')\"' di terminal Anda.",
+        exercise:
+          "Buatlah variabel nullable 'val catatanTambahan: String? = null', lalu tampilkan teks 'Tidak ada catatan tambahan' jika variabel tersebut bernilai null!",
         quiz: [
           {
-            question: "Apa fungsi utama dari npm (Node Package Manager)?",
+            question: "Apa hasil dari kode: val hasil = namaPanggilan ?: \"Siswa\" jika variabel namaPanggilan bernilai null?",
             options: [
-              "Mengunduh dan mengelola pustaka kode JavaScript pihak ketiga",
-              "Mengedit foto profil toko",
-              "Mengirim pesan otomatis ke WhatsApp",
-              "Membayar tagihan hosting Vercel",
+              "Aplikasi langsung Force Close",
+              "Nilai hasil berisi teks \"Siswa\"",
+              "Nilai hasil berisi teks \"null\"",
+              "Kode gagal dikompilasi",
             ],
-            correctIndex: 0,
-            explanation: "npm adalah repositori dan pengelola dependensi resmi ekosistem JavaScript.",
+            correctIndex: 1,
+            explanation:
+              "Operator Elvis (?:) akan mengambil nilai di sebelah kanan (\"Siswa\") apabila ekspresi di sebelah kiri bernilai null.",
           },
         ],
-        references: [{ title: "Node.js Official Documentation", url: "https://nodejs.org/en/docs" }],
       },
       {
         id: "m2-l2",
         module_id: "modul-2",
         lesson_number: 2,
-        title: "Instalasi Git dan Membuat Akun GitHub",
-        slug: "instalasi-git-dan-akun-github",
-        description: "Mengonfigurasi Version Control System (VCS) Git dan menyiapkan akun GitHub untuk menyimpan kode secara online.",
-        estimated_minutes: 20,
+        title: "Data Class, List & Pengenalan Coroutines (suspend) di Kotlin",
+        slug: "data-class-list-dan-coroutines",
+        description:
+          "Membuat cetakan objek tugas dengan data class, mengelola kumpulan tugas dengan List dan filter(), serta mengenal fungsi suspend untuk operasi database dan login yang tidak membuat layar macet.",
+        estimated_minutes: 45,
         order_index: 2,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Peserta mampu menginisialisasi repository Git lokal dan menghubungkannya dengan akun GitHub publik.",
-        prerequisites: ["Materi 1: Instalasi Node.js"],
-        concept_explanation:
-          "Git adalah mesin perekam sejarah perubahan kode Anda (seperti time machine). GitHub adalah media sosial dan tempat penyimpanan awan (cloud) untuk repository Git Anda, sekaligus sumber deployment otomatis ke Vercel.",
-        preparation: ["Alamat email aktif untuk mendaftar akun di github.com"],
+        objective:
+          "Siswa mampu membuat data class untuk membungkus informasi tugas, memfilter List tugas berdasarkan status/mata pelajaran, dan memahami alasan digunakannya fungsi suspend.",
+        prerequisites: ["Menyelesaikan Materi 2.1"],
+        concept_explanation: `Dalam aplikasi SakuSiswa, kita tidak mungkin menyimpan 10 tugas dengan membuat variabel \`judul1\`, \`judul2\`, \`judul3\` satu per satu. Kita membutuhkan:
+
+1. **\`data class\`**: Cetakan khusus di Kotlin untuk membungkus beberapa data yang saling berkaitan menjadi satu objek utuh (misalnya satu objek \`Tugas\` memiliki \`id\`, \`mapel\`, \`judul\`, dan \`selesai\`). Kelebihan \`data class\` adalah memiliki fungsi \`.copy()\` untuk mengubah satu nilai dengan mudah (misalnya mengubah \`selesai = false\` menjadi \`true\`).
+2. **\`List<Tugas>\` dan \`.filter { ... }\`**: Kumpulan banyak objek tugas yang berurutan. Dengan fungsi \`.filter { !it.selesai }\`, kita bisa menyaring hanya tugas yang belum selesai dalam satu baris kode!
+3. **Coroutines (\`suspend fun\`)**: Layar HP Android menggambar tampilan 60 hingga 120 kali per detik di jalur utama (*Main Thread*). Jika kita membaca database atau menghubungi server Google Login di jalur utama, layar HP akan membeku (*freeze / Not Responding*). Karena itu, operasi database Room dan Login Google dijalankan di jalur latar belakang menggunakan kata kunci **\`suspend\`** (Coroutines).`,
+        preparation: [
+          "Siapkan package 'data' yang sudah dibuat pada Modul 1",
+        ],
+        thinking_steps: [
+          "Jika kita ingin mengubah status sebuah objek data class Task dari belum selesai (false) menjadi selesai (true), mengapa fungsi .copy(isCompleted = true) sangat membantu?",
+          "Apa yang akan dirasakan pengguna jika proses baca/tulis 1.000 baris database dijalankan di Main Thread tanpa Coroutines?",
+        ],
         step_instructions: [
-          "Unduh dan pasang Git dari https://git-scm.com.",
-          "Daftar akun gratis di https://github.com.",
-          "Atur identitas Git lokal di terminal:\n`git config --global user.name \"Nama Anda\"`\n`git config --global user.email \"email@anda.com\"`.",
-          "Verifikasi dengan perintah `git config --list`.",
+          "Buat contoh data class bernama 'PreviewTask' untuk latihan di dalam MainActivity atau file latihan.",
+          "Buat sebuah daftar 'val daftarTugas = listOf(...)' berisi 3 tugas contoh dari mata pelajaran berbeda.",
+          "Gunakan fungsi '.filter { it.subject == \"Dasar PPLG\" }' untuk melihat cara menyaring daftar di Kotlin.",
+          "Gunakan fungsi '.count { !it.isCompleted }' untuk menghitung berapa tugas yang belum dikerjakan.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat file konfigurasi `.gitignore` standar industri yang aman agar kredensial tidak bocor ke publik.",
-          konteks: "Proyek Next.js 15 dengan Supabase.",
+          tujuan:
+            "Memahami cara kerja data class, fungsi .copy(), .filter(), dan konsep suspend function pada Kotlin.",
+          konteks:
+            "Aplikasi Android SakuSiswa (pencatat tugas sekolah) dengan Kotlin dan Jetpack Compose.",
           instruksi: [
-            "Pastikan file `.gitignore` di root proyek mengecualikan node_modules, .next, .env.local, dan kunci rahasia.",
-            "Berikan komentar panduan di dalam file .gitignore.",
+            "Tunjukkan contoh data class Task beserta penggunaan fungsi .copy() untuk menandai tugas selesai.",
+            "Tunjukkan cara menyaring List<Task> berdasarkan status selesai dan kata kunci pencarian judul.",
+            "Jelaskan analogi sederhana perbedaan fungsi biasa (fun) dan fungsi asinkron (suspend fun) di Android.",
           ],
-          batasan: ["Pastikan file `.env.example` tetap dapat di-commit sebagai panduan."],
-          hasilAkhir: "File `.gitignore` yang komprehensif dan melindungi privasi.",
-          validasi: "Jalankan `git status` dan pastikan file `.env.local` tidak muncul di staging.",
-          rawPrompt: `[TUJUAN]\nMembuat file .gitignore aman untuk proyek Next.js + Supabase.\n\n[KONTEKS]\nRoot workspace proyek web development.\n\n[INSTRUKSI]\n1. Buat atau perbarui file .gitignore.\n2. Masukkan pola: node_modules/, .next/, out/, .env.local, .env*.local, *.pem, .DS_Store.\n3. Pastikan .env.example diizinkan untuk di-track.\n\n[BATASAN]\nJangan menghapus file konfigurasi penting lain.\n\n[HASIL AKHIR]\nProteksi otomatis dari kebocoran kunci rahasia ke GitHub.\n\n[VALIDASI]\nCek dengan 'git status --ignored' untuk memastikan folder sensitif terabaikan.`,
+          batasan: [
+            "Fokus pada logika Kotlin murni yang bersih dan mudah dipahami kelas 10.",
+          ],
+          hasilAkhir:
+            "Potongan kode contoh operasi data class, List filter, dan analogi Coroutines.",
+          validasi:
+            "Siswa memahami fungsi it di dalam blok lambda .filter { it.isCompleted }.",
+          rawPrompt: `[TUJUAN]\nMenguasai penggunaan data class, List.filter, dan konsep suspend function untuk aplikasi SakuSiswa.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK sedang mempelajari pengelolaan data tugas sekolah di bahasa Kotlin.\n\n[INSTRUKSI]\n1. Buat contoh data class Task(val id: Int, val subject: String, val title: String, val isCompleted: Boolean = false).\n2. Tunjukkan cara mengubah status isCompleted menjadi true menggunakan fungsi .copy().\n3. Tunjukkan cara memfilter List<Task> untuk mencari tugas yang belum selesai dan mengandung kata kunci tertentu.\n4. Jelaskan dengan analogi kasir kantin sekolah mengapa operasi berat di Android harus memakai "suspend fun" (Coroutines).\n\n[BATASAN]\nJelaskan secara ringkas dan beri komentar pada setiap langkah kode.\n\n[HASIL AKHIR]\nContoh kode Kotlin dan analogi Coroutines.\n\n[VALIDASI]\nPastikan saya paham apa arti variabel implisit "it" di dalam fungsi .filter { ... }.`,
         },
-        expected_result: "Git siap digunakan untuk mencatat setiap checkpoint pengembangan tanpa resiko membocorkan rahasia.",
+        code_snippets: [
+          {
+            filename: "ContohDataClassDanList.kt",
+            language: "kotlin",
+            code: `data class TaskSample(
+    val id: Int,
+    val subject: String,
+    val title: String,
+    val dueDate: String,
+    val isCompleted: Boolean = false
+)
+
+val contohDaftarTugas = listOf(
+    TaskSample(1, "Dasar PPLG", "Merancang Entity Room", "18 Nov 2026", isCompleted = true),
+    TaskSample(2, "Matematika", "Latihan Matriks Hal 42", "19 Nov 2026", isCompleted = false),
+    TaskSample(3, "Informatika", "Presentasi Jaringan Lokal", "20 Nov 2026", isCompleted = false)
+)
+
+// Menyaring tugas yang belum selesai
+val tugasBelumSelesai = contohDaftarTugas.filter { !it.isCompleted }
+
+// Mengubah status satu tugas dengan .copy()
+val tugasUpdated = contohDaftarTugas[1].copy(isCompleted = true)`,
+          },
+        ],
+        expected_result:
+          "Siswa lancar menggunakan data class, memanipulasi List dengan filter/copy, dan memahami peran suspend function untuk menjaga kelancaran layar aplikasi.",
         validation_check: [
-          "Akun GitHub aktif dan dapat login",
-          "Nama dan email terkonfigurasi di `git config --global`",
+          "Dapat menggunakan .copy() pada objek data class",
+          "Dapat menyaring List menggunakan .filter { ... }",
+          "Mengetahui bahwa fungsi suspend hanya bisa dipanggil dari Coroutine atau fungsi suspend lain",
         ],
         common_errors: [
           {
-            error: "Melakukan commit file `.env.local` yang berisi kunci rahasia ke GitHub publik.",
-            solution: "Pastikan file .gitignore sudah memuat baris `.env*.local` sebelum menjalankan `git add .`.",
+            error: "Memanggil suspend fun langsung di dalam onClick tombol tanpa coroutineScope.launch { ... }.",
+            solution:
+              "Panggilan suspend fun harus dibungkus di dalam viewModelScope.launch { ... } (di ViewModel) atau rememberCoroutineScope().launch { ... } (di Composable).",
           },
         ],
-        exercise: "Buat repository publik kosong baru di akun GitHub Anda dengan nama 'tes-katalog-umkm'.",
+        exercise:
+          "Bagaimana cara menulis fungsi .filter { ... } untuk mencari tugas yang judulnya mengandung kata 'Matriks' tanpa peduli huruf besar atau kecil (ignoreCase = true)?",
         quiz: [
           {
-            question: "File apa yang digunakan untuk memberi tahu Git agar tidak mengunggah file sensitif (seperti password) ke GitHub?",
-            options: [".gitignore", "package.json", "index.html", "readme.txt"],
-            correctIndex: 0,
-            explanation: "File .gitignore mencantumkan daftar file dan folder yang sengaja dikecualikan dari pelacakan Git.",
+            question: "Fungsi bawaan apakah pada data class Kotlin yang memudahkan kita membuat salinan objek dengan mengubah satu properti saja?",
+            options: [
+              ".delete()",
+              ".copy()",
+              ".filter()",
+              ".println()",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Setiap data class di Kotlin otomatis menyediakan fungsi .copy() sehingga kita bisa memperbarui satu properti (misal isCompleted = true) tanpa menulis ulang properti lainnya.",
           },
         ],
-        references: [{ title: "GitHub Getting Started", url: "https://docs.github.com/en/get-started" }],
       },
       {
         id: "m2-l3",
         module_id: "modul-2",
         lesson_number: 3,
-        title: "Membuat Akun Supabase dan Organisasi Proyek",
-        slug: "membuat-akun-supabase-dan-organisasi",
-        description: "Mendaftarkan akun cloud database Supabase gratis dan membuat organisasi untuk proyek katalog UMKM.",
-        estimated_minutes: 15,
+        title: "Menyusun Tata Letak dengan Jetpack Compose (Column, Row, Card & Modifier)",
+        slug: "tata-letak-jetpack-compose-dasar",
+        description:
+          "Membangun tampilan aplikasi tanpa XML menggunakan blok bangunan utama Jetpack Compose: Column (vertikal), Row (horizontal), Box (tumpukan), Card Material 3, dan pengaturan gaya dengan Modifier.",
+        estimated_minutes: 45,
         order_index: 3,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memiliki dashboard Supabase yang siap menerima skrip tabel PostgreSQL dan file storage.",
-        prerequisites: ["Akun GitHub aktif (dapat login menggunakan GitHub OAuth)"],
-        concept_explanation:
-          "Supabase menyediakan database PostgreSQL instan di cloud lengkap dengan API REST/GraphQL otomatis, dashboard SQL Editor, sistem autentikasi pengguna, dan bucket penyimpanan file.",
-        preparation: ["Buka https://supabase.com di browser"],
+        objective:
+          "Siswa mampu menyusun tata letak vertikal dan horizontal menggunakan Column, Row, Spacer, Card, serta mengatur jarak (padding) dan ukuran melalui Modifier.",
+        prerequisites: ["Menyelesaikan Materi 2.1 dan 2.2"],
+        concept_explanation: `Di Jetpack Compose, kamu menyusun tampilan persis seperti menyusun balok LEGO menggunakan fungsi Kotlin yang diberi tanda **\`@Composable\`**. Tiga wadah tata letak paling utama adalah:
+
+1. **\`Column { ... }\`**: Menyusun elemen secara berurutan dari **atas ke bawah** (vertikal). Misalnya: Judul Tugas di atas, Nama Mata Pelajaran di tengah, Tanggal Tenggat di bawah.
+2. **\`Row { ... }\`**: Menyusun elemen berjejer dari **kiri ke kanan** (horizontal). Misalnya: Kotak Checkbox di kiri, Teks Judul di tengah, Tombol Hapus di kanan.
+3. **\`Box { ... }\`**: Menumpuk elemen di atas elemen lain (seperti stiker di atas sampul buku).
+
+Untuk mengatur ukuran, jarak dalam (*padding*), warna latar, atau aksi klik pada komponen apa pun, kita menggunakan **\`Modifier\`**.
+> **Aturan Emas Modifier**: Urutan penulisan \`Modifier\` sangat berpengaruh! \`Modifier.padding(16.dp).background(Color.Red)\` hasilnya berbeda dengan \`Modifier.background(Color.Red).padding(16.dp)\`.`,
+        preparation: [
+          "Aktifkan tampilan 'Split' (Code + Preview) di pojok kanan atas editor Android Studio",
+        ],
+        thinking_steps: [
+          "Jika kita ingin membuat satu kartu tugas yang di sebelah kirinya ada Checkbox, di tengahnya ada tumpukan Judul & Mata Pelajaran, dan di kanannya ada ikon Hapus: kombinasi Row dan Column seperti apa yang harus kita susun?",
+          "Mengapa satuan ukuran di Jetpack Compose menggunakan .dp (Density-independent Pixels) untuk jarak/kotak dan .sp (Scale-independent Pixels) untuk ukuran huruf?",
+        ],
         step_instructions: [
-          "Buka https://supabase.com dan klik tombol 'Sign Up' atau 'Start your project'.",
-          "Pilih 'Continue with GitHub' untuk autentikasi satu klik yang aman.",
-          "Buat New Organization dengan nama usaha atau nama peserta (contoh: 'Katalog UMKM Budi').",
-          "Klik 'New Project', masukkan Nama Proyek 'katalog-umkm-db', buat Database Password yang kuat (catat password ini!), dan pilih Region terdekat (Singapore - ap-southeast-1).",
-          "Tunggu sekitar 1-2 menit hingga status database berubah menjadi 'Active'.",
+          "Di dalam MainActivity.kt, buat satu fungsi baru bernama '@Composable fun KartuProfilSiswa(nama: String, kelas: String)'.",
+          "Bungkus tampilannya dengan komponen 'Card' dari Material 3 dan berikan 'Modifier.fillMaxWidth().padding(16.dp)'.",
+          "Di dalam Card, gunakan 'Row(verticalAlignment = Alignment.CenterVertically)' untuk menaruh bulatan inisial nama di sebelah kiri dan 'Column' berisi nama serta kelas di sebelah kanan.",
+          "Tambahkan '@Preview(showBackground = true)' untuk melihat hasilnya secara instan tanpa perlu menjalankan emulator.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat catatan panduan kredensial lokal `docs/KREDENSIAL_SUPABASE.md` yang memandu di mana menemukan Project URL dan API Key.",
-          konteks: "Folder dokumentasi proyek.",
+          tujuan:
+            "Membuat komponen Kartu Profil Siswa dan Kartu Statistik Tugas di Jetpack Compose menggunakan Row, Column, dan Material 3 Card.",
+          konteks:
+            "Aplikasi Android SakuSiswa dengan Kotlin dan Jetpack Compose Material 3.",
           instruksi: [
-            "Buat file `docs/KREDENSIAL_SUPABASE.md`.",
-            "Jelaskan letak menu: Project Settings -> Data API -> Project URL & Project API Keys.",
-            "Tegaskan perbedaan antara anon public key (aman untuk browser) dan secret service role key (khusus backend).",
+            "Buat fungsi @Composable StudentHeaderCard(studentName: String, studentEmail: String, pendingCount: Int, completedCount: Int).",
+            "Gunakan Card Material 3 dengan sudut membulat (RoundedCornerShape(16.dp)).",
+            "Tampilkan nama dan email siswa di bagian atas, lalu 2 kotak ringkasan jumlah tugas 'Belum Selesai' dan 'Selesai' secara berdampingan menggunakan Row dan Modifier.weight(1f).",
+            "Jelaskan fungsi Modifier.weight(1f) kepada siswa kelas 10.",
           ],
-          batasan: ["Jangan pernah menuliskan kunci rahasia asli di dalam file commit."],
-          hasilAkhir: "Dokumentasi panduan konfigurasi Supabase yang jelas.",
-          validasi: "File markdown tersusun rapi dengan peringatan keamanan yang jelas.",
-          rawPrompt: `[TUJUAN]\nMembuat dokumentasi panduan konfigurasi Supabase di docs/KREDENSIAL_SUPABASE.md.\n\n[KONTEKS]\nPanduan referensi siswa workshop development.\n\n[INSTRUKSI]\n1. Buat docs/KREDENSIAL_SUPABASE.md.\n2. Tulis panduan langkah demi langkah cara menemukan SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, dan SUPABASE_SECRET_KEY di dashboard Supabase.\n3. Berikan peringatan keras mengenai bahaya membocorkan SUPABASE_SECRET_KEY ke sisi browser.\n\n[BATASAN]\nHanya menulis file dokumentasi panduan.\n\n[HASIL AKHIR]\nPanduan praktis konfigurasi Supabase.\n\n[VALIDASI]\nPastikan tautan dokumentasi resmi mengarah ke supabase.com/docs.`,
+          batasan: [
+            "Gunakan hanya komponen standar androidx.compose.material3 dan androidx.compose.foundation.layout.",
+          ],
+          hasilAkhir:
+            "Kode fungsi StudentHeaderCard lengkap dengan @Preview dan penjelasan fungsi Modifier.weight(1f).",
+          validasi:
+            "Preview tampil rapi di Android Studio dengan 2 kotak statistik sama lebar.",
+          rawPrompt: `[TUJUAN]\nMembuat komponen header profil siswa dan ringkasan statistik tugas menggunakan Row, Column, dan Card Material 3.\n\n[KONTEKS]\nProyek Android SakuSiswa dengan Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable bernama StudentHeaderCard(studentName: String, studentEmail: String, pendingCount: Int, completedCount: Int).\n2. Gunakan komponen Card Material 3 dengan padding 16.dp.\n3. Susun nama dan email menggunakan Column, lalu di bawahnya buat Row berisi 2 kotak statistik ("Belum Selesai" dan "Sudah Selesai") yang membagi lebar layar sama rata menggunakan Modifier.weight(1f).\n4. Jelaskan mengapa Modifier.weight(1f) membuat kedua kotak memiliki lebar yang persis sama.\n\n[BATASAN]\nJangan gunakan library eksternal di luar Material 3 bawaan.\n\n[HASIL AKHIR]\nKode Composable lengkap dengan fungsi @Preview.\n\n[VALIDASI]\nPastikan kode dapat dirender di tab Preview Android Studio tanpa error import.`,
         },
-        expected_result: "Dashboard Supabase aktif dengan region Singapore untuk latency rendah di Indonesia.",
+        code_snippets: [
+          {
+            filename: "StudentHeaderCard.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.ui
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun StudentHeaderCard(
+    studentName: String,
+    studentEmail: String,
+    pendingCount: Int,
+    completedCount: Int,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        )
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Halo, $studentName",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = studentEmail,
+                style = MaterialTheme.typography.bodySmall
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Surface(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surface
+                ) {
+                    Column(
+                        modifier = Modifier.padding(12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text("$pendingCount", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+                        Text("Tugas Aktif", style = MaterialTheme.typography.labelMedium)
+                    }
+                }
+                Surface(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surface
+                ) {
+                    Column(
+                        modifier = Modifier.padding(12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text("$completedCount", style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
+                        Text("Selesai", style = MaterialTheme.typography.labelMedium)
+                    }
+                }
+            }
+        }
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "Siswa mampu merakit tata letak kartu informasi yang rapi menggunakan kombinasi Card, Column, Row, Spacer, dan Modifier.weight(1f).",
         validation_check: [
-          "Status proyek di Supabase bertuliskan 'Active'",
-          "Dapat mengakses menu 'SQL Editor' dan 'Table Editor'",
+          "Memahami perbedaan Column (atas-bawah) dan Row (kiri-kanan)",
+          "Berhasil menampilkan StudentHeaderCard di Preview Android Studio",
         ],
         common_errors: [
           {
-            error: "Memilih region server di US atau Europe.",
-            solution: "Pilih selalu Singapore (ap-southeast-1) agar akses dari Indonesia cepat dan tidak lemot.",
+            error: "Teks saling bertumpuk di pojok kiri atas karena lupa membungkus beberapa Text di dalam Column atau Row.",
+            solution:
+              "Jika menaruh lebih dari satu komponen di dalam fungsi @Composable atau Card, selalu bungkus dengan Column (untuk susunan menurun) atau Row (untuk susunan menyamping).",
           },
         ],
-        exercise: "Buka menu Project Settings di Supabase dan temukan letak string URL proyek Anda (format: `https://xxxx.supabase.co`).",
+        exercise:
+          "Tambahkan sebuah tombol OutlinedButton bertuliskan 'Keluar' di sebelah kanan nama siswa pada StudentHeaderCard menggunakan Row!",
         quiz: [
           {
-            question: "Region mana yang paling disarankan untuk proyek Supabase dengan pengguna utama di Indonesia?",
-            options: ["Singapore (ap-southeast-1)", "US East (N. Virginia)", "Europe (Frankfurt)", "South America (Sao Paulo)"],
-            correctIndex: 0,
-            explanation: "Singapore memiliki jarak fisik paling dekat dan jalur kabel optik langsung ke ISP Indonesia sehingga latensinya paling rendah (< 30ms).",
+            question: "Komponen tata letak manakah di Jetpack Compose yang digunakan untuk menyusun elemen secara berdampingan dari kiri ke kanan?",
+            options: [
+              "Column",
+              "Row",
+              "Spacer",
+              "Divider",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Row menyusun elemen anak secara horizontal (kiri ke kanan), sedangkan Column menyusun elemen secara vertikal (atas ke bawah).",
           },
         ],
-        references: [{ title: "Supabase Project Creation Guide", url: "https://supabase.com/docs/guides/platform" }],
       },
       {
         id: "m2-l4",
         module_id: "modul-2",
         lesson_number: 4,
-        title: "Membuat Akun Vercel dan Menghubungkan GitHub",
-        slug: "membuat-akun-vercel-dan-koneksi-github",
-        description: "Mendaftarkan akun Vercel dan memberikan otorisasi integrasi GitHub untuk deployment otomatis berkesinambungan (CI/CD).",
-        estimated_minutes: 15,
+        title: "State, Recomposition & Form Input Interaktif di Jetpack Compose",
+        slug: "state-recomposition-dan-form-input",
+        description:
+          "Memahami nyawa dari UI deklaratif: bagaimana perubahan nilai State (remember & mutableStateOf) memicu layar menggambar ulang (Recomposition) pada OutlinedTextField dan Checkbox.",
+        estimated_minutes: 45,
         order_index: 4,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menyiapkan akun Vercel yang otomatis menerbitkan website setiap kali pengembang melakukan git push.",
-        prerequisites: ["Materi 2: Instalasi Git dan Membuat Akun GitHub"],
-        concept_explanation:
-          "Vercel mendeteksi perubahan pada branch utama di GitHub Anda. Begitu ada commit baru yang di-push, mesin Vercel langsung menjalankan build Next.js dan memublikasikan versi terbaru ke URL global (domain `xxxx.vercel.app`) secara gratis dalam hitungan detik.",
-        preparation: ["Buka https://vercel.com di browser"],
+        objective:
+          "Siswa memahami konsep State & Recomposition serta mampu membuat form input tambah tugas dengan validasi tidak boleh kosong.",
+        prerequisites: ["Menyelesaikan Materi 2.3"],
+        concept_explanation: `Pernahkah kamu mencoba membuat kotak ketik \`OutlinedTextField\` di Jetpack Compose, tetapi saat kamu mengetik di keyboard, hurufnya tidak mau muncul di layar? Itu terjadi karena kamu belum menghubungkannya dengan **State**!
+
+Di Jetpack Compose:
+1. **State** adalah nilai data yang bisa berubah seiring waktu (misalnya teks yang sedang diketik, atau status dialog terbuka/tertutup).
+2. **Recomposition** adalah proses otomatis ketika Jetpack Compose menggambar ulang komponen layar yang membaca State tersebut setiap kali nilainya berubah.
+3. Agar nilai variabel tidak ter-reset kembali menjadi kosong saat layar digambar ulang, kita wajib membungkusnya dengan **\`remember { mutableStateOf("") }\`** (atau \`rememberSaveable\` agar tahan saat layar HP diputar miring/landscape).`,
+        preparation: [
+          "Pastikan kamu memahami konsep var dari Materi 2.1",
+        ],
+        thinking_steps: [
+          "Mengapa jika kita hanya memakai 'var judul = \"\"' biasa tanpa 'remember { mutableStateOf(\"\") }', ketikan kita tidak muncul di OutlinedTextField?",
+          "Bagaimana cara menonaktifkan tombol 'Simpan Tugas' (enabled = false) secara otomatis selama kolom Judul atau Mata Pelajaran masih kosong?",
+        ],
         step_instructions: [
-          "Buka https://vercel.com/signup.",
-          "Pilih opsi 'Continue with GitHub'.",
-          "Setujui izin akses Vercel ke repository GitHub Anda (pilih 'All repositories' atau spesifik proyek katalog).",
-          "Setelah masuk ke Vercel Dashboard, Anda siap melakukan deployment satu klik.",
+          "Buat file baru di package 'ui' bernama 'AddTaskDialog.kt'.",
+          "Deklarasikan 3 state menggunakan 'var subject by remember { mutableStateOf(\"\") }', 'var title by remember { mutableStateOf(\"\") }', dan 'var dueDate by remember { mutableStateOf(\"\") }'.",
+          "Hubungkan masing-masing state ke komponen 'OutlinedTextField(value = title, onValueChange = { title = it }, ...)'.",
+          "Tambahkan validasi pada tombol Simpan: 'enabled = title.isNotBlank() && subject.isNotBlank()' agar pengguna tidak bisa menyimpan tugas kosong.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat konfigurasi file `vercel.json` untuk optimasi header keamanan pada aplikasi live.",
-          konteks: "Root direktori proyek Next.js.",
+          tujuan:
+            "Membuat komponen dialog form tambah/edit tugas (TaskFormDialog) dengan state management dan validasi input di Jetpack Compose.",
+          konteks:
+            "Package id.smkn1jakarta.sakusiswa.ui pada aplikasi Android SakuSiswa menggunakan Material 3.",
           instruksi: [
-            "Buat file `vercel.json`.",
-            "Tambahkan aturan header keamanan dasar: X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: strict-origin-when-cross-origin.",
+            "Buat fungsi @Composable TaskFormDialog yang menerima parameter initialSubject, initialTitle, initialNotes, initialDueDate, onDismiss, dan onConfirm.",
+            "Gunakan AlertDialog Material 3 berisi OutlinedTextField untuk Mata Pelajaran, Judul Tugas, Catatan, dan Tenggat Waktu.",
+            "Terapkan validasi tombol Simpan hanya aktif (enabled) jika Mata Pelajaran dan Judul Tugas tidak kosong (isNotBlank).",
+            "Jelaskan peran kata kunci 'by remember { mutableStateOf(...) }' dan mengapa harus meng-import getValue serta setValue.",
           ],
-          batasan: ["Jangan mengubah routing standar Next.js."],
-          hasilAkhir: "File `vercel.json` yang meningkatkan skor keamanan K-6 pada worksheet referensi.",
-          validasi: "File JSON valid tanpa trailing comma syntax error.",
-          rawPrompt: `[TUJUAN]\nMembuat konfigurasi vercel.json untuk security headers.\n\n[KONTEKS]\nDeployment Next.js di platform Vercel.\n\n[INSTRUKSI]\n1. Buat vercel.json di root proyek.\n2. Tentukan headers keamanan untuk source (.*) meliputi X-Content-Type-Options: nosniff dan X-Frame-Options: SAMEORIGIN.\n\n[BATASAN]\nJSON murni yang valid.\n\n[HASIL AKHIR]\nHeader keamanan aktif saat website live di Vercel.\n\n[VALIDASI]\nValidasi dengan JSON parser.`,
+          batasan: [
+            "Gunakan komponen resmi androidx.compose.material3.",
+          ],
+          hasilAkhir:
+            "File TaskFormDialog.kt yang siap dipakai untuk fitur Create maupun Update tugas.",
+          validasi:
+            "Tombol Simpan otomatis mati saat kolom judul kosong dan menyala saat diisi.",
+          rawPrompt: `[TUJUAN]\nMembuat komponen AlertDialog form input tugas (Tambah & Edit) dengan validasi state di Jetpack Compose.\n\n[KONTEKS]\nAplikasi SakuSiswa package id.smkn1jakarta.sakusiswa.ui menggunakan Kotlin dan Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable TaskFormDialog(\n   dialogTitle: String,\n   initialSubject: String = "",\n   initialTitle: String = "",\n   initialNotes: String = "",\n   initialDueDate: String = "",\n   onDismiss: () -> Unit,\n   onConfirm: (subject: String, title: String, notes: String, dueDate: String) -> Unit\n).\n2. Gunakan remember { mutableStateOf(...) } untuk mengelola teks pada 4 OutlinedTextField.\n3. Buat tombol Simpan hanya bisa diklik (enabled) apabila subject.isNotBlank() && title.isNotBlank().\n4. Jelaskan mengapa kita wajib menambahkan import androidx.compose.runtime.getValue dan setValue saat memakai kata kunci "by remember".\n\n[BATASAN]\nPastikan kode bersih, tidak menggunakan library form pihak ketiga.\n\n[HASIL AKHIR]\nKode lengkap TaskFormDialog.kt beserta penjelasan cara kerja State & Recomposition.\n\n[VALIDASI]\nPastikan dialog dapat digunakan baik untuk Tambah Tugas Baru (nilai awal kosong) maupun Edit Tugas (nilai awal terisi).`,
         },
-        expected_result: "Akun Vercel terhubung ke GitHub dan siap meng-host proyek katalog Anda.",
+        code_snippets: [
+          {
+            filename: "TaskFormDialog.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.ui
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun TaskFormDialog(
+    dialogTitle: String,
+    initialSubject: String = "",
+    initialTitle: String = "",
+    initialNotes: String = "",
+    initialDueDate: String = "",
+    onDismiss: () -> Unit,
+    onConfirm: (subject: String, title: String, notes: String, dueDate: String) -> Unit
+) {
+    var subject by remember { mutableStateOf(initialSubject) }
+    var title by remember { mutableStateOf(initialTitle) }
+    var notes by remember { mutableStateOf(initialNotes) }
+    var dueDate by remember { mutableStateOf(initialDueDate) }
+
+    val isFormValid = subject.isNotBlank() && title.isNotBlank()
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text = dialogTitle) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                OutlinedTextField(
+                    value = subject,
+                    onValueChange = { subject = it },
+                    label = { Text("Mata Pelajaran *") },
+                    placeholder = { Text("Contoh: Dasar PPLG") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = title,
+                    onValueChange = { title = it },
+                    label = { Text("Judul Tugas *") },
+                    placeholder = { Text("Contoh: Membuat Entity Room") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = dueDate,
+                    onValueChange = { dueDate = it },
+                    label = { Text("Tenggat Waktu") },
+                    placeholder = { Text("Contoh: Jumat, 20 Nov") },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = notes,
+                    onValueChange = { notes = it },
+                    label = { Text("Catatan Tambahan") },
+                    modifier = Modifier.fillMaxWidth(),
+                    minLines = 2
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onConfirm(
+                        subject.trim(),
+                        title.trim(),
+                        notes.trim(),
+                        dueDate.trim().ifEmpty { "Belum ditentukan" }
+                    )
+                },
+                enabled = isFormValid
+            ) {
+                Text("Simpan")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Batal")
+            }
+        }
+    )
+}`,
+          },
+        ],
+        expected_result:
+          "Siswa berhasil membuat komponen dialog form input tugas yang interaktif, reaktif terhadap ketikan pengguna, dan memiliki validasi tombol Simpan.",
         validation_check: [
-          "Dapat mengakses dashboard Vercel dengan login GitHub",
-          "Melihat menu 'Add New Project'",
+          "Ketikan muncul lancar pada setiap OutlinedTextField",
+          "Tombol Simpan tidak bisa ditekan jika Mata Pelajaran atau Judul masih kosong",
         ],
         common_errors: [
           {
-            error: "Memilih login menggunakan email terpisah bukan GitHub.",
-            solution: "Selalu pilih 'Continue with GitHub' agar integrasi repository berjalan otomatis tanpa setup token manual.",
+            error: "Muncul error 'Type MutableState<String> has no method getValue' saat memakai 'var title by remember'.",
+            solution:
+              "Tambahkan baris 'import androidx.compose.runtime.getValue' dan 'import androidx.compose.runtime.setValue' (atau 'import androidx.compose.runtime.*') di bagian atas file.",
           },
         ],
-        exercise: "Periksa apakah username akun Vercel Anda sudah sama dengan username akun GitHub Anda.",
+        exercise:
+          "Tambahkan teks peringatan kecil berwarna merah di bawah kolom Judul Tugas jika pengguna sudah mengetik spasi kosong (title.isEmpty())!",
         quiz: [
           {
-            question: "Kapan Vercel secara otomatis memperbarui website online Anda?",
+            question: "Apa yang terjadi jika kita menggunakan variabel String biasa tanpa remember { mutableStateOf(...) } sebagai value dari OutlinedTextField?",
             options: [
-              "Setiap kali ada commit baru yang di-push ke branch utama GitHub",
-              "Hanya saat komputer dinyalakan",
-              "Setiap 24 jam sekali",
-              "Hanya saat di-refresh oleh pengunjung",
+              "Teks berubah menjadi huruf kapital semua",
+              "Layar tidak melakukan Recomposition sehingga ketikan keyboard tidak tampil di dalam kotak teks",
+              "Database otomatis terhapus",
+              "Aplikasi langsung terhubung ke Google",
             ],
-            correctIndex: 0,
-            explanation: "Vercel menggunakan webhook GitHub untuk memicu pipeline build otomatis setiap terjadi 'git push'.",
+            correctIndex: 1,
+            explanation:
+              "Jetpack Compose hanya menggambar ulang (recompose) komponen UI ketika nilai State (MutableState) yang diamatinya berubah.",
           },
         ],
-        references: [{ title: "Vercel Git Integration", url: "https://vercel.com/docs/deployments/git" }],
       },
     ],
   },
 
   // =========================================================================
-  // MODUL 3: MEMBUAT PROYEK PERTAMA
+  // MODUL 3 (HARI 1 SORE): ARSITEKTUR UI & DAFTAR TUGAS SAKUSISWA
   // =========================================================================
   {
     id: "modul-3",
-    course_id: "course-web-dev-antigravity",
+    course_id: "course-android-compose-smkn1",
     module_number: 3,
-    title: "Membuat Proyek Pertama Next.js & App Router",
-    slug: "modul-3-membuat-proyek-pertama",
+    title: "Merancang Antarmuka Utama & Navigasi Aplikasi SakuSiswa",
+    slug: "modul-3-antarmuka-dan-navigasi-sakusiswa",
     description:
-      "Inisialisasi proyek Next.js dengan TypeScript, Tailwind CSS, memahami hierarki App Router, menjalankan server lokal, dan debugging dasar.",
-    estimated_minutes: 90,
+      "Merakit komponen kartu tugas (TaskItemCard), daftar bergulir hemat memori dengan LazyColumn, filter chip mata pelajaran, serta struktur layar utama SakuSiswa.",
+    estimated_minutes: 150,
     difficulty_level: "Pemula",
     is_published: true,
     order_index: 3,
@@ -566,254 +1065,567 @@ export const MODULES_DATA: FullModule[] = [
         id: "m3-l1",
         module_id: "modul-3",
         lesson_number: 1,
-        title: "Membuat Folder dan Inisialisasi Proyek Next.js",
-        slug: "membuat-folder-dan-proyek-nextjs",
-        description: "Langkah terstruktur membuat direktori kerja proyek dan inisialisasi Next.js dengan pengaturan modern.",
-        estimated_minutes: 20,
+        title: "Pola Arsitektur MVVM Sederhana: Memisahkan UI dan Logika Data",
+        slug: "pola-arsitektur-mvvm-sederhana",
+        description:
+          "Memahami mengapa kode tampilan (@Composable) tidak boleh mengakses database secara langsung, serta bagaimana ViewModel menjadi jembatan yang rapi.",
+        estimated_minutes: 35,
         order_index: 1,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu membuat proyek Next.js baru dari terminal dengan konfigurasi TypeScript, Tailwind CSS, ESLint, dan App Router.",
-        prerequisites: ["Modul 2 selesai dengan Node.js terpasang"],
-        concept_explanation:
-          "Folder proyek adalah fondasi aplikasi Anda. Next.js menggunakan arsitektur modular di mana file `package.json` mencatat seluruh dependensi, dan folder `src/app` mengontrol rute URL aplikasi Anda secara otomatis berdasarkan nama folder.",
-        preparation: ["Buka terminal di folder kerja Anda (misal `Documents`)"],
+        objective:
+          "Siswa memahami alur Unidirectional Data Flow (UDF) antara Layar Compose, ViewModel, dan Data Layer.",
+        prerequisites: ["Menyelesaikan Modul 2"],
+        concept_explanation: `Ketika aplikasi bertambah fitur (ada Login Google, ada Room Database, ada Pencarian, ada Filter), menaruh semua kode di dalam \`MainActivity.kt\` akan membuat file tersebut panjangnya ribuan baris dan mustahil di-debug.
+
+Standar industri Android menggunakan pola **MVVM (Model - View - ViewModel)**:
+1. **Model / Data Layer (\`data/\`)**: Bagian yang mengurus penyimpanan data di Room Database (\`TaskEntity\`, \`TaskDao\`, \`SakuSiswaDatabase\`) dan pengambilan profil akun Google (\`GoogleAuthManager\`).
+2. **ViewModel (\`viewmodel/\`)**: "Manajer Layar" yang menyiapkan data untuk ditampilkan ke layar (misalnya memfilter daftar tugas) dan menerima perintah aksi dari layar (misalnya \`addTask()\`, \`toggleTaskDone()\`, \`deleteTask()\`). ViewModel juga tetap hidup meskipun layar HP diputar!
+3. **View / UI Layer (\`ui/\`)**: Fungsi \`@Composable\` yang tugasnya murni **menampilkan state** dari ViewModel dan **melapor** ketika tombol ditekan.`,
+        preparation: [
+          "Pastikan 3 folder package (data, viewmodel, ui) sudah siap di proyek SakuSiswa",
+        ],
+        thinking_steps: [
+          "Apa yang terjadi pada variabel biasa di dalam Activity ketika pengguna memutar layar HP dari berdiri (portrait) ke miring (landscape)?",
+          "Mengapa memisahkan fungsi tampilan (UI) dari fungsi database membuat kita lebih mudah bertanya ke AI saat terjadi error?",
+        ],
         step_instructions: [
-          "Buka terminal dan navigasi ke folder kerja:\n`cd Documents`",
-          "Jalankan perintah create-next-app:\n`npx create-next-app@latest katalog-umkm`",
-          "Pilih opsi interaktif: TypeScript: Yes, ESLint: Yes, Tailwind CSS: Yes, src/ directory: Yes, App Router: Yes, Customize import alias: No (@/*).",
-          "Masuk ke direktori baru:\n`cd katalog-umkm`",
+          "Periksa kembali struktur package di proyek SakuSiswa.",
+          "Catat pembagian file yang akan kita bangun: di dalam 'data' ada TaskEntity.kt, TaskDao.kt, SakuSiswaDatabase.kt, dan GoogleAuthManager.kt.",
+          "Di dalam 'viewmodel' akan ada TaskViewModel.kt.",
+          "Di dalam 'ui' akan ada LoginScreen.kt, HomeScreen.kt, TaskItemCard.kt, dan TaskFormDialog.kt.",
         ],
         antigravity_prompt: {
-          tujuan: "Memverifikasi struktur direktori proyek Next.js yang baru diinisialisasi dan memastikan tidak ada konfigurasi yang tertinggal.",
-          konteks: "Folder baru proyek Next.js.",
+          tujuan:
+            "Memahami pembagian tanggung jawab antara UI (Compose), ViewModel, dan Room Database pada aplikasi SakuSiswa.",
+          konteks:
+            "Arsitektur MVVM aplikasi Android SakuSiswa untuk siswa kelas 10 SMK.",
           instruksi: [
-            "Periksa keberadaan file: package.json, tsconfig.json, tailwind.config.ts, src/app/layout.tsx, src/app/page.tsx.",
-            "Tampilkan ringkasan dependensi utama yang terpasang.",
+            "Gambarkan diagram alur teks (ASCII) bagaimana aksi klik tombol 'Hapus Tugas' mengalir dari TaskItemCard -> HomeScreen -> TaskViewModel -> TaskDao -> Room Database.",
+            "Jelaskan bagaimana perubahan data di Room Database otomatis mengalir balik ke layar lewat Flow dan StateFlow.",
           ],
-          batasan: ["Jangan memodifikasi file konfigurasi yang sudah benar."],
-          hasilAkhir: "Laporan kesiapan struktur proyek.",
-          validasi: "Semua file kunci terdeteksi dan tidak ada error sintaks.",
-          rawPrompt: `[TUJUAN]\nMemeriksa kelengkapan file fondasi proyek Next.js.\n\n[KONTEKS]\nRoot direktori proyek Next.js 15.\n\n[INSTRUKSI]\n1. Periksa ketersediaan file tsconfig.json, tailwind.config.ts, dan src/app/page.tsx.\n2. Baca package.json dan laporkan versi Next.js serta React yang terpasang.\n\n[BATASAN]\nOperasi baca file saja, jangan ubah file apapun.\n\n[HASIL AKHIR]\nStatus kesiapan proyek untuk dijalankan di server lokal.\n\n[VALIDASI]\nPastikan semua dependensi inti berstatus OK.`,
+          batasan: [
+            "Gunakan penjelasan konseptual yang mudah dipahami siswa kelas 10.",
+          ],
+          hasilAkhir:
+            "Diagram alur satu arah (Unidirectional Data Flow) aplikasi SakuSiswa.",
+          validasi:
+            "Siswa dapat menyebutkan peran masing-masing file di dalam package data, viewmodel, dan ui.",
+          rawPrompt: `[TUJUAN]\nMemahami alur data satu arah (Unidirectional Data Flow) pada arsitektur MVVM aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, ViewModel, dan Room Database.\n\n[INSTRUKSI]\n1. Buat diagram alur teks sederhana yang menunjukkan perjalanan perintah saat siswa menekan tombol "Centang Selesai" pada kartu tugas.\n2. Jelaskan bagaimana perubahan di tabel Room Database otomatis memperbarui tampilan di Jetpack Compose melalui Flow.\n3. Berikan alasan mengapa kita tidak boleh memanggil fungsi database langsung di dalam fungsi @Composable.\n\n[BATASAN]\nGunakan bahasa Indonesia yang jelas untuk siswa kelas 10 SMK.\n\n[HASIL AKHIR]\nDiagram alur MVVM dan penjelasan peran ViewModel.\n\n[VALIDASI]\nPastikan saya tahu di package mana file TaskViewModel.kt harus disimpan.`,
         },
-        expected_result: "Folder proyek siap dengan seluruh dependensi terinstal di node_modules.",
+        code_snippets: [
+          {
+            filename: "Alur-MVVM-SakuSiswa.txt",
+            language: "markdown",
+            code: `[Layar Compose (UI)]
+   │  1. Siswa klik tombol "Simpan" / "Centang" / "Hapus" (Event naik ke atas)
+   ▼
+[TaskViewModel]
+   │  2. Menjalankan coroutine viewModelScope.launch { dao.insertTask(...) }
+   ▼
+[TaskDao & Room Database]
+   │  3. Menyimpan ke file SQLite lokal & memancarkan data terbaru lewat Flow<List<TaskEntity>>
+   ▼
+[Layar Compose (UI)]
+      4. Otomatis menggambar ulang (Recompose) daftar tugas terbaru!`,
+          },
+        ],
+        expected_result:
+          "Siswa memahami peta besar arsitektur aplikasi SakuSiswa sehingga tidak bingung saat membuat file-file berikutnya.",
         validation_check: [
-          "Folder `node_modules` dan file `package.json` tersedia",
-          "Direktori `src/app` berisi `layout.tsx` dan `page.tsx`",
+          "Dapat menjelaskan arah aliran Event (UI ke ViewModel) dan State (ViewModel ke UI)",
         ],
         common_errors: [
           {
-            error: "Menginstal proyek di dalam folder OneDrive atau Google Drive sinkronisasi yang lambat.",
-            solution: "Gunakan folder lokal seperti `Documents/katalog-umkm` untuk performa terbaik.",
+            error: "Meletakkan semua kelas Entity, DAO, dan layar Compose di dalam satu file MainActivity.kt.",
+            solution:
+              "Pisahkan setiap kelas/layar ke dalam file .kt tersendiri sesuai package-nya agar mudah dibaca dan di-debug.",
           },
         ],
-        exercise: "Buka file `package.json` dan sebutkan 3 dependensi utama yang tercantum di dalamnya.",
+        exercise:
+          "Jika muncul error saat kuery SQL salah ketik, di package manakah kita harus mencari dan memperbaiki kesalahannya (`ui`, `viewmodel`, atau `data`)?",
         quiz: [
           {
-            question: "Sistem routing apa yang menjadi standar modern di Next.js saat ini?",
-            options: ["App Router", "Pages Router", "PHP Router", "Apache mod_rewrite"],
-            correctIndex: 0,
-            explanation: "App Router (folder src/app) adalah arsitektur routing modern Next.js yang mendukung React Server Components dan streaming.",
+            question: "Komponen manakah dalam arsitektur MVVM Android yang bertugas menyimpan state layar agar tidak hilang saat layar HP diputar (rotasi)?",
+            options: [
+              "AndroidManifest.xml",
+              "ViewModel",
+              "Spacer",
+              "IconButton",
+            ],
+            correctIndex: 1,
+            explanation:
+              "ViewModel dirancang oleh Jetpack untuk bertahan melewati perubahan konfigurasi seperti rotasi layar hingga Activity benar-benar ditutup.",
           },
         ],
-        references: [{ title: "Next.js Project Structure", url: "https://nextjs.org/docs/app/getting-started/project-structure" }],
       },
       {
         id: "m3-l2",
         module_id: "modul-3",
         lesson_number: 2,
-        title: "Memahami Struktur Folder dan App Router",
-        slug: "memahami-struktur-folder-dan-app-router",
-        description: "Membedah peran `layout.tsx`, `page.tsx`, `loading.tsx`, `error.tsx`, dan folder rute dinamis `[id]`.",
-        estimated_minutes: 20,
+        title: "Membangun Komponen Kartu Tugas Interaktif (TaskItemCard)",
+        slug: "membangun-komponen-kartu-tugas",
+        description:
+          "Merancang komponen kartu tugas yang menampilkan badge mata pelajaran, judul dengan efek coret (strikethrough) saat selesai, tenggat waktu, tombol edit, dan tombol hapus.",
+        estimated_minutes: 40,
         order_index: 2,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memahami konvensi penamaan file App Router sehingga mampu membuat halaman baru dan rute dinamis secara intuitif.",
-        prerequisites: ["Materi 1: Membuat Folder dan Inisialisasi Proyek"],
-        concept_explanation:
-          "Di App Router, setiap folder di dalam `src/app` merepresentasikan segmen URL. Contoh:\n- `src/app/page.tsx` -> rute `/` (beranda)\n- `src/app/tentang/page.tsx` -> rute `/tentang`\n- `src/app/produk/[id]/page.tsx` -> rute dinamis `/produk/1`, `/produk/abc`\nFile `layout.tsx` membungkus seluruh halaman di level tersebut (misalnya untuk Navbar & Footer permanen).",
-        preparation: ["Buka VS Code dan buka folder proyek katalog-umkm"],
+        objective:
+          "Siswa mampu membuat komponen TaskItemCard yang menerima parameter data dan meneruskan aksi klik (onToggleComplete, onEditClick, onDeleteClick) melalui lambda callback.",
+        prerequisites: ["Menyelesaikan Materi 3.1"],
+        concept_explanation: `Setiap baris tugas pada aplikasi SakuSiswa akan ditampilkan menggunakan satu komponen kartu bernama **\`TaskItemCard\`**. Agar komponen ini pintar dan mudah diuji, kita menggunakan teknik **State Hoisting** (mengangkat state dan aksi ke atas):
+
+\`TaskItemCard\` menerima:
+- Data yang ditampilkan: \`subject\`, \`title\`, \`notes\`, \`dueDate\`, \`isCompleted\`.
+- Tiga fungsi aksi (*callback*):
+  1. \`onToggleComplete: () -> Unit\` -> dipanggil saat Checkbox dicentang/dilepas.
+  2. \`onEditClick: () -> Unit\` -> dipanggil saat tombol pensil (Edit) ditekan.
+  3. \`onDeleteClick: () -> Unit\` -> dipanggil saat tombol tempat sampah (Hapus) ditekan.
+
+Selain itu, kita berikan sentuhan visual yang jelas: jika \`isCompleted == true\`, judul tugas otomatis diberi garis coret (\`TextDecoration.LineThrough\`) supaya siswa langsung tahu tugas mana yang sudah beres!`,
+        preparation: [
+          "Buka package 'id.smkn1jakarta.sakusiswa.ui' di Android Studio",
+        ],
+        thinking_steps: [
+          "Mengapa TaskItemCard sebaiknya hanya melapor lewat fungsi callback (onEditClick, onDeleteClick) daripada menghapus data database sendiri di dalam kartu?",
+          "Perubahan visual apa yang membantu pengguna membedakan tugas yang sudah selesai dan yang belum selesai?",
+        ],
         step_instructions: [
-          "Buka file `src/app/layout.tsx` dan amati tag `<html>` dan `<body>`.",
-          "Buka file `src/app/page.tsx` dan ubah teks judul beranda.",
-          "Buat folder baru `src/app/tentang` dan buat file `page.tsx` di dalamnya.",
-          "Jalankan dev server untuk melihat rute `/tentang` berhasil dibuat.",
+          "Klik kanan pada package 'ui' -> New -> Kotlin Class/File -> ketik 'TaskItemCard'.",
+          "Susun komponen Card dengan Row utama: Checkbox di kiri, Column (Badge Mapel, Judul, Catatan, Tenggat) di tengah dengan Modifier.weight(1f), serta Row tombol Edit & Hapus di kanan.",
+          "Tambahkan TextDecoration.LineThrough pada judul ketika isCompleted bernilai true.",
+          "Uji tampilannya menggunakan fungsi @Preview di bagian bawah file.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat halaman 'Tentang Toko' sederhana untuk memahami sistem folder App Router.",
-          konteks: "Next.js App Router.",
+          tujuan:
+            "Membuat komponen TaskItemCard.kt yang bersih, informatif, dan mendukung aksi Checkbox, Edit, serta Hapus.",
+          konteks:
+            "Aplikasi Android SakuSiswa package id.smkn1jakarta.sakusiswa.ui menggunakan Jetpack Compose Material 3.",
           instruksi: [
-            "Buat folder `src/app/tentang` jika belum ada.",
-            "Buat file `src/app/tentang/page.tsx` berisi komponen TentangPage.",
-            "Tampilkan judul 'Tentang Toko Kami', deskripsi misi UMKM, alamat toko, dan jam operasional.",
-            "Gunakan Tailwind CSS card sederhana.",
+            "Buat fungsi @Composable TaskItemCard dengan parameter subject, title, notes, dueDate, isCompleted, onToggleComplete, onEditClick, dan onDeleteClick.",
+            "Tampilkan nama mata pelajaran di dalam Surface/Badge kecil di atas judul tugas.",
+            "Terapkan efek garis coret (TextDecoration.LineThrough) pada judul apabila isCompleted == true.",
+            "Sediakan IconButton dengan ikon Edit (Icons.Default.Edit) dan Delete (Icons.Default.Delete).",
           ],
-          batasan: ["Hanya buat file baru di dalam src/app/tentang."],
-          hasilAkhir: "Halaman `/tentang` yang dapat dibuka di browser.",
-          validasi: "Akses http://localhost:3000/tentang dan pastikan konten muncul tanpa 404.",
-          rawPrompt: `[TUJUAN]\nMembuat halaman Tentang Toko di src/app/tentang/page.tsx.\n\n[KONTEKS]\nNext.js 15 App Router, Tailwind CSS.\n\n[INSTRUKSI]\n1. Buat src/app/tentang/page.tsx.\n2. Buat export default function TentangPage() yang merender kontainer berdesain kartu.\n3. Cantumkan informasi profil UMKM: Nama Toko, Visi, Alamat Fisik, Jam Buka, dan Link kembali ke Beranda.\n\n[BATASAN]\nGunakan Tailwind CSS standar.\n\n[HASIL AKHIR]\nHalaman /tentang yang responsif dan mudah dibaca.\n\n[VALIDASI]\nPastikan tidak ada error sintaks JSX/TypeScript.`,
+          batasan: [
+            "Gunakan ikon bawaan androidx.compose.material.icons.Icons.Default agar tidak perlu menambah aset gambar eksternal.",
+          ],
+          hasilAkhir:
+            "File TaskItemCard.kt lengkap dengan 2 @Preview (kondisi tugas belum selesai dan sudah selesai).",
+          validasi:
+            "Tidak ada teks judul panjang yang mendorong tombol Edit/Hapus keluar layar karena sudah memakai Modifier.weight(1f).",
+          rawPrompt: `[TUJUAN]\nMembuat komponen kartu tugas interaktif (TaskItemCard.kt) di Jetpack Compose.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.ui, menggunakan Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable TaskItemCard(\n   subject: String,\n   title: String,\n   notes: String,\n   dueDate: String,\n   isCompleted: Boolean,\n   onToggleComplete: () -> Unit,\n   onEditClick: () -> Unit,\n   onDeleteClick: () -> Unit\n).\n2. Susun Checkbox di sebelah kiri, informasi tugas di tengah dengan Modifier.weight(1f), dan IconButton Edit & Delete di sebelah kanan.\n3. Jika isCompleted bernilai true, berikan efek garis coret (TextDecoration.LineThrough) pada teks judul.\n4. Jelaskan mengapa Modifier.weight(1f) pada Column tengah mencegah tombol Edit dan Delete terdorong keluar layar saat judul tugas sangat panjang.\n\n[BATASAN]\nGunakan hanya ikon standar Icons.Default.Edit dan Icons.Default.Delete.\n\n[HASIL AKHIR]\nKode lengkap TaskItemCard.kt beserta @Preview.\n\n[VALIDASI]\nPastikan kartu tetap rapi meskipun judul tugas panjangnya 2 baris.`,
         },
-        expected_result: "Peserta memahami bahwa membuat halaman baru di web cukup dengan membuat folder dan file `page.tsx`.",
+        code_snippets: [
+          {
+            filename: "TaskItemCard.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.ui
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun TaskItemCard(
+    subject: String,
+    title: String,
+    notes: String,
+    dueDate: String,
+    isCompleted: Boolean,
+    onToggleComplete: () -> Unit,
+    onEditClick: () -> Unit,
+    onDeleteClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isCompleted)
+                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
+            else
+                MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = isCompleted,
+                onCheckedChange = { onToggleComplete() }
+            )
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 8.dp)
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = MaterialTheme.colorScheme.secondaryContainer
+                ) {
+                    Text(
+                        text = subject,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    textDecoration = if (isCompleted) TextDecoration.LineThrough else TextDecoration.None
+                )
+
+                if (notes.isNotBlank()) {
+                    Text(
+                        text = notes,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "Tenggat: $dueDate",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+
+            IconButton(onClick = onEditClick) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Ubah Tugas"
+                )
+            }
+            IconButton(onClick = onDeleteClick) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Hapus Tugas",
+                    tint = MaterialTheme.colorScheme.error
+                )
+            }
+        }
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "File TaskItemCard.kt selesai dibuat dan menampilkan kartu tugas lengkap dengan Checkbox, label mata pelajaran, judul, catatan, tenggat, serta tombol Edit dan Hapus.",
         validation_check: [
-          "Memahami fungsi `layout.tsx` vs `page.tsx`",
-          "Mampu membuat sub-rute baru dengan folder",
+          "Kartu tugas menampilkan garis coret saat parameter isCompleted diisi true",
+          "Tombol Edit dan Delete tetap berada di sisi kanan meskipun judul tugas panjang",
         ],
         common_errors: [
           {
-            error: "Menamai file `halaman.tsx` atau `index.tsx` di dalam folder App Router.",
-            solution: "Di Next.js App Router, file halaman wajib bernama `page.tsx` (huruf kecil).",
+            error: "Lupa memasang Modifier.weight(1f) pada Column tengah sehingga tombol Edit dan Delete hilang terdorong ke kanan luar layar.",
+            solution:
+              "Pastikan Column pembungkus teks di tengah memiliki Modifier.weight(1f) agar ia mengambil sisa ruang yang tersedia setelah Checkbox dan IconButton.",
           },
         ],
-        exercise: "Buat rute baru `/kontak` dengan membuat folder `src/app/kontak/page.tsx`.",
+        exercise:
+          "Uji TaskItemCard di @Preview dengan memasukkan teks judul sepanjang 15 kata. Pastikan teksnya turun ke baris kedua dengan rapi dan tidak menutupi ikon!",
         quiz: [
           {
-            question: "File apa yang digunakan untuk membungkus halaman dengan Navbar dan Footer agar tidak di-render ulang saat berpindah halaman?",
-            options: ["layout.tsx", "page.tsx", "style.css", "package.json"],
-            correctIndex: 0,
-            explanation: "layout.tsx mempertahankan state dan tidak melakukan re-render ulang komponen pembungkus saat navigasi terjadi.",
+            question: "Mengapa kita perlu menambahkan Modifier.weight(1f) pada Column teks di tengah Row kartu tugas?",
+            options: [
+              "Agar teks berubah warna menjadi merah",
+              "Agar Column tengah fleksibel mengisi ruang dan tidak mendorong IconButton di sebelah kanan keluar dari layar",
+              "Agar kartu tidak bisa diklik",
+              "Untuk menghapus database secara otomatis",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Tanpa weight(1f), Column teks yang panjang akan mengambil seluruh lebar Row sehingga elemen di sebelah kanannya terdorong keluar batas layar.",
           },
         ],
-        references: [{ title: "Routing Fundamentals in Next.js", url: "https://nextjs.org/docs/app/building-your-application/routing" }],
       },
       {
         id: "m3-l3",
         module_id: "modul-3",
         lesson_number: 3,
-        title: "Menjalankan Server Lokal dan Hot Reload",
-        slug: "menjalankan-server-lokal-dan-hot-reload",
-        description: "Menjalankan server pengembangan dengan `npm run dev` dan merasakan keajaiban Fast Refresh saat mengedit kode.",
-        estimated_minutes: 15,
+        title: "Menampilkan Daftar Tugas dengan LazyColumn, Filter & Pencarian",
+        slug: "menampilkan-daftar-tugas-lazycolumn",
+        description:
+          "Menggunakan LazyColumn untuk merender daftar tugas yang bisa digulir (scroll) secara efisien, menambahkan bilah pencarian (Search), FilterChip status, serta tampilan Empty State saat daftar kosong.",
+        estimated_minutes: 40,
         order_index: 3,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menguasai siklus eksekusi server lokal (http://localhost:3000), membaca log terminal, dan menghentikan proses.",
-        prerequisites: ["Materi 2: Memahami Struktur Folder"],
-        concept_explanation:
-          "Perintah `npm run dev` mengaktifkan server lokal di komputer Anda. Mesin Turbopack/Webpack akan mendeteksi setiap kali Anda menyimpan perubahan file (Ctrl+S / Cmd+S) dan langsung memperbarui tampilan browser seketika tanpa perlu me-reload halaman secara manual (Fast Refresh).",
-        preparation: ["Buka terminal di root proyek"],
+        objective:
+          "Siswa memahami keunggulan LazyColumn dibanding Column biasa untuk daftar panjang serta mampu menyusun layar daftar tugas lengkap dengan pencarian dan filter.",
+        prerequisites: ["Menyelesaikan Materi 3.2"],
+        concept_explanation: `Mengapa untuk menampilkan daftar tugas kita menggunakan **\`LazyColumn\`** dan bukan \`Column\` biasa?
+- \`Column\` biasa akan langsung menggambar *semua* item sekaligus di memori meskipun item ke-50 masih berada jauh di bawah layar. Jika ada ratusan tugas, HP akan terasa berat.
+- **\`LazyColumn\`** (pengganti \`RecyclerView\` lama di XML) bersifat "cerdas/hemat": ia **hanya menggambar item yang sedang terlihat di layar HP** saat itu, dan mendaur ulangnya ketika pengguna menggulir (*scroll*) layar ke bawah!
+
+Di dalam \`LazyColumn\`, kita menggunakan blok \`items(items = daftarTugas, key = { it.id }) { task -> ... }\`. Memberikan parameter \`key = { it.id }\` sangat penting agar Jetpack Compose mengenali identitas tiap kartu tugas secara akurat saat ada item yang dihapus atau dicentang.`,
+        preparation: [
+          "Pastikan komponen StudentHeaderCard dan TaskItemCard sudah ada di package 'ui'",
+        ],
+        thinking_steps: [
+          "Mengapa memberikan parameter 'key = { it.id }' pada LazyColumn items() membuat animasi dan pembaruan daftar menjadi jauh lebih akurat?",
+          "Apa yang sebaiknya ditampilkan di layar jika daftar tugas masih kosong (0 item) agar pengguna tidak mengira aplikasinya rusak?",
+        ],
         step_instructions: [
-          "Di terminal, jalankan: `npm run dev`.",
-          "Tunggu hingga muncul pesan `Ready in xxx ms` dan URL `http://localhost:3000`.",
-          "Buka browser dan ketik `http://localhost:3000`.",
-          "Coba ubah satu kata di `src/app/page.tsx` lalu simpan file.",
-          "Lihat perubahan langsung tampil di browser dalam hitungan milidetik.",
-          "Untuk menghentikan server, tekan `Ctrl + C` di terminal.",
+          "Pelajari cara kerja blok 'LazyColumn { items(tasks, key = { it.id }) { task -> ... } }'.",
+          "Siapkan 3 pilihan FilterChip: 'Semua', 'Belum Selesai', dan 'Selesai'.",
+          "Tambahkan kondisi 'if (filteredTasks.isEmpty())' untuk menampilkan pesan ramah 'Belum ada tugas. Tekan tombol + Tugas Baru di pojok kanan bawah!'.",
         ],
         antigravity_prompt: {
-          tujuan: "Menambahkan skrip pembantu pada package.json agar server dapat dijalankan di port kustom jika port 3000 bentrok.",
-          konteks: "File `package.json` proyek.",
+          tujuan:
+            "Memahami cara kerja LazyColumn dengan key unik, FilterChip status tugas, dan tampilan Empty State.",
+          konteks:
+            "Layar utama aplikasi SakuSiswa menggunakan Jetpack Compose Material 3.",
           instruksi: [
-            "Periksa skrip dev di `package.json`.",
-            "Pastikan skrip dev menjalankan `next dev`.",
+            "Jelaskan perbedaan mendasar antara Column biasa dan LazyColumn di Jetpack Compose.",
+            "Tunjukkan cara menggunakan items(items = filteredTasks, key = { it.id }) di dalam LazyColumn.",
+            "Tunjukkan cara membuat deretan 3 FilterChip ('Semua', 'Aktif', 'Selesai') yang menyaring daftar tugas secara real-time.",
           ],
-          batasan: ["Jangan mengubah dependencies."],
-          hasilAkhir: "Perintah npm run dev berjalan lancar.",
-          validasi: "Port 3000 dapat diakses dengan HTTP response 200.",
-          rawPrompt: `[TUJUAN]\nMemastikan script dev di package.json siap pakai.\n\n[KONTEKS]\nFile package.json proyek Next.js.\n\n[INSTRUKSI]\n1. Periksa bagian scripts di package.json.\n2. Pastikan \"dev\": \"next dev\" tersedia.\n\n[BATASAN]\nJangan hapus script build atau lint.\n\n[HASIL AKHIR]\nKonfigurasi scripts yang rapi.\n\n[VALIDASI]\nJalankan npm run dev di terminal.`,
+          batasan: [
+            "Gunakan komponen resmi androidx.compose.foundation.lazy.LazyColumn dan androidx.compose.foundation.lazy.items.",
+          ],
+          hasilAkhir:
+            "Contoh kode LazyColumn + FilterChip beserta penjelasan fungsi key = { it.id }.",
+          validasi:
+            "Siswa tidak lupa meng-import androidx.compose.foundation.lazy.items.",
+          rawPrompt: `[TUJUAN]\nMembuat daftar tugas bergulir dengan LazyColumn, FilterChip status, dan Empty State di Jetpack Compose.\n\n[KONTEKS]\nAplikasi Android SakuSiswa menggunakan Kotlin dan Material 3.\n\n[INSTRUKSI]\n1. Jelaskan mengapa LazyColumn jauh lebih hemat memori dibandingkan Column untuk menampilkan daftar data dari database.\n2. Tunjukkan contoh penggunaan LazyColumn dengan items(items = daftarTugas, key = { it.id }) yang memanggil komponen TaskItemCard.\n3. Tunjukkan cara menambahkan Row berisi 3 FilterChip ("Semua", "Belum Selesai", "Selesai") di atas LazyColumn.\n4. Jelaskan mengapa import "androidx.compose.foundation.lazy.items" sering terlupakan dan menyebabkan error pada blok items().\n\n[BATASAN]\nGunakan kode yang bersih dan mudah dipahami siswa kelas 10.\n\n[HASIL AKHIR]\nPotongan kode LazyColumn + FilterChip dan tips menghindari error import items.\n\n[VALIDASI]\nPastikan ada tampilan Empty State saat daftar tugas kosong.`,
         },
-        expected_result: "Halaman beranda katalog lokal terbuka di browser pada alamat localhost:3000.",
+        code_snippets: [
+          {
+            filename: "ContohLazyColumnFilter.kt",
+            language: "kotlin",
+            code: `import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items // WAJIB di-import agar items(list) dikenali!
+
+// Contoh di dalam layar utama:
+Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    FilterChip(
+        selected = selectedFilter == "ALL",
+        onClick = { selectedFilter = "ALL" },
+        label = { Text("Semua") }
+    )
+    FilterChip(
+        selected = selectedFilter == "PENDING",
+        onClick = { selectedFilter = "PENDING" },
+        label = { Text("Belum Selesai") }
+    )
+    FilterChip(
+        selected = selectedFilter == "DONE",
+        onClick = { selectedFilter = "DONE" },
+        label = { Text("Selesai") }
+    )
+}
+
+if (filteredTasks.isEmpty()) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("Belum ada tugas di kategori ini. Yuk tambah tugas baru!")
+    }
+} else {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(bottom = 88.dp)
+    ) {
+        items(items = filteredTasks, key = { it.id }) { task ->
+            TaskItemCard(
+                subject = task.subject,
+                title = task.title,
+                notes = task.notes,
+                dueDate = task.dueDate,
+                isCompleted = task.isCompleted,
+                onToggleComplete = { onToggle(task) },
+                onEditClick = { onEdit(task) },
+                onDeleteClick = { onDelete(task) }
+            )
+        }
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "Siswa memahami penggunaan LazyColumn, FilterChip, dan Empty State, serta tahu pentingnya import androidx.compose.foundation.lazy.items.",
         validation_check: [
-          "Browser menampilkan halaman localhost:3000 tanpa blank screen",
-          "Terminal tidak menunjukkan pesan crash",
+          "Dapat menjelaskan perbedaan Column dan LazyColumn",
+          "Mengetahui solusi jika items(list) bergaris merah di Android Studio",
         ],
         common_errors: [
           {
-            error: "Error: Port 3000 is already in use.",
-            solution: "Port 3000 sedang dipakai proses lain. Next.js biasanya otomatis menawarkan port 3001, atau matikan aplikasi sebelumnya dengan Ctrl+C.",
+            error: "Muncul error 'Type mismatch: inferred type is List<Task> but Int was expected' pada baris items(filteredTasks).",
+            solution:
+              "Tambahkan baris 'import androidx.compose.foundation.lazy.items' di bagian atas file, karena tanpa import tersebut Kotlin mengira parameter pertama adalah jumlah angka (Int).",
           },
         ],
-        exercise: "Ubah warna latar belakang teks di `src/app/page.tsx` menjadi warna biru dan amati pembaruan otomatis di browser.",
+        exercise:
+          "Mengapa kita menambahkan 'contentPadding = PaddingValues(bottom = 88.dp)' pada LazyColumn? Apa hubungannya dengan tombol FloatingActionButton di pojok kanan bawah?",
         quiz: [
           {
-            question: "Kombinasi tombol keyboard apa yang digunakan untuk menghentikan server lokal yang sedang berjalan di terminal?",
-            options: ["Ctrl + C", "Ctrl + Z", "Alt + F4", "Enter dua kali"],
-            correctIndex: 0,
-            explanation: "Ctrl + C mengirim sinyal SIGINT untuk menghentikan proses yang sedang aktif di terminal secara bersih.",
+            question: "Import manakah yang wajib ditambahkan agar fungsi items(daftarTugas) di dalam LazyColumn dapat menerima sebuah List?",
+            options: [
+              "import java.util.Scanner",
+              "import androidx.compose.foundation.lazy.items",
+              "import android.widget.Toast",
+              "import androidx.room.Entity",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Fungsi ekstensi items() yang menerima List berada di dalam paket androidx.compose.foundation.lazy.items.",
           },
         ],
-        references: [{ title: "Next.js CLI Commands", url: "https://nextjs.org/docs/app/api-reference/cli/next" }],
       },
       {
         id: "m3-l4",
         module_id: "modul-3",
         lesson_number: 4,
-        title: "Mengenal React Components dan TypeScript Dasar",
-        slug: "mengenal-react-components-dan-typescript",
-        description: "Memahami konsep komponen independen yang dapat digunakan berulang kali (reusable) dan keamanan tipe data dengan TypeScript.",
-        estimated_minutes: 20,
+        title: "Menyusun Kerangka Layar Utama dengan Scaffold & Konfirmasi Hapus",
+        slug: "kerangka-scaffold-dan-konfirmasi-hapus",
+        description:
+          "Merakit tampilan utuh menggunakan Scaffold Material 3 (TopAppBar, FloatingActionButton, Content) serta menambahkan AlertDialog konfirmasi sebelum menghapus tugas agar siswa tidak salah pencet.",
+        estimated_minutes: 35,
         order_index: 4,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu membuat komponen React dengan properti (props) terdefinisi menggunakan interface TypeScript.",
-        prerequisites: ["Materi 3: Menjalankan Server Lokal"],
-        concept_explanation:
-          "Komponen React adalah blok bangunan antarmuka (seperti kepingan Lego). Sebuah komponen tombol atau kartu produk dibuat sekali, lalu dapat dipanggil puluhan kali dengan data produk yang berbeda. TypeScript melindungi kita dari salah ketik properti (misalnya salah menulis `harga` menjadi `hrga`).",
-        preparation: ["Buka file `src/app/page.tsx`"],
+        objective:
+          "Siswa mampu merakit HomeScreen menggunakan Scaffold Material 3 dan menambahkan fitur konfirmasi sebelum menghapus data.",
+        prerequisites: ["Menyelesaikan Materi 3.1 s/d 3.3"],
+        concept_explanation: `Agar aplikasi terlihat standar, rapi, dan proporsional seperti aplikasi Android resmi buatan Google, Material 3 menyediakan kerangka layar bernama **\`Scaffold\`**.
+\`Scaffold\` menyediakan slot khusus untuk:
+1. **\`topBar\`**: Bilah judul di bagian paling atas layar (\`TopAppBar\`), tempat menampilkan judul aplikasi **"SakuSiswa"** dan tombol **Keluar (Logout)**.
+2. **\`floatingActionButton\`**: Tombol melayang di pojok kanan bawah (\`ExtendedFloatingActionButton\` bertuliskan **"+ Tugas Baru"**) yang selalu mudah dijangkau jempol pengguna.
+3. **\`content\`**: Area utama layar yang memberikan nilai \`innerPadding\` agar daftar \`LazyColumn\` kita tidak tertutup oleh \`TopAppBar\`.
+
+Selain itu, dalam desain aplikasi yang baik, tindakan destruktif seperti **Menghapus Data (Delete)** wajib dilengkapi **Dialog Konfirmasi** ("Yakin ingin menghapus tugas ini?") agar pengguna tidak kehilangan catatan penting karena tidak sengaja tersentuh.`,
+        preparation: [
+          "Pastikan StudentHeaderCard, TaskItemCard, dan TaskFormDialog sudah berada di package 'ui'",
+        ],
+        thinking_steps: [
+          "Mengapa parameter 'innerPadding' dari blok Scaffold wajib dipasang ke 'Modifier.padding(innerPadding)' pada Column utama di dalamnya?",
+          "State apa yang perlu kita simpan ketika pengguna menekan ikon tempat sampah pada salah satu kartu tugas sebelum tugas itu benar-benar dihapus?",
+        ],
         step_instructions: [
-          "Buat folder komponen `src/components`.",
-          "Buat file `src/components/ProductCard.tsx`.",
-          "Definisikan interface TypeScript untuk data produk:\n`interface ProductProps { nama: string; harga: number; gambarUrl: string; }`.",
-          "Terapkan props tersebut ke dalam JSX komponen.",
-          "Panggil komponen `<ProductCard />` di halaman utama dengan data contoh.",
+          "Perhatikan bagaimana Scaffold mengatur posisi topBar, floatingActionButton, dan area konten utama.",
+          "Buat sebuah state 'var taskToDelete by remember { mutableStateOf<TaskEntity?>(null) }' untuk menampung tugas yang sedang akan dihapus.",
+          "Ketika 'taskToDelete != null', tampilkan AlertDialog konfirmasi berisi judul tugas yang akan dihapus beserta tombol 'Hapus' dan 'Batal'.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat komponen kartu produk UMKM sederhana yang menerima props TypeScript.",
-          konteks: "Folder `src/components/ProductCardDemo.tsx`.",
+          tujuan:
+            "Memahami penggunaan Scaffold Material 3 dan state dialog konfirmasi hapus pada layar utama SakuSiswa.",
+          konteks:
+            "Layar HomeScreen aplikasi SakuSiswa dengan Jetpack Compose Material 3.",
           instruksi: [
-            "Buat file `src/components/ProductCardDemo.tsx`.",
-            "Tentukan tipe props: `nama` (string), `harga` (number), `kategori` (string), `gambarUrl` (string).",
-            "Format harga menggunakan format Rupiah (Rp xx.xxx).",
-            "Beri tombol 'Lihat Detail' dengan styling Tailwind CSS.",
+            "Tunjukkan kerangka kode Scaffold lengkap dengan TopAppBar dan ExtendedFloatingActionButton.",
+            "Jelaskan mengapa mengabaikan parameter innerPadding pada Scaffold menyebabkan bagian atas konten tertutup TopAppBar.",
+            "Tunjukkan pola state 'var taskToDelete by remember { mutableStateOf<TaskEntity?>(null) }' untuk memunculkan AlertDialog konfirmasi hapus.",
           ],
-          batasan: ["Komponen murni (presentational component)."],
-          hasilAkhir: "Komponen kartu produk siap pakai berstandar TypeScript.",
-          validasi: "Komponen lolos typecheck `tsc --noEmit` tanpa error.",
-          rawPrompt: `[TUJUAN]\nMembuat komponen React reusable ProductCardDemo dengan TypeScript.\n\n[KONTEKS]\nNext.js 15, TypeScript, Tailwind CSS di src/components/ProductCardDemo.tsx.\n\n[INSTRUKSI]\n1. Buat interface ProductCardDemoProps dengan field nama (string), harga (number), kategori (string), dan gambar (string).\n2. Format angka harga ke format mata uang Rupiah menggunakan Intl.NumberFormat('id-ID').\n3. Render gambar produk, nama, badge kategori, dan harga dengan gaya kartu modern berbayang halus.\n\n[BATASAN]\nKomponen murni tanpa efek samping.\n\n[HASIL AKHIR]\nKomponen kartu katalog yang rapi dan kuat dari sisi tipe data.\n\n[VALIDASI]\nPastikan tidak ada error TypeScript 'any' implisit.`,
+          batasan: [
+            "Gunakan anotasi @OptIn(ExperimentalMaterial3Api::class) jika menggunakan TopAppBar Material 3.",
+          ],
+          hasilAkhir:
+            "Pola kode Scaffold dan AlertDialog konfirmasi hapus yang bersih.",
+          validasi:
+            "Siswa memahami fungsi innerPadding dan @OptIn(ExperimentalMaterial3Api::class).",
+          rawPrompt: `[TUJUAN]\nMerakit struktur layar utama SakuSiswa dengan Scaffold Material 3 dan dialog konfirmasi hapus.\n\n[KONTEKS]\nAplikasi Android SakuSiswa menggunakan Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Tunjukkan cara menggunakan Scaffold dengan TopAppBar (menampilkan judul "SakuSiswa" dan tombol "Keluar") serta ExtendedFloatingActionButton ("+ Tugas Baru").\n2. Jelaskan fungsi parameter innerPadding yang diberikan oleh Scaffold.\n3. Tunjukkan cara menampilkan AlertDialog konfirmasi hapus ketika variabel state taskToDelete tidak bernilai null.\n\n[BATASAN]\nTambahkan @OptIn(ExperimentalMaterial3Api::class) untuk TopAppBar.\n\n[HASIL AKHIR]\nContoh kode struktur Scaffold dan dialog konfirmasi hapus.\n\n[VALIDASI]\nPastikan saya mengerti mengapa innerPadding tidak boleh diabaikan.`,
         },
-        expected_result: "Komponen kartu produk tampil rapi dan dapat digunakan berulang kali dengan data berbeda.",
+        code_snippets: [
+          {
+            filename: "DeleteConfirmationDialog.kt",
+            language: "kotlin",
+            code: `@Composable
+fun DeleteConfirmDialog(
+    taskTitle: String,
+    onDismiss: () -> Unit,
+    onConfirmDelete: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Hapus Tugas?") },
+        text = {
+            Text("Apakah kamu yakin ingin menghapus tugas \"$taskTitle\"? Data yang dihapus tidak dapat dikembalikan.")
+        },
+        confirmButton = {
+            Button(
+                onClick = onConfirmDelete,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error
+                )
+            ) {
+                Text("Ya, Hapus")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Batal")
+            }
+        }
+    )
+}`,
+          },
+        ],
+        expected_result:
+          "Siswa memahami cara menggabungkan seluruh komponen UI Hari ke-1 ke dalam kerangka Scaffold Material 3 beserta dialog konfirmasi hapus.",
         validation_check: [
-          "TypeScript menampilkan saran autocomplete saat mengetik properti komponen",
-          "Komponen merender harga dalam format mata uang yang mudah dibaca",
+          "Memahami peran topBar, floatingActionButton, dan innerPadding pada Scaffold",
+          "Memahami cara kerja state dialog konfirmasi hapus",
         ],
         common_errors: [
           {
-            error: "Type 'string' is not assignable to type 'number' saat mengisi harga.",
-            solution: "Gunakan angka tanpa tanda petik untuk properti bertipe number, misal `harga={25000}` bukan `harga=\"25000\"`.",
+            error: "Muncul garis merah 'This material API is experimental and is likely to change' pada TopAppBar.",
+            solution:
+              "Tambahkan anotasi '@OptIn(ExperimentalMaterial3Api::class)' tepat di atas deklarasi fungsi '@Composable fun HomeScreen(...)'.",
           },
         ],
-        exercise: "Tambahkan properti opsional `stok?: number` pada interface ProductProps dan tampilkan badge 'Stok Tersedia'.",
+        exercise:
+          "Coba bayangkan: jika kita ingin menggunakan 1 state yang sama untuk membuka dialog Edit Tugas, tipe data apa yang paling tepat untuk 'var taskToEdit by remember { mutableStateOf<...>(null) }'?",
         quiz: [
           {
-            question: "Apa manfaat utama menggunakan TypeScript dalam proyek Next.js?",
+            question: "Apa akibatnya jika kita tidak memasang Modifier.padding(innerPadding) pada wadah utama di dalam blok Scaffold?",
             options: [
-              "Menangkap kesalahan tipe data dan typo kode sebelum aplikasi dijalankan",
-              "Membuat ukuran font website menjadi lebih besar",
-              "Menghilangkan kebutuhan akan koneksi internet",
-              "Mengurangi resolusi gambar produk",
+              "Aplikasi tidak bisa di-install di HP",
+              "Bagian atas konten layar akan tertutup oleh TopAppBar",
+              "Warna tombol berubah menjadi hitam",
+              "Database lokal menjadi penuh",
             ],
-            correctIndex: 0,
-            explanation: "TypeScript melakukan analisis statis untuk mendeteksi bug dan inkonsistensi tipe data saat proses penulisan kode.",
+            correctIndex: 1,
+            explanation:
+              "Scaffold menghitung tinggi TopAppBar dan BottomBar lalu memberikannya lewat parameter innerPadding agar isi layar tidak tertimpa oleh bilah navigasi.",
           },
         ],
-        references: [{ title: "React TypeScript Cheatsheet", url: "https://react-typescript-cheatsheet.netlify.app" }],
       },
     ],
   },
 
   // =========================================================================
-  // MODUL 4: MENGUASAI GOOGLE ANTIGRAVITY
+  // MODUL 4 (HARI 2 PAGI): AUTENTIKASI GOOGLE CREDENTIAL MANAGER API
   // =========================================================================
   {
     id: "modul-4",
-    course_id: "course-web-dev-antigravity",
+    course_id: "course-android-compose-smkn1",
     module_number: 4,
-    title: "Menguasai Google Antigravity & Agentic Coding",
-    slug: "modul-4-menguasai-google-antigravity",
+    title: "Autentikasi Akun Google Modern dengan Credential Manager API",
+    slug: "modul-4-autentikasi-google-credential-manager",
     description:
-      "Mendalami antarmuka Antigravity, teknik menyusun prompt 6-bagian yang presisi, mengelola konteks proyek, mereviu diff kode, dan memperbaiki kesalahan AI.",
-    estimated_minutes: 90,
-    difficulty_level: "Pemula",
+      "Mengintegrasikan fitur Sign in with Google menggunakan standar terbaru Android Credential Manager API, mengambil nama dan email siswa dari GoogleIdTokenCredential, serta menyimpan sesi login lokal.",
+    estimated_minutes: 160,
+    difficulty_level: "Menengah",
     is_published: true,
     order_index: 4,
     created_at: new Date().toISOString(),
@@ -822,256 +1634,499 @@ export const MODULES_DATA: FullModule[] = [
         id: "m4-l1",
         module_id: "modul-4",
         lesson_number: 1,
-        title: "Mengenal Antarmuka dan Agent Mode Antigravity",
-        slug: "mengenal-antarmuka-dan-agent-mode-antigravity",
-        description: "Memahami panel navigasi, jendela chat agent, daftar tools eksekusi, dan cara kerja loop otonom Antigravity.",
-        estimated_minutes: 20,
+        title: "Mengenal Android Credential Manager API, SHA-1 & Web Client ID",
+        slug: "mengenal-credential-manager-dan-sha1",
+        description:
+          "Memahami cara kerja login Google modern di Android yang menggantikan GoogleSignInClient lama, serta cara mengambil sidik jari sertifikat SHA-1 di Android Studio.",
+        estimated_minutes: 40,
         order_index: 1,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menguasai navigasi antarmuka Antigravity dan mengaktifkan mode Agent untuk pendelegasian tugas coding otomatis.",
-        prerequisites: ["Modul 1 Materi 4"],
-        concept_explanation:
-          "Google Antigravity dirancang untuk memberikan kendali kolaboratif antara developer dan AI. Di panel Agent, AI dapat membaca file proyek, merencanakan langkah (plan), mengedit kode (edit_file), dan menjalankan testing di background terminal secara otomatis.",
-        preparation: ["Buka Antigravity di workspace proyek Anda"],
+        objective:
+          "Siswa memahami mengapa Credential Manager API menjadi standar resmi Android saat ini serta berhasil mendapatkan kode SHA-1 dan Web Client ID di Google Cloud Console.",
+        prerequisites: ["Menyelesaikan Modul 1 s/d 3", "Memiliki akun Google aktif"],
+        concept_explanation: `Saat kamu meminta AI membuatkan kode "Login Google Android" tanpa instruksi khusus, AI sering kali masih memberikan kode \`GoogleSignInClient\` yang **sudah resmi dipensiunkan (deprecated)** oleh Google!
+
+Di Android modern (2025–2026), standar resmi untuk login akun Google adalah **Android Credential Manager API** (\`androidx.credentials\` + \`googleid\`). Keunggulannya:
+1. Tampilan *bottom sheet* pemilihan akun Google langsung menyatu dengan sistem Android.
+2. Kita langsung memperoleh objek **\`GoogleIdTokenCredential\`** yang berisi:
+   - \`id\` (Alamat email akun Google siswa, misal \`budi@gmail.com\`)
+   - \`displayName\` (Nama lengkap akun Google)
+   - \`profilePictureUri\` (Link foto profil Google)
+3. Tidak wajib menyewa server cloud! Email dari Google tersebut langsung kita pakai sebagai identitas pemilik tugas di **Room Database lokal**.
+
+Agar Google mengizinkan aplikasi SakuSiswa milikmu membuka jendela login, Google memerlukan 2 hal dari proyekmu:
+- **Sidik Jari SHA-1 Debug**: Tanda tangan unik aplikasi di laptopmu (diambil lewat perintah \`./gradlew signingReport\`).
+- **Web Client ID**: Kunci OAuth 2.0 bertipe *Web application* dari Google Cloud Console yang dimasukkan ke dalam fungsi \`setServerClientId("...")\`.`,
+        preparation: [
+          "Buka tab Terminal di bagian bawah Android Studio",
+          "Buka console.cloud.google.com di browser menggunakan akun Google-mu",
+        ],
+        thinking_steps: [
+          "Mengapa kita wajib menyebutkan 'gunakan androidx.credentials Credential Manager API, jangan gunakan GoogleSignInClient' ketika menulis prompt ke AI?",
+          "Mengapa parameter setServerClientId() di Credential Manager justru meminta 'Web application Client ID' dan bukan 'Android Client ID'?",
+        ],
         step_instructions: [
-          "Buka sidebar Agent pada panel Antigravity.",
-          "Amati indikator model yang aktif (misal Gemini Flash atau Pro).",
-          "Ketik perintah sederhana seperti 'Tolong jelaskan struktur folder proyek ini'.",
-          "Amati bagaimana Antigravity memanggil tool `ls` atau `read_file` untuk memeriksa workspace Anda sebelum menjawab.",
+          "Buka tab Terminal di Android Studio, ketik './gradlew signingReport' (macOS/Linux) atau 'gradlew signingReport' (Windows) lalu tekan Enter.",
+          "Cari bagian 'Variant: debug' dan salin deretan kode 'SHA1: AA:BB:CC:...' ke catatanmu.",
+          "Buka Google Cloud Console -> buat project baru 'SakuSiswa-SMKN1' -> masuk ke menu 'APIs & Services -> OAuth consent screen', pilih External, isi nama aplikasi 'SakuSiswa', dan tambahkan emailmu di bagian Test Users.",
+          "Masuk ke menu 'Credentials -> Create Credentials -> OAuth client ID': buat 1 bertipe 'Android' (isi package name 'id.smkn1jakarta.sakusiswa' dan kode SHA-1 tadi), lalu buat 1 lagi bertipe 'Web application' dan salin kode Client ID-nya (yang berakhiran .apps.googleusercontent.com).",
         ],
         antigravity_prompt: {
-          tujuan: "Meminta AI mengaudit struktur file workspace dan membuat rangkuman status kesiapan proyek.",
-          konteks: "Workspace proyek saat ini.",
+          tujuan:
+            "Memahami langkah mengambil SHA-1 di Android Studio dan alasan dibutuhkannya OAuth Client ID Android serta Web untuk Credential Manager.",
+          konteks:
+            "Konfigurasi Sign in with Google menggunakan Android Credential Manager API pada proyek SakuSiswa.",
           instruksi: [
-            "Pindai file di root dan src.",
-            "Buat daftar file utama yang sudah ada.",
-            "Berikan rekomendasi langkah selanjutnya.",
+            "Jelaskan perbedaan peran OAuth Client ID tipe Android dan tipe Web application pada Credential Manager API.",
+            "Berikan solusi jika perintah './gradlew signingReport' di terminal Windows memunculkan error JAVA_HOME.",
+            "Jelaskan mengapa muncul error 'GetCredentialCancellationException' atau 'NoCredentialException' jika SHA-1 belum didaftarkan.",
           ],
-          batasan: ["Hanya amati file tanpa menghapus kode yang sudah ada."],
-          hasilAkhir: "Audit struktur direktori yang akurat.",
-          validasi: "Laporan menyebutkan file yang benar-benar ada di disk.",
-          rawPrompt: `[TUJUAN]\nMelakukan audit direktori proyek dan memverifikasi kesiapan workspace.\n\n[KONTEKS]\nWorkspace proyek Next.js saat ini.\n\n[INSTRUKSI]\n1. Pindai seluruh direktori proyek menggunakan tool sistem.\n2. Laporkan struktur folder utama (src, supabase, public).\n3. Konfirmasi apakah node_modules dan konfigurasi dasar sudah lengkap.\n\n[BATASAN]\nJangan hapus atau modifikasi file apapun.\n\n[HASIL AKHIR]\nRingkasan audit status workspace.\n\n[VALIDASI]\nPastikan informasi file sesuai kondisi aktual.`,
+          batasan: [
+            "Fokus pada Credential Manager API terbaru, bukan Firebase Auth atau GoogleSignInClient lama.",
+          ],
+          hasilAkhir:
+            "Panduan ringkas konfigurasi SHA-1 & Web Client ID beserta daftar penyebab error umum.",
+          validasi:
+            "Siswa memiliki string Web Client ID (.apps.googleusercontent.com) yang siap dipasang di kode.",
+          rawPrompt: `[TUJUAN]\nMemahami konfigurasi SHA-1 dan Web Client ID untuk Android Credential Manager API.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK sedang menyiapkan Sign in with Google pada aplikasi Android SakuSiswa (package: id.smkn1jakarta.sakusiswa) tanpa backend eksternal.\n\n[INSTRUKSI]\n1. Jelaskan secara sederhana mengapa Android Credential Manager membutuhkan dua OAuth Client ID di Google Cloud Console (satu tipe Android dengan SHA-1, dan satu tipe Web application untuk setServerClientId).\n2. Tunjukkan cara mudah melihat nilai SHA-1 lewat panel Gradle di Android Studio jika terminal mengalami kendala.\n3. Jelaskan apa penyebab error "No credentials available" saat tombol Login Google ditekan di Emulator.\n\n[BATASAN]\nJangan gunakan GoogleSignInClient yang sudah deprecated.\n\n[HASIL AKHIR]\nPenjelasan fungsi SHA-1, Web Client ID, dan checklist pengecekan jika login gagal.\n\n[VALIDASI]\nPastikan saya tahu Client ID mana yang harus ditempelkan ke variabel WEB_CLIENT_ID di kode Kotlin.`,
         },
-        expected_result: "Peserta memahami siklus berpikir (reasoning) dan penggunaan tool oleh Antigravity.",
+        code_snippets: [
+          {
+            filename: "Checklist-Google-Cloud-OAuth.txt",
+            language: "yaml",
+            code: `1. Ambil SHA-1 Debug di Terminal Android Studio:
+   ./gradlew signingReport
+   -> Salin nilai SHA1 pada Variant: debug
+
+2. Di Google Cloud Console (APIs & Services -> Credentials):
+   a) OAuth Client ID 1 (Tipe: Android)
+      - Package name : id.smkn1jakarta.sakusiswa
+      - SHA-1        : (Tempel SHA-1 dari langkah 1)
+   b) OAuth Client ID 2 (Tipe: Web application)
+      - Salin "Client ID" (contoh: 123456789-abcdef.apps.googleusercontent.com)
+      - Nilai inilah yang dimasukkan ke setServerClientId(WEB_CLIENT_ID) di Kotlin!`,
+          },
+        ],
+        expected_result:
+          "Siswa berhasil mendapatkan nilai SHA-1 Debug dan memiliki kode Web Client ID dari Google Cloud Console.",
         validation_check: [
-          "Dapat membuka jendela chat Agent Antigravity",
-          "Mampu membaca log aksi tools yang dijalankan agent",
+          "Dapat menunjukkan kode SHA-1 dari hasil signingReport",
+          "Memiliki Web Client ID berakhiran .apps.googleusercontent.com",
         ],
         common_errors: [
           {
-            error: "Menutup jendela terminal saat Antigravity sedang menjalankan proses build.",
-            solution: "Biarkan agent menyelesaikan proses eksekusi hingga indikator status kembali ke posisi idle.",
+            error: "Memasukkan Client ID tipe Android ke dalam fungsi setServerClientId(), sehingga login selalu gagal.",
+            solution:
+              "Fungsi setServerClientId() wajib diisi dengan Client ID dari OAuth bertipe 'Web application', sedangkan OAuth bertipe 'Android' bekerja otomatis di balik layar mencocokkan SHA-1 dan package name.",
           },
         ],
-        exercise: "Tanyakan kepada Antigravity: 'Apa versi Next.js yang tertulis di package.json saya?'.",
+        exercise:
+          "Cek apakah di HP atau Emulator yang kamu gunakan sudah ada minimal 1 akun Google yang login di menu Settings -> Accounts!",
         quiz: [
           {
-            question: "Apa yang dilakukan Antigravity ketika Anda memberikan tugas mengedit file?",
+            question: "Client ID tipe manakah dari Google Cloud Console yang wajib dimasukkan ke dalam parameter setServerClientId() pada GetGoogleIdOption?",
             options: [
-              "Membaca file target, merencanakan diff perubahan, dan menerapkannya langsung ke file",
-              "Menghapus seluruh folder proyek dan membuat ulang",
-              "Mengirim email ke pengembang lain",
-              "Menutup jendela VS Code",
+              "OAuth Client ID tipe iOS",
+              "OAuth Client ID tipe Web application",
+              "Kode SHA-1 langsung",
+              "Nama package aplikasi",
             ],
-            correctIndex: 0,
-            explanation: "Antigravity membaca konten eksisting, melakukan pencocokan string, dan menuliskan penggantian kode secara presisi.",
+            correctIndex: 1,
+            explanation:
+              "GetGoogleIdOption.Builder().setServerClientId() membutuhkan OAuth 2.0 Client ID bertipe Web application, sementara Client ID tipe Android memverifikasi package name dan SHA-1 aplikasi.",
           },
         ],
-        references: [{ title: "Antigravity User Guide", url: "https://gemini.google.com" }],
       },
       {
         id: "m4-l2",
         module_id: "modul-4",
         lesson_number: 2,
-        title: "Menulis Prompt 6-Bagian yang Efektif dan Anti-Gagal",
-        slug: "menulis-prompt-6-bagian-efektif",
-        description: "Standar formula prompt: TUJUAN, KONTEKS, INSTRUKSI, BATASAN, HASIL AKHIR, VALIDASI untuk hasil kode 100% konsisten.",
-        estimated_minutes: 20,
+        title: "Menambahkan Dependensi Credential Manager & Izin Internet",
+        slug: "dependensi-credential-manager-dan-manifest",
+        description:
+          "Memasang library androidx.credentials dan com.google.android.libraries.identity.googleid di build.gradle.kts (Module :app) serta menambahkan izin INTERNET pada AndroidManifest.xml.",
+        estimated_minutes: 35,
         order_index: 2,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu menyusun prompt coding yang lengkap tanpa ambiguitas sehingga AI tidak menghasilkan kode halusinasi.",
-        prerequisites: ["Materi 1: Mengenal Antarmuka Antigravity"],
-        concept_explanation:
-          "AI bekerja berdasarkan probabilitas token kata. Jika instruksi Anda kabur, AI akan menebak-nebak dan sering merusak kode yang sudah jalan. Formula 6-Bagian mengunci ruang gerak AI agar fokus hanya pada tugas yang Anda inginkan dengan batasan ketat.",
-        preparation: ["Buka catatan atau template prompt standar"],
+        objective:
+          "Siswa mampu menambahkan dependensi Credential Manager API di build.gradle.kts dan melakukan Sync Now hingga sukses.",
+        prerequisites: ["Menyelesaikan Materi 4.1"],
+        concept_explanation: `Untuk memanggil fitur **Credential Manager API** dan **Google ID**, kita perlu menambahkan 3 baris library resmi di dalam blok \`dependencies { ... }\` pada file \`build.gradle.kts (Module :app)\`:
+
+1. \`androidx.credentials:credentials:1.3.0\`: API inti Credential Manager Jetpack.
+2. \`androidx.credentials:credentials-play-services-auth:1.3.0\`: Penghubung Credential Manager dengan Google Play Services di HP Android.
+3. \`com.google.android.libraries.identity.googleid:googleid:1.1.1\`: Pembaca token identitas akun Google (\`GoogleIdTokenCredential\`).
+
+Jangan lupa juga menambahkan baris \`<uses-permission android:name="android.permission.INTERNET" />\` di dalam \`AndroidManifest.xml\` agar aplikasi diizinkan menghubungi layanan autentikasi Google.`,
+        preparation: [
+          "Buka file AndroidManifest.xml dan build.gradle.kts (Module :app)",
+        ],
+        thinking_steps: [
+          "Apa yang terjadi jika kita sudah menulis kode import androidx.credentials.* tetapi belum menekan tombol 'Sync Now' setelah mengedit build.gradle.kts?",
+          "Di bagian mana di dalam AndroidManifest.xml baris <uses-permission> harus diletakkan (di luar atau di dalam tag <application>)?",
+        ],
         step_instructions: [
-          "Pahami 6 pilar wajib:\n1. TUJUAN (Apa yang mau dibuat)\n2. KONTEKS (Teknologi dan letak file)\n3. INSTRUKSI (Langkah teknis berurutan)\n4. BATASAN (File/kode yang dilarang diubah)\n5. HASIL AKHIR (Bentuk output yang diinginkan)\n6. VALIDASI (Cara AI menguji hasilnya sendiri).",
-          "Terapkan formula ini pada setiap materi praktik.",
+          "Buka 'app/manifests/AndroidManifest.xml', lalu tambahkan '<uses-permission android:name=\"android.permission.INTERNET\" />' tepat di atas tag '<application>'.",
+          "Buka 'Gradle Scripts -> build.gradle.kts (Module :app)', gulir ke bagian paling bawah di dalam blok 'dependencies { ... }'.",
+          "Tambahkan ketiga baris implementation untuk credentials, credentials-play-services-auth, dan googleid seperti pada contoh kode di bawah.",
+          "Klik tombol 'Sync Now' yang muncul di pita biru bagian atas editor dan tunggu sampai selesai tanpa error.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat template prompt di file `docs/PROMPT_TEMPLATE.md` sebagai referensi siap salin bagi peserta.",
-          konteks: "Folder dokumentasi proyek.",
+          tujuan:
+            "Memverifikasi penambahan dependensi Credential Manager API dan izin internet pada proyek SakuSiswa.",
+          konteks:
+            "File build.gradle.kts (Module :app) dengan Kotlin DSL dan AndroidManifest.xml.",
           instruksi: [
-            "Buat file `docs/PROMPT_TEMPLATE.md`.",
-            "Tuliskan struktur 6 bagian lengkap beserta penjelasan tiap bagian.",
-            "Berikan 2 contoh konkret: Contoh 1 membuat komponen UI, Contoh 2 membuat Server Action.",
+            "Tunjukkan penempatan tepat tag <uses-permission android:name=\"android.permission.INTERNET\" /> di dalam AndroidManifest.xml.",
+            "Tunjukkan penulisan implementation(...) untuk Credential Manager API dan Google ID di dalam build.gradle.kts (Module :app).",
+            "Jelaskan cara mengatasi error jika salah mengetik tanda kutip satu ('...') yang seharusnya tanda kutip dua (\"...\") pada Kotlin DSL.",
           ],
-          batasan: ["Dokumen markdown rapi dan mudah dibaca."],
-          hasilAkhir: "File panduan template prompt.",
-          validasi: "File markdown memiliki tag dan blok kode yang terstruktur.",
-          rawPrompt: `[TUJUAN]\nMembuat file panduan docs/PROMPT_TEMPLATE.md.\n\n[KONTEKS]\nStandar operasional prompt engineering pada platform Vibe Code.\n\n[INSTRUKSI]\n1. Buat docs/PROMPT_TEMPLATE.md.\n2. Tuliskan formula 6 bagian: TUJUAN, KONTEKS, INSTRUKSI, BATASAN, HASIL AKHIR, VALIDASI.\n3. Berikan contoh studi kasus pembuatan komponen Filter Kategori Katalog.\n\n[BATASAN]\nHanya file dokumentasi markdown.\n\n[HASIL AKHIR]\nTemplate prompt yang siap disalin oleh siswa kapan saja.\n\n[VALIDASI]\nVerifikasi bahwa contoh prompt mencakup keenam elemen wajib.`,
+          batasan: [
+            "Gunakan sintaks Kotlin DSL (build.gradle.kts) dengan tanda kurung dan kutip dua.",
+          ],
+          hasilAkhir:
+            "Potongan kode AndroidManifest.xml dan build.gradle.kts yang siap di-sync.",
+          validasi:
+            "Proses Gradle Sync selesai tanpa pesan error.",
+          rawPrompt: `[TUJUAN]\nMenambahkan dependensi Android Credential Manager API dan izin INTERNET dengan benar.\n\n[KONTEKS]\nProyek Android SakuSiswa menggunakan Kotlin DSL (build.gradle.kts Module :app).\n\n[INSTRUKSI]\n1. Tunjukkan posisi baris <uses-permission android:name="android.permission.INTERNET" /> di dalam AndroidManifest.xml.\n2. Tunjukkan baris dependencies untuk androidx.credentials:credentials:1.3.0, androidx.credentials:credentials-play-services-auth:1.3.0, dan com.google.android.libraries.identity.googleid:googleid:1.1.1.\n3. Jelaskan mengapa di file .kts (Kotlin Script) kita wajib memakai tanda kurung dan kutip dua implementation("...") bukan kutip satu.\n\n[BATASAN]\nHanya tampilkan bagian yang perlu ditambahkan agar tidak membingungkan.\n\n[HASIL AKHIR]\nSnippet konfigurasi AndroidManifest.xml dan build.gradle.kts.\n\n[VALIDASI]\nPastikan Gradle Sync berhasil tanpa error unresolved reference.`,
         },
-        expected_result: "Peserta memiliki standar acuan baku dalam berkomunikasi dengan AI coding agent.",
+        code_snippets: [
+          {
+            filename: "build.gradle.kts (Module :app)",
+            language: "kotlin",
+            code: `dependencies {
+    // ... dependensi Compose bawaan tetap dipertahankan ...
+
+    // Google Sign-In dengan Android Credential Manager API
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+}`,
+          },
+          {
+            filename: "AndroidManifest.xml",
+            language: "xml",
+            code: `<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Izin internet untuk verifikasi akun Google -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        ...`,
+          },
+        ],
+        expected_result:
+          "Ketiga library Credential Manager berhasil ter-install di proyek dan izin internet sudah aktif di AndroidManifest.xml.",
         validation_check: [
-          "Mampu menyebutkan ke-6 bagian format prompt wajib",
-          "Memahami pentingnya bagian BATASAN (Restrictions)",
+          "Gradle Sync selesai dengan sukses",
+          "Ketika mengetik import androidx.credentials.CredentialManager di file Kotlin, auto-complete langsung muncul",
         ],
         common_errors: [
           {
-            error: "Lupa menyertakan bagian BATASAN sehingga AI mengubah styling atau merusak file lain.",
-            solution: "Selalu tegaskan: 'Jangan ubah layout atau file di luar modul ini'.",
+            error: "Menulis implementation 'androidx.credentials:credentials:1.3.0' (Groovy style) di dalam file build.gradle.kts.",
+            solution:
+              "Karena menggunakan Kotlin DSL (.kts), wajib memakai tanda kurung dan kutip dua: implementation(\"androidx.credentials:credentials:1.3.0\").",
           },
         ],
-        exercise: "Tuliskan prompt 6-bagian untuk meminta AI menambahkan efek hover pada kartu produk.",
+        exercise:
+          "Coba ketik 'import androidx.credentials.CredentialManager' di bagian atas MainActivity.kt untuk memastikan library sudah terbaca!",
         quiz: [
           {
-            question: "Bagian mana dalam format prompt yang berfungsi mencegah AI merusak atau menghapus file penting lain yang sudah berfungsi?",
-            options: ["BATASAN", "TUJUAN", "KONTEKS", "HASIL AKHIR"],
-            correctIndex: 0,
-            explanation: "Bagian BATASAN secara eksplisit melarang AI menyentuh file atau fungsi yang tidak relevan dengan tugas yang sedang dikerjakan.",
+            question: "Di manakah letak penulisan tag <uses-permission android:name=\"android.permission.INTERNET\" /> yang benar di dalam AndroidManifest.xml?",
+            options: [
+              "Di dalam tag <activity>",
+              "Di dalam tag <manifest>, sejajar (di luar/di atas) tag <application>",
+              "Di dalam file build.gradle.kts",
+              "Di dalam fungsi @Composable",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Tag <uses-permission> selalu diletakkan langsung di bawah elemen akar <manifest> sebelum blok <application>.",
           },
         ],
-        references: [{ title: "Prompt Engineering Guide", url: "https://www.promptingguide.ai" }],
       },
       {
         id: "m4-l3",
         module_id: "modul-4",
         lesson_number: 3,
-        title: "Memeriksa Diff Kode dan Rollback Jika Terjadi Kesalahan",
-        slug: "memeriksa-diff-kode-dan-rollback",
-        description: "Teknik membaca perubahan baris merah (dihapus) dan hijau (ditambahkan), menyetujui, atau membatalkan perubahan AI.",
-        estimated_minutes: 20,
+        title: "Membangun GoogleAuthManager & Layar Login SakuSiswa",
+        slug: "membangun-google-auth-manager-dan-login-screen",
+        description:
+          "Menulis kelas GoogleAuthManager untuk memunculkan dialog pemilihan akun Google, mengekstrak nama dan email pengguna, serta menyediakan mode Login Tamu Lokal untuk pengujian darurat di kelas.",
+        estimated_minutes: 45,
         order_index: 3,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memiliki kendali penuh atas perubahan kode dengan menguasai Git diff dan fitur reject changes pada Antigravity.",
-        prerequisites: ["Materi 2: Menulis Prompt 6-Bagian"],
-        concept_explanation:
-          "Sebagai software architect, Anda adalah kapten kemudi. AI mengusulkan perubahan kode (diff). Sebelum perubahan disimpan, Anda dapat meninjau baris mana yang diubah. Jika AI salah paham, Anda dapat menolak (Reject) atau melakukan rollback menggunakan Git.",
-        preparation: ["Buka terminal atau Git lens di VS Code"],
+        objective:
+          "Siswa mampu membuat kelas GoogleAuthManager dan LoginScreen yang menampilkan akun Google serta menangani error dengan ramah.",
+        prerequisites: ["Menyelesaikan Materi 4.1 dan 4.2"],
+        concept_explanation: `Sekarang kita akan membuat kelas **\`GoogleAuthManager\`** di dalam package \`data\`. Bagaimana urutan kerjanya?
+
+1. Kita membuat model data sederhana **\`SignedInUser(val email: String, val displayName: String, val photoUrl: String?)\`**.
+2. Di dalam fungsi \`suspend fun signInWithGoogle(webClientId: String): Result<SignedInUser>\`:
+   - Kita menyusun permintaan **\`GetGoogleIdOption\`** dengan \`setFilterByAuthorizedAccounts(false)\` (agar semua akun Google di HP bisa dipilih).
+   - Kita memanggil \`credentialManager.getCredential(context, request)\`.
+   - Jika berhasil, kita mengubah hasilnya menjadi \`GoogleIdTokenCredential.createFrom(credential.data)\` dan mengambil \`credential.id\` (email) serta \`credential.displayName\`.
+3. **Tips Rekayasa Cerdas untuk Praktik Sekolah**: Terkadang di laboratorium sekolah ada emulator yang tidak memiliki Google Play Services atau internet sedang terputus. Karena itu, pada \`LoginScreen\`, selain tombol utama **"Masuk dengan Akun Google"**, kita juga menyediakan opsi **"Masuk Mode Praktik Offline"** dengan email siswa agar proses belajar CRUD Room Database tidak pernah terhambat!`,
+        preparation: [
+          "Siapkan Web Client ID dari Materi 4.1",
+          "Buka package 'id.smkn1jakarta.sakusiswa.data' dan 'id.smkn1jakarta.sakusiswa.ui'",
+        ],
+        thinking_steps: [
+          "Mengapa fungsi signInWithGoogle() harus diberi kata kunci 'suspend'?",
+          "Mengapa membungkus panggilan getCredential() dengan blok try-catch sangat penting (misalnya ketika pengguna menutup jendela pilih akun Google tanpa jadi memilih)?",
+        ],
         step_instructions: [
-          "Ketika Antigravity selesai mengedit file, amati tampilan 'Diff View'.",
-          "Baris berwarna merah adalah kode lama yang dihapus.",
-          "Baris berwarna hijau adalah kode baru yang ditambahkan.",
-          "Jika ada kode penting yang ikut terhapus, tolak perubahan (klik Reject) atau kembalikan file via Git: `git checkout -- <nama-file>`.",
+          "Klik kanan pada package 'data' -> New -> Kotlin Class/File -> buat 'GoogleAuthManager.kt'.",
+          "Tulis data class SignedInUser dan kelas GoogleAuthManager seperti pada contoh kode referensi.",
+          "Klik kanan pada package 'ui' -> New -> Kotlin Class/File -> buat 'LoginScreen.kt'.",
+          "Gunakan rememberCoroutineScope() di dalam LoginScreen untuk menjalankan googleAuthManager.signInWithGoogle() ketika tombol ditekan.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat catatan panduan darurat pemulihan kode di `docs/TROUBLESHOOTING_AI.md`.",
-          konteks: "Folder dokumentasi.",
+          tujuan:
+            "Membuat GoogleAuthManager.kt dan LoginScreen.kt menggunakan Android Credential Manager API dan Jetpack Compose.",
+          konteks:
+            "Aplikasi Android SakuSiswa (id.smkn1jakarta.sakusiswa) menggunakan Kotlin, Coroutines, dan Material 3.",
           instruksi: [
-            "Buat file `docs/TROUBLESHOOTING_AI.md`.",
-            "Tuliskan perintah penyelamat Git:\n- `git status`\n- `git diff`\n- `git restore <file>`\n- `git stash`.",
-            "Jelaskan kapan harus menolak saran AI.",
+            "Buat data class SignedInUser(val email: String, val displayName: String) dan class GoogleAuthManager(private val context: Context) di package data.",
+            "Implementasikan suspend fun signInWithGoogle(webClientId: String): Result<SignedInUser> menggunakan CredentialManager dan GetGoogleIdOption.",
+            "Buat @Composable fun LoginScreen di package ui yang memiliki tombol 'Masuk dengan Google' serta pesan error yang jelas jika login dibatalkan atau gagal.",
+            "Jelaskan fungsi CustomCredential dan TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.",
           ],
-          batasan: ["Dokumen markdown praktis."],
-          hasilAkhir: "Panduan tanggap darurat saat AI melakukan kesalahan.",
-          validasi: "Semua perintah git diuji sintaksnya.",
-          rawPrompt: `[TUJUAN]\nMembuat panduan troubleshooting kode docs/TROUBLESHOOTING_AI.md.\n\n[KONTEKS]\nPanduan perbaikan kesalahan AI untuk siswa.\n\n[INSTRUKSI]\n1. Buat docs/TROUBLESHOOTING_AI.md.\n2. Cantumkan solusi 5 skenario error umum (AI menghapus file, AI menggunakan dependensi yang belum diinstal, halaman jadi blank, AI lupa styling).\n3. Sertakan perintah git restore dan git diff.\n\n[BATASAN]\nFormat markdown bersih.\n\n[HASIL AKHIR]\nManual mitigasi error untuk siswa.\n\n[VALIDASI]\nCek keterbacaan panduan.`,
+          batasan: [
+            "Tangani GetCredentialException menggunakan try-catch agar aplikasi tidak pernah crash saat user menekan tombol kembali.",
+          ],
+          hasilAkhir:
+            "File GoogleAuthManager.kt dan LoginScreen.kt yang siap dihubungkan ke sesi pengguna.",
+          validasi:
+            "Jendela pemilihan akun Google muncul saat tombol Masuk dengan Google ditekan.",
+          rawPrompt: `[TUJUAN]\nMembuat kelas GoogleAuthManager.kt dan layar LoginScreen.kt dengan Android Credential Manager API.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa, menggunakan Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Buat data class SignedInUser(val email: String, val displayName: String) di dalam file GoogleAuthManager.kt.\n2. Buat fungsi suspend signInWithGoogle(webClientId: String): Result<SignedInUser> yang memanggil CredentialManager.create(context).getCredential(...).\n3. Tangkap GetCredentialException di dalam blok try-catch dan kembalikan pesan error bahasa Indonesia yang mudah dimengerti.\n4. Buat fungsi @Composable LoginScreen yang memanggil signInWithGoogle di dalam rememberCoroutineScope().launch { ... }.\n\n[BATASAN]\nPastikan Context yang dikirim ke getCredential berasal dari LocalContext.current (Activity context).\n\n[HASIL AKHIR]\nKode lengkap GoogleAuthManager.kt dan LoginScreen.kt beserta penjelasan alurnya.\n\n[VALIDASI]\nPastikan aplikasi tidak Force Close ketika pengguna menutup pop-up pemilihan akun Google.`,
         },
-        expected_result: "Peserta tidak panik jika kode mengalami error dan tahu cara mengembalikannya ke kondisi normal dalam 5 detik.",
+        code_snippets: [
+          {
+            filename: "GoogleAuthManager.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.data
+
+import android.content.Context
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialException
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+
+data class SignedInUser(
+    val email: String,
+    val displayName: String
+)
+
+class GoogleAuthManager(private val context: Context) {
+    private val credentialManager = CredentialManager.create(context)
+
+    suspend fun signInWithGoogle(webClientId: String): Result<SignedInUser> {
+        return try {
+            val googleIdOption = GetGoogleIdOption.Builder()
+                .setFilterByAuthorizedAccounts(false)
+                .setServerClientId(webClientId)
+                .setAutoSelectEnabled(false)
+                .build()
+
+            val request = GetCredentialRequest.Builder()
+                .addCredentialOption(googleIdOption)
+                .build()
+
+            val response = credentialManager.getCredential(
+                context = context,
+                request = request
+            )
+
+            val credential = response.credential
+            if (credential is CustomCredential &&
+                credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+            ) {
+                val googleIdToken = GoogleIdTokenCredential.createFrom(credential.data)
+                Result.success(
+                    SignedInUser(
+                        email = googleIdToken.id,
+                        displayName = googleIdToken.displayName ?: googleIdToken.id.substringBefore("@")
+                    )
+                )
+            } else {
+                Result.failure(Exception("Tipe kredensial Google tidak dikenali."))
+            }
+        } catch (e: GetCredentialException) {
+            Result.failure(Exception("Login Google gagal atau dibatalkan: \${e.message}"))
+        } catch (e: Exception) {
+            Result.failure(Exception("Terjadi kesalahan login: \${e.message}"))
+        }
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "Kelas GoogleAuthManager selesai dibuat dan mampu mengekstrak email serta nama akun Google pengguna secara aman.",
         validation_check: [
-          "Dapat membaca perbedaan warna hijau dan merah pada Git diff",
-          "Tahu perintah `git restore` untuk membatalkan perubahan lokal",
+          "Tidak ada error kompilasi pada GoogleAuthManager.kt",
+          "Eksepsi GetCredentialException sudah ditangkap dengan try-catch",
         ],
         common_errors: [
           {
-            error: "Membiarkan AI terus mengedit tanpa memeriksa diff hingga error bertumpuk semakin parah.",
-            solution: "Periksa diff setiap kali prompt selesai. Jika salah, batalkan segera dan perbaiki prompt-nya.",
+            error: "Mengirim applicationContext (bukan Activity context dari LocalContext.current) ke getCredential(), sehingga bottom sheet tidak muncul.",
+            solution:
+              "Selalu gunakan Context dari LocalContext.current di dalam Composable karena Credential Manager membutuhkan Activity untuk menampilkan jendela pop-up akun.",
           },
         ],
-        exercise: "Lakukan perubahan kecil pada file README, jalankan `git diff` di terminal, lalu kembalikan dengan `git restore README.md`.",
+        exercise:
+          "Perhatikan baris 'displayName = googleIdToken.displayName ?: googleIdToken.id.substringBefore(\"@\")'. Jelaskan apa yang dilakukan baris kode tersebut jika akun Google siswa belum memiliki nama tampilan!",
         quiz: [
           {
-            question: "Perintah Git apa yang digunakan untuk mengembalikan satu file lokal yang rusak akibat salah edit ke kondisi commit terakhir?",
-            options: ["git restore <nama-file>", "git push origin main", "git delete all", "git rm -rf"],
-            correctIndex: 0,
-            explanation: "git restore membatalkan perubahan lokal pada file kerja dan mengembalikannya ke versi commit terakhir yang bersih.",
+            question: "Mengapa kita membungkus pemanggilan credentialManager.getCredential() di dalam blok try-catch?",
+            options: [
+              "Supaya warna tombol berubah otomatis",
+              "Karena jika pengguna menutup dialog pemilihan akun atau tidak ada koneksi internet, CredentialManager melempar GetCredentialException",
+              "Untuk menghapus semua tugas di database",
+              "Karena bahasa Kotlin mewajibkan try-catch di setiap baris",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Pembatalan login oleh pengguna atau kegagalan jaringan akan melempar GetCredentialException. Dengan try-catch, aplikasi tetap berjalan normal dan bisa menampilkan pesan informasi.",
           },
         ],
-        references: [{ title: "Git Basics - Undoing Things", url: "https://git-scm.com/book/en/v2/Git-Basics-Undoing-Things" }],
       },
       {
         id: "m4-l4",
         module_id: "modul-4",
         lesson_number: 4,
-        title: "Mengatur Konteks Proyek & Aturan AGENTS.md",
-        slug: "mengatur-konteks-proyek-dan-aturan-agents-md",
-        description: "Menyusun file AGENTS.md di root proyek sebagai pedoman aturan otomatis bagi Google Antigravity sebelum menulis kode.",
-        estimated_minutes: 20,
+        title: "Menyimpan Sesi Login Lokal & Fitur Keluar (Logout)",
+        slug: "menyimpan-sesi-login-lokal-dan-logout",
+        description:
+          "Menyimpan email dan nama akun Google yang sudah login ke penyimpanan lokal perangkat (SharedPreferences / DataStore) agar siswa tidak perlu login berulang kali setiap membuka aplikasi.",
+        estimated_minutes: 40,
         order_index: 4,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu menyusun panduan perilaku AI coding agent agar tidak merusak dependensi atau mengubah file sembarangan.",
-        prerequisites: ["Materi 3: Memeriksa Diff Kode"],
-        concept_explanation:
-          "File AGENTS.md bertindak seperti Standar Operasional Prosedur (SOP) bagi Google Antigravity. Setiap kali Antigravity memulai tugas, ia membaca aturan di AGENTS.md terlebih dahulu, seperti: larangan mengubah nama toko tanpa izin, kewajiban menjalankan typecheck, dan aturan keamanan database.",
-        preparation: ["Buka root direktori proyek Anda"],
+        objective:
+          "Siswa mampu menyimpan dan menghapus sesi pengguna yang login secara lokal menggunakan SessionManager serta memanggil clearCredentialState saat Logout.",
+        prerequisites: ["Menyelesaikan Materi 4.3"],
+        concept_explanation: `Bayangkan betapa repotnya jika setiap kali kamu menutup aplikasi SakuSiswa lalu membukanya lagi 5 menit kemudian, aplikasi meminta kamu Login Google dari awal.
+
+Untuk menyimpan informasi sederhana seperti *"Siapa email dan nama siswa yang sedang login saat ini?"*, Android menyediakan penyimpanan *Key-Value* lokal bernama **\`SharedPreferences\`** (atau Jetpack \`DataStore\`).
+1. **Saat Login Berhasil**: Kita simpan \`user_email\` dan \`user_name\` ke penyimpanan lokal.
+2. **Saat Aplikasi Baru Dibuka**: Kita cek apakah \`user_email\` sudah ada. Jika sudah ada, langsung buka **\`HomeScreen\`**!
+3. **Saat Tombol Keluar (Logout) Ditekan**: Kita hapus \`user_email\` dari penyimpanan lokal dan panggil \`credentialManager.clearCredentialState(ClearCredentialStateRequest())\` agar siswa bisa berganti ke akun Google lain.`,
+        preparation: [
+          "Buka file GoogleAuthManager.kt di package 'data'",
+        ],
+        thinking_steps: [
+          "Mengapa untuk menyimpan 2 data sederhana (email dan nama user yang aktif) kita cukup memakai SharedPreferences/DataStore, sedangkan untuk menyimpan ratusan daftar tugas yang perlu difilter kita memakai Room Database?",
+          "Apa yang terjadi jika saat Logout kita hanya menghapus SharedPreferences tetapi tidak memanggil clearCredentialState?",
+        ],
         step_instructions: [
-          "Buat file AGENTS.md di root proyek.",
-          "Tuliskan aturan keamanan 1: 'Jangan ubah layout atau styling di folder components tanpa instruksi'.",
-          "Tuliskan aturan 2: 'Hanya gunakan paket yang sudah terdaftar di package.json'.",
-          "Tuliskan aturan 3: 'Wajib jalankan npm run build atau typecheck setelah perubahan'.",
-          "Uji Antigravity dengan meminta saran dan amati agent mematuhi isi AGENTS.md.",
+          "Tambahkan fungsi saveSession(user: SignedInUser), getSavedUser(): SignedInUser?, dan signOut() di dalam GoogleAuthManager.kt.",
+          "Buat file LoginScreen.kt di package 'ui' yang menampilkan kartu login SakuSiswa.",
+          "Uji alur masuk -> tutup aplikasi -> buka kembali aplikasi -> pastikan sesi pengguna tetap tersimpan.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat file konfigurasi panduan perilaku AI agent AGENTS.md di root proyek.",
-          konteks: "Root direktori proyek web Next.js.",
+          tujuan:
+            "Melengkapi GoogleAuthManager dengan penyimpanan sesi lokal dan fungsi signOut(), serta membuat LoginScreen.kt.",
+          konteks:
+            "Aplikasi Android SakuSiswa menggunakan Credential Manager API dan penyimpanan sesi lokal.",
           instruksi: [
-            "Buat file AGENTS.md di root.",
-            "Definisikan aturan arsitektur: Gunakan Server Components secara default.",
-            "Definisikan aturan dependensi: Jangan instal package baru tanpa izin eksplisit.",
-            "Definisikan aturan keamanan: Jangan ekspos SUPABASE_SERVICE_ROLE_KEY ke browser.",
+            "Tambahkan fungsi saveUserSession(user: SignedInUser), getSavedUser(): SignedInUser?, dan suspend fun signOut() menggunakan ClearCredentialStateRequest di dalam GoogleAuthManager.",
+            "Buat komponen @Composable LoginScreen(onLoginSuccess: (SignedInUser) -> Unit) yang bersih dan ramah bagi siswa SMK.",
+            "Sediakan juga tombol masuk mode simulasi lokal jika siswa sedang menguji di emulator tanpa Play Store.",
           ],
-          batasan: ["Format dalam Markdown terstruktur."],
-          hasilAkhir: "File AGENTS.md yang mengarahkan perilaku Antigravity secara konsisten.",
-          validasi: "File AGENTS.md terbaca oleh agent saat membaca konteks proyek.",
-          rawPrompt: `[TUJUAN]\nMembuat file AGENTS.md untuk mengendalikan perilaku AI coding agent.\n\n[KONTEKS]\nRoot direktori proyek Next.js 15 dan Google Antigravity.\n\n[INSTRUKSI]\n1. Buat file AGENTS.md.\n2. Tuliskan 5 aturan wajib pengembangan:\n   - Selalu pertahankan konsistensi palet warna Navy dan Slate.\n   - Utamakan Server Components daripada Client Components.\n   - Dilarang memasang paket pihak ketiga tanpa persetujuan.\n   - Lakukan pemeriksaan error typecheck sebelum menandai tugas selesai.\n   - Jangan ubah file .env.local atau membocorkan secret key.\n\n[BATASAN]\nHanya buat file AGENTS.md di root proyek.\n\n[HASIL AKHIR]\nPedoman aturan AI agent yang kokoh.\n\n[VALIDASI]\nVerifikasi bahwa file tersimpan di root workspace.`,
+          batasan: [
+            "Gunakan kode yang ringkas dan mudah dipahami siswa kelas 10.",
+          ],
+          hasilAkhir:
+            "Kode sesi login lokal dan LoginScreen.kt yang siap diintegrasikan.",
+          validasi:
+            "Sesi pengguna tetap bertahan ketika aplikasi ditutup dan dibuka kembali.",
+          rawPrompt: `[TUJUAN]\nMenambahkan manajemen sesi login lokal (simpan sesi & logout) pada GoogleAuthManager dan membuat LoginScreen.kt.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.\n\n[INSTRUKSI]\n1. Tambahkan fungsi saveSession(user: SignedInUser), getSavedSession(): SignedInUser?, dan suspend fun signOut() (memanggil clearCredentialState) pada GoogleAuthManager.\n2. Buat @Composable fun LoginScreen(webClientId: String, authManager: GoogleAuthManager, onSignedIn: (SignedInUser) -> Unit).\n3. Sediakan tombol utama "Masuk dengan Akun Google" serta form kecil cadangan untuk emulator sekolah yang belum login Play Store.\n\n[BATASAN]\nPastikan semua state error ditampilkan dengan jelas di layar.\n\n[HASIL AKHIR]\nKode lengkap penyimpanan sesi dan LoginScreen.kt.\n\n[VALIDASI]\nPastikan tombol Keluar benar-benar menghapus sesi dan mengembalikan pengguna ke LoginScreen.`,
         },
-        expected_result: "Google Antigravity bekerja lebih terarah, disiplin, dan terbebas dari halusinasi kode.",
+        code_snippets: [
+          {
+            filename: "SesiLoginTambahan.kt",
+            language: "kotlin",
+            code: `// Tambahkan di dalam class GoogleAuthManager(private val context: Context):
+private val prefs = context.getSharedPreferences("sakusiswa_session", Context.MODE_PRIVATE)
+
+fun saveSession(user: SignedInUser) {
+    prefs.edit()
+        .putString("email", user.email)
+        .putString("name", user.displayName)
+        .apply()
+}
+
+fun getSavedSession(): SignedInUser? {
+    val email = prefs.getString("email", null) ?: return null
+    val name = prefs.getString("name", "Siswa SMKN 1") ?: "Siswa SMKN 1"
+    return SignedInUser(email = email, displayName = name)
+}
+
+suspend fun signOut() {
+    prefs.edit().clear().apply()
+    try {
+        credentialManager.clearCredentialState(
+            androidx.credentials.ClearCredentialStateRequest()
+        )
+    } catch (_: Exception) { }
+}`,
+          },
+        ],
+        expected_result:
+          "Fitur autentikasi Google dan manajemen sesi lokal SakuSiswa selesai; pengguna dapat login, tetap masuk saat aplikasi dibuka ulang, dan melakukan logout.",
         validation_check: [
-          "File AGENTS.md berada di root proyek",
-          "Agent merujuk pada aturan AGENTS.md saat mengeksekusi instruksi berikutnya",
+          "Fungsi getSavedSession() mengembalikan data pengguna yang sudah login",
+          "Fungsi signOut() menghapus sesi dan mengembalikan tampilan ke layar login",
         ],
         common_errors: [
           {
-            error: "Menempatkan AGENTS.md di dalam subfolder yang dalam.",
-            solution: "Tempatkan file AGENTS.md selalu di root workspace agar langsung terbaca oleh AI agent.",
+            error: "Lupa memanggil .apply() setelah prefs.edit().putString(...) sehingga sesi tidak tersimpan.",
+            solution:
+              "Selalu akhiri perubahan SharedPreferences.Editor dengan .apply() agar data benar-benar ditulis ke penyimpanan lokal.",
           },
         ],
-        exercise: "Tambahkan satu aturan baru di AGENTS.md: 'Gunakan Bahasa Indonesia yang ramah untuk semua pesan antarmuka'.",
+        exercise:
+          "Uji fitur Logout di aplikasimu, lalu masuk kembali menggunakan akun kedua untuk membuktikan bahwa sesi akun berhasil berganti!",
         quiz: [
           {
-            question: "Apa fungsi utama dari file AGENTS.md yang diletakkan di root proyek?",
+            question: "Fungsi apakah pada CredentialManager yang dipanggil saat pengguna menekan tombol Logout agar status kredensial aktif dibersihkan?",
             options: [
-              "Memberikan instruksi dan batasan perilaku permanen kepada AI coding agent dalam mengelola proyek",
-              "Mengganti fungsi kartu memori",
-              "Menghapus riwayat browsing",
-              "Mengatur kecepatan kipas laptop",
+              "credentialManager.deleteDatabase()",
+              "credentialManager.clearCredentialState(ClearCredentialStateRequest())",
+              "credentialManager.finishActivity()",
+              "credentialManager.reboot()",
             ],
-            correctIndex: 0,
-            explanation: "AGENTS.md adalah standar industri untuk menyematkan aturan proyek bagi AI agent otonom.",
+            correctIndex: 1,
+            explanation:
+              "clearCredentialState() memberi tahu sistem Credential Manager bahwa sesi pengguna telah berakhir sehingga saat login berikutnya pilihan akun ditampilkan kembali.",
           },
         ],
-        references: [{ title: "Agentic Context Best Practices", url: "https://deepmind.google" }],
       },
     ],
   },
 
   // =========================================================================
-  // MODUL 5: MEMBANGUN FRONTEND
+  // MODUL 5 (HARI 2 SIANG-SORE): ROOM DATABASE (KSP) & OPERASI CRUD LENGKAP
   // =========================================================================
   {
     id: "modul-5",
-    course_id: "course-web-dev-antigravity",
+    course_id: "course-android-compose-smkn1",
     module_number: 5,
-    title: "Membangun Frontend Modern dengan Tailwind CSS",
-    slug: "modul-5-membangun-frontend",
+    title: "Penyimpanan Lokal Room Database (KSP) & Operasi CRUD Lengkap",
+    slug: "modul-5-room-database-ksp-dan-crud",
     description:
-      "Mendesain layout responsif, navbar profesional, sidebar, sistem komponen UI, tipografi, palet warna Navy-Blue-Teal, dan optimasi mobile.",
-    estimated_minutes: 100,
-    difficulty_level: "Pemula",
+      "Inti dari penyimpanan data lokal Android: mengonfigurasi Room Database dengan plugin KSP modern, membuat Entity, DAO dengan Flow, Database Singleton, serta menghubungkan fitur Create, Read, Update, dan Delete ke Jetpack Compose.",
+    estimated_minutes: 210,
+    difficulty_level: "Menengah",
     is_published: true,
     order_index: 5,
     created_at: new Date().toISOString(),
@@ -1080,249 +2135,777 @@ export const MODULES_DATA: FullModule[] = [
         id: "m5-l1",
         module_id: "modul-5",
         lesson_number: 1,
-        title: "Konsep Desain UI/UX & Palet Warna Profesional",
-        slug: "konsep-desain-uiux-dan-palet-warna",
-        description: "Menerapkan prinsip tata letak modern, hirarki visual, whitespace, dan konfigurasi tema Tailwind CSS yang elegan.",
-        estimated_minutes: 20,
+        title: "Konfigurasi Room Database & Plugin KSP di Gradle",
+        slug: "konfigurasi-room-database-dan-ksp",
+        description:
+          "Memahami arsitektur 3 pilar Room Database (Entity, DAO, Database) dan cara memasang Kotlin Symbol Processing (KSP) sebagai pengganti kapt yang lebih cepat dan modern.",
+        estimated_minutes: 45,
         order_index: 1,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu menyusun palet warna korporat/edukasi (Navy, White, Teal, Soft Gray) dan hirarki tipografi yang nyaman di mata.",
-        prerequisites: ["Modul 3"],
-        concept_explanation:
-          "Desain profesional tidak ditentukan oleh banyaknya warna mencolok, melainkan oleh konsistensi spasi (padding/margin), kontras yang jelas, serta hirarki ukuran teks (h1, h2, paragraph). Palet warna Navy (#0F172A) memberikan kesan terpercaya, sedangkan aksen biru/teal (#0284C7 / #0D9488) menarik perhatian pada tombol aksi utama (Call to Action).",
-        preparation: ["Buka file `tailwind.config.ts`"],
+        objective:
+          "Siswa memahami fungsi Entity, DAO, dan Database pada Room serta berhasil mengonfigurasi plugin KSP dan dependensi Room 2.6+ di build.gradle.kts.",
+        prerequisites: ["Menyelesaikan Modul 1 s/d 4"],
+        concept_explanation: `Mengapa tugas yang kita ketik di variabel State (\`mutableStateOf\`) hilang begitu aplikasi ditutup? Karena State hanya hidup di **RAM (memori sementara)**. Agar data tugas tersimpan permanen di memori internal HP meskipun HP dimatikan atau tanpa sinyal internet, kita menggunakan **Room Database** (pustaka resmi Jetpack di atas mesin database **SQLite**).
+
+Room Database memiliki **3 Komponen Utama**:
+1. **\`@Entity\` (Tabel)**: Cetakan \`data class\` yang menentukan nama tabel dan kolom-kolomnya (misal tabel \`tasks\`).
+2. **\`@Dao\` (Data Access Object / Pelayan Data)**: Interface berisi fungsi perintah untuk menambah (\`@Insert\`), membaca (\`@Query\`), mengubah (\`@Update\`), dan menghapus (\`@Delete\`) data.
+3. **\`@Database\` (Brankas Utama)**: Kelas abstrak yang menyatukan semua Entity dan DAO serta membuat koneksi file database di dalam HP.
+
+**Penting (Standar 2026 — Gunakan KSP, Bukan kapt!)**:
+Room membutuhkan *code generator* untuk menerjemahkan anotasi \`@Entity\` dan \`@Dao\` menjadi kode SQL otomatis. Dulu orang memakai \`kapt\`, tetapi sekarang \`kapt\` sudah lambat dan usang. Kita wajib menggunakan **KSP (Kotlin Symbol Processing)** (\`com.google.devtools.ksp\`) yang hingga 2x lebih cepat!`,
+        preparation: [
+          "Buka build.gradle.kts (Project: SakuSiswa) dan build.gradle.kts (Module :app)",
+        ],
+        thinking_steps: [
+          "Apa perbedaan fungsi antara @Entity, @Dao, dan @Database di dalam Room?",
+          "Mengapa jika kita hanya menambahkan implementation(\"androidx.room:room-runtime\") tanpa ksp(\"androidx.room:room-compiler\"), aplikasi akan crash saat dijalankan?",
+        ],
         step_instructions: [
-          "Buka `tailwind.config.ts` dan periksa konfigurasi extend warna tema.",
-          "Pastikan warna `brand.primary` bernilai Navy (#0F172A) dan `brand.accent` bernilai Ocean Blue (#0284C7).",
-          "Gunakan utility class Tailwind seperti `bg-slate-50`, `text-slate-900`, `border-slate-200` untuk nuansa bersih dan modern.",
+          "Buka 'build.gradle.kts (Project: SakuSiswa)' dan tambahkan plugin KSP yang sesuai dengan versi Kotlin proyekmu di dalam blok plugins { ... }.",
+          "Buka 'build.gradle.kts (Module :app)', aktifkan plugin KSP di blok plugins { ... } paling atas.",
+          "Masih di 'build.gradle.kts (Module :app)', tambahkan 3 dependensi Room (room-runtime, room-ktx, dan ksp room-compiler) serta lifecycle-viewmodel-compose.",
+          "Klik 'Sync Now' dan pastikan proses unduh selesai tanpa error.",
         ],
         antigravity_prompt: {
-          tujuan: "Memastikan palet warna tema di `tailwind.config.ts` memiliki token warna lengkap untuk Navy, Brand Accent, dan Slate Background.",
-          konteks: "File konfigurasi `tailwind.config.ts`.",
+          tujuan:
+            "Memasang plugin KSP dan dependensi Room Database di build.gradle.kts sesuai versi Kotlin proyek.",
+          konteks:
+            "Proyek Android Studio SakuSiswa menggunakan Kotlin DSL (build.gradle.kts).",
           instruksi: [
-            "Periksa objek `theme.extend.colors`.",
-            "Pastikan warna navy, brand primary, accent, teal, dan card sudah didefinisikan dengan kode hex profesional.",
+            "Tunjukkan cara mengecek versi Kotlin di file gradle/libs.versions.toml agar versi plugin KSP cocok.",
+            "Tunjukkan baris plugin KSP dan dependencies untuk Room Database (room-runtime, room-ktx, dan ksp room-compiler) beserta lifecycle-viewmodel-compose.",
+            "Jelaskan apa fungsi room-ktx (dukungan Coroutines dan Flow).",
           ],
-          batasan: ["Jangan mengubah konfigurasi content path."],
-          hasilAkhir: "Tema warna Tailwind yang konsisten di seluruh aplikasi.",
-          validasi: "Jalankan build test untuk memastikan tidak ada error konfigurasi.",
-          rawPrompt: `[TUJUAN]\nMemperkaya token warna tema Tailwind CSS di tailwind.config.ts.\n\n[KONTEKS]\nFile tailwind.config.ts proyek web edukasi Vibe Code.\n\n[INSTRUKSI]\n1. Buka tailwind.config.ts.\n2. Pastikan warna brand.primary (#0F172A), brand.secondary (#1E293B), brand.accent (#0284C7), brand.teal (#0D9488), dan neutral slate tersedia.\n\n[BATASAN]\nTetap pertahankan content path yang sudah ada.\n\n[HASIL AKHIR]\nSistem desain token warna yang konsisten.\n\n[VALIDASI]\nVerifikasi file berekstensi .ts valid.`,
+          batasan: [
+            "Gunakan KSP (ksp(...)), dilarang menggunakan kapt.",
+          ],
+          hasilAkhir:
+            "Konfigurasi Gradle untuk Room + KSP yang berhasil di-sync.",
+          validasi:
+            "Anotasi @Entity, @Dao, dan @Database dapat di-import di file Kotlin.",
+          rawPrompt: `[TUJUAN]\nMengonfigurasi Room Database dengan plugin KSP pada proyek Android Studio Kotlin DSL.\n\n[KONTEKS]\nProyek SakuSiswa menggunakan build.gradle.kts dan gradle/libs.versions.toml.\n\n[INSTRUKSI]\n1. Jelaskan cara mencocokkan versi plugin "com.google.devtools.ksp" dengan versi Kotlin yang tertulis di libs.versions.toml.\n2. Tunjukkan penambahan plugin KSP di build.gradle.kts (Project) dan build.gradle.kts (Module :app).\n3. Tunjukkan penambahan dependencies Room (room-runtime, room-ktx, dan ksp room-compiler) serta androidx.lifecycle:lifecycle-viewmodel-compose.\n4. Jelaskan mengapa room-ktx wajib dipasang agar kita bisa memakai suspend fun dan Flow di DAO.\n\n[BATASAN]\nJangan gunakan kapt. Gunakan KSP.\n\n[HASIL AKHIR]\nPanduan dan snippet kode konfigurasi Room + KSP di Gradle.\n\n[VALIDASI]\nPastikan Gradle Sync berjalan sukses tanpa error versi KSP.`,
         },
-        expected_result: "Aplikasi memiliki identitas visual yang solid, elegan, dan siap digunakan pada semua halaman.",
+        code_snippets: [
+          {
+            filename: "build.gradle.kts (Module :app) — Bagian Room & KSP",
+            language: "kotlin",
+            code: `plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp") version "2.0.21-1.0.27" // Sesuaikan awalan 2.0.21 dengan versi kotlin di libs.versions.toml
+}
+
+dependencies {
+    val roomVersion = "2.6.1"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    // ViewModel untuk Jetpack Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+}`,
+          },
+        ],
+        expected_result:
+          "Plugin KSP dan pustaka Room Database berhasil terpasang dan ter-sinkronisasi di proyek SakuSiswa.",
         validation_check: [
-          "Class Tailwind kustom dapat digunakan tanpa error",
-          "Kontras teks memenuhi standar aksesibilitas WCAG AA",
+          "Gradle Sync berjalan sukses tanpa error",
+          "Paket androidx.room.* dapat di-import di dalam kode Kotlin",
         ],
         common_errors: [
           {
-            error: "Menggunakan terlalu banyak warna warni neon yang membuat mata cepat lelah.",
-            solution: "Patuhi aturan 60-30-10: 60% warna dominan netral (putih/slate), 30% warna sekunder (navy), 10% warna aksen (teal/blue).",
+            error: "Muncul error 'ksp-x.x.x is too old/new for kotlin-x.x.x' saat Gradle Sync.",
+            solution:
+              "Buka file gradle/libs.versions.toml, lihat angka pada baris 'kotlin = \"...\"' (misal 2.0.21), lalu pastikan awalan versi plugin KSP sama persis dengan versi Kotlin tersebut (atau gunakan plugin kotlin.kapt hanya jika jaringan sekolah memblokir repositori KSP).",
           },
         ],
-        exercise: "Buat satu elemen card dengan class `bg-white border border-slate-200 rounded-xl p-6 shadow-sm` dan rasakan elegansi tampilannya.",
+        exercise:
+          "Buka file gradle/libs.versions.toml di proyekmu dan catat berapa versi 'kotlin' dan 'agp' (Android Gradle Plugin) yang tertulis di sana!",
         quiz: [
           {
-            question: "Berapa aturan proporsi warna (Rule of Thumb) yang ideal dalam desain antarmuka modern?",
-            options: ["60% dominan netral, 30% sekunder, 10% aksen", "100% warna merah", "50% hitam, 50% kuning", "Bebas tanpa batasan"],
+            question: "Manakah dari ketiga dependensi Room berikut yang bertugas menghasilkan kode implementasi SQL secara otomatis saat proses kompilasi melalui KSP?",
+            options: [
+              "androidx.room:room-compiler (dipasang dengan ksp(...))",
+              "androidx.compose.material3:material3",
+              "androidx.credentials:credentials",
+              "androidx.activity:activity-compose",
+            ],
             correctIndex: 0,
-            explanation: "Aturan 60-30-10 menjaga keseimbangan visual agar fokus pengguna langsung tertuju ke tombol aksi penting tanpa distraksi.",
+            explanation:
+              "room-compiler membaca anotasi @Entity, @Dao, dan @Database lalu menghasilkan kode SQLite secara otomatis melalui KSP.",
           },
         ],
-        references: [{ title: "Tailwind CSS Theming Guide", url: "https://tailwindcss.com/docs/customizing-colors" }],
       },
       {
         id: "m5-l2",
         module_id: "modul-5",
         lesson_number: 2,
-        title: "Membuat Navbar Responsif dan Menu Navigasi",
-        slug: "membuat-navbar-responsif",
-        description: "Membangun header navigasi dengan logo, link menu kurikulum, tombol aksi, dan hamburger menu untuk smartphone.",
-        estimated_minutes: 25,
+        title: "Membuat @Entity (TaskEntity), @Dao (TaskDao) & @Database Singleton",
+        slug: "membuat-entity-dao-dan-database-room",
+        description:
+          "Menulis ketiga file inti Room Database di dalam package data: TaskEntity.kt sebagai representasi tabel tugas, TaskDao.kt untuk operasi CRUD + Flow, dan SakuSiswaDatabase.kt.",
+        estimated_minutes: 55,
         order_index: 2,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu membuat Navbar profesional yang sticky di bagian atas halaman dan ramah sentuhan di layar ponsel.",
-        prerequisites: ["Materi 1: Konsep Desain UI/UX"],
-        concept_explanation:
-          "Navbar adalah kompas navigasi website. Di layar desktop, menu ditampilkan berjajar horizontal. Di layar ponsel (layar sempit), menu disembunyikan di dalam tombol Hamburger (tiga garis) yang membuka laci menu saat disentuh.",
-        preparation: ["Pastikan paket `lucide-react` sudah terpasang"],
+        objective:
+          "Siswa mampu menulis kode TaskEntity, TaskDao (Insert, Query, Update, Delete), dan SakuSiswaDatabase tanpa error kompilasi.",
+        prerequisites: ["Menyelesaikan Materi 5.1"],
+        concept_explanation: `Sekarang kita akan menulis 3 file inti di dalam package **\`data\`**:
+
+1. **\`TaskEntity.kt\`**:
+   Diberi anotasi \`@Entity(tableName = "tasks")\`. Kolom \`id\` diberi \`@PrimaryKey(autoGenerate = true)\` agar nomor ID bertambah otomatis (1, 2, 3, dst.) setiap kali tugas baru disimpan. Kita juga menyertakan kolom \`userEmail\` agar tugas milik Siswa A tidak bercampur dengan tugas milik Siswa B!
+2. **\`TaskDao.kt\`**:
+   Diberi anotasi \`@Dao\`. Perhatikan perbedaan cara kerja fungsi di dalamnya:
+   - **Read (\`@Query\`)**: Mengembalikan **\`Flow<List<TaskEntity>>\`**. Karena memakai \`Flow\`, fungsi ini adalah pipa siaran langsung: begitu ada data yang ditambah, diubah, atau dihapus, \`Flow\` otomatis mengirimkan daftar terbaru ke layar!
+   - **Create (\`@Insert\`), Update (\`@Update\`), Delete (\`@Delete\`)**: Diberi kata kunci **\`suspend\`** agar berjalan di latar belakang tanpa membuat layar macet.
+3. **\`SakuSiswaDatabase.kt\`**:
+   Menggunakan pola **Singleton (\`INSTANCE\`)** dengan \`@Volatile\` dan \`synchronized\`. Tujuannya agar di seluruh aplikasi hanya ada **satu** koneksi database yang dibuka, sehingga hemat memori dan tidak terjadi bentrokan file database.`,
+        preparation: [
+          "Buka package 'id.smkn1jakarta.sakusiswa.data' di Android Studio",
+        ],
+        thinking_steps: [
+          "Mengapa pada query 'SELECT * FROM tasks WHERE userEmail = :email ORDER BY isCompleted ASC, id DESC', fungsi getTasksByUser() tidak memakai kata kunci 'suspend' melainkan mengembalikan 'Flow<List<TaskEntity>>'?",
+          "Mengapa kita mengurutkan daftar tugas dengan 'ORDER BY isCompleted ASC, id DESC'?",
+        ],
         step_instructions: [
-          "Buat file komponen `src/components/layout/navbar.tsx`.",
-          "Gunakan hook `useState` untuk menyimpan status terbuka/tertutupnya menu mobile (`isOpen`).",
-          "Gunakan ikon dari `lucide-react`: `Menu`, `X`, `BookOpen`, `Code`, `Sparkles`.",
-          "Pasang komponen Navbar di dalam `src/app/layout.tsx` agar tampil otomatis di seluruh halaman.",
+          "Buat file 'TaskEntity.kt' di dalam package 'data' dan ketik struktur @Entity(tableName = \"tasks\").",
+          "Buat file 'TaskDao.kt' di dalam package 'data' dan lengkapi ke-4 operasi CRUD: getTasksByUser (@Query), insertTask (@Insert), updateTask (@Update), dan deleteTask (@Delete).",
+          "Buat file 'SakuSiswaDatabase.kt' di dalam package 'data' dengan companion object getDatabase(context).",
+          "Pilih menu 'Build -> Make Project' (ikon palu di atas) untuk memastikan KSP berhasil membuat kode database tanpa error!",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat komponen Navbar responsif profesional lengkap dengan logo, tautan navigasi, tombol Mulai Belajar, dan toggle mobile.",
-          konteks: "Komponen layout di `src/components/layout/navbar.tsx`.",
+          tujuan:
+            "Membuat 3 file lapisan data Room Database: TaskEntity.kt, TaskDao.kt, dan SakuSiswaDatabase.kt.",
+          konteks:
+            "Package id.smkn1jakarta.sakusiswa.data menggunakan Room Database 2.6+ dengan KSP dan Kotlin Coroutines Flow.",
           instruksi: [
-            "Buat komponen Client Component `Navbar`.",
-            "Sediakan link: Beranda, Kurikulum, Kumpulan Karya, dan Dashboard.",
-            "Terapkan sticky header dengan backdrop-blur semi transparan saat di-scroll.",
-            "Berikan tombol 'Masuk' dan 'Mulai Belajar'.",
+            "Buat TaskEntity.kt dengan kolom id, userEmail, subject, title, notes, dueDate, isCompleted, dan createdAt.",
+            "Buat TaskDao.kt dengan fungsi getTasksByUser(email: String): Flow<List<TaskEntity>>, suspend fun insertTask, suspend fun updateTask, dan suspend fun deleteTask.",
+            "Buat SakuSiswaDatabase.kt menggunakan pola Singleton dan fallbackToDestructiveMigration().",
+            "Jelaskan arti ORDER BY isCompleted ASC, id DESC pada query SQL.",
           ],
-          batasan: ["Pastikan tidak bentrok dengan layout SSR."],
-          hasilAkhir: "Komponen Navbar modern yang interaktif.",
-          validasi: "Uji resize jendela browser: menu desktop berganti menjadi hamburger di lebar < 768px (md breakpoint).",
-          rawPrompt: `[TUJUAN]\nMembuat Navbar responsif di src/components/layout/navbar.tsx.\n\n[KONTEKS]\nNext.js 15 App Router, TypeScript, Tailwind CSS, Lucide Icons.\n\n[INSTRUKSI]\n1. Buat src/components/layout/navbar.tsx bertanda 'use client'.\n2. Render logo Vibe Code dengan badge 'Belajar Dev'.\n3. Sediakan link navigasi (Kurikulum, Kumpulan Karya, Dashboard, Panduan).\n4. Sediakan hamburger menu interaktif untuk mobile view.\n5. Berikan tombol CTA 'Mulai Belajar' dengan warna brand.accent.\n\n[BATASAN]\nPastikan komponen responsif tanpa overflow horizontal.\n\n[HASIL AKHIR]\nNavbar sticky modern dengan efek backdrop-blur.\n\n[VALIDASI]\nPastikan klik menu mobile dapat membuka dan menutup menu dengan mulus.`,
+          batasan: [
+            "Pastikan semua kuery SQL di @Query bebas dari salah ketik nama tabel atau kolom.",
+          ],
+          hasilAkhir:
+            "Tiga file Kotlin lapisan Room Database yang lolos kompilasi KSP.",
+          validasi:
+            "Menu Build -> Make Project sukses tanpa error dari room-compiler.",
+          rawPrompt: `[TUJUAN]\nMembuat lapisan Room Database lengkap (TaskEntity, TaskDao, dan SakuSiswaDatabase) untuk aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.data, menggunakan Room dengan KSP dan Kotlin Flow.\n\n[INSTRUKSI]\n1. Buat TaskEntity.kt (@Entity(tableName = "tasks")) dengan kolom: id (PrimaryKey autoGenerate), userEmail, subject, title, notes, dueDate, dan isCompleted.\n2. Buat TaskDao.kt (@Dao) yang memuat:\n   - @Query("SELECT * FROM tasks WHERE userEmail = :email ORDER BY isCompleted ASC, id DESC") fun getTasksByUser(email: String): Flow<List<TaskEntity>>\n   - @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertTask(task: TaskEntity)\n   - @Update suspend fun updateTask(task: TaskEntity)\n   - @Delete suspend fun deleteTask(task: TaskEntity)\n3. Buat SakuSiswaDatabase.kt (@Database(entities = [TaskEntity::class], version = 1, exportSchema = false)) dengan pola Singleton.\n4. Jelaskan mengapa urutan "ORDER BY isCompleted ASC, id DESC" membuat tugas yang belum selesai selalu berada di urutan atas.\n\n[BATASAN]\nGunakan import resmi dari androidx.room.* dan kotlinx.coroutines.flow.Flow.\n\n[HASIL AKHIR]\nKode lengkap TaskEntity.kt, TaskDao.kt, dan SakuSiswaDatabase.kt.\n\n[VALIDASI]\nPastikan saat menekan Build -> Make Project, KSP berhasil men-generate SakuSiswaDatabase_Impl tanpa error.`,
         },
-        expected_result: "Navbar tampil mulus di bagian atas website dan dapat dibuka tutup dengan lancar di layar HP.",
+        code_snippets: [
+          {
+            filename: "TaskEntity.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.data
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tasks")
+data class TaskEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val userEmail: String,
+    val subject: String,
+    val title: String,
+    val notes: String = "",
+    val dueDate: String = "Belum ditentukan",
+    val isCompleted: Boolean = false
+)`,
+          },
+          {
+            filename: "TaskDao.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.data
+
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface TaskDao {
+    // READ: Mengambil daftar tugas milik email siswa yang login secara real-time
+    @Query("SELECT * FROM tasks WHERE userEmail = :email ORDER BY isCompleted ASC, id DESC")
+    fun getTasksByUser(email: String): Flow<List<TaskEntity>>
+
+    // CREATE: Menambah tugas baru
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTask(task: TaskEntity)
+
+    // UPDATE: Mengubah isi tugas atau status selesai
+    @Update
+    suspend fun updateTask(task: TaskEntity)
+
+    // DELETE: Menghapus tugas
+    @Delete
+    suspend fun deleteTask(task: TaskEntity)
+}`,
+          },
+          {
+            filename: "SakuSiswaDatabase.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.data
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(
+    entities = [TaskEntity::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class SakuSiswaDatabase : RoomDatabase() {
+    abstract fun taskDao(): TaskDao
+
+    companion object {
+        @Volatile
+        private var INSTANCE: SakuSiswaDatabase? = null
+
+        fun getDatabase(context: Context): SakuSiswaDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    SakuSiswaDatabase::class.java,
+                    "sakusiswa_local.db"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "Ketiga file lapisan database Room selesai dibuat dan proses Build -> Make Project berhasil tanpa error.",
         validation_check: [
-          "Menu desktop tampil rapi di resolusi > 768px",
-          "Hamburger menu membuka drawer menu di layar HP",
+          "TaskEntity, TaskDao, dan SakuSiswaDatabase berada di package data",
+          "Build -> Make Project sukses tanpa pesan error SQL dari Room",
         ],
         common_errors: [
           {
-            error: "Lupa menambahkan baris `'use client'` di baris paling atas komponen yang menggunakan `useState`.",
-            solution: "Tambahkan `'use client';` di baris 1 file komponen agar interaksi state browser dapat berjalan.",
+            error: "Salah ketik nama tabel di @Query, misalnya menulis 'SELECT * FROM task' padahal tableName = 'tasks'.",
+            solution:
+              "Keunggulan Room + KSP adalah ia memeriksa kuery SQL saat kompilasi. Samakan persis nama tabel di @Query dengan yang tertulis di @Entity(tableName = \"tasks\").",
           },
         ],
-        exercise: "Tambahkan badge 'LIVE' dengan animasi denyut (`animate-pulse`) di samping menu Kumpulan Karya.",
+        exercise:
+          "Tambahkan 1 fungsi query opsional di TaskDao untuk menghapus semua tugas yang sudah selesai milik satu user: '@Query(\"DELETE FROM tasks WHERE userEmail = :email AND isCompleted = 1\") suspend fun clearCompletedTasks(email: String)'!",
         quiz: [
           {
-            question: "Class Tailwind apa yang membuat elemen header tetap melayang di posisi atas layar saat pengguna menggulir halaman ke bawah?",
-            options: ["sticky top-0 z-50", "hidden", "static m-0", "absolute bottom-0"],
-            correctIndex: 0,
-            explanation: "sticky top-0 menjaga elemen menempel di puncak viewport browser, dan z-50 memastikannya berada di atas konten lainnya.",
+            question: "Bagaimana cara Room Database mengetahui baris tugas mana yang harus diperbarui saat kita memanggil fungsi @Update updateTask(task: TaskEntity)?",
+            options: [
+              "Berdasarkan warna kartu di layar",
+              "Berdasarkan nilai @PrimaryKey (kolom id) pada objek TaskEntity tersebut",
+              "Secara acak",
+              "Berdasarkan ukuran layar HP",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Anotasi @Update dan @Delete di Room mencocokkan baris di database menggunakan nilai @PrimaryKey (id) dari objek Entity yang dikirimkan.",
           },
         ],
-        references: [{ title: "Tailwind CSS Responsive Design", url: "https://tailwindcss.com/docs/responsive-design" }],
       },
       {
         id: "m5-l3",
         module_id: "modul-5",
         lesson_number: 3,
-        title: "Membuat Komponen Reusable: Button, Card, Badge, Modal",
-        slug: "membuat-komponen-reusable-ui",
-        description: "Membangun pustaka komponen antarmuka mandiri (design system) berbasis arsitektur shadcn/ui.",
-        estimated_minutes: 25,
+        title: "Membuat TaskViewModel: Menghubungkan Room Database dengan State UI",
+        slug: "membuat-task-viewmodel-room",
+        description:
+          "Membangun kelas TaskViewModel yang mengamati perubahan userEmail dan aliran data Flow dari TaskDao, serta menyediakan fungsi addTask(), updateTask(), toggleTaskCompleted(), dan deleteTask().",
+        estimated_minutes: 55,
         order_index: 3,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menguasai pembuatan komponen atomik (Button, Badge, Card, Modal) yang menerima varian warna dan ukuran secara fleksibel.",
-        prerequisites: ["Materi 2: Membuat Navbar Responsif"],
-        concept_explanation:
-          "Dengan membuat pustaka komponen mandiri, Anda tidak perlu mengetik puluhan class Tailwind berulang kali setiap kali membuat tombol baru. Cukup gunakan `<Button variant=\"primary\" size=\"lg\">Simpan</Button>` dan seluruh styling otomatis konsisten di 50 halaman berbeda.",
-        preparation: ["Buka folder `src/components/ui`"],
+        objective:
+          "Siswa mampu membuat TaskViewModel yang menjembatani operasi CRUD Room Database dengan Jetpack Compose menggunakan StateFlow dan viewModelScope.",
+        prerequisites: ["Menyelesaikan Materi 5.2"],
+        concept_explanation: `Kita sudah punya database (\`TaskDao\`) dan sudah punya komponen layar (\`TaskItemCard\`, \`TaskFormDialog\`). Sekarang kita buat sang konduktor orkestra di dalam package **\`viewmodel\`**: **\`TaskViewModel.kt\`**!
+
+Apa saja tugas \`TaskViewModel\`?
+1. Menyimpan email pengguna yang sedang login (\`_currentUserEmail\`).
+2. Menggunakan \`flatMapLatest\` dan \`stateIn\` untuk mengubah \`Flow<List<TaskEntity>>\` dari \`TaskDao\` menjadi **\`StateFlow<List<TaskEntity>>\`** bernama \`tasks\`. Begitu siswa login (atau ganti akun), daftar \`tasks\` otomatis berganti mengikuti email akun tersebut!
+3. Menyediakan 4 fungsi CRUD yang sangat bersih untuk dipanggil dari layar:
+   - **Create**: \`fun addTask(subject: String, title: String, notes: String, dueDate: String)\`
+   - **Read**: variabel \`val tasks: StateFlow<List<TaskEntity>>\`
+   - **Update (Isi Tugas)**: \`fun updateTask(task: TaskEntity, subject: String, title: String, notes: String, dueDate: String)\`
+   - **Update (Centang Selesai)**: \`fun toggleTaskCompleted(task: TaskEntity)\` -> memakai \`task.copy(isCompleted = !task.isCompleted)\`!
+   - **Delete**: \`fun deleteTask(task: TaskEntity)\``,
+        preparation: [
+          "Buka package 'id.smkn1jakarta.sakusiswa.viewmodel' di Android Studio",
+        ],
+        thinking_steps: [
+          "Perhatikan fungsi toggleTaskCompleted(task: TaskEntity): mengapa ekspresi '!task.isCompleted' bisa membalik status dari false menjadi true dan sebaliknya?",
+          "Mengapa semua panggilan dao.insertTask, dao.updateTask, dan dao.deleteTask di dalam ViewModel dibungkus dengan 'viewModelScope.launch { ... }'?",
+        ],
         step_instructions: [
-          "Buat file `src/components/ui/button.tsx` dengan varian: default, outline, ghost, danger.",
-          "Buat file `src/components/ui/badge.tsx` dengan varian: success, warning, neutral, info.",
-          "Buat file `src/components/ui/card.tsx` dengan komponen Card, CardHeader, CardContent, CardFooter.",
-          "Gunakan fungsi utilitas `cn()` dari `src/lib/utils.ts` untuk penggabungan class dinamis yang bersih.",
+          "Klik kanan pada package 'viewmodel' -> New -> Kotlin Class/File -> buat 'TaskViewModel.kt'.",
+          "Tulis kode TaskViewModel beserta ViewModelProvider.Factory agar ViewModel bisa menerima parameter TaskDao.",
+          "Perhatikan bagaimana keempat fungsi CRUD (addTask, updateTask, toggleTaskCompleted, deleteTask) ditulis kurang dari 10 baris per fungsi.",
         ],
         antigravity_prompt: {
-          tujuan: "Membangun set komponen UI inti (Button, Badge, Card) di folder `src/components/ui`.",
-          konteks: "Folder `src/components/ui` proyek Next.js.",
+          tujuan:
+            "Membuat TaskViewModel.kt lengkap dengan operasi CRUD Room Database dan ViewModelFactory.",
+          konteks:
+            "Package id.smkn1jakarta.sakusiswa.viewmodel menggunakan AndroidX Lifecycle ViewModel, StateFlow, dan TaskDao.",
           instruksi: [
-            "Buat `src/components/ui/button.tsx` dengan dukungan props variant, size, loading state, dan icon.",
-            "Buat `src/components/ui/badge.tsx` untuk menampilkan label status.",
-            "Buat `src/components/ui/card.tsx` untuk kontainer konten.",
+            "Buat class TaskViewModel(private val taskDao: TaskDao) : ViewModel().",
+            "Gunakan MutableStateFlow untuk menyimpan email user aktif dan hubungkan ke taskDao.getTasksByUser(email) menggunakan flatMapLatest dan stateIn.",
+            "Implementasikan fungsi setUserEmail, addTask, updateTask, toggleTaskCompleted, dan deleteTask di dalam viewModelScope.launch.",
+            "Sediakan companion object Factory agar TaskViewModel dapat diinstansiasi di MainActivity.",
           ],
-          batasan: ["Gunakan TypeScript yang ketat tanpa tipe any."],
-          hasilAkhir: "Kumpulan komponen UI reusable yang siap dipanggil di seluruh halaman.",
-          validasi: "Komponen dapat menerima className tambahan dan menggabungkannya via `cn()`.",
-          rawPrompt: `[TUJUAN]\nMembuat pustaka komponen UI reusable (Button, Badge, Card).\n\n[KONTEKS]\nTypeScript, Tailwind CSS di src/components/ui/.\n\n[INSTRUKSI]\n1. Buat src/components/ui/button.tsx dengan varian (primary, secondary, outline, ghost, danger) dan ukuran (sm, md, lg).\n2. Buat src/components/ui/badge.tsx dengan varian status (default, success, warning, destructive).\n3. Buat src/components/ui/card.tsx dengan Card, CardHeader, CardTitle, CardContent, CardFooter.\n\n[BATASAN]\nGunakan fungsi utilitas cn() dari @/lib/utils.\n\n[HASIL AKHIR]\nKomponen UI yang bersih dan modular.\n\n[VALIDASI]\nLolos pemeriksaan TypeScript tsc --noEmit.`,
+          batasan: [
+            "Tambahkan @OptIn(ExperimentalCoroutinesApi::class) untuk penggunaan flatMapLatest.",
+          ],
+          hasilAkhir:
+            "File TaskViewModel.kt yang bersih dan bebas memory leak.",
+          validasi:
+            "Semua fungsi CRUD di TaskViewModel terkompilasi tanpa error.",
+          rawPrompt: `[TUJUAN]\nMembuat TaskViewModel.kt untuk mengelola state dan operasi CRUD Room Database pada aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.viewmodel, menggunakan ViewModel, viewModelScope, StateFlow, dan TaskDao.\n\n[INSTRUKSI]\n1. Buat class TaskViewModel(private val taskDao: TaskDao) : ViewModel().\n2. Buat variabel _userEmail = MutableStateFlow("") dan hubungkan dengan taskDao.getTasksByUser(email) menjadi val tasks: StateFlow<List<TaskEntity>> menggunakan flatMapLatest dan stateIn.\n3. Buat fungsi CRUD:\n   - addTask(subject, title, notes, dueDate)\n   - updateTask(task, newSubject, newTitle, newNotes, newDueDate)\n   - toggleTaskCompleted(task)\n   - deleteTask(task)\n4. Buat TaskViewModelFactory untuk menyuntikkan TaskDao ke dalam TaskViewModel.\n5. Jelaskan cara kerja fungsi toggleTaskCompleted yang memanfaatkan task.copy(isCompleted = !task.isCompleted).\n\n[BATASAN]\nPastikan kode aman dan menggunakan viewModelScope.launch untuk setiap operasi tulis database.\n\n[HASIL AKHIR]\nKode lengkap TaskViewModel.kt beserta penjelasan setiap fungsi CRUD.\n\n[VALIDASI]\nPastikan tidak ada error import pada kotlinx.coroutines.flow.*. `,
         },
-        expected_result: "Kumpulan komponen antarmuka yang seragam dan mempercepat pengerjaan modul-modul berikutnya.",
+        code_snippets: [
+          {
+            filename: "TaskViewModel.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import id.smkn1jakarta.sakusiswa.data.TaskDao
+import id.smkn1jakarta.sakusiswa.data.TaskEntity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
+
+    private val _userEmail = MutableStateFlow("")
+
+    val tasks: StateFlow<List<TaskEntity>> = _userEmail
+        .flatMapLatest { email ->
+            if (email.isBlank()) flowOf(emptyList())
+            else taskDao.getTasksByUser(email)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    fun setUserEmail(email: String) {
+        _userEmail.value = email
+    }
+
+    // CREATE
+    fun addTask(subject: String, title: String, notes: String, dueDate: String) {
+        val email = _userEmail.value
+        if (email.isBlank() || title.isBlank()) return
+        viewModelScope.launch {
+            taskDao.insertTask(
+                TaskEntity(
+                    userEmail = email,
+                    subject = subject,
+                    title = title,
+                    notes = notes,
+                    dueDate = dueDate,
+                    isCompleted = false
+                )
+            )
+        }
+    }
+
+    // UPDATE (Edit isi tugas)
+    fun updateTask(
+        task: TaskEntity,
+        newSubject: String,
+        newTitle: String,
+        newNotes: String,
+        newDueDate: String
+    ) {
+        viewModelScope.launch {
+            taskDao.updateTask(
+                task.copy(
+                    subject = newSubject,
+                    title = newTitle,
+                    notes = newNotes,
+                    dueDate = newDueDate
+                )
+            )
+        }
+    }
+
+    // UPDATE (Toggle status selesai/belum)
+    fun toggleTaskCompleted(task: TaskEntity) {
+        viewModelScope.launch {
+            taskDao.updateTask(task.copy(isCompleted = !task.isCompleted))
+        }
+    }
+
+    // DELETE
+    fun deleteTask(task: TaskEntity) {
+        viewModelScope.launch {
+            taskDao.deleteTask(task)
+        }
+    }
+
+    companion object {
+        fun provideFactory(taskDao: TaskDao): ViewModelProvider.Factory =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return TaskViewModel(taskDao) as T
+                }
+            }
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "File TaskViewModel.kt selesai dibuat dan menyediakan seluruh operasi CRUD (Create, Read, Update, Delete) secara reaktif.",
         validation_check: [
-          "Dapat memanggil `<Button>` dan `<Badge>` tanpa error TypeScript",
-          "Komponen merespon event onClick dengan normal",
+          "Keempat operasi CRUD (addTask, tasks StateFlow, updateTask/toggleTaskCompleted, deleteTask) sudah lengkap di dalam TaskViewModel",
         ],
         common_errors: [
           {
-            error: "Menulis class Tailwind hardcoded berulang di 20 file terpisah.",
-            solution: "Bungkus ke dalam komponen reusable di folder `src/components/ui/`.",
+            error: "Lupa memanggil viewModel.setUserEmail(user.email) setelah pengguna berhasil login, sehingga daftar tugas selalu kosong.",
+            solution:
+              "Pastikan begitu pengguna berhasil login (atau sesi ditemukan), email pengguna dikirimkan ke viewModel.setUserEmail(user.email).",
           },
         ],
-        exercise: "Buat varian tombol baru bernama `teal` yang memiliki warna latar `#0D9488` dengan hover `#0F766E`.",
+        exercise:
+          "Jelaskan apa yang terjadi pada aliran data 'val tasks: StateFlow<List<TaskEntity>>' ketika fungsi 'setUserEmail(\"siswa2@gmail.com\")' dipanggil!",
         quiz: [
           {
-            question: "Apa fungsi utama library `clsx` dan `tailwind-merge` yang dibungkus dalam helper function `cn()`?",
+            question: "Coroutine scope manakah yang digunakan di dalam kelas ViewModel untuk menjalankan fungsi suspend DAO secara aman?",
             options: [
-              "Menggabungkan class CSS kondisional dan menyelesaikan konflik duplikasi class Tailwind",
-              "Mengompres ukuran gambar",
-              "Menghubungkan ke database Supabase",
-              "Membuat animasi 3D",
+              "GlobalScope",
+              "viewModelScope",
+              "MainScope",
+              "Thread.sleep",
             ],
-            correctIndex: 0,
-            explanation: "tailwind-merge memastikan class penimpa (override) berhasil mengalahkan class bawaan tanpa konflik prioritas CSS.",
+            correctIndex: 1,
+            explanation:
+              "viewModelScope terikat otomatis dengan siklus hidup ViewModel dan akan membatalkan pekerjaan yang sedang berjalan jika ViewModel dihancurkan, sehingga mencegah kebocoran memori (memory leak).",
           },
         ],
-        references: [{ title: "shadcn/ui Architecture", url: "https://ui.shadcn.com" }],
       },
       {
         id: "m5-l4",
         module_id: "modul-5",
         lesson_number: 4,
-        title: "Optimasi Tampilan Mobile dan Tipografi",
-        slug: "optimasi-tampilan-mobile-dan-tipografi",
-        description: "Menghindari horizontal scroll bug, memastikan ukuran area sentuh minimal 44px, dan optimasi kontras teks di layar kecil.",
-        estimated_minutes: 20,
+        title: "Menyatukan Seluruh Aplikasi: HomeScreen CRUD Lengkap & MainActivity",
+        slug: "menyatukan-homescreen-crud-dan-mainactivity",
+        description:
+          "Merakit HomeScreen.kt yang menghubungkan TaskViewModel, pencarian, filter status, dialog Tambah/Edit/Hapus, serta menghubungkan LoginScreen dan HomeScreen di dalam MainActivity.kt.",
+        estimated_minutes: 55,
         order_index: 4,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menjamin website tampil sempurna di semua ukuran layar smartphone dari iPhone SE hingga layar tablet lebar.",
-        prerequisites: ["Materi 3: Membuat Komponen Reusable"],
-        concept_explanation:
-          "Lebih dari 70% pengguna internet di Indonesia mengakses web melalui smartphone. Desain 'Mobile-First' memastikan elemen tidak meluap keluar layar (overflow-x), tabel dapat digeser dengan anggun, dan ukuran tombol minimal 44x44 pixel agar mudah ditekan jari jempol pengguna.",
-        preparation: ["Gunakan Responsive Mode pada Developer Tools browser (Ctrl+Shift+M / Cmd+Shift+M)"],
+        objective:
+          "Siswa berhasil merakit aplikasi SakuSiswa yang utuh (Login Google -> Tambah Tugas -> Lihat & Cari Tugas -> Edit Tugas -> Centang Selesai -> Hapus Tugas -> Logout) dan menjalankannya di perangkat.",
+        prerequisites: ["Menyelesaikan Materi 5.1 s/d 5.3"],
+        concept_explanation: `Inilah momen puncak di Hari ke-2! Seluruh kepingan puzzle yang sudah kita rancang secara terstruktur sejak Modul 1 kini kita satukan:
+
+1. **\`HomeScreen.kt\`**:
+   - Mengambil daftar tugas terbaru dari \`TaskViewModel\` dengan \`val tasks by viewModel.tasks.collectAsState()\`.
+   - Menyediakan kotak pencarian (\`searchQuery\`) dan 3 \`FilterChip\` (*Semua*, *Aktif*, *Selesai*).
+   - Mengelola 3 state dialog:
+     - \`showAddDialog\` (Boolean) -> membuka \`TaskFormDialog\` untuk **Create**.
+     - \`taskToEdit\` (\`TaskEntity?\`) -> membuka \`TaskFormDialog\` terisi data lama untuk **Update**.
+     - \`taskToDelete\` (\`TaskEntity?\`) -> membuka \`AlertDialog\` konfirmasi untuk **Delete**.
+2. **\`MainActivity.kt\`**:
+   - Menginisialisasi \`SakuSiswaDatabase\`, \`TaskViewModel\`, dan \`GoogleAuthManager\`.
+   - Mengecek apakah ada sesi login yang tersimpan: jika belum ada tampilkan \`LoginScreen\`, jika sudah ada tampilkan \`HomeScreen\`!`,
+        preparation: [
+          "Pastikan GoogleAuthManager, TaskEntity, TaskDao, SakuSiswaDatabase, TaskViewModel, StudentHeaderCard, TaskItemCard, dan TaskFormDialog sudah ada",
+        ],
+        thinking_steps: [
+          "Bagaimana satu komponen TaskFormDialog yang sama bisa kita pakai untuk Tambah Tugas Baru sekaligus Edit Tugas Lama?",
+          "Mengapa kita menggunakan collectAsState() saat membaca viewModel.tasks di dalam fungsi @Composable HomeScreen?",
+        ],
         step_instructions: [
-          "Buka Chrome DevTools dan aktifkan toggle Device Toolbar.",
-          "Uji tampilan di resolusi 375px (iPhone SE).",
-          "Pastikan tidak ada scrollbar horizontal di bagian bawah halaman.",
-          "Terapkan class pembatas: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`.",
+          "Buat file 'HomeScreen.kt' di dalam package 'ui' dan salin/ketik struktur lengkapnya.",
+          "Buka 'MainActivity.kt' dan hubungkan alur pergantian antara LoginScreen dan HomeScreen berdasarkan state 'currentUser'.",
+          "Masukkan WEB_CLIENT_ID dari Google Cloud Console pada konstanta di MainActivity.kt.",
+          "Tekan tombol Run (▶) dan uji seluruh fitur: Login -> Tambah 3 Tugas -> Cari Tugas -> Edit Judul -> Centang Selesai -> Hapus 1 Tugas -> Tutup Aplikasi & Buka Lagi!",
         ],
         antigravity_prompt: {
-          tujuan: "Memeriksa dan memperbaiki kemungkinan overflow horizontal pada layout halaman utama.",
-          konteks: "Layout global di `src/app/layout.tsx` dan `src/app/globals.css`.",
+          tujuan:
+            "Merakit HomeScreen.kt dan MainActivity.kt yang menyatukan Login Google, Room Database, dan seluruh operasi CRUD SakuSiswa.",
+          konteks:
+            "Proyek Android SakuSiswa (id.smkn1jakarta.sakusiswa) dengan Kotlin, Jetpack Compose Material 3, Room, dan Credential Manager.",
           instruksi: [
-            "Pastikan elemen `<body>` memiliki class `min-h-screen bg-slate-50 text-slate-900 antialiased overflow-x-hidden`.",
-            "Terapkan aturan CSS `max-w-full` pada seluruh gambar secara otomatis.",
+            "Buat HomeScreen.kt yang menampilkan TopAppBar, StudentHeaderCard, OutlinedTextField pencarian, FilterChip status, LazyColumn daftar TaskItemCard, dan ExtendedFloatingActionButton.",
+            "Hubungkan dialog tambah tugas (showAddDialog), dialog edit tugas (taskToEdit), dan dialog konfirmasi hapus (taskToDelete) di dalam HomeScreen.kt.",
+            "Perbarui MainActivity.kt untuk memeriksa sesi GoogleAuthManager dan mengarahkan pengguna antara LoginScreen dan HomeScreen.",
           ],
-          batasan: ["Pertahankan scroll vertikal alami browser."],
-          hasilAkhir: "Website 100% bebas dari bug geser kanan-kiri yang merusak pengalaman mobile.",
-          validasi: "Buka halaman di emulator layar 320px dan pastikan halaman terkunci vertikal.",
-          rawPrompt: `[TUJUAN]\nMencegah bug overflow horizontal di seluruh halaman aplikasi.\n\n[KONTEKS]\nsrc/app/globals.css dan src/app/layout.tsx.\n\n[INSTRUKSI]\n1. Buka src/app/globals.css.\n2. Tambahkan aturan CSS global agar gambar tidak melebihi lebar kontainer (img { max-width: 100%; height: auto; }).\n3. Pastikan body memiliki overflow-x-hidden dan smoothing font antialiased.\n\n[BATASAN]\nJangan merusak scrollbar vertikal browser.\n\n[HASIL AKHIR]\nPengalaman scrolling mobile yang kokoh dan halus.\n\n[VALIDASI]\nVerifikasi tidak ada horizontal scroll bar di browser mobile emulator.`,
+          batasan: [
+            "Pastikan seluruh fitur CRUD (Create, Read, Update, Delete) dapat diakses langsung dari layar HomeScreen.",
+          ],
+          hasilAkhir:
+            "Kode lengkap HomeScreen.kt dan MainActivity.kt yang siap dijalankan di HP/Emulator.",
+          validasi:
+            "Data tugas tetap tersimpan di Room Database meskipun aplikasi ditutup paksa dan dibuka kembali.",
+          rawPrompt: `[TUJUAN]\nMenyatukan seluruh komponen ke dalam HomeScreen.kt dan MainActivity.kt sehingga aplikasi SakuSiswa berfungsi penuh.\n\n[KONTEKS]\nAplikasi Android SakuSiswa (package id.smkn1jakarta.sakusiswa) dengan GoogleAuthManager, SakuSiswaDatabase, TaskViewModel, StudentHeaderCard, TaskItemCard, dan TaskFormDialog.\n\n[INSTRUKSI]\n1. Buat HomeScreen.kt yang membaca viewModel.tasks.collectAsState(), menyediakan pencarian judul/mapel, FilterChip (Semua, Belum Selesai, Selesai), dan menampilkan daftar tugas di LazyColumn.\n2. Hubungkan aksi klik tombol "+ Tugas Baru" ke TaskFormDialog (Create), tombol Edit di kartu ke TaskFormDialog (Update), Checkbox ke viewModel.toggleTaskCompleted (Update), dan tombol Delete ke AlertDialog konfirmasi hapus (Delete).\n3. Buat MainActivity.kt yang mengelola state currentUser (SignedInUser?), memanggil viewModel.setUserEmail(), dan menampilkan LoginScreen jika currentUser == null atau HomeScreen jika sudah login.\n\n[BATASAN]\nPastikan kode bersih, lengkap dengan seluruh import yang dibutuhkan.\n\n[HASIL AKHIR]\nKode utuh HomeScreen.kt dan MainActivity.kt.\n\n[VALIDASI]\nBerikan daftar 5 langkah pengujian (checklist) untuk memastikan Login Google dan CRUD Room berjalan sempurna.`,
         },
-        expected_result: "Website nyaman dioperasikan satu tangan melalui smartphone.",
+        code_snippets: [
+          {
+            filename: "HomeScreen.kt",
+            language: "kotlin",
+            code: `package id.smkn1jakarta.sakusiswa.ui
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import id.smkn1jakarta.sakusiswa.data.SignedInUser
+import id.smkn1jakarta.sakusiswa.data.TaskEntity
+import id.smkn1jakarta.sakusiswa.viewmodel.TaskViewModel
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    user: SignedInUser,
+    viewModel: TaskViewModel,
+    onSignOut: () -> Unit
+) {
+    val tasks by viewModel.tasks.collectAsState()
+    var searchQuery by remember { mutableStateOf("") }
+    var filterMode by remember { mutableStateOf("ALL") } // ALL, PENDING, DONE
+
+    var showAddDialog by remember { mutableStateOf(false) }
+    var taskToEdit by remember { mutableStateOf<TaskEntity?>(null) }
+    var taskToDelete by remember { mutableStateOf<TaskEntity?>(null) }
+
+    val filteredTasks = remember(tasks, searchQuery, filterMode) {
+        tasks.filter { task ->
+            val matchFilter = when (filterMode) {
+                "PENDING" -> !task.isCompleted
+                "DONE" -> task.isCompleted
+                else -> true
+            }
+            val q = searchQuery.trim()
+            val matchSearch = q.isEmpty() ||
+                task.title.contains(q, ignoreCase = true) ||
+                task.subject.contains(q, ignoreCase = true)
+            matchFilter && matchSearch
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("SakuSiswa SMKN 1") },
+                actions = {
+                    TextButton(onClick = onSignOut) {
+                        Text("Keluar")
+                    }
+                }
+            )
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { showAddDialog = true },
+                icon = { Icon(Icons.Default.Add, contentDescription = null) },
+                text = { Text("Tugas Baru") }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp)
+        ) {
+            StudentHeaderCard(
+                studentName = user.displayName,
+                studentEmail = user.email,
+                pendingCount = tasks.count { !it.isCompleted },
+                completedCount = tasks.count { it.isCompleted }
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                placeholder = { Text("Cari judul tugas atau mata pelajaran...") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilterChip(
+                    selected = filterMode == "ALL",
+                    onClick = { filterMode = "ALL" },
+                    label = { Text("Semua (\${tasks.size})") }
+                )
+                FilterChip(
+                    selected = filterMode == "PENDING",
+                    onClick = { filterMode = "PENDING" },
+                    label = { Text("Aktif (\${tasks.count { !it.isCompleted }})") }
+                )
+                FilterChip(
+                    selected = filterMode == "DONE",
+                    onClick = { filterMode = "DONE" },
+                    label = { Text("Selesai (\${tasks.count { it.isCompleted }})") }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (filteredTasks.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Belum ada tugas. Tekan tombol + Tugas Baru di kanan bawah!")
+                }
+            } else {
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    contentPadding = PaddingValues(bottom = 88.dp)
+                ) {
+                    items(items = filteredTasks, key = { it.id }) { task ->
+                        TaskItemCard(
+                            subject = task.subject,
+                            title = task.title,
+                            notes = task.notes,
+                            dueDate = task.dueDate,
+                            isCompleted = task.isCompleted,
+                            onToggleComplete = { viewModel.toggleTaskCompleted(task) },
+                            onEditClick = { taskToEdit = task },
+                            onDeleteClick = { taskToDelete = task }
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    if (showAddDialog) {
+        TaskFormDialog(
+            dialogTitle = "Tambah Tugas Baru",
+            onDismiss = { showAddDialog = false },
+            onConfirm = { subject, title, notes, dueDate ->
+                viewModel.addTask(subject, title, notes, dueDate)
+                showAddDialog = false
+            }
+        )
+    }
+
+    taskToEdit?.let { editing ->
+        TaskFormDialog(
+            dialogTitle = "Edit Tugas",
+            initialSubject = editing.subject,
+            initialTitle = editing.title,
+            initialNotes = editing.notes,
+            initialDueDate = editing.dueDate,
+            onDismiss = { taskToEdit = null },
+            onConfirm = { subject, title, notes, dueDate ->
+                viewModel.updateTask(editing, subject, title, notes, dueDate)
+                taskToEdit = null
+            }
+        )
+    }
+
+    taskToDelete?.let { deleting ->
+        AlertDialog(
+            onDismissRequest = { taskToDelete = null },
+            title = { Text("Hapus Tugas?") },
+            text = { Text("Yakin ingin menghapus tugas \\"\${deleting.title}\\"?") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        viewModel.deleteTask(deleting)
+                        taskToDelete = null
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text("Hapus")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { taskToDelete = null }) {
+                    Text("Batal")
+                }
+            }
+        )
+    }
+}`,
+          },
+        ],
+        expected_result:
+          "Aplikasi SakuSiswa berjalan secara utuh dengan fitur Login Google, Room Database lokal, dan keempat operasi CRUD (Create, Read, Update, Delete).",
         validation_check: [
-          "Halaman tidak dapat digeser menyamping ke kiri-kanan secara tidak sengaja",
-          "Tombol memiliki padding yang cukup untuk sentuhan jari",
+          "Dapat menambah tugas baru dan langsung muncul di daftar",
+          "Dapat mengubah judul/mata pelajaran tugas serta mencentang selesai",
+          "Dapat menghapus tugas dengan dialog konfirmasi",
+          "Data tetap ada saat aplikasi ditutup dan dibuka kembali",
         ],
         common_errors: [
           {
-            error: "Menentukan lebar fix menggunakan pixel (misal `w-[600px]`) pada kontainer.",
-            solution: "Gunakan persentase atau batas maksimal seperti `w-full max-w-xl` agar fleksibel mengikuti lebar layar.",
+            error: "Dialog Tambah atau Edit tidak mau tertutup setelah tombol Simpan ditekan.",
+            solution:
+              "Pastikan di dalam blok onConfirm = { ... }, kamu mengatur kembali state 'showAddDialog = false' atau 'taskToEdit = null' setelah memanggil fungsi ViewModel.",
           },
         ],
-        exercise: "Uji halaman web Anda pada resolusi 360x640px di DevTools dan periksa keterbacaan teksnya.",
+        exercise:
+          "Tambahkan minimal 3 tugas sekolah aslimu minggu ini ke dalam aplikasi SakuSiswa, lalu coba cari salah satu tugas menggunakan kotak pencarian!",
         quiz: [
           {
-            question: "Berapa ukuran target sentuh (touch target) minimum yang direkomendasikan Google untuk kenyamanan jari pengguna smartphone?",
-            options: ["44 x 44 pixel", "10 x 10 pixel", "200 x 200 pixel", "5 x 5 pixel"],
+            question: "Fungsi apakah yang dipakai di dalam @Composable HomeScreen untuk mengamati perubahan StateFlow<List<TaskEntity>> dari TaskViewModel?",
+            options: [
+              ".collectAsState()",
+              ".toString()",
+              ".finish()",
+              ".clear()",
+            ],
             correctIndex: 0,
-            explanation: "Standar aksesibilitas mobile menetapkan area sentuh tombol minimal 44x44 pixel agar tidak memicu salah tekan.",
+            explanation:
+              "collectAsState() mengubah aliran StateFlow dari ViewModel menjadi Compose State sehingga setiap kali data di Room Database berubah, layar otomatis melakukan Recomposition.",
           },
         ],
-        references: [{ title: "Google Web Fundamentals - Mobile Accessible", url: "https://web.dev/accessible-tap-targets" }],
       },
     ],
   },
 
   // =========================================================================
-  // MODUL 6: MEMBANGUN DATABASE SUPABASE
+  // MODUL 6 (HARI 3): DEBUGGING LOGCAT, BUILD APK, GITHUB & PENGUMPULAN KARYA
   // =========================================================================
   {
     id: "modul-6",
-    course_id: "course-web-dev-antigravity",
+    course_id: "course-android-compose-smkn1",
     module_number: 6,
-    title: "Membangun Database Cloud dengan Supabase PostgreSQL",
-    slug: "modul-6-membangun-database-supabase",
+    title: "Debugging di Logcat, Kustomisasi Mandiri, Build APK & Pengumpulan Karya",
+    slug: "modul-6-debugging-build-apk-dan-pengumpulan-karya",
     description:
-      "Merancang tabel relasional, primary key, foreign key, menjalankan skrip schema.sql di SQL Editor, mengatur environment variable, dan memahami Row Level Security.",
-    estimated_minutes: 110,
-    difficulty_level: "Menengah",
+      "Hari ke-3 pengerjaan karya mandiri: melatih keterampilan membaca pesan error di Logcat dan Build Output, mempercantik fitur SakuSiswa dengan kreasi sendiri, membuat file APK, mengunggah kode ke GitHub, dan mengumpulkan karya.",
+    estimated_minutes: 210,
+    difficulty_level: "Pemula",
     is_published: true,
     order_index: 6,
     created_at: new Date().toISOString(),
@@ -1331,1959 +2914,437 @@ export const MODULES_DATA: FullModule[] = [
         id: "m6-l1",
         module_id: "modul-6",
         lesson_number: 1,
-        title: "Pengenalan PostgreSQL & Struktur Tabel Relasional",
-        slug: "pengenalan-postgresql-dan-tabel-relasional",
-        description: "Memahami mengapa PostgreSQL adalah database paling handal di dunia dan cara kerja relasi tabel Produk dan Kategori.",
-        estimated_minutes: 20,
+        title: "Seni Debugging Android: Membaca Logcat, Stacktrace & Bertanya Error ke AI",
+        slug: "seni-debugging-android-logcat",
+        description:
+          "Tidak panik saat aplikasi error atau Force Close: memahami perbedaan Compile-Time Error (Build Output) vs Runtime Crash (Logcat), cara menyaring tag package:mine level:error, dan cara menyalin pesan error yang tepat ke AI.",
+        estimated_minutes: 50,
         order_index: 1,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Memahami konsep Primary Key (PK), Foreign Key (FK), tipe data SQL (TEXT, INT, NUMERIC, BOOLEAN, TIMESTAMPTZ), dan integritas data.",
-        prerequisites: ["Modul 2 Materi 3"],
-        concept_explanation:
-          "Dalam database relasional, data disimpan dalam tabel-tabel terpisah yang saling terhubung melalui relasi. Contoh: Tabel `produk` memiliki kolom `kategori_id` yang merujuk ke `id` di tabel `kategori`. Hal ini mencegah data ganda dan memudahkan pembaruan.",
-        preparation: ["Buka Supabase Dashboard di tab SQL Editor"],
+        objective:
+          "Siswa mampu menemukan baris kode penyebab crash menggunakan panel Logcat di Android Studio dan menyusun prompt debugging yang akurat kepada AI.",
+        prerequisites: ["Menyelesaikan Modul 1 s/d 5"],
+        concept_explanation: `Seorang Software Engineer profesional tidak diukur dari "tidak pernah mengalami error", melainkan dari **ketenangan dan ketepatannya membaca petunjuk error (Debugging)**.
+
+Di Android Studio, ada **2 Jenis Error Utama**:
+1. **Compile-Time Error (Muncul saat Build / sebelum aplikasi terbuka)**:
+   - Dilihat di tab **Build** (bagian bawah).
+   - Penyebab umum: Salah ketik nama variabel (\`Unresolved reference\`), lupa import, tipe data tidak cocok (\`Type mismatch\`), atau salah tulis kuery SQL di \`@Query\` Room.
+2. **Runtime Error / Force Close (Aplikasi tiba-tiba keluar saat dijalankan)**:
+   - Dilihat di tab **Logcat** (ikon kucing di bagian bawah Android Studio).
+   - Ketik filter **\`package:mine level:error\`** di kotak pencarian Logcat agar hanya error dari aplikasimu yang tampil berwarna merah!
+   - Cari baris bertuliskan **\`Caused by:\`** diikuti tautan biru nama file dan nomor barismu, misalnya \`at id.smkn1jakarta.sakusiswa.ui.HomeScreenKt(HomeScreen.kt:45)\`. Klik tautan biru itu, dan kursor akan langsung melompat ke baris yang rusak!
+
+**Cara Bijak Bertanya Error ke AI**:
+Jangan pernah hanya mengetik *"Kak AI, aplikasiku keluar sendiri, kenapa ya?"*. Salin **1) Pesan \`Caused by:\` dari Logcat**, **2) Potongan fungsi tempat baris error itu berada**, dan minta AI menjelaskan *mengapa* error itu terjadi sebelum memberikan solusinya!`,
+        preparation: [
+          "Buka panel Logcat di bagian bawah Android Studio",
+          "Ketik 'package:mine level:error' pada bilah filter Logcat",
+        ],
+        thinking_steps: [
+          "Apa bedanya error yang muncul di tab 'Build' dengan error yang muncul di tab 'Logcat'?",
+          "Mengapa baris 'Caused by: ...' dan nomor baris file (misal HomeScreen.kt:45) di Logcat adalah informasi paling berharga saat melakukan debugging?",
+        ],
         step_instructions: [
-          "Buka proyek Supabase Anda.",
-          "Klik menu 'SQL Editor' di sidebar kiri.",
-          "Klik 'New query' untuk menyiapkan lembar kerja SQL kosong.",
-          "Ketahui bahwa skrip database proyek latihan katalog UMKM dipisahkan dari database platform.",
+          "Buka tab Logcat di Android Studio saat aplikasimu sedang berjalan di HP atau Emulator.",
+          "Pada kotak filter Logcat, ketik 'package:mine' untuk menyaring log khusus dari aplikasi SakuSiswa milikmu.",
+          "Tambahkan 'Log.d(\"SakuSiswaDebug\", \"Jumlah tugas dimuat: ${tasks.size}\")' di dalam kode untuk berlatih mencetak pesan pantauan sendiri.",
+          "Pelajari format Prompt Debugging Terstruktur pada kartu prompt di bawah ini.",
         ],
         antigravity_prompt: {
-          tujuan: "Meninjau file skrip latihan siswa `supabase/umkm-exercise-schema.sql` sebelum dieksekusi di Supabase.",
-          konteks: "File `supabase/umkm-exercise-schema.sql`.",
+          tujuan:
+            "Menganalisis pesan error dari Build Output atau Logcat Android Studio secara sistematis bersama AI.",
+          konteks:
+            "Debugging aplikasi Android SakuSiswa (Kotlin, Jetpack Compose, Room Database, Credential Manager).",
           instruksi: [
-            "Periksa tabel yang didefinisikan: `kategori`, `produk`, `pengaturan_toko`, `pesanan`.",
-            "Pastikan tipe data dan constraint foreign key sudah benar.",
+            "Analisis pesan error / stacktrace 'Caused by:' yang saya lampirkan.",
+            "Jelaskan dengan bahasa sederhana untuk siswa kelas 10 apa akar penyebab (root cause) dari error tersebut.",
+            "Tunjukkan baris mana yang harus diperbaiki dan bagaimana cara mencegah error serupa di kemudian hari.",
           ],
-          batasan: ["Hanya verifikasi file tanpa mengubah strukturnya."],
-          hasilAkhir: "Konfirmasi kesiapan skrip database latihan.",
-          validasi: "Skrip SQL bebas dari kesalahan sintaks.",
-          rawPrompt: `[TUJUAN]\nMemverifikasi skrip database latihan UMKM di supabase/umkm-exercise-schema.sql.\n\n[KONTEKS]\nDatabase PostgreSQL di Supabase.\n\n[INSTRUKSI]\n1. Baca isi supabase/umkm-exercise-schema.sql.\n2. Konfirmasi bahwa tabel kategori dan produk memiliki relasi ON DELETE SET NULL.\n3. Pastikan data seed awal (6 produk contoh) tersedia.\n\n[BATASAN]\nOperasi validasi baca file saja.\n\n[HASIL AKHIR]\nLaporan bahwa skrip SQL siap disalin ke SQL Editor Supabase.\n\n[VALIDASI]\nPastikan skrip SQL dapat dijalankan tanpa error di PostgreSQL 15+.`,
+          batasan: [
+            "Jangan mengubah keseluruhan arsitektur file jika error hanya disebabkan oleh satu bagian kecil.",
+          ],
+          hasilAkhir:
+            "Penjelasan akar masalah error dan perbaikan kode yang tepat sasaran.",
+          validasi:
+            "Error merah di Logcat atau Build Output hilang setelah perbaikan diterapkan.",
+          rawPrompt: `[TUJUAN]\nMendiagnosis dan memperbaiki error pada aplikasi Android SakuSiswa berdasarkan pesan Logcat / Build Output.\n\n[KONTEKS]\nProyek Android SakuSiswa (Kotlin, Jetpack Compose, Room Database KSP, Credential Manager).\nBerikut adalah pesan error dari Logcat / Build Output saya:\n"""\n(Tempel baris Caused by: atau pesan error merah di sini)\n"""\nDan berikut adalah potongan kode pada file yang ditunjuk oleh error tersebut:\n"""\n(Tempel 15-30 baris kode di sekitar nomor baris yang error)\n"""\n\n[INSTRUKSI]\n1. Jelaskan terlebih dahulu MENGAPA error ini terjadi dengan bahasa yang mudah dipahami siswa kelas 10 SMK.\n2. Tunjukkan baris mana yang menjadi penyebab utamanya.\n3. Berikan kode perbaikan untuk bagian tersebut.\n\n[BATASAN]\nJangan mengubah nama fungsi atau variabel lain yang sudah berjalan normal.\n\n[HASIL AKHIR]\nPenjelasan penyebab bug dan potongan kode perbaikan.\n\n[VALIDASI]\nSebutkan bagaimana cara saya menguji bahwa bug ini sudah benar-benar sembuh.`,
         },
-        expected_result: "Peserta memahami struktur kolom database sebelum menjalankan perintah SQL.",
+        code_snippets: [
+          {
+            filename: "Panduan-Filter-Logcat.txt",
+            language: "yaml",
+            code: `# Filter Penting di Kotak Pencarian Logcat Android Studio:
+1. Menampilkan hanya error dari aplikasi kita sendiri:
+   package:mine level:error
+
+2. Menampilkan log debug khusus yang kita pasang dengan Log.d("SakuSiswaDebug", "..."):
+   package:mine tag:SakuSiswaDebug
+
+# 3 Error Paling Sering & Artinya:
+- NullPointerException        : Mencoba memanggil data yang bernilai null (kosong).
+- IllegalStateException (Room): Mengubah kolom @Entity setelah aplikasi pernah di-install tanpa menaikkan version database / uninstall aplikasi lama di HP.
+- GetCredentialException      : Konfigurasi SHA-1 atau Web Client ID Google belum cocok, atau HP belum login akun Google.`,
+          },
+        ],
+        expected_result:
+          "Siswa terampil menggunakan filter Logcat (package:mine level:error) dan tahu cara mengatasi perubahan skema Room Database maupun error runtime lainnya.",
         validation_check: [
-          "Mengetahui letak menu SQL Editor di Supabase",
-          "Memahami fungsi Primary Key sebagai identitas unik data",
+          "Dapat menggunakan filter package:mine level:error di Logcat",
+          "Mengetahui bahwa jika menambah/mengubah kolom di @Entity TaskEntity, aplikasi lama di HP cukup di-uninstall lalu di-Run ulang (atau menaikkan version di @Database)",
         ],
         common_errors: [
           {
-            error: "Menyimpan harga produk dengan tipe data teks `VARCHAR` bukan `NUMERIC`.",
-            solution: "Gunakan `NUMERIC` atau `INTEGER` agar harga dapat dihitung, dijumlahkan, dan diurutkan secara matematis.",
+            error: "Aplikasi langsung Force Close setelah siswa menambahkan kolom baru di TaskEntity.kt dengan pesan 'Room cannot verify the data integrity'.",
+            solution:
+              "Karena tabel di HP sudah telanjur dibuat dengan struktur lama, uninstall dulu aplikasi SakuSiswa dari HP/Emulator (atau naikkan angka version = 2 pada @Database di SakuSiswaDatabase.kt), lalu klik Run lagi!",
           },
         ],
-        exercise: "Tuliskan perintah SQL sederhana untuk menampilkan seluruh produk: `SELECT * FROM produk;`.",
+        exercise:
+          "Buka Logcat, ketik filter 'package:mine', lalu coba tambahkan 1 tugas baru di aplikasi dan amati aktivitas log yang muncul!",
         quiz: [
           {
-            question: "Kolom apa yang berfungsi sebagai kunci penghubung antara tabel produk dengan tabel kategori?",
-            options: ["Foreign Key (kategori_id)", "Warna tombol", "URL Vercel", "Judul halaman"],
-            correctIndex: 0,
-            explanation: "Foreign Key mereferensikan Primary Key dari tabel lain untuk membentuk integritas relasional data.",
+            question: "Apa yang harus kamu lakukan jika aplikasi Force Close dengan pesan 'Room cannot verify the data integrity' setelah kamu mengubah kolom di TaskEntity.kt?",
+            options: [
+              "Membeli HP baru",
+              "Meng-uninstall aplikasi SakuSiswa lama di HP/Emulator (atau menaikkan angka version di @Database) lalu klik Run kembali",
+              "Menghapus Android Studio",
+              "Mematikan Wi-Fi",
+            ],
+            correctIndex: 1,
+            explanation:
+              "Room memeriksa kecocokan skema tabel. Saat masa pengembangan, meng-uninstall aplikasi lama di HP atau menaikkan version database (karena kita sudah memakai fallbackToDestructiveMigration) akan membuat ulang tabel dengan struktur baru.",
           },
         ],
-        references: [{ title: "PostgreSQL Tutorial", url: "https://www.postgresqltutorial.com" }],
       },
       {
         id: "m6-l2",
         module_id: "modul-6",
         lesson_number: 2,
-        title: "Menjalankan Skrip Schema SQL di Supabase",
-        slug: "menjalankan-skrip-schema-sql-supabase",
-        description: "Eksekusi satu klik pembuatan tabel kategori, produk, pengaturan_toko, dan data benih (seed) di Supabase SQL Editor.",
-        estimated_minutes: 25,
+        title: "Eksplorasi & Kreasi Mandiri: Menambahkan Fitur Pembeda Karya",
+        slug: "eksplorasi-dan-kreasi-mandiri-sakusiswa",
+        description:
+          "Saatnya membuat aplikasi SakuSiswa milikmu unik! Menambahkan minimal 1 fitur kreasi mandiri (seperti Tingkat Prioritas Tugas, Kategori Warna Mata Pelajaran, atau Progress Bar Persentase Selesai) menggunakan alur berpikir terstruktur.",
+        estimated_minutes: 60,
         order_index: 2,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu mengeksekusi DDL (Data Definition Language) di Supabase dan memeriksa data yang berhasil dibuat di Table Editor.",
-        prerequisites: ["Materi 1: Pengenalan PostgreSQL"],
-        concept_explanation:
-          "Menjalankan skrip SQL adalah cara paling profesional membuat puluhan tabel dan ratusan data contoh secara instan dan dapat direproduksi kapan saja (reproducible infrastructure) dibandingkan membuat kolom satu per satu secara manual di GUI.",
-        preparation: ["Salin seluruh isi file `supabase/umkm-exercise-schema.sql`"],
+        objective:
+          "Siswa mampu merancang dan mengimplementasikan minimal 1 fitur tambahan pada aplikasi SakuSiswa secara mandiri dengan bantuan diskusi AI terstruktur.",
+        prerequisites: ["Aplikasi inti SakuSiswa sudah berjalan lancar"],
+        concept_explanation: `Di Hari ke-3 ini, setiap siswa memiliki proyek **SakuSiswa** yang sudah memenuhi syarat utama: **Login Google + Room Database Lokal + CRUD Lengkap**. Agar karyamu meraih nilai terbaik dan mencerminkan kreativitasmu sendiri, pilih **minimal 1 fitur pengayaan** berikut untuk kamu tambahkan:
+
+1. **Ide 1 — Progress Bar Penyelesaian Tugas di Header**:
+   Menampilkan \`LinearProgressIndicator\` di dalam \`StudentHeaderCard\` yang menunjukkan persentase tugas yang sudah selesai (misal: \`Selesai 3 dari 4 tugas (75%)\`).
+2. **Ide 2 — Label Prioritas Tugas (Tinggi / Sedang / Santai)**:
+   Menambahkan pilihan prioritas pada \`TaskEntity\` dan \`TaskFormDialog\`, lalu memberi warna badge berbeda di \`TaskItemCard\` (Merah untuk Tinggi, Kuning untuk Sedang, Hijau untuk Santai).
+3. **Ide 3 — Tombol "Bersihkan Tugas Selesai"**:
+   Menambahkan tombol di \`TopAppBar\` untuk menghapus seluruh tugas yang sudah dicentang selesai sekaligus dengan konfirmasi.
+4. **Ide 4 — Kustomisasi Palet Warna Tema Sekolah / Pribadi**:
+   Mengubah skema warna Material 3 di \`ui/theme/Color.kt\` dan \`Theme.kt\` sesuai identitas desain pilihanmu.`,
+        preparation: [
+          "Pilih 1 atau 2 ide fitur tambahan yang paling kamu sukai",
+          "Tulis dulu rancangan perubahannya di catatan (file mana saja yang akan disentuh)",
+        ],
+        thinking_steps: [
+          "Jika kamu memilih menambahkan kolom 'priority: String' pada TaskEntity, file apa saja yang ikut perlu disesuaikan secara berurutan (Entity -> ViewModel -> FormDialog -> ItemCard)?",
+          "Bagaimana cara menghitung persentase tugas selesai (0f sampai 1f) dengan aman tanpa terkena error pembagian dengan nol (Divide by Zero) saat total tugas masih 0?",
+        ],
         step_instructions: [
-          "Buka file `supabase/umkm-exercise-schema.sql` di proyek Anda dan klik tombol COPY.",
-          "Di browser, buka dashboard Supabase -> menu 'SQL Editor' -> 'New query'.",
-          "Tempel (paste) kode SQL ke dalam editor.",
-          "Klik tombol hijau 'Run' di pojok kanan bawah editor.",
-          "Tunggu hingga muncul notifikasi 'Success. No rows returned'.",
-          "Klik menu 'Table Editor' di sidebar kiri dan amati tabel `kategori` dan `produk` sudah terisi data contoh.",
+          "Pilih 1 fitur tambahan dan tuliskan alur Input-Proses-Output-nya di catatanmu.",
+          "Susun prompt 6-bagianmu sendiri untuk berdiskusi dengan AI mengenai cara menambahkan fitur tersebut.",
+          "Terapkan kodenya bertahap dari lapisan data -> viewmodel -> ui.",
+          "Uji fitur barumu di HP/Emulator dan pastikan fitur lama (Login & CRUD) tetap berjalan lancar!",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat prompt verifikasi konektivitas database yang siap disalin oleh siswa ke Antigravity.",
-          konteks: "Langkah verifikasi setelah menjalankan skrip database.",
+          tujuan:
+            "Menambahkan indikator progress bar persentase penyelesaian tugas dan badge prioritas pada aplikasi SakuSiswa.",
+          konteks:
+            "Aplikasi Android SakuSiswa yang sudah memiliki StudentHeaderCard, TaskEntity, TaskViewModel, dan TaskItemCard.",
           instruksi: [
-            "Tuliskan prompt yang meminta Antigravity membuat file helper koneksi Supabase di `lib/supabase.js` atau `lib/supabase/client.ts`.",
-            "Pastikan helper membaca `SUPABASE_URL` dan `SUPABASE_SECRET_KEY` atau anon key dari process.env.",
+            "Tunjukkan cara menghitung nilai progress (Float antara 0f sampai 1f) secara aman ketika total tugas = 0 maupun > 0.",
+            "Tambahkan komponen LinearProgressIndicator Material 3 beserta teks persentase di dalam StudentHeaderCard.",
+            "Jelaskan langkah-langkah jika saya juga ingin menambahkan kolom 'priority' (Tinggi, Sedang, Rendah) mulai dari TaskEntity hingga TaskItemCard.",
           ],
-          batasan: ["Gunakan library resmi @supabase/supabase-js."],
-          hasilAkhir: "Prompt siap salin yang langsung membuat klien koneksi database.",
-          validasi: "Klien dapat meng-query tabel produk tanpa crash.",
-          rawPrompt: `[TUJUAN]\nMembuat modul koneksi database Supabase di src/lib/supabase/exercise-client.ts.\n\n[KONTEKS]\nNext.js 15, @supabase/supabase-js.\n\n[INSTRUKSI]\n1. Buat file src/lib/supabase/exercise-client.ts.\n2. Inisialisasi klien Supabase menggunakan variabel environment SUPABASE_URL dan SUPABASE_ANON_KEY.\n3. Ekspor fungsi getExerciseProducts() yang mengambil data dari tabel 'produk' berelasi ke 'kategori'.\n\n[BATASAN]\nTangani kondisi gracefully jika variabel environment belum diisi (kembalikan data mock).\n\n[HASIL AKHIR]\nModul koneksi database yang aman dan anti-crash.\n\n[VALIDASI]\nUji import modul tanpa error.`,
+          batasan: [
+            "Jangan merusak fungsi CRUD yang sudah berjalan.",
+          ],
+          hasilAkhir:
+            "Kode peningkatan fitur StudentHeaderCard dan panduan penambahan kolom prioritas.",
+          validasi:
+            "Progress bar bergerak naik secara otomatis saat tugas dicentang selesai.",
+          rawPrompt: `[TUJUAN]\nMenambahkan fitur Progress Bar persentase ketuntasan tugas pada StudentHeaderCard di aplikasi SakuSiswa.\n\n[KONTEKS]\nKomponen StudentHeaderCard(studentName, studentEmail, pendingCount, completedCount) pada proyek Android Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Hitung total tugas (val total = pendingCount + completedCount) dan rasio progress (val progress = if (total > 0) completedCount.toFloat() / total else 0f).\n2. Tampilkan LinearProgressIndicator(progress = { progress }) dan teks persentase "\${(progress * 100).toInt()}% tugas tuntas" di bawah kotak statistik.\n3. Jelaskan mengapa kita wajib memeriksa "if (total > 0)" sebelum melakukan pembagian.\n\n[BATASAN]\nTetap gunakan komponen resmi Material 3.\n\n[HASIL AKHIR]\nKode StudentHeaderCard.kt yang sudah dilengkapi Progress Bar ketuntasan.\n\n[VALIDASI]\nPastikan aplikasi tidak error saat daftar tugas masih kosong (0 tugas).`,
         },
-        expected_result: "Tabel `produk` berisi 6 item produk contoh UMKM lengkap dengan foto, nama, dan harga.",
+        code_snippets: [
+          {
+            filename: "RumusProgressAman.kt",
+            language: "kotlin",
+            code: `val totalTasks = pendingCount + completedCount
+val completionRatio: Float = if (totalTasks > 0) {
+    completedCount.toFloat() / totalTasks.toFloat()
+} else {
+    0f
+}
+val percentageText = "\${(completionRatio * 100).toInt()}% Tugas Selesai"
+
+Spacer(modifier = Modifier.height(12.dp))
+Text(text = percentageText, style = MaterialTheme.typography.labelMedium)
+Spacer(modifier = Modifier.height(4.dp))
+LinearProgressIndicator(
+    progress = { completionRatio },
+    modifier = Modifier
+        .fillMaxWidth()
+        .height(8.dp)
+)`,
+          },
+        ],
+        expected_result:
+          "Aplikasi SakuSiswa milik siswa memiliki fitur pembeda hasil kreasi dan pemikiran terstruktur sendiri.",
         validation_check: [
-          "Buka Table Editor -> tabel `produk` memiliki 6 baris data",
-          "Buka Table Editor -> tabel `kategori` memiliki 3 baris data",
+          "Minimal 1 fitur kreasi tambahan berfungsi dengan baik",
+          "Siswa dapat menjelaskan alur kode fitur tambahan tersebut kepada guru/fasilitator",
         ],
         common_errors: [
           {
-            error: "Error: relation \"produk\" does not exist saat aplikasi web dijalankan.",
-            solution: "Skrip database belum dijalankan di Supabase. Ulangi langkah membuka SQL Editor dan klik tombol 'Run'.",
+            error: "Langsung membagi completedCount / totalTasks tanpa mengecek apakah totalTasks == 0.",
+            solution:
+              "Selalu gunakan percabangan 'if (totalTasks > 0) ... else 0f' agar tidak menghasilkan nilai NaN (Not a Number) ketika daftar tugas masih kosong.",
           },
         ],
-        exercise: "Di Supabase Table Editor, ubah harga salah satu produk dari 28000 menjadi 30000 dan amati perubahannya tersimpan instan.",
+        exercise:
+          "Ubah juga warna utama di ui/theme/Color.kt agar tampilan SakuSiswa milikmu memiliki karakter warna khasmu sendiri!",
         quiz: [
           {
-            question: "Di mana Anda dapat memeriksa dan mengedit data tabel secara visual di dashboard Supabase seperti lembar kerja spreadsheet?",
-            options: ["Table Editor", "Storage", "Authentication", "Logs"],
+            question: "Mengapa kita perlu memeriksa 'if (totalTasks > 0)' sebelum menghitung 'completedCount.toFloat() / totalTasks'?",
+            options: [
+              "Untuk mencegah hasil pembagian 0/0 (NaN) ketika pengguna baru pertama kali masuk dan belum memiliki tugas",
+              "Supaya ukuran huruf menjadi lebih besar",
+              "Karena Kotlin tidak bisa menghitung pembagian",
+              "Agar koneksi internet lebih cepat",
+            ],
             correctIndex: 0,
-            explanation: "Table Editor di Supabase menyediakan tampilan GUI mirip spreadsheet untuk melihat, menyaring, dan mengubah isi baris data.",
+            explanation:
+              "Membagi 0.0f dengan 0.0f di floating-point menghasilkan NaN (Not a Number) yang dapat membuat komponen grafik/progress bar gagal digambar.",
           },
         ],
-        references: [{ title: "Supabase SQL Editor Guide", url: "https://supabase.com/docs/guides/database/tables" }],
       },
       {
         id: "m6-l3",
         module_id: "modul-6",
         lesson_number: 3,
-        title: "Konfigurasi Environment Variable: Lokal & Vercel",
-        slug: "konfigurasi-environment-variable-lokal-dan-vercel",
-        description: "Menghubungkan kunci API Supabase ke file `.env.local` di laptop dan ke dashboard Environment Variables di Vercel.",
-        estimated_minutes: 25,
+        title: "Build File APK Android & Mengunggah Proyek ke Repository GitHub",
+        slug: "build-apk-dan-push-github",
+        description:
+          "Merakit kode menjadi file installer Android (.apk) yang bisa dipasang di HP tanpa kabel, serta mengunggah seluruh source code proyek SakuSiswa ke repository publik GitHub menggunakan Git.",
+        estimated_minutes: 50,
         order_index: 3,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Menyambungkan kredensial Supabase ke aplikasi tanpa pernah mengekspos kunci rahasia ke publik.",
-        prerequisites: ["Materi 2: Menjalankan Skrip Schema SQL"],
-        concept_explanation:
-          "Environment variable adalah pasangan Kunci dan Nilai (Key-Value) yang dibaca oleh aplikasi saat runtime. File `.env.local` digunakan khusus di komputer lokal Anda, sedangkan di server Vercel diatur melalui menu Project Settings -> Environment Variables.",
+        objective:
+          "Siswa berhasil menghasilkan file app-debug.apk dan mengunggah seluruh proyek SakuSiswa ke repository GitHub publik miliknya.",
+        prerequisites: ["Memiliki akun GitHub dan Git sudah terpasang di laptop"],
+        concept_explanation: `Setelah aplikasi SakuSiswa selesai diuji, ada 2 hasil karya fisik yang wajib kamu siapkan:
+
+1. **File Installer Android (\`app-debug.apk\`)**:
+   - Dibuat melalui menu **\`Build -> Build Bundle(s) / APK(s) -> Build APK(s)\`** di Android Studio.
+   - Setelah selesai, klik tautan **\`locate\`** pada notifikasi yang muncul di pojok kanan bawah. Kamu akan menemukan file \`app-debug.apk\` di dalam folder \`app/build/outputs/apk/debug/\`.
+   - File \`.apk\` ini bisa kamu unggah ke **GitHub Releases** atau **Google Drive** agar guru maupun temanmu bisa mencobanya!
+2. **Repository GitHub Publik**:
+   - Tempat menyimpan seluruh kode sumber (*source code*) proyekmu secara profesional.
+   - Proyek Android Studio yang dibuat dari template resmi sudah otomatis memiliki file **\`.gitignore\`** sehingga folder berat seperti \`build/\` dan \`.gradle/\` tidak ikut terunggah ke GitHub.`,
         preparation: [
-          "Buka Supabase -> Project Settings -> Data API",
-          "Buka Vercel -> Project Settings -> Environment Variables",
+          "Login ke akun github.com di browser",
+          "Buka tab Terminal di Android Studio",
+        ],
+        thinking_steps: [
+          "Mengapa folder 'build/' dan '.gradle/' tidak boleh ikut di-push ke GitHub dan sudah otomatis dikecualikan oleh file .gitignore?",
+          "Mengapa repository GitHub yang dikumpulkan harus diatur sebagai 'Public' (bukan Private)?",
         ],
         step_instructions: [
-          "Di Supabase, salin nilai: 1. Project URL, 2. anon public key, 3. service_role secret key.",
-          "Di laptop Anda, buka file `.env.local` dan isi nilainya:\n`NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co`\n`NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJh...`\n`SUPABASE_SERVICE_ROLE_KEY=eyJh...`.",
-          "Di Vercel, buka menu Settings -> Environment Variables, masukkan ketiga pasangan key-value yang sama.",
-          "PENTING: Di Vercel, lakukan Redeploy agar variabel lingkungan baru diterapkan ke server live.",
+          "Di menu atas Android Studio, klik 'Build -> Build Bundle(s) / APK(s) -> Build APK(s)'.",
+          "Tunggu hingga muncul notifikasi 'Build APK(s): APK(s) generated successfully', lalu klik 'locate' dan salin file 'app-debug.apk' ke tempat yang mudah ditemukan (dan ganti namanya menjadi 'SakuSiswa-NamaKamu.apk').",
+          "Buka github.com -> klik tombol '+' -> 'New repository' -> beri nama 'sakusiswa-android', pilih 'Public', jangan centang Add a README, lalu klik 'Create repository'.",
+          "Buka Terminal di Android Studio, lalu jalankan perintah git init, git add ., git commit, dan git push sesuai blok kode di bawah.",
         ],
         antigravity_prompt: {
-          tujuan: "Membuat skrip verifikasi koneksi Supabase untuk memastikan environment variables terbaca dengan benar.",
-          konteks: "Skrip pengujian di `test/verify-connection.mjs`.",
+          tujuan:
+            "Memahami langkah build APK dan perintah Git untuk mengunggah proyek Android Studio ke GitHub.",
+          konteks:
+            "Proyek Android Studio SakuSiswa yang siap dipublikasikan ke repository GitHub publik.",
           instruksi: [
-            "Buat skrip `test/verify-connection.mjs`.",
-            "Baca variabel lingkungan menggunakan process.env.",
-            "Coba query sederhana ke tabel Supabase dan laporkan status: 'Koneksi Berhasil' atau 'Variabel Belum Terisi'.",
+            "Tuliskan urutan perintah Git dari git init hingga git push -u origin main di terminal Android Studio.",
+            "Jelaskan cara mengunggah file APK ke fitur 'Releases' di repository GitHub agar memiliki link unduhan langsung.",
+            "Jelaskan solusi jika muncul error 'remote origin already exists' saat menjalankan git remote add.",
           ],
-          batasan: ["Jangan cetak nilai rahasia secret key ke terminal."],
-          hasilAkhir: "Skrip diagnostik koneksi database.",
-          validasi: "Jalankan skrip dan periksa respon terminal.",
-          rawPrompt: `[TUJUAN]\nMembuat skrip diagnostik koneksi Supabase di test/verify-connection.mjs.\n\n[KONTEKS]\nNode.js ESM, @supabase/supabase-js.\n\n[INSTRUKSI]\n1. Buat test/verify-connection.mjs.\n2. Cek apakah NEXT_PUBLIC_SUPABASE_URL dan SUPABASE_ANON_KEY bernilai valid.\n3. Lakukan ping query ringan (SELECT 1 atau fetch limit 1 dari produk).\n4. Cetak log bersahabat yang memberi tahu siswa apakah koneksi mereka sudah tersambung ke cloud atau masih offline.\n\n[BATASAN]\nJangan log string rahasia API key secara utuh.\n\n[HASIL AKHIR]\nAlat bantu diagnostik mandiri bagi peserta workshop.\n\n[VALIDASI]\nUji eksekusi dengan 'node test/verify-connection.mjs'.`,
+          batasan: [
+            "Berikan perintah terminal yang aman dan jelas.",
+          ],
+          hasilAkhir:
+            "Urutan perintah Git dan cara membuat GitHub Release untuk file APK.",
+          validasi:
+            "Folder app/src/main dan file build.gradle.kts terlihat di halaman repository GitHub.",
+          rawPrompt: `[TUJUAN]\nMengunggah proyek Android SakuSiswa ke GitHub dan mempublikasikan file APK lewat GitHub Releases.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK sudah menyelesaikan aplikasi SakuSiswa di Android Studio dan sudah menghasilkan file app-debug.apk.\n\n[INSTRUKSI]\n1. Berikan urutan perintah Git di Terminal Android Studio mulai dari git init, git add ., git commit, git branch -M main, git remote add origin, hingga git push -u origin main.\n2. Jelaskan solusi jika saat git remote add origin muncul pesan "error: remote origin already exists".\n3. Berikan langkah mudah mengunggah file SakuSiswa.apk ke menu "Releases -> Create a new release" di halaman repository GitHub saya.\n\n[BATASAN]\nGunakan langkah singkat yang mudah diikuti pemula.\n\n[HASIL AKHIR]\nPanduan push GitHub dan pembuatan link unduhan APK.\n\n[VALIDASI]\nPastikan repository berstatus Public dan menampilkan folder app/ serta build.gradle.kts.`,
         },
-        expected_result: "Aplikasi lokal maupun aplikasi di Vercel berhasil membaca data dari cloud database Supabase.",
+        code_snippets: [
+          {
+            filename: "Perintah-Git-Push-Android.sh",
+            language: "bash",
+            code: `# Jalankan di tab Terminal Android Studio:
+git init
+git add .
+git commit -m "feat: aplikasi Android SakuSiswa dengan Room CRUD dan Google Login"
+git branch -M main
+git remote add origin https://github.com/USERNAME_KAMU/sakusiswa-android.git
+git push -u origin main`,
+          },
+        ],
+        expected_result:
+          "File APK berhasil dibuat dan seluruh kode proyek SakuSiswa berhasil tampil di repository GitHub publik milik siswa.",
         validation_check: [
-          "Variabel tersimpan di `.env.local` di komputer peserta",
-          "Variabel tersimpan di dashboard Vercel dengan centang Production & Preview",
+          "Memiliki file .apk hasil Build APK(s)",
+          "Link github.com/username/sakusiswa-android dapat dibuka dan menampilkan folder app serta build.gradle.kts",
         ],
         common_errors: [
           {
-            error: "Baru mengubah `.env.local` tapi di browser data lama masih muncul.",
-            solution: "Next.js membaca file env saat server pertama kali dinyalakan. Hentikan server (Ctrl+C) lalu jalankan lagi `npm run dev`.",
-          },
-          {
-            error: "Di laptop berhasil, tapi di link Vercel data produk tidak muncul.",
-            solution: "Environment variable di Vercel belum diisi atau Anda belum melakukan Redeploy (Deployments -> titik tiga -> Redeploy).",
+            error: "Mengunggah hanya 1 file MainActivity.kt secara manual ke GitHub tanpa folder app/ dan build.gradle.kts.",
+            solution:
+              "Gunakan perintah 'git add .' dari folder akar proyek di Terminal Android Studio agar seluruh struktur proyek Android ikut terunggah secara utuh.",
           },
         ],
-        exercise: "Hentikan `npm run dev` dengan Ctrl+C, lalu jalankan kembali dan perhatikan apakah ada pesan error env.",
+        exercise:
+          "Unggah file APK yang sudah kamu build ke menu 'Releases' di sisi kanan halaman repository GitHub-mu (atau ke Google Drive dengan akses 'Siapa saja yang memiliki link')!",
         quiz: [
           {
-            question: "Apa yang wajib dilakukan di Vercel setelah Anda menambahkan atau mengubah nilai Environment Variable baru?",
+            question: "Menu manakah di Android Studio yang digunakan untuk menghasilkan file installer .apk yang siap dipasang di HP Android?",
             options: [
-              "Melakukan Redeploy deployment agar kode dikompilasi ulang dengan env baru",
-              "Menghapus akun GitHub",
-              "Mengganti nama domain",
-              "Menginstal ulang browser",
+              "File -> Close Project",
+              "Build -> Build Bundle(s) / APK(s) -> Build APK(s)",
+              "View -> Appearance",
+              "Help -> About",
             ],
-            correctIndex: 0,
-            explanation: "Variabel lingkungan disuntikkan saat proses build; oleh karena itu redeploy wajib dilakukan agar aplikasi live membacanya.",
+            correctIndex: 1,
+            explanation:
+              "Menu Build -> Build Bundle(s) / APK(s) -> Build APK(s) merakit proyek menjadi file app-debug.apk di dalam folder app/build/outputs/apk/debug/.",
           },
         ],
-        references: [{ title: "Vercel Environment Variables", url: "https://vercel.com/docs/projects/environment-variables" }],
       },
       {
         id: "m6-l4",
         module_id: "modul-6",
         lesson_number: 4,
-        title: "Memahami dan Mengonfigurasi Row Level Security (RLS)",
-        slug: "memahami-dan-mengonfigurasi-rls",
-        description: "Prinsip keamanan tingkat baris di PostgreSQL: publik hanya boleh membaca produk aktif, admin memiliki hak penuh.",
-        estimated_minutes: 20,
+        title: "Menyusun README.md Profesional & Mengumpulkan Karya di ComposeLab",
+        slug: "menyusun-readme-dan-kumpulkan-karya",
+        description:
+          "Melengkapi repository GitHub dengan dokumentasi README.md yang menjelaskan arsitektur aplikasi, daftar fitur CRUD, dan cara kerja, lalu mengirimkan karya melalui halaman Kumpulan Karya.",
+        estimated_minutes: 50,
         order_index: 4,
         is_published: true,
         created_at: new Date().toISOString(),
-        objective: "Mampu menulis dan menerapkan kebijakan RLS di Supabase untuk mencegah kebocoran atau perusakan data oleh pihak luar.",
-        prerequisites: ["Materi 3: Konfigurasi Environment Variable"],
-        concept_explanation:
-          "Secara default di Supabase, Row Level Security (RLS) mengunci seluruh tabel sehingga tidak ada data yang bisa dibaca atau ditulis oleh siapapun dari luar. Anda harus secara eksplisit menulis Policy (Kebijakan). Misalnya: 'Izinkan siapapun SELECT data dari tabel produk jika `is_tersedia = true`'.",
-        preparation: ["Buka Supabase -> menu Authentication -> Policies"],
-        step_instructions: [
-          "Buka menu Authentication -> Policies di Supabase.",
-          "Perhatikan label 'RLS Enabled' berwarna hijau di samping nama tabel.",
-          "Pahami struktur perintah policy:\n`CREATE POLICY \"Nama Kebijakan\" ON public.nama_tabel FOR SELECT USING (true);`.",
-          "Pastikan tabel `pesanan` mengizinkan INSERT dari publik agar pembeli dapat mengirim pesanan.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Mengecek status RLS pada seluruh tabel di skema public database.",
-          konteks: "Query audit keamanan di Supabase SQL Editor.",
-          instruksi: [
-            "Tuliskan perintah query SQL untuk memeriksa tabel mana yang belum mengaktifkan RLS.",
-            "Sediakan perintah `ALTER TABLE <nama> ENABLE ROW LEVEL SECURITY;` untuk mengamankannya.",
-          ],
-          batasan: ["Hanya query audit keamanan standar PostgreSQL."],
-          hasilAkhir: "Query audit RLS siap pakai.",
-          validasi: "Semua tabel aplikasi terlindungi RLS.",
-          rawPrompt: `[TUJUAN]\nMembuat query audit keamanan Row Level Security (RLS) di PostgreSQL.\n\n[KONTEKS]\nSupabase PostgreSQL security checklist (K-6 hingga K-13).\n\n[INSTRUKSI]\n1. Buat query SQL yang memeriksa kolom rowsecurity pada tabel pg_tables untuk schemaname = 'public'.\n2. Tampilkan daftar tabel yang belum mengaktifkan RLS.\n3. Berikan sintaks perbaikan untuk mengaktifkannya.\n\n[BATASAN]\nQuery analitis non-destruktif.\n\n[HASIL AKHIR]\nSkrip audit keamanan database yang menyeluruh.\n\n[VALIDASI]\nPastikan query dapat dieksekusi di Supabase SQL Editor.`,
-        },
-        expected_result: "Semua tabel memiliki status RLS aktif sehingga database kebal dari serangan injeksi API anonim.",
-        validation_check: [
-          "Tabel `produk`, `kategori`, `pengaturan_toko`, dan `pesanan` memiliki kebijakan RLS aktif",
-          "Pengguna anonim tidak dapat menghapus (DELETE) data produk",
-        ],
-        common_errors: [
-          {
-            error: "Lupa mengaktifkan RLS sehingga siapapun yang mengetahui Project URL bisa menghapus tabel via API.",
-            solution: "Selalu aktifkan `ALTER TABLE nama_tabel ENABLE ROW LEVEL SECURITY;` pada setiap tabel yang dibuat.",
-          },
-        ],
-        exercise: "Tuliskan satu policy di Supabase yang hanya mengizinkan pengguna terautentikasi (auth.role() = 'authenticated') untuk mengedit produk.",
-        quiz: [
-          {
-            question: "Apa kepanjangan dan kegunaan dari RLS dalam PostgreSQL Supabase?",
-            options: [
-              "Row Level Security: Membatasi hak akses baris data berdasarkan identitas dan aturan hak akses pengguna",
-              "Real Live Streaming: Menyiarkan video langsung ke YouTube",
-              "Random Layout System: Mengacak tata letak tombol",
-              "Remote Log Storage: Menyimpan catatan error di printer",
-            ],
-            correctIndex: 0,
-            explanation: "Row Level Security menyaring baris mana yang boleh di-SELECT, di-INSERT, di-UPDATE, atau di-DELETE berdasarkan aturan SQL yang Anda tetapkan.",
-          },
-        ],
-        references: [{ title: "Supabase Row Level Security Guide", url: "https://supabase.com/docs/guides/database/postgres/row-level-security" }],
-      },
-    ],
-  },
+        objective:
+          "Siswa mampu menulis dokumentasi README.md yang terstruktur, mengambil screenshot aplikasi, dan mengumpulkan karya di platform ComposeLab SMKN 1.",
+        prerequisites: ["Repository GitHub sudah online dan aplikasi sudah berjalan"],
+        concept_explanation: `Karya seorang Software Engineer belum lengkap tanpa **Dokumentasi (\`README.md\`)**. Ketika guru, juri, atau perekrut membuka repository GitHub milikmu, file \`README.md\` adalah halaman sampul pertama yang mereka baca—dan juga dinilai secara otomatis oleh sistem penilai AI di **ComposeLab SMKN 1**!
 
-  // =========================================================================
-  // MODUL 7: MEMBANGUN APLIKASI KATALOG UMKM (CORE WORKSHOP PROJECT)
-  // =========================================================================
-  {
-    id: "modul-7",
-    course_id: "course-web-dev-antigravity",
-    module_number: 7,
-    title: "Membangun Aplikasi Katalog UMKM (Studi Kasus Nyata)",
-    slug: "modul-7-membangun-aplikasi-katalog-umkm",
-    description:
-      "Mengembangkan fitur inti US-01 sampai US-06 sesuai lembar kerja referensi: katalog database, detail dinamis, pemesanan WhatsApp, autentikasi admin, dan proteksi middleware.",
-    estimated_minutes: 180,
-    difficulty_level: "Menengah",
-    is_published: true,
-    order_index: 7,
-    created_at: new Date().toISOString(),
-    lessons: [
-      {
-        id: "m7-l1",
-        module_id: "modul-7",
-        lesson_number: 1,
-        title: "US-01: Menghubungkan Halaman Katalog ke Database Supabase",
-        slug: "us-01-katalog-dari-database",
-        description: "Mengganti data statis menjadi query dinamis dari tabel `produk` di sisi server Next.js (Server Component).",
-        estimated_minutes: 25,
-        order_index: 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menguasai Server-Side Data Fetching di Next.js App Router menggunakan Supabase client tanpa membocorkan API key ke browser.",
-        prerequisites: ["Modul 5 dan Modul 6 selesai"],
-        concept_explanation:
-          "Dalam Server Component Next.js, fungsi fetching dieksekusi langsung di server sebelum HTML dikirim ke browser. Hal ini menghasilkan performa luar biasa cepat, SEO sempurna karena Googlebot langsung melihat data produk lengkap, dan kunci database tetap aman 100% di server.",
+\`README.md\` yang baik memuat:
+1. **Judul & Deskripsi Singkat Aplikasi SakuSiswa**.
+2. **Daftar Fitur Utama**: Login Google (Credential Manager), Penyimpanan Lokal (Room Database KSP), CRUD Tugas (Create, Read, Update, Delete), Pencarian & Filter, serta Fitur Kreasi Mandiri yang kamu tambahkan.
+3. **Teknologi & Arsitektur**: Kotlin, Jetpack Compose Material 3, MVVM, Room Database, Coroutines Flow.
+4. **Cara Menjalankan Proyek di Android Studio**.
+
+Setelah \`README.md\` di-push ke GitHub dan kamu mengambil *screenshot* tampilan aplikasimu yang sedang berjalan, buka menu **Kumpulan Karya** di atas dan kirimkan karyamu!`,
         preparation: [
-          "Buka file `src/app/page.tsx` atau `app/page.jsx` proyek katalog UMKM",
-          "Pastikan tabel `produk` di Supabase sudah terisi 6 item",
+          "Siapkan 1 gambar screenshot aplikasi SakuSiswa milikmu (format PNG/JPG/WebP)",
+          "Siapkan Link Repository GitHub dan Link APK (opsional)",
+        ],
+        thinking_steps: [
+          "Mengapa menulis dokumentasi README.md dengan kalimatmu sendiri membuktikan bahwa kamu benar-benar memahami cara kerja aplikasimu?",
+          "Apa saja 4 poin pemeriksaan terakhir sebelum kamu menekan tombol Kirim Karya di ComposeLab SMKN 1?",
         ],
         step_instructions: [
-          "Salin Prompt Antigravity US-01 di bawah ini.",
-          "Buka jendela Agent di Google Antigravity.",
-          "Tempelkan prompt, lalu tekan kirim (Enter).",
-          "Tunggu Antigravity menyelesaikan penulisan kode di `src/app/page.tsx` dan `src/lib/supabase/client.ts`.",
-          "Buka http://localhost:3000 dan pastikan produk yang tampil sama persis dengan yang ada di Supabase Table Editor.",
+          "Buat file bernama 'README.md' di folder paling luar (root) proyek SakuSiswa di Android Studio.",
+          "Isi README.md mengikuti template di bawah, sesuaikan dengan nama, kelas, dan fitur kreasi tambahan yang kamu buat.",
+          "Jalankan 'git add README.md && git commit -m \"docs: tambah dokumentasi README SakuSiswa\" && git push' di Terminal.",
+          "Buka halaman 'Kumpulan Karya' di website ComposeLab SMKN 1, isi judul proyek, deskripsi, centang 6 modul, masukkan Link GitHub, Link APK, unggah Screenshot, lalu klik Kirim Karya!",
         ],
         antigravity_prompt: {
-          tujuan: "US-01: Mengubah halaman beranda katalog agar mengambil daftar produk langsung dari tabel 'produk' di Supabase secara Server-Side.",
-          konteks: "Next.js 15 App Router di file `src/app/page.tsx` dan `src/lib/supabase/server.ts`.",
+          tujuan:
+            "Menyusun file README.md yang rapi dan informatif untuk repository GitHub proyek Android SakuSiswa.",
+          konteks:
+            "Proyek akhir pelatihan 3 hari Android Kotlin & Jetpack Compose kelas 10 SMK Negeri 1 Jakarta.",
           instruksi: [
-            "Buka atau buat modul koneksi Supabase server di sisi backend menggunakan SUPABASE_URL dan SUPABASE_ANON_KEY / SECRET_KEY.",
-            "Ubah `src/app/page.tsx` menjadi async Server Component.",
-            "Lakukan query: `supabase.from('produk').select('*').eq('is_tersedia', true).order('id', { ascending: true })`.",
-            "Render daftar produk menggunakan grid responsif (1 kolom di HP, 2 di tablet, 3 di desktop).",
-            "Sediakan fallback tampilan kosong jika belum ada produk di database.",
+            "Buatkan struktur README.md berbahasa Indonesia yang menjelaskan aplikasi SakuSiswa.",
+            "Sertakan bagian: Deskripsi Aplikasi, Fitur Utama (Login Google, Room Database, CRUD Tugas, Filter, dan Fitur Tambahan), Arsitektur MVVM, serta Cara Menjalankan di Android Studio.",
+            "Berikan tempat khusus untuk menuliskan refleksi singkat apa yang dipelajari siswa selama 3 hari pelatihan.",
           ],
-          batasan: ["Jangan mengubah identitas toko atau komponen layout lain yang sudah ada."],
-          hasilAkhir: "Daftar produk di halaman depan berasal 100% dari database cloud Supabase.",
-          validasi: "Ubah salah satu nama produk di Supabase Table Editor, lalu refresh halaman: nama produk ikut berubah seketika.",
-          rawPrompt: `[TUJUAN]\nUS-01: Menampilkan katalog produk langsung dari database Supabase di sisi server.\n\n[KONTEKS]\nNext.js 15 App Router, TypeScript, Supabase PostgreSQL di src/app/page.tsx.\n\n[INSTRUKSI]\n1. Buat Server Component async di src/app/page.tsx.\n2. Lakukan query ke tabel 'produk' Supabase: ambil seluruh baris yang is_tersedia = true.\n3. Render setiap produk dengan gambar, nama, harga (format Rupiah), dan tombol 'Lihat Detail'.\n4. Pastikan grid responsif (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6).\n\n[BATASAN]\nJangan mengubah nama toko atau footer toko.\n\n[HASIL AKHIR]\nKatalog dinamis yang terhubung ke cloud Supabase.\n\n[VALIDASI]\nPastikan tidak ada error 'relation produk does not exist' dan data muncul sesuai isi Table Editor.`,
-        },
-        expected_result: "Halaman katalog memuat data 6 produk dari Supabase secara instan.",
-        validation_check: [
-          "Produk yang tampil di browser identik dengan data di Supabase Table Editor",
-          "Di terminal tidak ada pesan error merah",
-        ],
-        common_errors: [
-          {
-            error: "Halaman kosong, tidak ada pesan error.",
-            solution: "Periksa .env.local: pastikan SUPABASE_URL tidak ada spasi di awal atau akhir string.",
-          },
-        ],
-        exercise: "Tambah 1 produk baru di Supabase Table Editor (misal 'Kopi Robusta 250g') dan reload halaman beranda untuk melihatnya muncul otomatis.",
-        quiz: [
-          {
-            question: "Mengapa fetching data produk di sisi server (Server Component) sangat menguntungkan untuk toko online?",
-            options: [
-              "Data langsung terindeks mesin pencari (SEO) dan kunci database tidak pernah terekspos ke browser pembeli",
-              "Membuat ukuran font menjadi lebih tebal",
-              "Mengubah warna WhatsApp menjadi merah",
-              "Mematikan fungsi tombol browser",
-            ],
-            correctIndex: 0,
-            explanation: "Server Component menghasilkan HTML yang sudah lengkap dengan data produk sehingga ramah SEO dan aman dari kebocoran token database.",
-          },
-        ],
-        references: [{ title: "Next.js Data Fetching", url: "https://nextjs.org/docs/app/building-your-application/data-fetching" }],
-      },
-      {
-        id: "m7-l2",
-        module_id: "modul-7",
-        lesson_number: 2,
-        title: "US-02: Membuat Halaman Detail Produk Dinamis",
-        slug: "us-02-detail-produk-dari-database",
-        description: "Membangun rute dinamis `src/app/produk/[id]/page.tsx` yang mengambil satu produk spesifik berdasarkan parameter ID di URL.",
-        estimated_minutes: 25,
-        order_index: 2,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menguasai penanganan rute dinamis (dynamic routes params) di Next.js App Router dan halaman 404 (notFound).",
-        prerequisites: ["Materi 1: US-01 Katalog dari Database"],
-        concept_explanation:
-          "Ketika pembeli mengklik produk dengan ID 3, browser diarahkan ke `/produk/3`. Next.js menangkap angka `3` melalui properti `params.id` dan melakukan query `SELECT * FROM produk WHERE id = 3`. Jika produk tidak ditemukan, aplikasi memanggil fungsi `notFound()` untuk menampilkan pesan yang sopan.",
-        preparation: ["Buka folder `src/app/produk/[id]`"],
-        step_instructions: [
-          "Salin Prompt Antigravity US-02 di bawah ini.",
-          "Kirimkan prompt ke Antigravity.",
-          "Antigravity akan membuat file `src/app/produk/[id]/page.tsx`.",
-          "Klik salah satu produk di beranda untuk membuka halaman detailnya.",
-          "Verifikasi bahwa foto besar, deskripsi lengkap, harga, dan tombol kembali tampil rapi.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-02: Membuat halaman detail produk dinamis berdasarkan ID produk di URL.",
-          konteks: "File `src/app/produk/[id]/page.tsx` di Next.js 15 App Router.",
-          instruksi: [
-            "Buat rute dinamis `src/app/produk/[id]/page.tsx`.",
-            "Ambil parameter `id` dari `params` (await params di Next.js 15).",
-            "Query Supabase: `supabase.from('produk').select('*, kategori(*)').eq('id', id).single()`.",
-            "Jika data tidak ditemukan, panggil `notFound()` dari 'next/navigation'.",
-            "Tampilkan tata letak 2 kolom di desktop: sisi kiri foto besar produk, sisi kanan nama, kategori, harga besar, stok, dan deskripsi naratif.",
+          batasan: [
+            "Gunakan format Markdown standar yang bersih dan mudah dibaca di GitHub.",
           ],
-          batasan: ["Pertahankan layout dan styling yang konsisten dengan tema toko."],
-          hasilAkhir: "Halaman detail produk yang kaya informasi dan responsif.",
-          validasi: "Buka rute `/produk/9999` (ID acak) dan pastikan aplikasi menampilkan halaman 404 not found yang ramah tanpa crash.",
-          rawPrompt: `[TUJUAN]\nUS-02: Membuat halaman detail produk dinamis di src/app/produk/[id]/page.tsx.\n\n[KONTEKS]\nNext.js 15 App Router (perhatikan params adalah Promise di Next 15), Supabase PostgreSQL.\n\n[INSTRUKSI]\n1. Buat src/app/produk/[id]/page.tsx sebagai async component.\n2. Tangkap parameter id: const { id } = await params.\n3. Query tabel 'produk' untuk baris dengan id tersebut.\n4. Jika data tidak ada, panggil notFound().\n5. Render tampilan elegan 2 kolom di layar besar: Foto produk beresolusi tinggi, nama produk, badge kategori, harga berformat Rupiah, dan deskripsi lengkap.\n\n[BATASAN]\nJangan ubah navbar atau header global.\n\n[HASIL AKHIR]\nHalaman detail produk yang memuat data spesifik per ID secara mulus.\n\n[VALIDASI]\nUji dengan mengklik tiap produk dari katalog beranda.`,
+          hasilAkhir:
+            "Dokumen README.md profesional siap push ke GitHub.",
+          validasi:
+            "Halaman utama repository GitHub siswa menampilkan dokumentasi README.md secara lengkap.",
+          rawPrompt: `[TUJUAN]\nMembuat file dokumentasi README.md profesional untuk repository GitHub aplikasi Android SakuSiswa.\n\n[KONTEKS]\nKarya aplikasi Android siswa Kelas 10 SMK Negeri 1 Jakarta menggunakan Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager.\n\n[INSTRUKSI]\n1. Susun template README.md yang mencakup:\n   - Judul Proyek & Identitas Pembuat (Nama & Kelas)\n   - Deskripsi Singkat Aplikasi SakuSiswa\n   - Daftar Fitur (Login Google Credential Manager, Room Database Lokal, Create/Read/Update/Delete Tugas, Pencarian & Filter, serta Fitur Kreasi Tambahan)\n   - Arsitektur & Tech Stack (MVVM, Kotlin, Jetpack Compose, Room KSP, Coroutines Flow)\n   - Langkah Menjalankan Proyek di Android Studio\n2. Tambahkan bagian "Refleksi Pembelajaran" berisi 3 poin tentang bagaimana saya merancang alur logika sebelum mem-prompt AI.\n\n[BATASAN]\nGunakan Markdown yang rapi dengan tabel atau poin-poin yang jelas.\n\n[HASIL AKHIR]\nIsi file README.md lengkap yang siap disimpan ke root repository.\n\n[VALIDASI]\nPastikan seluruh kriteria penilaian di ComposeLab SMKN 1 tercakup di dalam README.md.`,
         },
-        expected_result: "Setiap produk memiliki halaman detail masing-masing dengan URL unik yang dapat dibagikan.",
-        validation_check: [
-          "Mengklik kartu produk di beranda membawa browser ke halaman `/produk/[id]`",
-          "Data yang tampil sesuai dengan produk yang diklik",
-        ],
-        common_errors: [
+        code_snippets: [
           {
-            error: "Error: Route [id] params should be awaited before using its properties in Next.js 15.",
-            solution: "Di Next.js 15, `params` adalah Promise. Gunakan `const { id } = await params;` sebelum menggunakannya.",
-          },
-        ],
-        exercise: "Ubah deskripsi salah satu produk di Supabase Table Editor, lalu muat ulang halaman detail: pastikan deskripsi langsung berubah.",
-        quiz: [
-          {
-            question: "Bagaimana cara Next.js menangkap segmen URL dinamis seperti `/produk/12`?",
-            options: [
-              "Menggunakan nama folder kurung siku `[id]` dan membaca properti `params`",
-              "Menggunakan file Excel",
-              "Menebak nomor telepon admin",
-              "Mengharuskan pembuatan folder manual untuk setiap angka dari 1 sampai 1000",
-            ],
-            correctIndex: 0,
-            explanation: "Folder dengan tanda kurung siku `[namaParam]` adalah konvensi resmi Next.js untuk membuat rute dinamis tak terbatas.",
-          },
-        ],
-        references: [{ title: "Next.js Dynamic Segments", url: "https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes" }],
-      },
-      {
-        id: "m7-l3",
-        module_id: "modul-7",
-        lesson_number: 3,
-        title: "US-03: Integrasi Tombol Pemesanan Otomatis WhatsApp (wa.me)",
-        slug: "us-03-tombol-pesan-whatsapp",
-        description: "Membangun generator tautan pesan WhatsApp otomatis yang mencantumkan nama produk, harga, dan link produk secara instan.",
-        estimated_minutes: 25,
-        order_index: 3,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu merangkai URL encoded WhatsApp API (`https://wa.me/62xxx?text=...`) untuk memudahkan calon pembeli melakukan transaksi langsung.",
-        prerequisites: ["Materi 2: US-02 Detail Produk"],
-        concept_explanation:
-          "Integrasi WhatsApp Web/App tidak memerlukan biaya langganan API berbayar. Dengan memanfaatkan skema tautan resmi `https://wa.me/<nomor>?text=<pesan_terenkripsi>`, calon pelanggan cukup mengklik satu tombol dan aplikasi WhatsApp mereka akan langsung terbuka dengan draf pesan pesanan yang sudah rapi.",
-        preparation: ["Siapkan nomor WhatsApp UMKM (gunakan kode negara 62 tanpa tanda + atau angka 0 di depan, misal: 6281234567890)"],
-        step_instructions: [
-          "Salin Prompt Antigravity US-03 di bawah ini.",
-          "Kirimkan prompt ke Antigravity.",
-          "Antigravity akan membuat atau memperbarui komponen `TombolWhatsApp.tsx` di halaman detail produk.",
-          "Uji coba klik tombol di halaman produk: perhatikan browser membuka tab WhatsApp Web dengan teks pesan otomatis.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-03: Membuat komponen tombol 'Pesan via WhatsApp' dengan template pesan pesanan otomatis yang rapi.",
-          konteks: "Komponen `src/components/TombolWhatsApp.tsx` di halaman detail produk.",
-          instruksi: [
-            "Buat komponen `TombolWhatsApp` yang menerima props: `namaProduk`, `hargaProduk`, dan `idProduk`.",
-            "Ambil nomor WhatsApp toko dari file konfigurasi `src/lib/toko.ts` atau tabel `pengaturan_toko`.",
-            "Susun draf pesan sopan: 'Halo kak, saya ingin memesan *[Nama Produk]* seharga Rp [Harga]. Apakah stok masih tersedia? Link: [URL]'.",
-            "Gunakan `encodeURIComponent()` untuk mengenkripsi spasi dan karakter khusus ke format URL yang valid.",
-            "Beri styling tombol hijau khas WhatsApp (#25D366) dengan ikon WhatsApp dan efek hover yang menarik.",
-          ],
-          batasan: ["Pastikan link membuka di tab baru (target='_blank' rel='noopener noreferrer')."],
-          hasilAkhir: "Tombol pemesanan WhatsApp yang langsung mengarahkan pembeli ke chat pemilik toko.",
-          validasi: "Klik tombol dan pastikan teks pesan di kolom chat WhatsApp sudah otomatis terisi lengkap tanpa terpotong.",
-          rawPrompt: `[TUJUAN]\nUS-03: Membuat tombol pesan WhatsApp otomatis di src/components/TombolWhatsApp.tsx.\n\n[KONTEKS]\nNext.js 15, TypeScript, Tailwind CSS, nomor toko di src/lib/toko.ts.\n\n[INSTRUKSI]\n1. Buat src/components/TombolWhatsApp.tsx.\n2. Rangkai URL WhatsApp: https://wa.me/{nomor}?text={encodedText}.\n3. Format pesan otomatis:\n\"Halo Toko, saya tertarik memesan *{namaProduk}* seharga Rp {hargaFormatted}. Mohon info ketersediaan stoknya ya kak. Terima kasih!\".\n4. Tampilkan tombol hijau WhatsApp (#25D366) dengan ikon chat, ukuran teks jelas, dan target=\"_blank\".\n\n[BATASAN]\nJangan mengubah komponen lain di halaman detail selain menyematkan tombol ini.\n\n[HASIL AKHIR]\nTombol pemesanan yang berfungsi 100% langsung ke WhatsApp toko.\n\n[VALIDASI]\nUji klik tombol pada produk contoh dan verifikasi nomor telepon serta isi pesannya.`,
-        },
-        expected_result: "Klik tombol langsung membuka WhatsApp dengan nomor toko dan pesan pesanan lengkap.",
-        validation_check: [
-          "Format nomor WhatsApp diawali dengan 62 (bukan 08)",
-          "Pesan otomatis mencantumkan nama produk dan harga yang benar",
-        ],
-        common_errors: [
-          {
-            error: "Pesan WhatsApp terputus atau rusak saat terdapat karakter spasi atau enter.",
-            solution: "Selalu gunakan fungsi bawaan JavaScript `encodeURIComponent(pesan)` sebelum menyambungkannya ke URL wa.me.",
-          },
-        ],
-        exercise: "Ubah nomor WhatsApp di `src/lib/toko.ts` ke nomor handphone Anda sendiri dan uji kirim pesan dari browser smartphone Anda.",
-        quiz: [
-          {
-            question: "Fungsi JavaScript apa yang digunakan untuk mengonversi spasi dan tanda baca agar aman dikirimkan melalui URL WhatsApp?",
-            options: ["encodeURIComponent()", "JSON.stringify()", "Math.round()", "parseInt()"],
-            correctIndex: 0,
-            explanation: "encodeURIComponent mengganti karakter khusus seperti spasi menjadi '%20' agar valid dalam query string HTTP URL.",
-          },
-        ],
-        references: [{ title: "WhatsApp Direct Link Documentation", url: "https://faq.whatsapp.com/591338728905214" }],
-      },
-      {
-        id: "m7-l4",
-        module_id: "modul-7",
-        lesson_number: 4,
-        title: "US-04: Membangun Sistem Autentikasi Admin Toko",
-        slug: "us-04-login-admin-supabase-auth",
-        description: "Membuat halaman login admin (`/admin/login`), mengintegrasikan Supabase Auth dengan email & password, serta manajemen sesi cookies.",
-        estimated_minutes: 30,
-        order_index: 4,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menguasai alur login aman menggunakan `@supabase/ssr` sehingga session cookie tersimpan otomatis di browser secara aman (HTTP-only).",
-        prerequisites: ["Modul 2 Materi 3 (Akun Supabase)"],
-        concept_explanation:
-          "Halaman katalog dibuka oleh calon pembeli secara publik. Namun halaman pengelolaan stok dan harga di `/admin` wajib dilindungi autentikasi. Supabase Auth menangani penyimpanan hash password yang aman di tabel internal `auth.users`, serta pembuatan Json Web Token (JWT) yang disimpan di cookie terenkripsi.",
-        preparation: [
-          "Buka Supabase -> Authentication -> Users",
-          "Pastikan sudah ada 1 akun admin yang dibuat di Modul 2, dan Auto-confirm user sudah aktif",
-        ],
-        step_instructions: [
-          "Salin Prompt Antigravity US-04 di bawah ini.",
-          "Kirimkan prompt ke Antigravity.",
-          "Antigravity akan membuat halaman `src/app/admin/login/page.tsx` dan Server Action autentikasi di `src/app/admin/actions.ts`.",
-          "Buka http://localhost:3000/admin/login di browser.",
-          "Masukkan email dan password admin Anda, lalu klik 'Masuk ke Dashboard Admin'.",
-          "Perhatikan browser berhasil masuk ke dashboard `/admin` dengan status login aktif.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-04: Membuat formulir login admin memakai Supabase Auth (@supabase/ssr) dengan penyimpanan cookie sesi yang aman.",
-          konteks: "Folder `src/app/admin/login/page.tsx` dan `src/app/admin/actions.ts`.",
-          instruksi: [
-            "Buat Server Action `loginAdmin(formData)` di `src/app/admin/actions.ts`.",
-            "Panggil `supabase.auth.signInWithPassword({ email, password })`.",
-            "Jika kredensial salah, kembalikan pesan error 'Email atau password salah' yang ramah.",
-            "Jika berhasil, lakukan `redirect('/admin')`.",
-            "Buat UI formulir login di `src/app/admin/login/page.tsx` dengan field Email, Password, tombol submit dengan loading state, dan logo toko.",
-          ],
-          batasan: ["Jangan pernah menyimpan password dalam bentuk plain text di console log."],
-          hasilAkhir: "Halaman login admin yang profesional dan aman.",
-          validasi: "Uji coba login dengan password salah (harus ditolak), lalu coba dengan password benar (harus sukses masuk).",
-          rawPrompt: `[TUJUAN]\nUS-04: Membuat halaman login admin dan autentikasi dengan Supabase Auth.\n\n[KONTEKS]\nNext.js 15 App Router, @supabase/ssr, TypeScript di src/app/admin/login/page.tsx dan src/app/admin/actions.ts.\n\n[INSTRUKSI]\n1. Buat Server Action login di src/app/admin/actions.ts menggunakan createServerSupabaseClient().\n2. Gunakan supabase.auth.signInWithPassword untuk memverifikasi email dan password.\n3. Tangani error dengan elegan: tampilkan notifikasi alert merah jika kredensial salah.\n4. Jika sukses, arahkan ke rute /admin.\n5. Desain antarmuka login yang bersih dengan warna Navy (#0F172A), input berlabel jelas, dan indikator loading.\n\n[BATASAN]\nJangan matikan RLS tabel apapun.\n\n[HASIL AKHIR]\nSistem autentikasi admin yang tangguh berbasis HTTP-only cookies.\n\n[VALIDASI]\nVerifikasi proses login berhasil menyimpan cookie sesi di browser.`,
-        },
-        expected_result: "Admin toko dapat login secara aman dan mengakses menu manajemen.",
-        validation_check: [
-          "Login dengan email terdaftar berhasil mengarahkan ke `/admin`",
-          "Login dengan password salah menampilkan pesan peringatan merah",
-        ],
-        common_errors: [
-          {
-            error: "Error: Email not confirmed saat login.",
-            solution: "Buka Supabase -> Authentication -> Users -> klik akun admin Anda -> pastikan statusnya 'Confirmed', atau centang 'Auto Confirm Users' di pengaturan Auth Providers.",
-          },
-        ],
-        exercise: "Coba login menggunakan password salah dan pastikan pesan error muncul tanpa memuat ulang (reload) seluruh halaman.",
-        quiz: [
-          {
-            question: "Di mana sesi login pengguna disimpan secara paling aman dalam arsitektur Next.js modern?",
-            options: [
-              "Di HTTP-only Cookies yang terenkripsi dan dikelola server",
-              "Di teks HTML judul halaman",
-              "Di file README.md",
-              "Di riwayat pencarian Google",
-            ],
-            correctIndex: 0,
-            explanation: "HTTP-only Cookies tidak dapat diakses atau dicuri oleh skrip berbahaya (XSS) di sisi client sehingga paling aman untuk token sesi.",
-          },
-        ],
-        references: [{ title: "Supabase Auth with Next.js SSR", url: "https://supabase.com/docs/guides/auth/server-side/nextjs" }],
-      },
-      {
-        id: "m7-l5",
-        module_id: "modul-7",
-        lesson_number: 5,
-        title: "US-05: Server Action Ganti Password & Logout Admin",
-        slug: "us-05-ganti-password-dan-logout",
-        description: "Membangun fitur keamanan krusial: ganti password akun bawaan langsung dari dashboard admin dan fitur logout yang membersihkan sesi.",
-        estimated_minutes: 25,
-        order_index: 5,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu memanggil API `supabase.auth.updateUser()` dan `supabase.auth.signOut()` melalui Next.js Server Actions.",
-        prerequisites: ["Materi 4: US-04 Login Admin"],
-        concept_explanation:
-          "Dalam lembar kerja workshop, setiap peserta awalnya diberikan password admin bawaan (default). Di US-05, admin wajib mengganti password default tersebut dengan password pribadi yang kuat agar akun tokonya tidak bisa dibajak oleh pihak lain.",
-        preparation: ["Login terlebih dahulu ke dashboard admin"],
-        step_instructions: [
-          "Salin Prompt Antigravity US-05 di bawah ini.",
-          "Kirimkan prompt ke Antigravity.",
-          "Antigravity akan menambahkan Server Action `updatePassword()` dan `logoutAdmin()` di `src/app/admin/actions.ts`.",
-          "Buka menu Pengaturan Akun di `/admin/pengaturan` atau `/admin`.",
-          "Masukkan password baru (minimal 6 karakter) lalu klik 'Simpan Password Baru'.",
-          "Klik tombol 'Logout / Keluar', lalu coba login kembali menggunakan password baru Anda.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-05: Membuat fitur ganti password dan logout admin menggunakan Server Actions.",
-          konteks: "File `src/app/admin/actions.ts` dan komponen pengaturan admin.",
-          instruksi: [
-            "Buat Server Action `updatePassword(formData)`.",
-            "Validasi bahwa admin sedang aktif dalam sesi login (`supabase.auth.getUser()`).",
-            "Panggil `supabase.auth.updateUser({ password: newPassword })`.",
-            "Buat Server Action `logoutAdmin()` yang memanggil `supabase.auth.signOut()` dan meredirect pengguna kembali ke `/admin/login`.",
-          ],
-          batasan: ["Pastikan validasi panjang password minimal 6 karakter."],
-          hasilAkhir: "Fitur ganti password dan logout yang aman dan bekerja sempurna.",
-          validasi: "Logout berhasil menghapus session cookie dan halaman admin tidak bisa dibuka kembali tanpa login ulang.",
-          rawPrompt: `[TUJUAN]\nUS-05: Membuat fitur ganti password admin dan fungsi logout di src/app/admin/actions.ts.\n\n[KONTEKS]\nNext.js 15, @supabase/ssr, Supabase Auth.\n\n[INSTRUKSI]\n1. Di src/app/admin/actions.ts, buat Server Action updateAdminPassword(formData).\n2. Ambil user yang sedang login, lalu panggil supabase.auth.updateUser({ password }).\n3. Buat Server Action logoutAdmin() yang memanggil supabase.auth.signOut() dan redirect('/admin/login').\n4. Buat komponen form modal atau halaman ganti password di dashboard admin dengan input 'Password Baru' dan 'Konfirmasi Password Baru'.\n\n[BATASAN]\nPassword minimal 6 karakter.\n\n[HASIL AKHIR]\nAdmin dapat mengubah password akun kapan saja dan melakukan logout bersih.\n\n[VALIDASI]\nCoba login dengan password lama (harus gagal) dan password baru (harus sukses).`,
-        },
-        expected_result: "Password admin berhasil diperbarui dan tersinkronisasi di Supabase Auth.",
-        validation_check: [
-          "Password baru berhasil digunakan untuk login ulang",
-          "Tombol Logout mengembalikan pengguna ke halaman login",
-        ],
-        common_errors: [
-          {
-            error: "Lupa password baru yang baru saja diubah.",
-            solution: "Buka dashboard Supabase -> Authentication -> Users -> klik titik tiga pada akun Anda -> pilih 'Send password recovery' atau ubah langsung melalui dashboard.",
-          },
-        ],
-        exercise: "Ganti password akun admin Anda dengan kombinasi huruf dan angka yang kuat.",
-        quiz: [
-          {
-            question: "Metode Supabase Auth apa yang digunakan untuk mengubah password pengguna yang sedang aktif login?",
-            options: ["supabase.auth.updateUser()", "supabase.from('users').delete()", "supabase.auth.signIn()", "supabase.auth.cancel()"],
-            correctIndex: 0,
-            explanation: "supabase.auth.updateUser() memperbarui atribut akun pengguna terautentikasi termasuk email, metadata, atau password baru.",
-          },
-        ],
-        references: [{ title: "Supabase User Management", url: "https://supabase.com/docs/guides/auth/managing-user-data" }],
-      },
-      {
-        id: "m7-l6",
-        module_id: "modul-7",
-        lesson_number: 6,
-        title: "US-06: Proteksi Rute Admin dengan Middleware / Proxy",
-        slug: "us-06-proteksi-halaman-admin",
-        description: "Mencegah akses ilegal: mengunci seluruh rute `/admin/*` menggunakan Middleware Next.js sehingga orang tanpa login otomatis dilempar ke halaman login.",
-        estimated_minutes: 25,
-        order_index: 6,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu mengonfigurasi `middleware.ts` untuk memverifikasi session JWT sebelum halaman admin dirender.",
-        prerequisites: ["Materi 4 & 5 (US-04 dan US-05)"],
-        concept_explanation:
-          "Tanpa Middleware, orang yang mengetik alamat `http://website-anda.com/admin` bisa saja melihat sekilas tampilan dashboard sebelum JavaScript client sempat bereaksi. Middleware Next.js bertindak seperti satpam di gerbang utama: setiap permintaan URL diperiksa terlebih dahulu. Jika tidak ada tiket sesi yang sah, permintaan langsung dicegat dan dialihkan ke `/admin/login`.",
-        preparation: ["Buka file `src/middleware.ts`"],
-        step_instructions: [
-          "Salin Prompt Antigravity US-06 di bawah ini.",
-          "Kirimkan prompt ke Antigravity.",
-          "Antigravity akan membuat atau memperbarui file `src/middleware.ts` di root proyek.",
-          "Uji coba buka browser dalam mode Penyamaran (Incognito / Private Window).",
-          "Ketik langsung alamat: `http://localhost:3000/admin`.",
-          "Perhatikan Anda otomatis langsung dialihkan ke `http://localhost:3000/admin/login`.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-06: Membuat proteksi middleware di root proyek agar seluruh rute /admin (kecuali /admin/login) wajib login.",
-          konteks: "File `src/middleware.ts` di Next.js 15 App Router.",
-          instruksi: [
-            "Buat file `src/middleware.ts`.",
-            "Gunakan `@supabase/ssr` `createServerClient` di middleware untuk membaca sesi cookie yang valid.",
-            "Tentukan matcher rute: `['/admin/:path*']`.",
-            "Jika pengguna mengakses rute yang diawali `/admin` dan path bukan `/admin/login`:\nperiksa apakah `user` ada.\nJika tidak ada user, redirect segera ke `/admin/login`.",
-            "Jika pengguna yang SUDAH login membuka `/admin/login`, redirect otomatis ke `/admin`.",
-          ],
-          batasan: ["Jangan mencegat file statis (_next, favicon, gambar)."],
-          hasilAkhir: "Proteksi rute admin yang rapat dan sesuai standar keamanan K-8 & K-12.",
-          validasi: "Buka tab incognito dan coba akses `/admin`: pastikan dicegat dan dilempar ke login.",
-          rawPrompt: `[TUJUAN]\nUS-06: Mengamankan seluruh rute /admin dengan Next.js Middleware.\n\n[KONTEKS]\nNext.js 15 App Router, @supabase/ssr di src/middleware.ts.\n\n[INSTRUKSI]\n1. Buat src/middleware.ts.\n2. Inisialisasi klien Supabase di middleware dengan updateSession cookies.\n3. Periksa rute: jika request.nextUrl.pathname.startsWith('/admin') dan bukan '/admin/login':\n   - Dapatkan session/user dari supabase.auth.getUser().\n   - Jika user null, return NextResponse.redirect(new URL('/admin/login', request.url)).\n4. Tambahkan konfigurasi matcher: matcher: ['/admin/:path*'].\n\n[BATASAN]\nPertahankan performa middleware tetap ringan.\n\n[HASIL AKHIR]\nKeamanan backend kokoh: halaman admin mustahil diintip orang luar tanpa login.\n\n[VALIDASI]\nUji akses /admin tanpa login di mode incognito.`,
-        },
-        expected_result: "Seluruh halaman admin terlindung 100% dari akses ilegal.",
-        validation_check: [
-          "Membuka `/admin` tanpa login otomatis redirect ke `/admin/login`",
-          "Membuka `/admin/login` saat sudah login otomatis redirect ke `/admin`",
-        ],
-        common_errors: [
-          {
-            error: "Loop redirect tak terhingga (Too many redirects) saat membuka /admin/login.",
-            solution: "Pastikan Anda menambahkan pengecualian: `if (pathname === '/admin/login') return res;` agar halaman login tidak ikut mencegat dirinya sendiri.",
-          },
-        ],
-        exercise: "Buka tab incognito dan buktikan bahwa mengetik rute `/admin/produk` tidak bisa ditembus.",
-        quiz: [
-          {
-            question: "File apa di Next.js yang bertindak sebagai satpam pintu gerbang untuk mencegat dan memeriksa otentikasi URL sebelum halaman dirender?",
-            options: ["middleware.ts", "favicon.ico", "robots.txt", "package.json"],
-            correctIndex: 0,
-            explanation: "middleware.ts dieksekusi di Edge runtime pada setiap HTTP request sebelum rute halaman diproses.",
-          },
-        ],
-        references: [{ title: "Next.js Middleware Guide", url: "https://nextjs.org/docs/app/building-your-application/routing/middleware" }],
-      },
-    ],
-  },
+            filename: "README.md",
+            language: "markdown",
+            code: `# SakuSiswa — Aplikasi Catatan & Manajemen Tugas Siswa
 
-  // =========================================================================
-  // MODUL 8: MEMBANGUN ADMIN DASHBOARD
-  // =========================================================================
-  {
-    id: "modul-8",
-    course_id: "course-web-dev-antigravity",
-    module_number: 8,
-    title: "Membangun Admin Dashboard & Manajemen Produk",
-    slug: "modul-8-membangun-admin-dashboard",
-    description:
-      "Membangun dashboard manajemen katalog UMKM: formulir tambah produk, edit produk, hapus produk (CRUD), pengelolaan stok, dan ringkasan metrik penjualan.",
-    estimated_minutes: 120,
-    difficulty_level: "Menengah",
-    is_published: true,
-    order_index: 8,
-    created_at: new Date().toISOString(),
-    lessons: [
-      {
-        id: "m8-l1",
-        module_id: "modul-8",
-        lesson_number: 1,
-        title: "US-07: Halaman Tabel Manajemen Produk Admin",
-        slug: "us-07-tabel-manajemen-produk",
-        description: "Menampilkan tabel seluruh produk dengan kolom foto mini, nama, kategori, harga, stok, status ketersediaan, dan tombol aksi.",
-        estimated_minutes: 25,
-        order_index: 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu membuat tabel data admin yang rapi, responsif, dan dilengkapi badge status ketersediaan.",
-        prerequisites: ["Modul 7 selesai"],
-        concept_explanation:
-          "Dashboard admin adalah ruang kendali pemilik toko untuk mengawasi seluruh inventaris barang dagangan mereka secara komprehensif dalam satu layar.",
-        preparation: ["Login ke akun admin di `/admin/login`"],
-        step_instructions: [
-          "Buka file `src/app/admin/page.tsx`.",
-          "Ambil seluruh data produk dari Supabase (termasuk produk yang tidak aktif).",
-          "Tampilkan tabel dengan header: Foto, Nama Produk, Kategori, Harga, Stok, Status, dan Aksi.",
-          "Beri tombol 'Tambah Produk Baru' di pojok kanan atas tabel.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-07: Membuat tabel manajemen produk di dashboard admin (`src/app/admin/page.tsx`).",
-          konteks: "Halaman admin `src/app/admin/page.tsx`.",
-          instruksi: [
-            "Query seluruh baris dari tabel 'produk' berelasi ke 'kategori'.",
-            "Tampilkan tabel dengan styling profesional (border-collapse, striping warna halus, padding nyaman).",
-            "Sediakan tombol Aksi: 'Edit' (ikon pensil) dan 'Hapus' (ikon tempat sampah).",
-            "Tambahkan tombol 'Tambah Produk' yang membuka formulir baru.",
-          ],
-          batasan: ["Hanya admin terautentikasi yang bisa mengakses halaman ini."],
-          hasilAkhir: "Tabel manajemen produk admin yang lengkap.",
-          validasi: "Tabel menampilkan seluruh 6 produk latihan beserta harganya.",
-          rawPrompt: `[TUJUAN]\nUS-07: Membuat tabel manajemen produk admin di src/app/admin/page.tsx.\n\n[KONTEKS]\nNext.js 15, TypeScript, Tailwind CSS, Supabase.\n\n[INSTRUKSI]\n1. Buat Server Component di src/app/admin/page.tsx.\n2. Query data produk dari Supabase.\n3. Render tabel modern dengan kolom No, Gambar, Nama, Kategori, Harga (Rp), Stok, Status Ketersediaan, dan Aksi (Edit & Hapus).\n4. Sediakan tombol '+ Tambah Produk' di bagian header tabel.\n\n[BATASAN]\nGunakan styling Tailwind CSS bersih.\n\n[HASIL AKHIR]\nDashboard inventaris produk yang siap digunakan pemilik toko.\n\n[VALIDASI]\nPastikan tabel memiliki horizontal scrollbar di layar mobile agar kolom tidak berdempetan.`,
-        },
-        expected_result: "Admin dapat melihat seluruh daftar produk beserta status stoknya.",
-        validation_check: [
-          "Tabel memuat foto, nama, harga, dan stok setiap produk",
-          "Tombol Tambah Produk terlihat jelas",
-        ],
-        common_errors: [
-          {
-            error: "Tabel terpotong di layar HP sehingga tombol hapus tidak terlihat.",
-            solution: "Bungkus tabel di dalam `<div className=\"overflow-x-auto\">`.",
-          },
-        ],
-        exercise: "Tambahkan ringkasan angka di atas tabel: Total Produk, Produk Tersedia, dan Total Nilai Inventaris.",
-        quiz: [
-          {
-            question: "Class Tailwind apa yang membuat tabel memiliki kemampuan geser horizontal secara aman jika kolomnya lebih lebar dari layar smartphone?",
-            options: ["overflow-x-auto", "overflow-hidden", "static", "fixed"],
-            correctIndex: 0,
-            explanation: "overflow-x-auto menambahkan scroll horizontal hanya ketika isi tabel melampaui batas lebar kontainer pembungkusnya.",
-          },
-        ],
-        references: [{ title: "Tailwind CSS Tables", url: "https://tailwindcss.com/docs/table-layout" }],
-      },
-      {
-        id: "m8-l2",
-        module_id: "modul-8",
-        lesson_number: 2,
-        title: "US-08 & US-09: Formulir Tambah & Edit Produk via Server Actions",
-        slug: "us-08-us-09-tambah-dan-edit-produk",
-        description: "Membangun formulir dinamis untuk menginput produk baru atau memperbarui data produk lama menggunakan Next.js Server Actions.",
-        estimated_minutes: 30,
-        order_index: 2,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menguasai mutasi data (INSERT dan UPDATE) dengan validasi tipe data menggunakan Zod di Server Actions.",
-        prerequisites: ["Materi 1: US-07 Tabel Produk Admin"],
-        concept_explanation:
-          "Server Actions memungkinkan form HTML berinteraksi langsung dengan backend tanpa perlu membuat endpoint API Route terpisah. Saat form di-submit, fungsi Server Action memvalidasi input, menyimpan data ke Supabase, dan memanggil `revalidatePath('/')` untuk memperbarui cache halaman secara instan.",
-        preparation: ["Buka file `src/app/admin/actions.ts`"],
-        step_instructions: [
-          "Buat Server Action `createProduct(formData)` untuk menambah produk baru.",
-          "Buat Server Action `updateProduct(formData)` untuk memperbarui produk yang sudah ada.",
-          "Gunakan `revalidatePath('/admin')` dan `revalidatePath('/')` agar perubahan langsung terlihat tanpa refresh manual.",
-          "Uji coba menambah 1 produk baru melalui form admin.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-08 & US-09: Membuat Server Actions dan form modal Tambah & Edit Produk.",
-          konteks: "File `src/app/admin/actions.ts` dan komponen formulir produk.",
-          instruksi: [
-            "Buat Server Action `saveProduct(formData)` yang dapat menangani mode Create maupun Update (berdasarkan keberadaan `id`).",
-            "Validasi kolom: nama (wajib), harga (angka positif), kategori_id, deskripsi, gambar_url, dan is_tersedia.",
-            "Lakukan operasi `supabase.from('produk').insert()` atau `.update()`.",
-            "Panggil `revalidatePath('/')` dan `revalidatePath('/admin')`.",
-          ],
-          batasan: ["Pastikan hanya admin terautentikasi yang diizinkan memanggil aksi ini."],
-          hasilAkhir: "Kemampuan menambah dan mengedit produk secara instan.",
-          validasi: "Tambah produk baru di admin, lalu buka halaman beranda: produk baru langsung muncul di katalog.",
-          rawPrompt: `[TUJUAN]\nUS-08 & US-09: Membuat fungsionalitas Tambah dan Edit Produk via Server Action.\n\n[KONTEKS]\nNext.js 15 Server Actions, Supabase PostgreSQL di src/app/admin/actions.ts.\n\n[INSTRUKSI]\n1. Buat Server Action createProduct(formData) dan updateProduct(id, formData).\n2. Validasi input: nama produk tidak boleh kosong, harga berupa number >= 0, deskripsi teks.\n3. Simpan ke tabel 'produk' di Supabase.\n4. Jalankan revalidatePath('/') dan revalidatePath('/admin').\n5. Buat modal form interaktif di halaman admin yang dapat dibuka untuk tambah baru atau edit produk yang dipilih.\n\n[BATASAN]\nCek autentikasi sesi admin sebelum eksekusi mutasi.\n\n[HASIL AKHIR]\nFormulir CRUD produk yang berfungsi penuh.\n\n[VALIDASI]\nUji tambah produk dan ubah harganya: verifikasi perubahan masuk ke database Supabase.`,
-        },
-        expected_result: "Produk baru berhasil ditambah dan produk lama berhasil diubah harganya.",
-        validation_check: [
-          "Produk baru langsung muncul di tabel admin dan di katalog depan",
-          "Perubahan nama atau harga produk lama tersimpan permanen di database",
-        ],
-        common_errors: [
-          {
-            error: "Data berhasil disimpan di Supabase, tetapi halaman beranda masih menampilkan data lama.",
-            solution: "Panggil fungsi `revalidatePath('/')` di dalam Server Action setelah query berhasil dijalankan untuk membersihkan cache.",
-          },
-        ],
-        exercise: "Ubah foto URL salah satu produk dengan foto produk UMKM Anda sendiri.",
-        quiz: [
-          {
-            question: "Fungsi bawaan Next.js apa yang digunakan di Server Action untuk membersihkan cache halaman tertentu sehingga data terbaru langsung tampil ke pengguna?",
-            options: ["revalidatePath()", "clearBrowser()", "deleteMemory()", "restartServer()"],
-            correctIndex: 0,
-            explanation: "revalidatePath() membersihkan cache Server-Side Rendering untuk path tertentu sehingga request berikutnya mendapatkan data segar.",
-          },
-        ],
-        references: [{ title: "Next.js revalidatePath", url: "https://nextjs.org/docs/app/api-reference/functions/revalidatePath" }],
-      },
-      {
-        id: "m8-l3",
-        module_id: "modul-8",
-        lesson_number: 3,
-        title: "US-10: Fitur Hapus Produk dengan Konfirmasi Dialog",
-        slug: "us-10-hapus-produk-dialog-konfirmasi",
-        description: "Membangun Server Action penghapusan produk yang aman dilengkapi modal dialog konfirmasi untuk mencegah salah klik.",
-        estimated_minutes: 20,
-        order_index: 3,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu mengimplementasikan operasi DELETE yang aman dan ramah pengguna dengan konfirmasi visual pencegah kecelakaan data.",
-        prerequisites: ["Materi 2: Tambah & Edit Produk"],
-        concept_explanation:
-          "Operasi hapus (DELETE) bersifat destruktif. Pengguna tidak boleh langsung menghapus data hanya karena tidak sengaja menyentuh tombol. Dialog konfirmasi ('Apakah Anda yakin ingin menghapus produk ini?') memberikan kesempatan bagi pengguna untuk membatalkan sebelum perintah dikirim ke server.",
-        preparation: ["Buka file `src/app/admin/actions.ts`"],
-        step_instructions: [
-          "Buat Server Action `deleteProduct(productId)`.",
-          "Buat komponen dialog konfirmasi di sisi client: 'Hapus Produk [Nama]?' dengan tombol 'Batal' dan 'Ya, Hapus'.",
-          "Ketika dikonfirmasi, panggil `deleteProduct(id)`.",
-          "Perhatikan baris produk langsung menghilang dari tabel secara halus.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-10: Membuat Server Action hapus produk dan dialog konfirmasi penghapusan.",
-          konteks: "File `src/app/admin/actions.ts` dan komponen modal konfirmasi.",
-          instruksi: [
-            "Buat Server Action `deleteProduct(id: number)`.",
-            "Jalankan `supabase.from('produk').delete().eq('id', id)`.",
-            "Panggil `revalidatePath('/')` dan `revalidatePath('/admin')`.",
-            "Di tabel admin, tampilkan modal peringatan saat tombol hapus diklik.",
-          ],
-          batasan: ["Pastikan hanya admin terautentikasi yang dapat mengeksekusi hapus."],
-          hasilAkhir: "Fitur hapus produk yang aman dari salah klik.",
-          validasi: "Hapus satu produk uji coba dan pastikan produk tersebut hilang dari tabel dan beranda.",
-          rawPrompt: `[TUJUAN]\nUS-10: Membuat fungsionalitas hapus produk dengan dialog konfirmasi.\n\n[KONTEKS]\nNext.js 15 Server Actions, Supabase PostgreSQL.\n\n[INSTRUKSI]\n1. Buat Server Action deleteProduct(id: number) di src/app/admin/actions.ts.\n2. Lakukan pengecekan sesi admin.\n3. Hapus baris di tabel produk yang cocok dengan ID.\n4. Revalidasi path / dan /admin.\n5. Buat modal dialog 'Konfirmasi Hapus' dengan tombol merah 'Hapus' dan tombol abu-abu 'Batal'.\n\n[BATASAN]\nJangan hapus tabel atau data pesanan terkait.\n\n[HASIL AKHIR]\nSistem penghapusan produk yang aman dan interaktif.\n\n[VALIDASI]\nUji hapus produk contoh dan pastikan jumlah produk berkurang 1.`,
-        },
-        expected_result: "Produk dapat dihapus dengan aman setelah konfirmasi pengguna.",
-        validation_check: [
-          "Modal konfirmasi muncul sebelum produk dihapus",
-          "Menekan 'Batal' tidak mengubah data apapun",
-          "Menekan 'Hapus' melenyapkan produk dari database",
-        ],
-        common_errors: [
-          {
-            error: "Produk langsung terhapus begitu tombol sampah disentuh tanpa konfirmasi.",
-            solution: "Gunakan state `isDeleting` dan tampilkan modal dialog konfirmasi terlebih dahulu.",
-          },
-        ],
-        exercise: "Coba buat produk tes bernama 'Produk Coba Hapus', lalu hapus menggunakan fitur ini.",
-        quiz: [
-          {
-            question: "Mengapa dialog konfirmasi sangat krusial pada tindakan penghapusan data produk di dashboard admin?",
-            options: [
-              "Mencegah kehilangan data yang tidak disengaja akibat salah sentuh atau salah klik oleh pemilik toko",
-              "Memperlambat loading server",
-              "Mengubah warna teks menjadi abu-abu",
-              "Mengharuskan pengguna menginstal ulang aplikasi",
-            ],
-            correctIndex: 0,
-            explanation: "Dialog konfirmasi adalah pola UX pertahanan terbaik untuk mencegah kesalahan fatal operasional pada data penting.",
-          },
-        ],
-        references: [{ title: "UX Best Practices for Destructive Actions", url: "https://www.nngroup.com" }],
-      },
-      {
-        id: "m8-l4",
-        module_id: "modul-8",
-        lesson_number: 4,
-        title: "US-11: Pencarian dan Filter Kategori Real-Time",
-        slug: "us-11-pencarian-dan-filter-kategori",
-        description: "Membangun fitur pencarian kata kunci nama produk dan tombol filter kategori yang responsif dan interaktif.",
-        estimated_minutes: 25,
-        order_index: 4,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu mengimplementasikan filtering data di sisi client atau via query string URL (`?kategori=makanan&q=sambal`).",
-        prerequisites: ["Materi 1: US-07 Tabel Produk"],
-        concept_explanation:
-          "Ketika toko memiliki puluhan produk, pembeli membutuhkan cara cepat menemukan barang yang mereka cari. Fitur pencarian menyaring nama atau deskripsi produk secara real-time, sementara tombol tab kategori mengelompokkan produk berdasarkan jenisnya (Makanan, Kerajinan, Fashion).",
-        preparation: ["Buka halaman katalog beranda atau tabel admin"],
-        step_instructions: [
-          "Tambahkan input pencarian dengan ikon kaca pembesar di atas daftar produk.",
-          "Tampilkan deretan tombol pil (pills) kategori: 'Semua', 'Makanan & Minuman', 'Kerajinan', 'Fashion'.",
-          "Saring array produk berdasarkan kata kunci teks yang diketik pengguna dan kategori aktif yang dipilih.",
-          "Jika tidak ada produk yang cocok, tampilkan pesan ramah: 'Produk tidak ditemukan, coba kata kunci lain'.",
-        ],
-        antigravity_prompt: {
-          tujuan: "US-11: Menambahkan bilah pencarian dan filter kategori interaktif pada katalog produk.",
-          konteks: "Komponen katalog produk di `src/components/KatalogProduk.tsx`.",
-          instruksi: [
-            "Buat Client Component yang menerima seluruh daftar produk dan kategori.",
-            "Sediakan state `searchTerm` dan `selectedCategory`.",
-            "Lakukan filtering dinamis: `produk.filter(...)`.",
-            "Tampilkan jumlah hasil yang ditemukan (misal: 'Menampilkan 3 produk').",
-          ],
-          batasan: ["Pertahankan performa pencarian yang instan tanpa lag."],
-          hasilAkhir: "Bilah pencarian dan tab filter kategori yang bekerja mulus.",
-          validasi: "Ketik 'sambal' di kolom pencarian: hanya produk sambal yang tampil.",
-          rawPrompt: `[TUJUAN]\nUS-11: Membuat fitur pencarian dan filter kategori produk.\n\n[KONTEKS]\nNext.js 15, React, TypeScript, Tailwind CSS.\n\n[INSTRUKSI]\n1. Buat komponen KatalogProdukClient dengan input search dan deretan tombol kategori.\n2. Filter data secara real-time berdasarkan input ketikan nama produk dan pilihan kategori.\n3. Berikan animasi transisi halus pada kartu produk yang muncul/hilang.\n4. Sediakan tombol 'Reset Filter' jika pencarian nihil.\n\n[BATASAN]\nJangan mengubah struktur relasi database.\n\n[HASIL AKHIR]\nPengalaman belanja yang cepat dan intuitif bagi calon pembeli.\n\n[VALIDASI]\nUji klik filter tiap kategori dan periksa kecocokan data produk yang tampil.`,
-        },
-        expected_result: "Pengguna dapat memfilter produk berdasarkan kategori dan kata kunci dalam sekejap mata.",
-        validation_check: [
-          "Mengetik teks langsung menyaring kartu produk yang cocok",
-          "Mengklik tombol kategori hanya memunculkan produk dari kategori tersebut",
-        ],
-        common_errors: [
-          {
-            error: "Pencarian sensitif huruf besar/kecil (case-sensitive) sehingga mengetik 'sambal' tidak menemukan 'Sambal'.",
-            solution: "Gunakan `.toLowerCase()` pada kedua sisi perbandingan: `nama.toLowerCase().includes(query.toLowerCase())`.",
-          },
-        ],
-        exercise: "Uji pencarian dengan huruf kecil semua dan pastikan produk tetap ditemukan.",
-        quiz: [
-          {
-            question: "Metode string JavaScript apa yang digunakan untuk memeriksa apakah sebuah kata kunci terdapat di dalam nama produk tanpa terpengaruh huruf kapital?",
-            options: [
-              "nama.toLowerCase().includes(query.toLowerCase())",
-              "nama === query",
-              "nama.length",
-              "nama.split('')",
-            ],
-            correctIndex: 0,
-            explanation: "toLowerCase().includes() memastikan pencarian bersifat case-insensitive dan cocok dengan substring di posisi manapun.",
-          },
-        ],
-        references: [{ title: "JavaScript String includes()", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes" }],
-      },
-    ],
-  },
+Disusun oleh: **[Nama Lengkap Kamu]** — Kelas **[Kelas Kamu, misal: X RPL 1]**  
+**SMK Negeri 1 Jakarta** — Pelatihan Android ComposeLab
 
-  // =========================================================================
-  // MODUL 9: KEAMANAN APLIKASI
-  // =========================================================================
-  {
-    id: "modul-9",
-    course_id: "course-web-dev-antigravity",
-    module_number: 9,
-    title: "Keamanan Aplikasi Web & Proteksi Data",
-    slug: "modul-9-keamanan-aplikasi",
-    description:
-      "Memenuhi kriteria keamanan lanjutan K-6 hingga K-13: perlindungan environment variables, pencegahan XSS, header keamanan, proteksi route admin, rate limiting, dan audit kerentanan dependensi.",
-    estimated_minutes: 80,
-    difficulty_level: "Lanjutan",
-    is_published: true,
-    order_index: 9,
-    created_at: new Date().toISOString(),
-    lessons: [
-      {
-        id: "m9-l1",
-        module_id: "modul-9",
-        lesson_number: 1,
-        title: "K-06 & K-08: Header Keamanan Live & Proteksi Mesin Pencari (/admin)",
-        slug: "k06-k08-header-keamanan-dan-noindex-admin",
-        description: "Menerapkan HTTP Security Headers (CSP, X-Frame-Options) dan mencegah Google mengindeks halaman rahasia admin.",
-        estimated_minutes: 20,
-        order_index: 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Memastikan website aman dari clickjacking dan halaman login admin tidak bocor di hasil pencarian publik Google.",
-        prerequisites: ["Modul 7 Materi 6"],
-        concept_explanation:
-          "Halaman admin tidak boleh muncul di pencarian Google agar tidak menjadi sasaran empuk peretas. Kita mencegahnya dengan menambahkan metadata `robots: { index: false, follow: false }` pada layout admin, serta menambahkan header keamanan `X-Frame-Options: SAMEORIGIN` untuk mencegah website kita dipasang di dalam iframe situs palsu (Clickjacking).",
-        preparation: ["Buka file `src/app/admin/layout.tsx`"],
-        step_instructions: [
-          "Buka file `src/app/admin/layout.tsx`.",
-          "Tambahkan ekspor metadata Next.js:\n`export const metadata = { robots: { index: false, follow: false } };`.",
-          "Pastikan header `X-Frame-Options: DENY` dan `X-Content-Type-Options: nosniff` aktif di `next.config.ts`.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Memenuhi K-06 dan K-08: Memasang security headers di `next.config.ts` dan noindex di `src/app/admin/layout.tsx`.",
-          konteks: "Konfigurasi Next.js dan layout admin.",
-          instruksi: [
-            "Di `next.config.ts`, tambahkan konfigurasi `async headers()` dengan Content-Type nosniff dan Frame-Options DENY.",
-            "Di `src/app/admin/layout.tsx`, tambahkan metadata robots noindex, nofollow.",
-          ],
-          batasan: ["Jangan mengubah routing aplikasi."],
-          hasilAkhir: "Aplikasi terlindungi dari pencurian sesi dan clickjacking.",
-          validasi: "Periksa tag meta robots di inspeksi halaman `/admin/login`.",
-          rawPrompt: `[TUJUAN]\nMemasang security headers dan proteksi noindex admin (K-06 & K-08).\n\n[KONTEKS]\nNext.js 15, next.config.ts, src/app/admin/layout.tsx.\n\n[INSTRUKSI]\n1. Perbarui next.config.ts untuk menyertakan headers keamanan: X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Referrer-Policy: strict-origin-when-cross-origin.\n2. Di src/app/admin/layout.tsx, ekspor metadata dengan robots: { index: false, follow: false }.\n\n[BATASAN]\nPastikan konfigurasi valid TypeScript.\n\n[HASIL AKHIR]\nHalaman admin tidak terindeks mesin pencari dan kebal dari clickjacking.\n\n[VALIDASI]\nVerifikasi header respon menggunakan DevTools Network.`,
-        },
-        expected_result: "Website meraih skor keamanan tinggi pada audit keamanan K-06 dan K-08.",
-        validation_check: [
-          "Tag `<meta name=\"robots\" content=\"noindex, nofollow\" />` ada di halaman admin",
-          "Header respon memiliki X-Frame-Options",
-        ],
-        common_errors: [
-          {
-            error: "Menempatkan noindex di halaman publik beranda sehingga toko tidak bisa ditemukan pelanggan di Google.",
-            solution: "Pasang noindex HANYA di dalam folder `src/app/admin/layout.tsx`.",
-          },
-        ],
-        exercise: "Inspect halaman `/admin/login` di browser dan temukan tag meta robots di bagian `<head>`.",
-        quiz: [
-          {
-            question: "Apa tujuan memasang aturan `robots: { index: false }` pada halaman admin?",
-            options: [
-              "Mencegah mesin pencari publik seperti Google menampilkan tautan halaman admin di hasil pencarian",
-              "Mempercepat download gambar",
-              "Mengubah font menjadi miring",
-              "Menghapus database toko",
-            ],
-            correctIndex: 0,
-            explanation: "noindex memberi sinyal tegas kepada web crawler agar tidak mengarsipkan atau menampilkan URL sensitif di mesin pencari.",
-          },
-        ],
-        references: [{ title: "Next.js Metadata Robots", url: "https://nextjs.org/docs/app/api-reference/functions/generate-metadata#robots" }],
-      },
-      {
-        id: "m9-l2",
-        module_id: "modul-9",
-        lesson_number: 2,
-        title: "K-07 & K-09: Pencegahan XSS & Penanganan Error Tanpa Stack Trace",
-        slug: "k07-k09-pencegahan-xss-dan-error-handling",
-        description: "Menghindari `dangerouslySetInnerHTML` berbahaya, sanitasi input, dan memastikan pesan error produksi tidak membocorkan struktur database.",
-        estimated_minutes: 20,
-        order_index: 2,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Melindungi aplikasi dari serangan Cross-Site Scripting (XSS) dan Information Disclosure (kebocoran info internal lewat error).",
-        prerequisites: ["Materi 1: Header Keamanan"],
-        concept_explanation:
-          "Peretas sering memasukkan skrip berbahaya seperti `<script>stealCookies()</script>` ke dalam nama produk atau ulasan. Next.js dan React secara otomatis melakukan sanitasi teks string. Jangan pernah memakai `dangerouslySetInnerHTML` tanpa pustaka sanitasi. Selain itu, jika database gagal terkoneksi, tampilkan 'Terjadi kesalahan sistem, silakan coba lagi' dan jangan pernah mencetak jejak file server (stack trace) ke layar publik.",
-        preparation: ["Buka file `src/app/error.tsx`"],
-        step_instructions: [
-          "Buat file `src/app/error.tsx` sebagai Client Component penangkap error global.",
-          "Tampilkan pesan sopan dan tombol 'Coba Lagi'.",
-          "Pastikan tidak ada penggunaan `eval()` atau `dangerouslySetInnerHTML` di seluruh codebase.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat boundary error ramah pengguna di `src/app/error.tsx` dan memindai potensi celah XSS.",
-          konteks: "Aplikasi Next.js App Router.",
-          instruksi: [
-            "Buat `src/app/error.tsx` bertanda 'use client'.",
-            "Sediakan tampilan kartu error yang elegan tanpa menampilkan pesan error teknis mentah ke pengguna.",
-            "Sediakan tombol `reset()` untuk mencoba me-render ulang halaman.",
-          ],
-          batasan: ["Tangkap error tanpa membuat aplikasi crash total."],
-          hasilAkhir: "Error boundary yang aman dan profesional.",
-          validasi: "Lolos kriteria K-07 dan K-09.",
-          rawPrompt: `[TUJUAN]\nMembuat error boundary src/app/error.tsx untuk K-09 dan audit K-07.\n\n[KONTEKS]\nNext.js 15 App Router.\n\n[INSTRUKSI]\n1. Buat src/app/error.tsx ('use client').\n2. Tangkap props { error, reset }.\n3. Render tampilan kesalahan yang ramah pengguna dengan tombol 'Coba Lagi' dan 'Kembali ke Beranda'.\n4. Jangan mencetak error.stack ke elemen HTML yang terlihat.\n\n[BATASAN]\nPastikan komponen dapat mereset state error secara mulus.\n\n[HASIL AKHIR]\nBoundary penanganan error berstandar produksi.\n\n[VALIDASI]\nVerifikasi komponen error mengekspor fungsi default yang valid.`,
-        },
-        expected_result: "Aplikasi kebal terhadap injeksi skrip HTML dan tidak membocorkan rahasia saat error terjadi.",
-        validation_check: [
-          "File `src/app/error.tsx` aktif menangani error runtime",
-          "Tidak ada `dangerouslySetInnerHTML` yang tidak terverifikasi di kode",
-        ],
-        common_errors: [
-          {
-            error: "Menampilkan error database asli seperti `syntax error at or near 'SELECT' in /var/server/db.ts:45` ke layar pengunjung.",
-            solution: "Tampilkan hanya pesan umum ke publik, dan simpan detail error teknis di log server.",
-          },
-        ],
-        exercise: "Periksa apakah ada kata `dangerouslySetInnerHTML` di folder `src` menggunakan fitur pencarian VS Code.",
-        quiz: [
-          {
-            question: "Mengapa menampilkan jejak error teknis lengkap (stack trace) kepada pengunjung web berbahaya dari sisi keamanan?",
-            options: [
-              "Memberikan informasi sensitif tentang struktur direktori server dan teknologi internal yang bisa dimanfaatkan penyerang",
-              "Menghabiskan tinta monitor",
-              "Mengurangi kecepatan internet WiFi",
-              "Mengubah bahasa komputer menjadi bahasa latin",
-            ],
-            correctIndex: 0,
-            explanation: "Stack trace membocorkan letak file, versi modul, dan query SQL yang sangat berharga bagi hacker untuk mencari celah eksploitasi.",
-          },
-        ],
-        references: [{ title: "OWASP Top 10 - Security Misconfiguration", url: "https://owasp.org/Top10" }],
-      },
-      {
-        id: "m9-l3",
-        module_id: "modul-9",
-        lesson_number: 3,
-        title: "K-10 & K-13: Audit Kerentanan Dependensi & Pembersihan Console Log",
-        slug: "k10-k13-audit-dependensi-dan-bersihkan-console",
-        description: "Menjalankan `npm audit` untuk memastikan dependensi bebas celah kritis (K-10) dan membersihkan data sensitif dari console.log (K-13).",
-        estimated_minutes: 20,
-        order_index: 3,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menjamin seluruh paket dependensi aman dan tidak ada kunci rahasia atau password yang bocor di Console browser.",
-        prerequisites: ["Materi 2: Pencegahan XSS"],
-        concept_explanation:
-          "Dalam catatan referensi lembar kerja, versi pustaka harus selalu diperiksa terhadap celah keamanan (CVE). Selain itu, seringkali pemula lupa menghapus `console.log(password)` atau `console.log(sessionToken)` saat melakukan debugging, yang dapat dibaca oleh siapa saja yang membuka F12 Console di browser.",
-        preparation: ["Buka terminal di root proyek"],
-        step_instructions: [
-          "Jalankan perintah audit di terminal:\n`npm audit`.",
-          "Jika ada celah keamanan, perbarui dependensi ke versi aman terbaru.",
-          "Pindai seluruh file di `src` dan pastikan tidak ada `console.log` yang mencetak token, email, atau password.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Memindai dan membersihkan seluruh panggilan console.log yang berpotensi membocorkan data sensitif pengguna.",
-          konteks: "Seluruh file di direktori `src`.",
-          instruksi: [
-            "Cari seluruh kemunculan `console.log`.",
-            "Pastikan tidak ada logging kredensial, token Supabase, atau payload password.",
-            "Ganti dengan logging aman atau hapus panggilan debug yang tidak diperlukan.",
-          ],
-          batasan: ["Jangan mengubah logika fungsional aplikasi."],
-          hasilAkhir: "Codebase bersih dari kebocoran data di tab Console browser.",
-          validasi: "Buka browser DevTools Console dan pastikan bersih dari data sensitif.",
-          rawPrompt: `[TUJUAN]\nMemenuhi K-13: Audit dan sanitasi console.log data sensitif di direktori src/.\n\n[KONTEKS]\nSeluruh file komponen dan server actions di src/.\n\n[INSTRUKSI]\n1. Pindai kemunculan console.log di src/.\n2. Hapus seluruh logging yang mencetak password, nomor HP, atau authorization token.\n3. Pertahankan hanya logging error tingkat sistem yang tidak membocorkan rahasia pengguna.\n\n[BATASAN]\nJangan hapus penanganan error try-catch yang esensial.\n\n[HASIL AKHIR]\nKonsol browser bersih dari kebocoran informasi pribadi.\n\n[VALIDASI]\nVerifikasi dengan mencari string 'console.log' di codebase.`,
-        },
-        expected_result: "Aplikasi bersih dari kebocoran kredensial dan dependensi memenuhi standar K-10.",
-        validation_check: [
-          "Perintah `npm audit` tidak melaporkan celah kritis",
-          "Console browser bersih dari informasi kredensial",
-        ],
-        common_errors: [
-          {
-            error: "Membiarkan `console.log('User password:', password)` tersisa di kode produksi.",
-            solution: "Hapus baris debug sebelum melakukan commit ke GitHub.",
-          },
-        ],
-        exercise: "Jalankan `npm audit` di terminal Anda dan pelajari laporan analisis dependensinya.",
-        quiz: [
-          {
-            question: "Perintah apa yang digunakan untuk memeriksa apakah pustaka di package.json memiliki kerentanan keamanan yang diketahui?",
-            options: ["npm audit", "npm clean", "git push", "node -v"],
-            correctIndex: 0,
-            explanation: "npm audit membandingkan daftar dependensi proyek Anda dengan basis data kerentanan keamanan global (Advisory Database).",
-          },
-        ],
-        references: [{ title: "npm audit documentation", url: "https://docs.npmjs.com/cli/commands/npm-audit" }],
-      },
-      {
-        id: "m9-l4",
-        module_id: "modul-9",
-        lesson_number: 4,
-        title: "K-12: Rate Limiting & Proteksi Brute-Force Form Login",
-        slug: "k12-rate-limiting-proteksi-brute-force",
-        description: "Membatasi percobaan login berulang kali dalam waktu singkat untuk melindungi akun dari serangan tebak password otomatis.",
-        estimated_minutes: 20,
-        order_index: 4,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu menerapkan mekanisme jeda atau pembatasan kuota percobaan login (Rate Limiting).",
-        prerequisites: ["Materi 3: Audit Dependensi"],
-        concept_explanation:
-          "Robot peretas dapat mencoba 1.000 kombinasi password per detik. Fitur Rate Limiting membatasi maksimal 5 kali percobaan login per menit dari satu IP/alamat. Jika kuota habis, sistem otomatis mengunci akses selama beberapa menit.",
-        preparation: ["Buka file `src/app/admin/actions.ts`"],
-        step_instructions: [
-          "Buka Server Action `loginAdmin`.",
-          "Pasang pencatat frekuensi login atau manfaatkan fitur built-in rate limit dari Supabase Auth.",
-          "Jika ada kegagalan berturut-turut, berikan respon: 'Terlalu banyak percobaan login. Silakan tunggu 60 detik'.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Menambahkan proteksi pembatasan percobaan login (Rate Limit K-12) pada Server Action login.",
-          konteks: "File `src/app/admin/actions.ts`.",
-          instruksi: [
-            "Terapkan pembatasan percobaan login pada fungsi login admin.",
-            "Tampilkan pesan peringatan jika percobaan gagal melampaui batas wajar.",
-          ],
-          batasan: ["Pastikan pengguna dengan password benar tetap dapat login lancar."],
-          hasilAkhir: "Proteksi brute force yang aktif.",
-          validasi: "Coba login salah beberapa kali dan pastikan sistem membatasi percobaan.",
-          rawPrompt: `[TUJUAN]\nMembuat proteksi rate limit sederhana untuk formulir login (K-12).\n\n[KONTEKS]\nNext.js 15 Server Actions di src/app/admin/actions.ts.\n\n[INSTRUKSI]\n1. Tambahkan pengecekan upaya login gagal.\n2. Berikan pesan informatif jika terjadi percobaan berulang dalam jeda waktu singkat.\n3. Pastikan pesan tidak mengunci pengguna sah secara permanen.\n\n[BATASAN]\nJangan menggunakan dependensi berbayar eksternal.\n\n[HASIL AKHIR]\nKetahanan terhadap serangan brute-force login.\n\n[VALIDASI]\nVerifikasi bahwa login normal tetap berjalan lancar.`,
-        },
-        expected_result: "Sistem login tahan terhadap serangan otomatis tebak password.",
-        validation_check: [
-          "Percobaan login bertubi-tubi ditangani dengan tenang tanpa membuat server overload",
-        ],
-        common_errors: [
-          {
-            error: "Mengunci akun admin selamanya saat salah ketik password 3 kali.",
-            solution: "Gunakan penguncian sementara berbasis waktu (misal 60 detik) bukan blokir permanen.",
-          },
-        ],
-        exercise: "Pahami mengapa CAPTCHA atau rate limit dipasang pada form registrasi dan login publik.",
-        quiz: [
-          {
-            question: "Apa tujuan utama dari fitur Rate Limiting pada formulir login?",
-            options: [
-              "Mencegah serangan brute-force otomatis yang mencoba menebak password ribuan kali per menit",
-              "Mempercantik warna tombol submit",
-              "Menghapus email pengguna dari database",
-              "Mengganti foto profil otomatis",
-            ],
-            correctIndex: 0,
-            explanation: "Rate limiting membatasi frekuensi request sehingga metode serangan tebak password otomatis menjadi tidak efektif.",
-          },
-        ],
-        references: [{ title: "Rate Limiting Strategies", url: "https://cloud.google.com/architecture/rate-limiting-strategies-techniques" }],
-      },
-    ],
-  },
+## Tentang Aplikasi
+**SakuSiswa** adalah aplikasi Android native untuk membantu siswa mencatat, memantau, dan menyelesaikan tugas sekolah harian secara terorganisir. Aplikasi ini bekerja cepat secara offline menggunakan penyimpanan lokal **Room Database** dan terintegrasi dengan **Sign in with Google (Credential Manager API)**.
 
-  // =========================================================================
-  // MODUL 10: TESTING DAN DEBUGGING
-  // =========================================================================
-  {
-    id: "modul-10",
-    course_id: "course-web-dev-antigravity",
-    module_number: 10,
-    title: "Testing Otomatis & Debugging Komprehensif",
-    slug: "modul-10-testing-dan-debugging",
-    description:
-      "Pengujian menyeluruh: script npm run test, typecheck, build validation, membaca pesan error terminal, dan memperbaiki bug sebelum rilis.",
-    estimated_minutes: 90,
-    difficulty_level: "Menengah",
-    is_published: true,
-    order_index: 10,
-    created_at: new Date().toISOString(),
-    lessons: [
-      {
-        id: "m10-l1",
-        module_id: "modul-10",
-        lesson_number: 1,
-        title: "Menjalankan Skrip Pengujian Otomatis (npm run test)",
-        slug: "menjalankan-pengujian-otomatis-npm-test",
-        description: "Membuat dan menjalankan test suite unit dan integrasi untuk memvalidasi skema data, perhitungan harga, dan form submission.",
-        estimated_minutes: 25,
-        order_index: 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu menulis dan mengeksekusi pengujian otomatis dengan Node.js Test Runner bawaan (`node --test`).",
-        prerequisites: ["Modul 8 dan Modul 9"],
-        concept_explanation:
-          "Pengujian manual memakan waktu lama dan rawan terlewat. Skrip automated test menguji ratusan skenario validasi, formula perhitungan diskon, dan sanitasi nomor WhatsApp hanya dalam waktu kurang dari 2 detik setiap kali dijalankan.",
-        preparation: ["Buka folder `test/` di proyek Anda"],
-        step_instructions: [
-          "Buka file `test/platform.test.mjs`.",
-          "Amati skenario pengujian yang mencakup: validasi formulir karya, kelengkapan 12 modul, dan perhitungan total harga.",
-          "Di terminal, jalankan perintah: `npm run test`.",
-          "Amati seluruh pengujian berstatus centang hijau (PASS).",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat file test suite lengkap di `test/platform.test.mjs` untuk memvalidasi kurikulum, skema form pengumpulan karya, dan logika aplikasi.",
-          konteks: "Folder `test/` di proyek.",
-          instruksi: [
-            "Gunakan test runner bawaan Node.js (`import test from 'node:test'; import assert from 'node:assert';`).",
-            "Uji validasi schema Zod pengumpulan karya (nomor WA, link github, modul selesai).",
-            "Uji kelengkapan 12 modul kurikulum.",
-            "Uji fungsi ekspor data.",
-          ],
-          batasan: ["Tanpa dependensi test pihak ketiga yang berat."],
-          hasilAkhir: "Test suite otomatis yang cepat dan dapat dijalankan dengan `npm run test`.",
-          validasi: "Eksekusi `npm run test` menghasilkan 0 failure.",
-          rawPrompt: `[TUJUAN]\nMembuat skrip pengujian otomatis di test/platform.test.mjs.\n\n[KONTEKS]\nNode.js test runner bawaan (node --test) dan zod validation di src/lib/validations.ts.\n\n[INSTRUKSI]\n1. Buat test/platform.test.mjs.\n2. Tulis test suite: Validasi Submission Schema (uji input valid lolos, input URL palsu ditolak).\n3. Tulis test suite: Verifikasi 12 Modul Kurikulum (pastikan seluruh 12 modul memiliki minimal 4 materi substantif).\n4. Tulis test suite: Format harga Rupiah dan format tanggal Indonesia.\n\n[BATASAN]\nGunakan modul node:test dan node:assert standar.\n\n[HASIL AKHIR]\nPengujian otomatis menyeluruh yang lolos 100%.\n\n[VALIDASI]\nJalankan npm run test dan pastikan seluruh tes berstatus pass.`,
-        },
-        expected_result: "Terminal menampilkan laporan bahwa seluruh skenario pengujian berhasil lulus 100%.",
-        validation_check: [
-          "Perintah `npm run test` keluar dengan exit code 0",
-          "Semua tes lulus tanpa assertion error",
-        ],
-        common_errors: [
-          {
-            error: "AssertionError: Expected true, got false.",
-            solution: "Baca baris kegagalan tes dan perbaiki logika validasi atau data yang belum sesuai dengan spesifikasi.",
-          },
-        ],
-        exercise: "Jalankan `npm run test` di terminal Anda dan hitung berapa total assertion pengujian yang dijalankan.",
-        quiz: [
-          {
-            question: "Apa keuntungan utama pengujian otomatis (automated testing) sebelum mempublikasikan website ke internet?",
-            options: [
-              "Menemukan bug dan regresi kode secara instan sebelum website dibuka oleh ribuan pengunjung",
-              "Mengubah warna background menjadi ungu",
-              "Mengirim email promosi ke seluruh kontak",
-              "Mengganti password GitHub",
-            ],
-            correctIndex: 0,
-            explanation: "Automated test menjamin bahwa fitur yang sebelumnya berfungsi tidak rusak secara tidak sengaja oleh penambahan kode baru (mencegah regresi).",
-          },
-        ],
-        references: [{ title: "Node.js Test Runner Documentation", url: "https://nodejs.org/api/test.html" }],
-      },
-      {
-        id: "m10-l2",
-        module_id: "modul-10",
-        lesson_number: 2,
-        title: "Pemeriksaan Typecheck & Build Production Lokal",
-        slug: "typecheck-dan-build-production-lokal",
-        description: "Menjalankan `npm run typecheck` dan `npm run build` di laptop sendiri sebelum melakukan push ke GitHub & Vercel.",
-        estimated_minutes: 25,
-        order_index: 2,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Memastikan build production Next.js berhasil sukses 100% tanpa ada kesalahan tipe TypeScript yang menggagalkan deployment Vercel.",
-        prerequisites: ["Materi 1: Menjalankan Pengujian Otomatis"],
-        concept_explanation:
-          "Banyak pemula mengalami 'Build Error' di Vercel karena tidak pernah menguji build di laptop mereka terlebih dahulu. Dengan menjalankan `npm run typecheck` dan `npm run build` di komputer lokal, seluruh kesalahan impor, typo variabel, atau komponen JSX yang tidak valid akan langsung terdeteksi dan bisa diperbaiki dalam hitungan detik.",
-        preparation: ["Buka terminal di root proyek"],
-        step_instructions: [
-          "Jalankan: `npm run typecheck` (menjalankan `tsc --noEmit`).",
-          "Pastikan tidak ada baris error merah yang muncul.",
-          "Jalankan: `npm run build`.",
-          "Tunggu hingga muncul tabel ringkasan rute Next.js dengan status `○  (Static)` atau `ƒ  (Dynamic)`.",
-          "Pastikan muncul pesan `Compiled successfully`.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Memeriksa dan memperbaiki setiap potensi error TypeScript di seluruh file proyek.",
-          konteks: "Langkah verifikasi pra-deployment.",
-          instruksi: [
-            "Jalankan `npm run typecheck`.",
-            "Jika ada error tipe, telusuri file yang bersangkutan dan perbaiki tipe datanya secara presisi.",
-            "Ulangi hingga perintah `npm run typecheck` selesai bersih.",
-          ],
-          batasan: ["Jangan menggunakan `any` liar untuk menyembunyikan masalah yang sebenarnya."],
-          hasilAkhir: "Codebase 100% bersih dari error TypeScript.",
-          validasi: "Perintah `tsc --noEmit` keluar dengan exit code 0.",
-          rawPrompt: `[TUJUAN]\nMemverifikasi integritas tipe TypeScript di seluruh proyek (npm run typecheck).\n\n[KONTEKS]\nTypeScript 5, Next.js 15 App Router.\n\n[INSTRUKSI]\n1. Jalankan tsc --noEmit untuk mendeteksi potensi kesalahan tipe.\n2. Jika ada error tipe data pada props, Server Action, atau database schema, perbaiki definisinya dengan benar.\n3. Pastikan tidak ada tipe data undefined yang tidak tertangani.\n\n[BATASAN]\nJangan gunakan @ts-ignore kecuali benar-benar darurat.\n\n[HASIL AKHIR]\nProyek yang aman dan lolos kompilasi TypeScript.\n\n[VALIDASI]\nVerifikasi perintah npm run typecheck menghasilkan 0 error.`,
-        },
-        expected_result: "Kompilasi build production berhasil dengan output checklist hijau.",
-        validation_check: [
-          "`npm run typecheck` selesai tanpa error",
-          "`npm run build` menghasilkan folder `.next` yang siap deploy",
-        ],
-        common_errors: [
-          {
-            error: "Build failed: Type error: Property 'id' does not exist on type...",
-            solution: "Periksa interface TypeScript di file tersebut dan pastikan properti yang diakses sudah didefinisikan.",
-          },
-        ],
-        exercise: "Jalankan `npm run build` di terminal Anda dan perhatikan ukuran byte bundle halaman yang dihasilkan.",
-        quiz: [
-          {
-            question: "Mengapa kita wajib menjalankan `npm run build` di laptop lokal sebelum melakukan git push ke Vercel?",
-            options: [
-              "Untuk mendeteksi dan memperbaiki error kompilasi lebih awal sebelum proses deployment di Vercel gagal",
-              "Untuk mengunggah gambar ke Instagram",
-              "Untuk mempercepat loading baterai laptop",
-              "Untuk menghapus commit Git lama",
-            ],
-            correctIndex: 0,
-            explanation: "Menguji build lokal menjamin pipeline CI/CD Vercel akan berjalan lancar dan website tidak akan down akibat error kompilasi.",
-          },
-        ],
-        references: [{ title: "Next.js Build Optimization", url: "https://nextjs.org/docs/app/api-reference/cli/next#next-build-options" }],
-      },
-      {
-        id: "m10-l3",
-        module_id: "modul-10",
-        lesson_number: 3,
-        title: "Membaca Pesan Error Terminal & Panduan Troubleshooting",
-        slug: "membaca-error-terminal-dan-troubleshooting",
-        description: "Teknik membaca pesan error merah di terminal, console browser, Vercel build logs, dan cara memperbaikinya dengan bantuan Antigravity.",
-        estimated_minutes: 20,
-        order_index: 3,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Peserta tidak panik saat melihat error merah, mampu menemukan baris penyebabnya, dan tahu prompt perbaikannya.",
-        prerequisites: ["Materi 2: Typecheck & Build Production"],
-        concept_explanation:
-          "Error bukan tanda kegagalan, melainkan petunjuk arah yang sangat berharga. Pesan error di terminal selalu mencantumkan 3 hal penting: 1. Jenis Error (misal: ReferenceError / TypeError), 2. Penjelasan masalah (misal: 'x is not defined'), dan 3. Nama file beserta nomor baris tempat masalah terjadi.",
-        preparation: ["Buka daftar 'Error yang sering muncul' di worksheet referensi"],
-        step_instructions: [
-          "Buka terminal dan cari baris yang diawali kata merah `Error:`.",
-          "Cari nama file dan nomor baris (misal: `src/app/page.tsx:24:12`).",
-          "Buka file tersebut di baris yang ditunjuk.",
-          "Salin pesan error tersebut dan kirimkan ke Antigravity dengan prompt: 'Muncul error ini di file X pada baris Y: (tempel pesan). Tolong perbaiki tanpa mengubah bagian lain'.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat kamus panduan troubleshooting error lengkap di `docs/KAMUS_ERROR.md` sesuai referensi worksheet.",
-          konteks: "Folder dokumentasi proyek.",
-          instruksi: [
-            "Buat file `docs/KAMUS_ERROR.md`.",
-            "Tuliskan 10 error paling sering terjadi (Halaman kosong, env belum berefek, relation does not exist, Module not found, Build gagal di Vercel, dsb.) beserta solusinya.",
-          ],
-          batasan: ["Bahasa Indonesia yang praktis dan mudah dipahami pemula."],
-          hasilAkhir: "Buku saku penanganan error mandiri bagi siswa.",
-          validasi: "Kamus mencakup seluruh skenario error dari lembar kerja referensi.",
-          rawPrompt: `[TUJUAN]\nMembuat kamus troubleshooting error docs/KAMUS_ERROR.md.\n\n[KONTEKS]\nPanduan referensi workshop CHAT 2026.\n\n[INSTRUKSI]\n1. Buat docs/KAMUS_ERROR.md.\n2. Rangkum solusi dari error referensi:\n   - relation \"produk\" does not exist (skrip SQL belum dijalankan)\n   - Di laptop berhasil di Vercel tidak (env belum diisi / belum redeploy)\n   - Module not found (dependensi belum terpasang)\n   - AI mengubah terlalu banyak file (instruksi rollback dan batasan prompt)\n   - Lupa password admin (cara reset di Supabase)\n\n[BATASAN]\nFormat markdown rapi dan terstruktur.\n\n[HASIL AKHIR]\nKamus error siap pakai yang menyelamatkan siswa saat buntu.\n\n[VALIDASI]\nVerifikasi kelengkapan solusi tiap poin error.`,
-        },
-        expected_result: "Peserta mampu mendiagnosis dan mengatasi error secara mandiri tanpa harus selalu memanggil pendamping.",
-        validation_check: [
-          "Dapat membaca letak nama file dan nomor baris pada pesan error terminal",
-          "Mampu merumuskan prompt perbaikan yang spesifik",
-        ],
-        common_errors: [
-          {
-            error: "Hanya menyalin kata 'Error' ke AI tanpa menyertakan pesan lengkap dan nama file.",
-            solution: "Selalu salin 3-5 baris log error lengkap agar AI memahami konteks masalah secara akurat.",
-          },
-        ],
-        exercise: "Buka file `docs/KAMUS_ERROR.md` dan pelajari solusi ketika muncul error 'Module not found'.",
-        quiz: [
-          {
-            question: "Jika di terminal muncul error `relation \"produk\" does not exist`, langkah apa yang harus dilakukan?",
-            options: [
-              "Buka Supabase -> SQL Editor, lalu jalankan ulang skrip pembuatan tabel database",
-              "Menginstal ulang Windows",
-              "Membeli laptop baru",
-              "Menghapus folder proyek",
-            ],
-            correctIndex: 0,
-            explanation: "relation does not exist artinya tabel belum dibuat di database; cukup jalankan skrip SQL di Supabase SQL Editor.",
-          },
-        ],
-        references: [{ title: "Common Next.js Errors", url: "https://nextjs.org/docs/messages" }],
-      },
-      {
-        id: "m10-l4",
-        module_id: "modul-10",
-        lesson_number: 4,
-        title: "Pengujian Antarmuka Pengguna & Uji Coba Responsif",
-        slug: "pengujian-antarmuka-dan-responsif",
-        description: "Checklist pengujian tombol copy, tombol submit form, navigasi materi, dan layout di aneka ukuran layar perangkat nyata.",
-        estimated_minutes: 20,
-        order_index: 4,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Memastikan seluruh tombol dan alur interaksi bekerja tanpa ada tombol mati (dead link) atau layout berantakan.",
-        prerequisites: ["Materi 3: Membaca Pesan Error"],
-        concept_explanation:
-          "Pengujian Quality Assurance (QA) memastikan setiap tombol memiliki umpan balik visual (misalnya: tombol COPY berubah menjadi 'Tersalin!' dengan centang hijau), tautan navigasi berpindah ke materi yang benar, dan formulir menampilkan loading spinner saat memproses data.",
-        preparation: ["Buka platform di browser"],
-        step_instructions: [
-          "Buka setiap halaman materi dan klik tombol COPY pada blok prompt.",
-          "Pastikan tombol berubah warna dan teks menjadi 'Tersalin!' selama 2 detik.",
-          "Buka formulir pengumpulan karya dan coba submit tanpa mengisi data: perhatikan pesan validasi merah muncul di kolom yang kosong.",
-          "Uji navigasi materi sebelumnya dan materi selanjutnya.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat komponen tombol salin `CopyButton` yang memiliki feedback visual transisi ikon centang dan status teks tersalin.",
-          konteks: "Komponen `src/components/ui/copy-button.tsx`.",
-          instruksi: [
-            "Buat Client Component `CopyButton`.",
-            "Gunakan `navigator.clipboard.writeText(text)`.",
-            "Tampilkan status `copied` selama 2000ms.",
-            "Ganti ikon copy menjadi ikon check hijau saat aktif.",
-          ],
-          batasan: ["Tangani error jika izin clipboard browser ditolak."],
-          hasilAkhir: "Tombol salin yang 100% responsif dan interaktif.",
-          validasi: "Klik tombol dan tempel (paste) di text editor: teks yang tersalin sama persis.",
-          rawPrompt: `[TUJUAN]\nMembuat komponen CopyButton handal di src/components/ui/copy-button.tsx.\n\n[KONTEKS]\nNext.js 15, React ('use client'), Lucide Icons (Copy, Check).\n\n[INSTRUKSI]\n1. Buat src/components/ui/copy-button.tsx.\n2. Tangkap prop text (string) yang akan disalin.\n3. Buat fungsi handleCopy yang memanggil navigator.clipboard.writeText.\n4. Saat copied true, render ikon Check hijau dan teks 'Tersalin!'.\n5. Gunakan setTimeout 2000ms untuk mengembalikan state ke semula.\n\n[BATASAN]\nTangani fallback jika clipboard API tidak tersedia.\n\n[HASIL AKHIR]\nTombol salin yang memberikan kepastian visual kepada siswa.\n\n[VALIDASI]\nUji klik tombol dan pastikan teks berhasil masuk ke clipboard sistem operasi.`,
-        },
-        expected_result: "Seluruh tombol salin dan interaksi pengguna memberikan umpan balik visual yang menyenangkan.",
-        validation_check: [
-          "Tombol COPY menyalin teks ke clipboard secara instan",
-          "Status tombol berubah hijau memberi konfirmasi keberhasilan",
-        ],
-        common_errors: [
-          {
-            error: "Tombol copy tidak merespon saat diklik di browser jadul atau konteks non-HTTPS.",
-            solution: "Gunakan fallback textarea `document.execCommand('copy')` jika `navigator.clipboard` tidak didukung browser.",
-          },
-        ],
-        exercise: "Klik salah satu tombol COPY pada prompt di halaman kurikulum dan tempel di Notepad untuk membuktikan teks tersalin.",
-        quiz: [
-          {
-            question: "API JavaScript modern apa yang digunakan untuk menyalin teks ke papan klip komputer pengguna?",
-            options: ["navigator.clipboard.writeText()", "window.alert()", "console.print()", "history.back()"],
-            correctIndex: 0,
-            explanation: "navigator.clipboard.writeText adalah API standar asinkron modern untuk interaksi clipboard yang aman.",
-          },
-        ],
-        references: [{ title: "MDN Clipboard API", url: "https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API" }],
-      },
-    ],
-  },
+## Fitur Utama
+- **Autentikasi Google Modern**: Masuk menggunakan akun Google via Android Credential Manager API dan penyimpanan sesi lokal.
+- **Penyimpanan Lokal Room Database (KSP)**: Data tugas tersimpan permanen di perangkat menggunakan SQLite/Room dan terpisah per email pengguna.
+- **CRUD Tugas Lengkap**:
+  - **Create**: Tambah tugas baru lengkap dengan mata pelajaran, judul, catatan, dan tenggat waktu.
+  - **Read**: Daftar tugas real-time berbasis Kotlin \`Flow\` dan \`LazyColumn\` dengan pencarian & filter status.
+  - **Update**: Edit detail tugas dan centang tugas selesai dengan satu ketukan.
+  - **Delete**: Hapus tugas dilengkapi dialog konfirmasi pengaman.
+- **Fitur Kreasi Tambahan**: Progress bar persentase ketuntasan tugas di kartu profil siswa.
 
-  // =========================================================================
-  // MODUL 11: GITHUB DAN DEPLOYMENT
-  // =========================================================================
-  {
-    id: "modul-11",
-    course_id: "course-web-dev-antigravity",
-    module_number: 11,
-    title: "Version Control GitHub & Deployment Cloud Vercel",
-    slug: "modul-11-github-dan-deployment",
-    description:
-      "Alur kerja profesional: git add, commit, push ke repository GitHub, menghubungkan ke Vercel, deployment otomatis, custom domain, dan pembaruan aplikasi.",
-    estimated_minutes: 80,
-    difficulty_level: "Pemula",
-    is_published: true,
-    order_index: 11,
-    created_at: new Date().toISOString(),
-    lessons: [
-      {
-        id: "m11-l1",
-        module_id: "modul-11",
-        lesson_number: 1,
-        title: "Membuat Commit Bersih & Push Proyek ke GitHub",
-        slug: "commit-bersih-dan-push-ke-github",
-        description: "Mengarsipkan perubahan kode lokal dengan pesan commit yang deskriptif dan mendorongnya ke repository GitHub utama.",
-        estimated_minutes: 20,
-        order_index: 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menguasai siklus `git status` -> `git add .` -> `git commit -m \"...\"` -> `git push origin main`.",
-        prerequisites: ["Modul 2 Materi 2 dan Modul 10"],
-        concept_explanation:
-          "Commit adalah snapshot titik sejarah proyek Anda. Memberikan pesan commit yang deskriptif (misal: 'feat: integrasi tombol whatsapp katalog') memudahkan Anda dan tim melacak kapan fitur dibuat dan kembali ke titik tersebut jika terjadi masalah di masa depan.",
-        preparation: ["Buka terminal di root proyek"],
-        step_instructions: [
-          "Periksa status file kerja: `git status`.",
-          "Tambahkan seluruh perubahan ke staging: `git add .`.",
-          "Buat commit terstruktur:\n`git commit -m \"feat: selesaikan fitur katalog umkm US-01 sampai US-06\"`.",
-          "Dorong kode ke GitHub:\n`git push origin main`.",
-          "Buka halaman repository di github.com dan pastikan seluruh commit terbaru Anda sudah tercatat.",
+## Arsitektur & Teknologi
+- **Bahasa**: Kotlin
+- **Antarmuka (UI)**: Jetpack Compose & Material 3
+- **Arsitektur**: MVVM (\`data\`, \`viewmodel\`, \`ui\`)
+- **Database Lokal**: AndroidX Room Database + KSP
+- **Autentikasi**: AndroidX Credentials + Google ID Token`,
+          },
         ],
-        antigravity_prompt: {
-          tujuan: "Membuat skrip pembantu `scripts/git-push-helper.sh` atau memeriksa status kebersihan staging git.",
-          konteks: "Root direktori git proyek.",
-          instruksi: [
-            "Periksa apakah ada file sensitif yang tidak sengaja masuk ke git staging.",
-            "Verifikasi bahwa `.env.local` tidak di-track.",
-          ],
-          batasan: ["Jangan melakukan push tanpa konfirmasi."],
-          hasilAkhir: "Repository lokal yang bersih dan siap di-push.",
-          validasi: "File `.env.local` tidak muncul di git status.",
-          rawPrompt: `[TUJUAN]\nMemverifikasi keamanan staging Git sebelum push ke GitHub.\n\n[KONTEKS]\nRoot direktori Git repository.\n\n[INSTRUKSI]\n1. Jalankan git status.\n2. Pastikan file .env.local dan kredensial rahasia tidak terdaftar di staged changes.\n3. Berikan saran pesan commit yang sesuai standar Conventional Commits.\n\n[BATASAN]\nHanya memeriksa status tanpa melakukan commit paksa.\n\n[HASIL AKHIR]\nKepastian bahwa repository GitHub publik aman dari kebocoran token.\n\n[VALIDASI]\nVerifikasi bahwa git status bersih dari file rahasia.`,
-        },
-        expected_result: "Repository GitHub terisi seluruh kode terbaru proyek Anda dengan riwayat commit yang rapi.",
+        expected_result:
+          "Repository GitHub siswa memiliki README.md yang lengkap dan karya telah berhasil dikumpulkan di halaman Kumpulan Karya ComposeLab SMKN 1.",
         validation_check: [
-          "Buka github.com: melihat commit terbaru yang baru saja di-push",
-          "File `.env.local` TIDAK ada di daftar file GitHub (aman)",
+          "Repository GitHub berstatus Public dan menampilkan README.md",
+          "Status pengumpulan di halaman Kumpulan Karya telah terkirim beserta screenshot aplikasi",
         ],
         common_errors: [
           {
-            error: "Error: failed to push some refs to... (rejected).",
-            solution: "Tarik perubahan terbaru terlebih dahulu dengan `git pull origin main --rebase`, lalu jalankan `git push origin main`.",
+            error: "Mengumpulkan link GitHub yang masih berstatus Private sehingga sistem penilai otomatis tidak bisa membaca kode.",
+            solution:
+              "Buka Settings di repository GitHub -> gulir ke paling bawah (Danger Zone) -> Change repository visibility -> ubah menjadi Public.",
           },
         ],
-        exercise: "Buka tab 'Commits' di repository GitHub Anda dan lihat riwayat perjalanan perubahan kode Anda dari awal.",
+        exercise:
+          "Buka halaman Kumpulan Karya sekarang, kirimkan link GitHub, link APK, dan screenshot terbaik aplikasimu!",
         quiz: [
           {
-            question: "Perintah Git apa yang digunakan untuk mengirim perubahan commit lokal di komputer ke server online GitHub?",
-            options: ["git push origin main", "git delete", "git download", "git restore"],
-            correctIndex: 0,
-            explanation: "git push mengirimkan commit dari cabang lokal ke cabang repositori remote di GitHub.",
-          },
-        ],
-        references: [{ title: "Git Push Documentation", url: "https://git-scm.com/docs/git-push" }],
-      },
-      {
-        id: "m11-l2",
-        module_id: "modul-11",
-        lesson_number: 2,
-        title: "Deploying Proyek ke Vercel & Mengatur Domain",
-        slug: "deploying-proyek-ke-vercel-dan-domain",
-        description: "Menghubungkan repository GitHub ke Vercel, menyuntikkan environment variables, dan mendapatkan link website live publik (`xxxx.vercel.app`).",
-        estimated_minutes: 20,
-        order_index: 2,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Memiliki tautan website online yang dapat diakses dari smartphone siapapun di seluruh dunia tanpa login.",
-        prerequisites: ["Materi 1: Commit Bersih & Push"],
-        concept_explanation:
-          "Deployment adalah momen ketika aplikasi Anda 'lahir' ke internet. Vercel menyalin kode dari GitHub, mengompilasinya menjadi file statis dan fungsi edge, lalu mendistribusikannya ke ratusan server CDN di seluruh dunia sehingga website Anda dibuka secepat kilat.",
-        preparation: ["Buka https://vercel.com/dashboard"],
-        step_instructions: [
-          "Di Vercel Dashboard, klik 'Add New' -> 'Project'.",
-          "Pilih repository GitHub katalog Anda, lalu klik 'Import'.",
-          "Di bagian 'Environment Variables', masukkan:\n- `NEXT_PUBLIC_SUPABASE_URL`\n- `NEXT_PUBLIC_SUPABASE_ANON_KEY`\n- `SUPABASE_SERVICE_ROLE_KEY`.",
-          "Klik tombol 'Deploy'.",
-          "Tunggu sekitar 1 menit hingga kembang api muncul dengan ucapan 'Congratulations!'.",
-          "Salin link domain Vercel Anda (misal: `https://katalog-umkm-budi.vercel.app`).",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat checklist kesiapan deployment Vercel di file `docs/CHECKLIST_DEPLOYMENT.md`.",
-          konteks: "Folder dokumentasi proyek.",
-          instruksi: [
-            "Buat file `docs/CHECKLIST_DEPLOYMENT.md`.",
-            "Tuliskan 7 langkah verifikasi sebelum mengirim link ke formulir karya:",
-            "1. Link dapat dibuka tanpa login.",
-            "2. Katalog dan detail produk tampil.",
-            "3. Tombol WhatsApp membuka nomor toko yang benar.",
-            "4. Rute /admin terlindung login.",
-            "5. Nilai env Supabase terisi lengkap di Vercel.",
-          ],
-          batasan: ["Panduan praktis berformat checklist markdown."],
-          hasilAkhir: "Checklist pra-pengumpulan karya yang komprehensif.",
-          validasi: "File markdown memiliki kotak centang `[ ]` yang interaktif.",
-          rawPrompt: `[TUJUAN]\nMembuat checklist final verifikasi deployment di docs/CHECKLIST_DEPLOYMENT.md.\n\n[KONTEKS]\nPanduan referensi pengumpulan karya workshop CHAT 2026.\n\n[INSTRUKSI]\n1. Buat docs/CHECKLIST_DEPLOYMENT.md.\n2. Buat daftar checklist pra-pengumpulan karya: link Vercel publik, foto produk tampil normal (bukan gambar rusak), WhatsApp mengarah ke wa.me, admin terlindungi.\n3. Cantumkan catatan penting: Jangan kirim link localhost.\n\n[BATASAN]\nMarkdown bersih.\n\n[HASIL AKHIR]\nChecklist kelulusan karya peserta.\n\n[VALIDASI]\nVerifikasi bahwa semua poin penilaian dari lembar kerja referensi tercakup.`,
-        },
-        expected_result: "Website aktif online dan dapat dibuka dari handphone siapapun dengan lancar.",
-        validation_check: [
-          "Website dapat diakses dari browser smartphone menggunakan link `.vercel.app`",
-          "Tidak meminta password login Vercel kepada pengunjung umum",
-        ],
-        common_errors: [
-          {
-            error: "Mengirimkan link `http://localhost:3000` ke formulir pengumpulan karya.",
-            solution: "Localhost hanya ada di laptop Anda dan tidak bisa dibuka oleh juri/admin. Kirimkan selalu link live dari Vercel (`https://xxx.vercel.app`).",
-          },
-        ],
-        exercise: "Buka link Vercel Anda melalui browser handphone dan bagikan tautannya ke rekan Anda untuk dicoba.",
-        quiz: [
-          {
-            question: "Tautan URL mana yang benar untuk dikumpulkan sebagai hasil karya aplikasi web yang sudah online?",
+            question: "Mengapa repository GitHub yang dikumpulkan pada halaman Kumpulan Karya wajib diatur menjadi Public?",
             options: [
-              "Tautan publik Vercel seperti https://katalog-anda.vercel.app",
-              "http://localhost:3000",
-              "C:/Documents/katalog/index.html",
-              "File zip di flashdisk",
+              "Agar kuota internet berkurang",
+              "Agar guru dan mesin penilai otomatis dapat memeriksa struktur kode Kotlin, Room, Compose, dan README.md milikmu",
+              "Karena GitHub melarang kode Kotlin di repository Private",
+              "Supaya aplikasi otomatis terhapus",
             ],
-            correctIndex: 0,
-            explanation: "Link domain Vercel online dapat diakses publik dari mana saja di seluruh dunia melalui internet tanpa tergantung laptop Anda.",
+            correctIndex: 1,
+            explanation:
+              "Mesin penilai dan guru membutuhkan akses baca publik untuk memverifikasi kelengkapan struktur proyek Android (build.gradle.kts, Room, Compose, dan README.md).",
           },
         ],
-        references: [{ title: "Vercel Deployment Guide", url: "https://vercel.com/docs/deployments/overview" }],
-      },
-      {
-        id: "m11-l3",
-        module_id: "modul-11",
-        lesson_number: 3,
-        title: "Mengatasi Vercel Build Error & Redeploying",
-        slug: "mengatasi-vercel-build-error-dan-redeploying",
-        description: "Membaca Build Logs Vercel, mendiagnosis baris merah penyebab kegagalan deploy, dan melakukan Redeploy setelah perbaikan.",
-        estimated_minutes: 20,
-        order_index: 3,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Mampu menyelesaikan build error di Vercel secara tenang dan mandiri.",
-        prerequisites: ["Materi 2: Deploying Proyek ke Vercel"],
-        concept_explanation:
-          "Jika ada kesalahan penulisan kode, Vercel akan menghentikan proses build dan menandai deployment dengan lingkaran merah (Failed). Anda cukup mengklik deployment yang gagal tersebut, membaca tab 'Building' logs, menyalin baris merah ke AI agent untuk diperbaiki, lalu melakukan push ulang.",
-        preparation: ["Buka menu Deployments di dashboard Vercel"],
-        step_instructions: [
-          "Buka Vercel -> menu 'Deployments'.",
-          "Klik deployment yang berstatus merah / 'Error'.",
-          "Buka tab 'Building' dan scroll ke baris teks merah di bagian bawah.",
-          "Salin pesan error tersebut ke Antigravity untuk diperbaiki.",
-          "Setelah diperbaiki, lakukan `git add .`, `git commit -m \"fix: error vercel build\"`, dan `git push`.",
-          "Vercel akan otomatis mendeteksi push baru dan memulai build ulang hingga sukses hijau.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Memperbaiki error build Vercel yang dilaporkan di log.",
-          konteks: "Pesan error build Vercel.",
-          instruksi: [
-            "Periksa pesan error build yang disalin dari Vercel.",
-            "Identifikasi file yang menyebabkan error.",
-            "Terapkan perbaikan kode.",
-            "Uji dengan `npm run build` lokal untuk memastikan build lolos sebelum di-push.",
-          ],
-          batasan: ["Fokus hanya pada perbaikan bug yang dilaporkan."],
-          hasilAkhir: "Build lokal dan build Vercel sukses hijau.",
-          validasi: "Kompilasi lokal `npm run build` sukses 100%.",
-          rawPrompt: `[TUJUAN]\nMemperbaiki kesalahan build log Vercel.\n\n[KONTEKS]\nNext.js 15 App Router, TypeScript, Vercel Build Logs.\n\n[INSTRUKSI]\n1. Analisis log error build Vercel yang terjadi.\n2. Perbaiki import yang hilang, typo properti, atau ketidakcocokan tipe data.\n3. Jalankan verifikasi lokal npm run build.\n\n[BATASAN]\nJangan hapus fitur yang sudah berfungsi.\n\n[HASIL AKHIR]\nKode yang lolos kompilasi Vercel.\n\n[VALIDASI]\nPastikan npm run build di terminal lokal sukses tanpa error.`,
-        },
-        expected_result: "Status deployment Vercel berubah menjadi hijau ('Ready') dan aplikasi kembali aktif.",
-        validation_check: [
-          "Status deployment di dashboard Vercel bertuliskan 'Ready'",
-          "Tautan website live menampilkan pembaruan terbaru",
-        ],
-        common_errors: [
-          {
-            error: "Memperbaiki kode di VS Code tetapi lupa melakukan `git push` ke GitHub.",
-            solution: "Vercel hanya membaca kode yang sudah di-push ke GitHub. Selalu jalankan `git push` setelah memperbaiki file.",
-          },
-        ],
-        exercise: "Buka menu Deployments di Vercel dan amati riwayat setiap build yang pernah dijalankan.",
-        quiz: [
-          {
-            question: "Di mana Anda dapat melihat pesan error lengkap saat proses build di Vercel gagal?",
-            options: [
-              "Di Vercel -> Deployments -> klik deployment yang gagal -> Build Logs",
-              "Di riwayat keranjang belanja",
-              "Di status WhatsApp teman",
-              "Di kalkulator komputer",
-            ],
-            correctIndex: 0,
-            explanation: "Tab Build Logs di Vercel mencatat seluruh output proses kompilasi termasuk baris merah yang menunjukkan akar masalah.",
-          },
-        ],
-        references: [{ title: "Vercel Troubleshooting Builds", url: "https://vercel.com/docs/deployments/troubleshoot-a-build" }],
-      },
-      {
-        id: "m11-l4",
-        module_id: "modul-11",
-        lesson_number: 4,
-        title: "Alur Pembaruan Aplikasi Berkelanjutan (CI/CD)",
-        slug: "alur-pembaruan-aplikasi-berkelanjutan-cicd",
-        description: "Memahami betapa mudahnya memperbarui website live di masa depan: cukup edit file lokal, commit, push, dan Vercel mengurus sisanya.",
-        estimated_minutes: 20,
-        order_index: 4,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Menguasai pola Continuous Integration & Continuous Deployment (CI/CD) modern standar industri global.",
-        prerequisites: ["Materi 3: Mengatasi Vercel Build Error"],
-        concept_explanation:
-          "Zaman dahulu, memperbarui website membutuhkan upload manual via FTP yang rumit dan rawan salah timpa. Dengan alur CI/CD Next.js + GitHub + Vercel saat ini, setiap kali Anda menyimpan ide baru dan melakukan `git push`, sistem cloud otomatis membangun versi baru dan mengalihkan trafik pengunjung tanpa ada downtime (zero downtime deployment).",
-        preparation: ["Buka file `src/app/page.tsx` atau profil toko"],
-        step_instructions: [
-          "Lakukan perubahan kecil, misalnya menambahkan slogan baru toko Anda.",
-          "Jalankan: `git add .`.",
-          "Jalankan: `git commit -m \"chore: perbarui slogan toko\"`.",
-          "Jalankan: `git push origin main`.",
-          "Buka Vercel Dashboard dan saksikan deployment baru otomatis berjalan sendiri.",
-          "Setelah 45 detik, buka link website live Anda dan lihat slogan baru sudah terbit di seluruh dunia.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat ringkasan SOP alur kerja pembaruan website di file `docs/SOP_UPDATE_WEBSITE.md`.",
-          konteks: "Folder dokumentasi proyek.",
-          instruksi: [
-            "Buat file `docs/SOP_UPDATE_WEBSITE.md`.",
-            "Tuliskan 4 langkah baku pembaruan: 1. Uji lokal (npm run dev), 2. Uji build (npm run build), 3. Commit & Push (git push), 4. Cek Vercel.",
-          ],
-          batasan: ["Panduan praktis untuk pemula dan pelaku UMKM."],
-          hasilAkhir: "SOP operasional pemeliharaan website toko mandiri.",
-          validasi: "File markdown memiliki panduan langkah yang runtut.",
-          rawPrompt: `[TUJUAN]\nMembuat dokumen SOP alur pembaruan website di docs/SOP_UPDATE_WEBSITE.md.\n\n[KONTEKS]\nPanduan operasional pemeliharaan website toko UMKM mandiri.\n\n[INSTRUKSI]\n1. Buat docs/SOP_UPDATE_WEBSITE.md.\n2. Tuliskan panduan langkah demi langkah cara memperbarui info toko, harga produk, atau menambah foto baru di masa depan.\n3. Sertakan prinsip zero-downtime deployment.\n\n[BATASAN]\nBahasa Indonesia ramah non-teknis.\n\n[HASIL AKHIR]\nBuku panduan operasional mandiri bagi pemilik UMKM.\n\n[VALIDASI]\nVerifikasi alur pembaruan mudah diikuti oleh pemula.`,
-        },
-        expected_result: "Peserta percaya diri dapat mengelola dan memperbarui website mereka secara berkelanjutan.",
-        validation_check: [
-          "Mampu melakukan pembaruan konten dan melihatnya live di Vercel dalam < 2 menit",
-          "Memahami konsep continuous deployment otomatis",
-        ],
-        common_errors: [
-          {
-            error: "Mengira untuk mengubah teks harus membuat proyek Vercel baru dari awal.",
-            solution: "Cukup lakukan `git push` ke repository yang sama; Vercel akan otomatis memperbarui proyek yang sudah ada.",
-          },
-        ],
-        exercise: "Ubah tagline toko Anda, lakukan push, dan saksikan perubahannya live di website Vercel Anda.",
-        quiz: [
-          {
-            question: "Apa yang dimaksud dengan Zero-Downtime Deployment di platform seperti Vercel?",
-            options: [
-              "Pengunjung tetap dapat membuka website versi lama secara lancar selama versi baru sedang dikompilasi, tanpa pernah melihat halaman mati",
-              "Website mati selama 3 jam saat diupdate",
-              "Tagihan server menjadi nol rupiah",
-              "Semua data produk dihapus saat update",
-            ],
-            correctIndex: 0,
-            explanation: "Zero downtime berarti peralihan ke versi rilis baru dilakukan secara instan di level DNS/Routing setelah build dinyatakan sehat.",
-          },
-        ],
-        references: [{ title: "Vercel Instant Rollbacks & Deployments", url: "https://vercel.com/docs/deployments/instant-rollback" }],
-      },
-    ],
-  },
-
-  // =========================================================================
-  // MODUL 12: FINALISASI PROYEK
-  // =========================================================================
-  {
-    id: "modul-12",
-    course_id: "course-web-dev-antigravity",
-    module_number: 12,
-    title: "Finalisasi Proyek & Pengumpulan Karya",
-    slug: "modul-12-finalisasi-proyek",
-    description:
-      "Checklist publikasi akhir, optimasi performa gambar & SEO, pencatatan PROMPTS.md, serta pengumpulan karya peserta ke database platform.",
-    estimated_minutes: 60,
-    difficulty_level: "Pemula",
-    is_published: true,
-    order_index: 12,
-    created_at: new Date().toISOString(),
-    lessons: [
-      {
-        id: "m12-l1",
-        module_id: "modul-12",
-        lesson_number: 1,
-        title: "Checklist Kelulusan Fitur Wajib (US-01 s/d US-06)",
-        slug: "checklist-kelulusan-fitur-wajib",
-        description: "Memeriksa satu per satu bahwa seluruh 6 kriteria wajib telah terpenuhi dan berfungsi sempurna sebelum batas waktu pengumpulan.",
-        estimated_minutes: 15,
-        order_index: 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Memastikan karya memenuhi 100% kriteria kelulusan workshop tanpa ada poin yang terlewat.",
-        prerequisites: ["Modul 7 sampai Modul 11"],
-        concept_explanation:
-          "Sesuai ketentuan lembar kerja referensi: 'Bonus hanya dihitung kalau kamu sudah LULUS, yaitu US-01 sampai US-06 selesai dan semua kriterianya terpenuhi'. Memeriksa checklist ini memberi Anda kepastian nilai penuh sebelum mengirim karya ke sistem penilai.",
-        preparation: ["Buka website live Vercel Anda di tab browser"],
-        step_instructions: [
-          "Cek 1 (US-01): Katalog mengambil data dari database Supabase (bukan mock lokal).",
-          "Cek 2 (US-02): Halaman detail menampilkan info spesifik produk sesuai ID.",
-          "Cek 3 (US-03): Tombol pesan WhatsApp membuka chat dengan nomor toko dan pesan pesanan rapi.",
-          "Cek 4 (US-04): Login admin Supabase Auth berfungsi.",
-          "Cek 5 (US-05): Ganti password admin di dashboard berhasil.",
-          "Cek 6 (US-06): Rute `/admin` terlindung middleware dan tidak bisa diintip tanpa login.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Membuat file rekap catatan prompt `PROMPTS.md` yang merangkum seluruh prompt US-01 sampai US-06 yang telah digunakan.",
-          konteks: "File `PROMPTS.md` di root proyek.",
-          instruksi: [
-            "Buat file `PROMPTS.md`.",
-            "Tuliskan prompt yang digunakan untuk US-01 sampai US-06 beserta catatan keberhasilannya.",
-          ],
-          batasan: ["Dokumen markdown rapi."],
-          hasilAkhir: "Dokumentasi PROMPTS.md yang lengkap sebagai salah satu syarat penilaian.",
-          validasi: "File PROMPTS.md berisi riwayat prompt US-01 hingga US-06.",
-          rawPrompt: `[TUJUAN]\nMembuat file PROMPTS.md di root proyek sebagai bukti riwayat interaksi AI.\n\n[KONTEKS]\nSyarat kelulusan evaluasi workshop pengembangan katalog UMKM.\n\n[INSTRUKSI]\n1. Buat PROMPTS.md di root workspace.\n2. Cantumkan judul, tanggal pengerjaan, dan daftar prompt yang dipakai dari US-01 hingga US-06.\n3. Catat hasil pengujian tiap fitur.\n\n[BATASAN]\nFormat markdown terstruktur.\n\n[HASIL AKHIR]\nDokumen PROMPTS.md yang siap diperiksa oleh fasilitator/juri.\n\n[VALIDASI]\nVerifikasi bahwa keenam user story tercantum di dalam file.`,
-        },
-        expected_result: "Seluruh kriteria kelulusan terverifikasi dan PROMPTS.md siap dikumpulkan.",
-        validation_check: [
-          "US-01 sampai US-06 telah diuji dan berfungsi di link Vercel",
-          "File PROMPTS.md tersedia di repository GitHub",
-        ],
-        common_errors: [
-          {
-            error: "Mengumpulkan link karya saat US-06 belum selesai.",
-            solution: "Pastikan middleware proxy admin sudah terpasang agar tidak mengurangi poin kelulusan.",
-          },
-        ],
-        exercise: "Buka link Vercel Anda di tab Incognito dan lakukan uji coba seluruh alur belanja dari beranda hingga klik tombol WhatsApp.",
-        quiz: [
-          {
-            question: "Apa syarat utama agar nilai fitur bonus (US-07 hingga US-50) dapat dihitung dan dinilai?",
-            options: [
-              "Fitur wajib US-01 sampai US-06 sudah selesai dan seluruh kriterianya terpenuhi",
-              "Mengirimkan foto selfie ke admin",
-              "Mematikan koneksi internet",
-              "Membayar biaya tambahan",
-            ],
-            correctIndex: 0,
-            explanation: "Sesuai aturan evaluasi, bonus hanya dihitung jika peserta telah lulus fitur fondasi inti (US-01 sampai US-06).",
-          },
-        ],
-        references: [{ title: "Worksheet Referensi Evaluasi", url: "https://worksheet.andixurniawan.com/development" }],
-      },
-      {
-        id: "m12-l2",
-        module_id: "modul-12",
-        lesson_number: 2,
-        title: "Optimasi Gambar, SEO, dan Meta Tag OpenGraph",
-        slug: "optimasi-gambar-dan-seo-opengraph",
-        description: "Menambahkan gambar preview saat link dibagikan di WhatsApp/Twitter (OpenGraph meta tags) dan optimasi `next/image`.",
-        estimated_minutes: 15,
-        order_index: 2,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Ketika link website katalog dibagikan di grup WhatsApp, muncul kartu preview bergambar logo dan judul toko yang menarik.",
-        prerequisites: ["Materi 1: Checklist Kelulusan"],
-        concept_explanation:
-          "Open Graph (OG) tags adalah metadata khusus yang dibaca oleh WhatsApp, Facebook, Telegram, dan Twitter saat seseorang menempelkan tautan link Anda. Tanpa OG tags, chat WhatsApp hanya menampilkan link teks biru polos tanpa gambar.",
-        preparation: ["Buka file `src/app/layout.tsx`"],
-        step_instructions: [
-          "Buka file `src/app/layout.tsx`.",
-          "Di dalam objek `metadata`, tambahkan `openGraph`:\n- `title: 'Katalog UMKM Berkah'`\n- `description: 'Koleksi produk berkualitas langsung dari pengrajin lokal'`\n- `images: ['/og-image.png']`.",
-          "Lakukan push perubahan ke GitHub dan Vercel.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Menambahkan metadata SEO dan OpenGraph lengkap di `src/app/layout.tsx`.",
-          konteks: "File `src/app/layout.tsx`.",
-          instruksi: [
-            "Perkaya objek metadata Next.js dengan title template, description, metadataBase, openGraph, dan twitter cards.",
-          ],
-          batasan: ["Pastikan URL metadataBase menggunakan URL publik Vercel."],
-          hasilAkhir: "Pratinjau kartu WhatsApp bergambar dan profesional.",
-          validasi: "Periksa tag meta og:image di header HTML.",
-          rawPrompt: `[TUJUAN]\nMemasang metadata SEO dan OpenGraph di src/app/layout.tsx.\n\n[KONTEKS]\nNext.js 15 Metadata API.\n\n[INSTRUKSI]\n1. Buka src/app/layout.tsx.\n2. Tentukan metadata title yang menarik dengan template: '%s | Katalog UMKM Modern'.\n3. Tambahkan openGraph dengan title, description, dan images.\n4. Tambahkan twitter summary_large_image.\n\n[BATASAN]\nJangan merusak font Google Fonts yang sudah terpasang.\n\n[HASIL AKHIR]\nKartu tautan media sosial yang elegan saat link dibagikan di WhatsApp.\n\n[VALIDASI]\nVerifikasi bahwa tag meta og:title dan og:description ter-render di source HTML.`,
-        },
-        expected_result: "Membagikan link toko di WhatsApp memunculkan preview gambar dan judul toko yang profesional.",
-        validation_check: [
-          "Tag `<meta property=\"og:image\" ...>` ada di source code beranda",
-          "Tampilan link di chat media sosial memunculkan kartu visual",
-        ],
-        common_errors: [
-          {
-            error: "Gambar OpenGraph tidak muncul di WhatsApp.",
-            solution: "Pastikan URL gambar bersifat absolut (diawali `https://`) bukan path lokal relatif.",
-          },
-        ],
-        exercise: "Gunakan tool online seperti `opengraph.dev` untuk mem-preview tampilan link Vercel Anda di media sosial.",
-        quiz: [
-          {
-            question: "Properti meta tag apa yang digunakan WhatsApp untuk menampilkan gambar pratinjau saat tautan link dibagikan di obrolan chat?",
-            options: ["og:image", "bg:color", "wa:picture", "file:jpg"],
-            correctIndex: 0,
-            explanation: "og:image adalah protokol Open Graph standar web untuk gambar thumbnail pratinjau tautan sosial.",
-          },
-        ],
-        references: [{ title: "The Open Graph Protocol", url: "https://ogp.me" }],
-      },
-      {
-        id: "m12-l3",
-        module_id: "modul-12",
-        lesson_number: 3,
-        title: "Mengenal Fitur Bonus (US-07 hingga US-50)",
-        slug: "mengenal-fitur-bonus-user-stories",
-        description: "Menjelajahi 44 fitur bonus penambah poin: PWA, ulasan produk, integrasi AI tanya-jawab produk, perbandingan 2 produk, dan impor CSV.",
-        estimated_minutes: 15,
-        order_index: 3,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Memahami cara meningkatkan nilai karya dan mengasah kemampuan prompting mandiri untuk fitur lanjutan.",
-        prerequisites: ["Materi 2: Optimasi Gambar & SEO"],
-        concept_explanation:
-          "Setelah lulus fitur wajib, peserta dapat menantang diri mengerjakan fitur bonus. Setiap user story memiliki bobot 5 hingga 15 poin (total 500 poin). Anda menulis prompt sendiri menggunakan formula 6-bagian yang telah dipelajari di Modul 4.",
-        preparation: ["Buka daftar fitur bonus di menu platform"],
-        step_instructions: [
-          "Buka menu daftar fitur bonus pada platform ini.",
-          "Pilih fitur yang ingin Anda kerjakan (misal: US-13 PWA atau US-38 Ulasan & Rating).",
-          "Tulis prompt Antigravity menggunakan formula 6 bagian.",
-          "Kirim ke Agent dan verifikasi hasilnya di aplikasi lokal.",
-          "Commit dan push ke GitHub untuk memperbarui link Vercel Anda.",
-        ],
-        antigravity_prompt: {
-          tujuan: "Merancang prompt mandiri untuk salah satu user story bonus (misal US-13: PWA Progressive Web App).",
-          konteks: "Fitur bonus katalog UMKM.",
-          instruksi: [
-            "Terapkan formula: TUJUAN, KONTEKS, INSTRUKSI, BATASAN, HASIL AKHIR, VALIDASI.",
-            "Mintalah AI membuat file manifest.json dan ikon PWA agar website dapat diinstal di homescreen smartphone.",
-          ],
-          batasan: ["Jangan mengubah fitur wajib US-01 sampai US-06 yang sudah berfungsi."],
-          hasilAkhir: "Draf prompt fitur bonus yang siap dieksekusi.",
-          validasi: "Aplikasi dapat diuji 'Add to Home Screen' di browser Chrome mobile.",
-          rawPrompt: `[TUJUAN]\nUS-13: Mengonversi website katalog menjadi PWA (Progressive Web App).\n\n[KONTEKS]\nNext.js 15 App Router di public/manifest.json dan src/app/layout.tsx.\n\n[INSTRUKSI]\n1. Buat public/manifest.json dengan nama toko, short_name, start_url '/', display 'standalone', theme_color '#0F172A', dan icons.\n2. Tautkan manifest di metadata src/app/layout.tsx.\n3. Berikan tombol 'Install App Toko' yang mendengarkan event 'beforeinstallprompt'.\n\n[BATASAN]\nJangan merusak tampilan mobile yang sudah ada.\n\n[HASIL AKHIR]\nWebsite katalog dapat diinstal di layar utama handphone layaknya aplikasi Android/iOS.\n\n[VALIDASI]\nPeriksa tab Application -> Manifest di Chrome DevTools.`,
-        },
-        expected_result: "Peserta mampu mengembangkan fitur apapun secara mandiri berbekal AI coding agent.",
-        validation_check: [
-          "Mampu memilih user story bonus dan merancang prompt-nya sendiri",
-          "Memahami sistem akumulasi poin evaluasi",
-        ],
-        common_errors: [
-          {
-            error: "Mencoba mengerjakan semua 44 fitur bonus sekaligus dalam 1 prompt.",
-            solution: "Kerjakan bertahap satu per satu user story secara fokus agar kode tetap stabil.",
-          },
-        ],
-        exercise: "Pilih 1 fitur bonus yang paling menarik bagi usaha UMKM Anda dan catat id user story-nya.",
-        quiz: [
-          {
-            question: "Berapa total potensi poin maksimal yang bisa diraih dari penyelesaian seluruh user story bonus dan pemeriksaan keamanan lanjutan?",
-            options: ["Hingga 500 poin", "10 poin", "100 poin", "Tidak ada poin"],
-            correctIndex: 0,
-            explanation: "Terdapat 44 user story bonus dan 8 kriteria keamanan lanjutan dengan akumulasi total mencapai 500 poin.",
-          },
-        ],
-        references: [{ title: "User Stories Specification", url: "https://worksheet.andixurniawan.com/development" }],
-      },
-      {
-        id: "m12-l4",
-        module_id: "modul-12",
-        lesson_number: 4,
-        title: "Kumpulkan Karya di Formulir Kumpulan Karya Peserta",
-        slug: "kumpulkan-karya-di-formulir-kumpulan-karya",
-        description: "Langkah akhir: Mengisi formulir pengumpulan karya di platform, melampirkan link GitHub, link Vercel, screenshot aplikasi, dan memantau status penilaian admin.",
-        estimated_minutes: 15,
-        order_index: 4,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        objective: "Karya peserta resmi tersimpan di database Supabase platform dan siap dinilai oleh administrator.",
-        prerequisites: ["Seluruh modul selesai dan link Vercel aktif"],
-        concept_explanation:
-          "Formulir 'Kumpulan Karya Peserta' adalah pintu gerbang sertifikasi dan evaluasi. Data yang Anda kirimkan (nama, institusi, nomor WA, link GitHub publik, link Vercel live, dan screenshot aplikasi) akan langsung masuk ke tabel `work_submissions` Supabase serta penyimpanan cloud `work-submissions`.",
-        preparation: [
-          "Pastikan Anda sudah login ke akun peserta di platform ini",
-          "Siapkan tangkapan layar (screenshot) halaman depan katalog dan halaman detail produk Anda",
-        ],
-        step_instructions: [
-          "Buka menu 'Kumpulan Karya' di navbar atas.",
-          "Isi formulir pengumpulan karya secara lengkap:\n1. Nama Lengkap\n2. Email & Nomor WhatsApp Aktif\n3. Asal Institusi / Sekolah / Usaha UMKM\n4. Judul & Deskripsi Proyek\n5. Centang modul-modul yang telah Anda selesaikan\n6. Tempel Link Repository GitHub Publik Anda\n7. Tempel Link Website Vercel Aktif Anda\n8. Unggah Screenshot Aplikasi dan Lampiran pendukung.",
-          "Klik tombol 'Kirimkan Karya Saya'.",
-          "Tunggu hingga muncul konfirmasi sukses dan periksa status karya Anda berstatus 'Menunggu Pemeriksaan'.",
-          "Selamat! Anda telah resmi menjadi Modern Web Developer bersertifikat!",
-        ],
-        antigravity_prompt: {
-          tujuan: "Memverifikasi bahwa data submission karya tersimpan ke tabel `work_submissions` Supabase.",
-          konteks: "Halaman Kumpulan Karya di platform Vibe Code.",
-          instruksi: [
-            "Periksa formulir pengumpulan karya.",
-            "Pastikan validasi Zod berjalan dan tombol kirim memanggil Server Action yang tepat.",
-            "Tampilkan riwayat submission peserta di bawah formulir pengumpulan.",
-          ],
-          batasan: ["Pastikan peserta hanya dapat melihat dan mengedit karyanya sendiri."],
-          hasilAkhir: "Alur pengumpulan karya yang mulus dari form hingga database.",
-          validasi: "Kirim submission tes dan pastikan baris tersimpan dengan ID unik.",
-          rawPrompt: `[TUJUAN]\nMemverifikasi sistem pengumpulan karya peserta.\n\n[KONTEKS]\nModul Kumpulan Karya Peserta di platform Vibe Code.\n\n[INSTRUKSI]\n1. Validasi form dengan Zod (link GitHub valid, link Vercel valid, file upload).\n2. Simpan ke database work_submissions dan bucket work-submissions.\n3. Tampilkan kartu status 'Menunggu Pemeriksaan' dengan badge oranye.\n\n[BATASAN]\nJangan izinkan pengiriman karya jika link GitHub tidak valid.\n\n[HASIL AKHIR]\nSistem pengumpulan karya yang kokoh dan siap diekspor oleh admin.\n\n[VALIDASI]\nVerifikasi bahwa data submission dapat dilihat di dashboard admin dan diekspor ke Excel.`,
-        },
-        expected_result: "Karya peserta tersimpan rapi di database cloud dan muncul di dashboard penilai admin.",
-        validation_check: [
-          "Notifikasi 'Karya Berhasil Dikumpulkan' muncul dengan kembang api confetti",
-          "Riwayat karya muncul di Dashboard Peserta dan Dashboard Admin",
-        ],
-        common_errors: [
-          {
-            error: "Lupa mengunggah screenshot aplikasi.",
-            solution: "Unggah file screenshot dalam format PNG, JPEG, atau WebP (maksimal 5MB) agar reviewer dapat melihat preview sekilas.",
-          },
-        ],
-        exercise: "Buka menu Kumpulan Karya sekarang, lengkapi formulir Anda, dan rayakan kelulusan Anda!",
-        quiz: [
-          {
-            question: "Apa status awal karya peserta setelah pertama kali berhasil dikirimkan melalui formulir pengumpulan karya?",
-            options: ["Menunggu pemeriksaan", "Ditolak", "Kadaluarsa", "Dihapus"],
-            correctIndex: 0,
-            explanation: "Setiap karya baru otomatis berstatus 'Menunggu pemeriksaan' hingga ditinjau dan dinilai oleh fasilitator/administrator.",
-          },
-        ],
-        references: [{ title: "Halaman Pengumpulan Karya Platform", url: "/kumpulan-karya" }],
       },
     ],
   },

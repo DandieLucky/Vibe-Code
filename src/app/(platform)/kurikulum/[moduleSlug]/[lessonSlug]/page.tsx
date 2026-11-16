@@ -242,16 +242,49 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
           </section>
         )}
 
-        {/* 6. Prompt Siap Salin untuk Google Antigravity */}
+        {/* 5.5 Blok Pikirkan Dulu (Alur Logika Sebelum Prompting AI) */}
+        {lesson.thinking_steps && lesson.thinking_steps.length > 0 && (
+          <section className="rounded-2xl border-2 border-[#C4552D]/30 bg-[#FAF6F0] p-6 sm:p-7 shadow-xs mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h2 className="text-base sm:text-lg font-extrabold text-[#2B211B] flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-[#C4552D]" />
+                <span>Pikirkan Dulu: Rancang Alur Logika Sebelum Prompting</span>
+              </h2>
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#C4552D]/15 text-[#9F3F1D] border border-[#C4552D]/30">
+                Wajib Dipahami Siswa
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-[#5D4E43] mb-4 leading-relaxed">
+              Jangan langsung menyalin prompt ke AI. Jawab dan pahami urutan logika di bawah ini agar kamu tahu <strong>mengapa</strong> kode tersebut dibuat dan bisa mendeteksi jika AI keliru:
+            </p>
+            <div className="space-y-2.5">
+              {lesson.thinking_steps.map((thought, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-start gap-3 p-3.5 rounded-xl bg-[#FDFBF7] border border-[#E6DDD2]"
+                >
+                  <span className="flex items-center justify-center h-6 w-6 rounded-full bg-[#C4552D] text-[#FDFBF7] font-bold text-xs shrink-0 mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <p className="text-xs sm:text-sm text-[#2B211B] leading-relaxed font-medium">
+                    {thought}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* 6. Prompt Terstruktur untuk Diskusi AI */}
         {lesson.antigravity_prompt && (
           <section className="mb-8">
             <div className="mb-2">
               <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Code2 className="w-5 h-5 text-sky-600" />
-                <span>Prompt Siap Salin untuk Google Antigravity</span>
+                <Code2 className="w-5 h-5 text-[#C4552D]" />
+                <span>Prompt AI Terstruktur (Formula 6-Bagian)</span>
               </h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Salin prompt di bawah ini, tempelkan ke panel Agent Antigravity di VS Code, lalu tekan kirim.
+                Gunakan prompt ini setelah memahami alur di atas. Minta AI menjelaskan fungsi tiap bagian kode sebelum kamu menempelkannya ke Android Studio.
               </p>
             </div>
             <AntigravityPromptCard prompt={lesson.antigravity_prompt} lessonTitle={lesson.title} />
