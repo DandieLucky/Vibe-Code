@@ -2,10 +2,12 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { Hammer, Laptop, ChevronRight, Check, BookOpen } from "lucide-react";
+import { PERSIAPAN } from "@/lib/data/tutorial-persiapan";
+import { DEVELOPMENT } from "@/lib/data/tutorial-development";
 
 export const metadata = {
   title: "Tutorial — ComposeLab SMKN 1",
-  description: "Dua tutorial: persiapan laptop sebelum acara, dan development aplikasi saat acara.",
+  description: "Dua tutorial: persiapan laptop Android sebelum praktik, dan panduan step-by-step membangun aplikasi SakuSiswa.",
 };
 
 export default async function HalamanTutorial() {
@@ -28,17 +30,17 @@ export default async function HalamanTutorial() {
     {
       slug: "persiapan",
       icon: Laptop,
-      judul: "Tutorial persiapan laptop",
-      ringkas: "Pasang Node.js, Git, VS Code + AI agent, lalu siapkan akun. Kerjakan sebelum hari acara.",
-      total: 5,
+      judul: "Tutorial persiapan laptop Android",
+      ringkas: "Pasang Android Studio, siapkan HP USB Debugging / Emulator, Git, serta akun GitHub & Google Cloud.",
+      total: PERSIAPAN.langkah.length,
       warna: "from-amber-500 to-orange-600",
     },
     {
       slug: "development",
       icon: Hammer,
-      judul: "Tutorial development",
-      ringkas: "17 langkah membangun aplikasi dari deploy pertama sampai dikumpulkan, lengkap dengan prompt AI.",
-      total: 17,
+      judul: "Tutorial development SakuSiswa",
+      ringkas: `${DEVELOPMENT.langkah.length} langkah terstruktur membangun aplikasi Android SakuSiswa (Compose, Google Login, Room CRUD) sampai kumpul karya.`,
+      total: DEVELOPMENT.langkah.length,
       warna: "from-sky-500 to-indigo-600",
     },
   ];

@@ -398,7 +398,7 @@ export function TutorialView({ bagian, storageKey }: Props) {
           <p className="text-xs text-slate-500 mb-4">
             {bagian.id === "persiapan"
               ? "Saat acara, kamu akan memakai Tutorial Development untuk membangun aplikasi langkah demi langkah."
-              : "Jangan lupa kumpulkan link GitHub dan link website-mu untuk dinilai."}
+              : "Jangan lupa kumpulkan link repository GitHub, screenshot aplikasi Android, dan link APK (opsional) untuk dinilai."}
           </p>
           <Link
             href={bagian.id === "persiapan" ? "/tutorial/development" : "/kumpulan-karya"}

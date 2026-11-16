@@ -4,9 +4,9 @@
 
 **Blocked by:** 01: Rebranding Platform ke "ComposeLab SMKN 1" & Penyesuaian Shell Global
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Halaman `/tutorial` menampilkan langkah persiapan Android Studio, Emulator/HP fisik, dan Git dengan instruksi yang jelas untuk siswa kelas 10
-- [ ] Bagian development di `/tutorial` memandu pembuatan **SakuSiswa** secara berurutan dengan tombol centang "Selesai" yang tersimpan ke progres user
-- [ ] Halaman `/panduan-deploy` disesuaikan menjadi panduan build APK & push repository GitHub
+- [x] Halaman `/tutorial` menampilkan langkah persiapan Android Studio, Emulator/HP fisik, dan Git dengan instruksi yang jelas untuk siswa kelas 10
+- [x] Bagian development di `/tutorial` memandu pembuatan **SakuSiswa** secara berurutan (12 langkah) dengan tombol centang "Selesai" yang tersimpan ke progres user
+- [x] Halaman `/panduan-deploy` tetap mengalihkan ke `/tutorial/development` yang memuat panduan build APK & push repository GitHub
 

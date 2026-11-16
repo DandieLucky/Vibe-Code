@@ -1,376 +1,230 @@
-
 // ============================================================================
-// BAGIAN 2 — DEVELOPMENT (15 langkah, dikerjakan saat acara)
+// TUTORIAL DEVELOPMENT SAKUSISWA — ComposeLab SMKN 1
+// ============================================================================
+// 12 langkah berurutan membangun aplikasi Android SakuSiswa (Kotlin + Jetpack
+// Compose + Room Database KSP + Google Credential Manager + CRUD Lengkap).
 // ============================================================================
 
 import type { BagianTutorial } from "./tutorial-persiapan";
 
 export const DEVELOPMENT: BagianTutorial = {
   id: "development",
-  judul: "Tutorial development Katalog UMKM",
+  judul: "Tutorial Step-by-Step Membangun Aplikasi SakuSiswa",
   pengantar:
-    "Ikuti 17 langkah ini berurutan. Jangan lompat langkah. Setelah satu langkah selesai " +
-    "dan hasilnya sesuai, tekan tombol Selesai di langkah itu.",
+    "Ikuti 12 langkah ini secara berurutan dari Hari ke-1 hingga Hari ke-3. Jangan melompati langkah. " +
+    "Setelah satu langkah selesai dan berjalan tanpa error di Android Studio, tekan tombol Selesai di langkah itu.",
   peringatanAwal:
-    "Centang hanya untuk membantumu melacak progres, bukan penilaian. Karyamu dinilai dari link aplikasi yang dikumpulkan.",
+    "Centang langkah hanya untuk membantu melacak progres belajarmu. Karya akhir dinilai dari Repository GitHub, Screenshot Aplikasi, dan kelengkapan fitur Login Google + Room Database + CRUD.",
   langkah: [
-    // ---------- BAGIAN 1: Menyiapkan aplikasi sampai online ----------
+    // ---------- HARI 1: PERSIAPAN PROYEK & UI JETPACK COMPOSE ----------
     {
-      id: "d1-deploy-vercel",
-      judul: "Deploy template ke Vercel",
+      id: "d1-new-project",
+      judul: "Buat proyek baru Empty Activity (Jetpack Compose)",
       penjelasan:
-        "Vercel adalah tempat aplikasimu disimpan dan ditayangkan di internet. Tombol Deploy " +
-        "di bawah otomatis menyalin template ke akun GitHub-mu dan langsung bisa tayang.",
+        "Kita memulai dengan template Empty Activity modern yang sudah memakai Kotlin DSL dan Jetpack Compose Material 3 tanpa file XML.",
       instruksi: [
-        "Klik tombol Deploy di halaman tutorial.",
-        "Pilih Continue with GitHub, lalu izinkan akses kalau diminta.",
-        "Di kolom Repository Name, isi nama tanpa spasi, misalnya katalog-budi. Pastikan gembok berwarna orange.",
-        "Setelah itu klik Create.",
-        "Tunggu proses deploy sampai muncul tulisan Congratulations (±1–2 menit).",
-        "Klik gambar pratinjau atau tombol Continue to Project, lalu klik link domain yang berakhiran .vercel.app.",
-        "Catat link ini, nanti dikumpulkan.",
+        "Buka Android Studio -> klik New Project -> pilih 'Empty Activity' (yang berlogo Jetpack Compose), lalu klik Next.",
+        "Isi Name: 'SakuSiswa', Package name: 'id.smkn1jakarta.sakusiswa', Minimum SDK: 'API 26 (Android 8.0)', Build configuration language: 'Kotlin DSL (build.gradle.kts)'.",
+        "Klik Finish dan tunggu proses Gradle Sync di pojok kanan bawah selesai.",
+        "Jalankan aplikasi awal ke HP/Emulator dengan menekan tombol Run (▶).",
       ],
       hasilDiharapkan:
-        "Halaman Toko Contoh tampil dengan 6 produk contoh dan tulisan \"Masih data contoh\". " +
-        "Ini normal: aplikasimu sudah online, tapi belum tersambung ke database.",
+        "Aplikasi awal bertuliskan 'Hello Android!' tampil di HP atau Emulator tanpa error merah.",
       troubleshooting: [
-        { masalah: "Muncul \"Build failed\"", solusi: "Panggil pendamping, jangan ulang dari awal." },
-        { masalah: "Nama repo sudah dipakai", solusi: "Tambahkan angka, misalnya katalog-budi-2." },
-      ],
-      gambar: [
-        { src: "/panduan/dev-vercel-import.png", alt: "Pilih repositori template lalu klik Import" },
-        { src: "/panduan/dev-vercel-deploy.png", alt: "Alamat aplikasi tampil setelah deploy selesai" },
+        {
+          masalah: "Gradle Sync gagal karena jaringan sekolah lambat",
+          solusi: "Klik ikon gajah 'Sync Project with Gradle Files' di toolbar atas, atau pastikan koneksi Wi-Fi stabil.",
+        },
       ],
     },
     {
-      id: "d2-supabase-project",
-      judul: "Buat proyek Supabase",
-      penjelasan: "Supabase adalah tempat menyimpan data produk dan akun admin tokomu.",
-      instruksi: [
-        "Buka supabase.com, klik Sign in, pilih Continue with GitHub.",
-        "Klik New Organization.",
-        "Isi Project name (misalnya Discaleup).",
-        "Isi Database Password (klik Generate juga boleh). Simpan password ini di catatan HP.",
-        "Pilih Region: Southeast Asia (Singapore).",
-        "Klik Create new project, lalu tunggu sampai selesai (±2 menit).",
-      ],
-      hasilDiharapkan:
-        "Dashboard proyek terbuka, menu di kiri berisi Table Editor, SQL Editor, Authentication, dan lainnya.",
-      gambar: [
-        { src: "/panduan/dev-supabase-buat-proyek.png", alt: "Isi nama proyek dan password database" },
-      ],
-    },
-    {
-      id: "d3-jalankan-schema",
-      judul: "Jalankan skrip database",
+      id: "d2-package-structure",
+      judul: "Rapikan struktur package (data, viewmodel, ui)",
       penjelasan:
-        "Skrip ini membuat tabel produk, mengisi 6 produk awal, dan memasang aturan keamanan database.",
+        "Agar proyek mudah dipelihara dan mudah di-debug, kita pisahkan kode menjadi 3 package sesuai tanggung jawabnya (arsitektur MVVM sederhana).",
       instruksi: [
-        "Buka repo GitHub-mu (alamatnya github.com/akunmu/nama-repo), masuk ke folder docs, klik file schema.sql.",
-        "Klik ikon Copy raw file (ikon dua kotak di kanan atas isi file).",
-        "Di Supabase, buka menu SQL Editor di sebelah kiri. Pastikan SQL Editor, BUKAN Table Editor.",
-        "Tempel (Ctrl+V / Cmd+V) seluruh isi ke kotak editor.",
-        "Klik tombol Run di kanan atas.",
-        "Buka menu Table Editor, klik tabel produk.",
+        "Ubah tampilan panel kiri Android Studio ke mode 'Android'.",
+        "Buka app -> kotlin+java -> klik kanan pada 'id.smkn1jakarta.sakusiswa'.",
+        "Pilih New -> Package, lalu buat 3 package secara terpisah: 'data', 'viewmodel', dan 'ui'.",
       ],
+      hasilItem: [
+        "Package data, viewmodel, dan ui tampil sejajar di bawah id.smkn1jakarta.sakusiswa",
+      ],
+    },
+    {
+      id: "d3-ui-components",
+      judul: "Buat komponen UI dasar (StudentHeaderCard, TaskItemCard, TaskFormDialog)",
+      penjelasan:
+        "Sebelum menyambungkan database, kita bangun dulu komponen tampilan Material 3 dan uji lewat @Preview di Android Studio.",
+      instruksi: [
+        "Di dalam package 'ui', buat file 'StudentHeaderCard.kt' untuk menampilkan nama, email siswa, dan jumlah tugas aktif/selesai.",
+        "Buat file 'TaskItemCard.kt' berisi Checkbox, label mata pelajaran, judul tugas (dengan efek garis coret saat selesai), catatan, tenggat, tombol Edit, dan tombol Delete.",
+        "Buat file 'TaskFormDialog.kt' berisi AlertDialog dengan 4 OutlinedTextField (Mata Pelajaran, Judul, Tenggat, Catatan) dan validasi tombol Simpan.",
+        "Buka mode Split di Android Studio dan pastikan @Preview tampil rapi tanpa error.",
+      ],
+      blokPrompt: `[PIKIRKAN DULU] Komponen UI tidak mengakses database langsung, melainkan menerima data dan callback dari atas.\n[TUJUAN] Membuat StudentHeaderCard.kt, TaskItemCard.kt, dan TaskFormDialog.kt di package ui.\n[KONTEKS] Kotlin, Jetpack Compose Material 3, proyek SakuSiswa.\n[INSTRUKSI] Gunakan Card, Row dengan Modifier.weight(1f), Checkbox, IconButton Edit/Delete, dan remember { mutableStateOf("") } pada form.\n[BATASAN] Gunakan ikon standar Icons.Default.*.\n[VALIDASI] Pastikan @Preview merender kartu dengan rapi tanpa teks terpotong.`,
       hasilDiharapkan:
-        "Muncul tulisan \"Success. No rows returned\", dan di Table Editor tabel produk berisi 6 baris produk.",
+        "Ketiga komponen UI tampil sempurna pada panel Preview Android Studio.",
+    },
+
+    // ---------- HARI 2 PAGI: AUTENTIKASI GOOGLE CREDENTIAL MANAGER ----------
+    {
+      id: "d4-google-cloud-sha1",
+      judul: "Ambil SHA-1 & buat Web Client ID di Google Cloud Console",
+      penjelasan:
+        "Credential Manager API membutuhkan verifikasi bahwa aplikasi SakuSiswa benar-benar milikmu melalui kode SHA-1 debug dan Web Client ID.",
+      instruksi: [
+        "Buka tab Terminal di Android Studio dan jalankan perintah di bawah ini untuk melihat SHA-1 pada bagian 'Variant: debug'.",
+        "Buka console.cloud.google.com -> buat proyek 'SakuSiswa-SMKN1' -> atur OAuth consent screen (External) dan tambahkan emailmu di Test Users.",
+        "Buka Credentials -> Create Credentials -> OAuth client ID -> buat tipe 'Android' (masukkan package id.smkn1jakarta.sakusiswa dan SHA-1).",
+        "Buat satu OAuth client ID lagi bertipe 'Web application', lalu salin nilai Client ID-nya (.apps.googleusercontent.com).",
+      ],
+      kode: ["./gradlew signingReport"],
+      hasilItem: [
+        "Kode SHA-1 Debug tercatat",
+        "Web Client ID (.apps.googleusercontent.com) tersimpan di catatan",
+      ],
       troubleshooting: [
-        { masalah: "Ada pesan error merah", solusi: "Pastikan seluruh isi file tersalin dari baris pertama sampai terakhir, lalu klik Run lagi. Skrip aman dijalankan ulang." },
-        { masalah: "Muncul peringatan \"destructive operation\"", solusi: "Klik Run this query. Itu karena skrip menghapus aturan lama sebelum membuat yang baru." },
-      ],
-      gambar: [
-        { src: "/panduan/dev-supabase-jalankan-sql.png", alt: "Tempel skrip di SQL Editor lalu klik Run" },
-      ],
-    },
-    {
-      id: "d4-akun-admin",
-      judul: "Buat akun admin",
-      penjelasan:
-        "Akun ini dipakai pemilik toko untuk masuk ke halaman admin. Password bawaannya nanti wajib kamu ganti di Langkah 13.",
-      instruksi: [
-        "Di Supabase, buka menu Authentication, lalu Users.",
-        "Klik Add user, pilih Create new user.",
-        "Isi email dan password bawaan yang ditampilkan mentor di layar.",
-        "Centang Auto Confirm User, lalu klik Create user.",
-        "Masih di Authentication, buka Sign In / Providers. Matikan pilihan Allow new users to sign up, lalu klik Save.",
-      ],
-      hasilDiharapkan:
-        "Ada 1 pengguna di daftar Users, dan pendaftaran akun baru sudah dimatikan " +
-        "(supaya orang lain tidak bisa membuat akun admin di tokomu).",
-      gambar: [
-        { src: "/panduan/dev-supabase-buat-admin.png", alt: "Buat akun admin di Authentication > Users" },
+        {
+          masalah: "Di Windows perintah ./gradlew tidak dikenali",
+          solusi: "Gunakan gradlew signingReport (tanpa ./ di depan).",
+        },
       ],
     },
     {
-      id: "d5-env-vercel",
-      judul: "Pasang environment variable di Vercel",
+      id: "d5-credential-deps",
+      judul: "Pasang dependensi Credential Manager & izin INTERNET",
       penjelasan:
-        "Aplikasi butuh 3 kunci untuk bisa membuka database. Kunci ini rahasia: jangan dibagikan ke siapa pun.",
+        "Tambahkan pustaka AndroidX Credentials dan Google ID agar aplikasi dapat menampilkan bottom sheet Sign in with Google.",
       instruksi: [
-        "Di Supabase, ambil 3 nilai berikut (nama menu bisa sedikit berbeda, tanya pendamping kalau tidak ketemu): Project URL di Project Settings → Data API; Publishable key di Project Settings → API Keys (berawalan sb_publishable_); Secret key di halaman yang sama (berawalan sb_secret_, klik ikon mata untuk menampilkan lalu salin).",
-        "Buka dashboard Vercel, klik proyekmu, lalu Settings → Environment Variables.",
-        "Tambahkan 3 variabel berikut satu per satu (Key di atas, Value di bawah), lalu klik Save.",
+        "Buka AndroidManifest.xml dan tambahkan <uses-permission android:name=\"android.permission.INTERNET\" /> di atas tag <application>.",
+        "Buka build.gradle.kts (Module :app) dan tambahkan ketiga library Credential Manager di dalam blok dependencies { ... }.",
+        "Klik 'Sync Now' di bagian atas editor hingga selesai.",
       ],
       kode: [
-        "Key:   SUPABASE_URL\nValue: (Project URL)",
-        "Key:   SUPABASE_PUBLISHABLE_KEY\nValue: (Publishable key)",
-        "Key:   SUPABASE_SECRET_KEY\nValue: (Secret key)",
-      ],
-      hasilDiharapkan: "Kunci terpasang di Vercel dan siap dipakai.",
-      peringatan: {
-        judul: "Penting",
-        isi: "Nama variabel harus persis sama, huruf besar semua, dan tanpa awalan NEXT_PUBLIC_.",
-      },
-      troubleshooting: [
-        { masalah: "Nilai kunci salah tempel", solusi: "Hapus variabelnya, tambahkan ulang dengan teliti. Setelah itu wajib Redeploy." },
-      ],
-      gambar: [
-        { src: "/panduan/dev-vercel-env.png", alt: "Tambah dua variabel lingkungan di Vercel" },
-      ],
-    },
-    {
-      id: "d6-redeploy",
-      judul: "Redeploy di Vercel",
-      instruksi: [
-        "Buka tab Deployments, klik titik tiga (⋯) di deploy paling atas, pilih Redeploy, lalu Redeploy lagi.",
+        "implementation(\"androidx.credentials:credentials:1.3.0\")",
+        "implementation(\"androidx.credentials:credentials-play-services-auth:1.3.0\")",
+        "implementation(\"com.google.android.libraries.identity.googleid:googleid:1.1.1\")",
       ],
       hasilDiharapkan:
-        "Deploy ulang selesai tanpa error. Halaman aplikasi masih menampilkan data contoh. " +
-        "Ini normal: kuncinya sudah terpasang, tapi kodenya baru disambungkan ke database di Langkah 9.",
-      gambar: [
-        { src: "/panduan/dev-vercel-redeploy.png", alt: "Redeploy supaya variabel baru terbaca" },
-      ],
+        "Gradle Sync sukses tanpa error unresolved reference.",
     },
     {
-      id: "d7-clone-vscode",
-      judul: "Clone proyek ke laptop",
-      penjelasan: "Supaya bisa dikerjakan bersama AI di laptopmu.",
-      instruksi: [
-        "Di halaman repo GitHub-mu, klik tombol hijau Code, salin link HTTPS-nya.",
-        "Buka VS Code. Buka terminal lewat menu Terminal → New Terminal.",
-        "Ketik perintah berikut satu per satu (ganti link dan nama folder dengan milikmu), tekan Enter setiap baris.",
-      ],
-      kode: ["cd Documents", "git clone https://github.com/akunmu/katalog-budi.git"],
-      gambar: [
-        { src: "/panduan/dev-vscode-clone.png", alt: "Clone repositori lewat terminal VS Code" },
-      ],
-    },
-    {
-      id: "d8-buka-folder",
-      judul: "Buka folder di VS Code & pasang komponen",
-      instruksi: [
-        "Masukkan foldernya ke VS Code: menu File → Add Folder to Workspace..., pilih folder Documents/katalog-budi, lalu klik Add. Kalau muncul pertanyaan tentang kepercayaan penulis file, pilih Yes, I trust the authors.",
-        "Buka terminal baru (Terminal → New Terminal). Terminal baru ini otomatis berada di folder katalog-budi. Kalau VS Code meminta memilih folder, pilih katalog-budi. Lalu pasang komponen aplikasi.",
-      ],
-      kode: ["npm install"],
-      hasilDiharapkan:
-        "Di panel Explorer (kiri) VS Code terlihat folder katalog-budi. Klik folder itu untuk " +
-        "membukanya kalau isinya belum terlihat: di dalamnya ada folder app, components, docs, " +
-        "dan file AGENTS.md. Perintah npm install selesai tanpa tulisan merah ERR!.",
-      troubleshooting: [
-        { masalah: "\"git is not recognized\" / \"npm is not recognized\"", solusi: "Git atau Node.js belum terpasang. Panggil pendamping." },
-        { masalah: "Diminta login GitHub", solusi: "Ikuti jendela login yang muncul." },
-        { masalah: "npm install error ENOENT / tidak menemukan package.json", solusi: "Terminal belum berada di folder proyek. Ketik cd katalog-budi (atau cd Documents/katalog-budi), lalu ulangi npm install." },
-        { masalah: "Folder tidak muncul di Explorer", solusi: "Ulangi File → Add Folder to Workspace... dan pastikan yang dipilih folder katalog-budi, bukan folder Documents." },
-        { masalah: "Saat menutup VS Code ditanya menyimpan workspace", solusi: "Boleh pilih Don't Save, folder proyekmu tetap aman. Saat membuka VS Code lagi, ulangi File → Add Folder to Workspace..." },
-      ],
-      gambar: [
-        { src: "/panduan/dev-npm-install-jalan.png", alt: "npm install lalu npm run dev di terminal" },
-      ],
-    },
-    {
-      id: "d9-env-lokal",
-      judul: "Isi file .env.local & jalankan aplikasi",
+      id: "d6-google-auth-manager",
+      judul: "Buat GoogleAuthManager.kt & LoginScreen.kt dengan sesi lokal",
       penjelasan:
-        "Aplikasi di laptop butuh 3 kunci yang sama seperti di Vercel, disimpan di file .env.local.",
+        "GoogleAuthManager memanggil Credential Manager, menyimpan sesi ke SharedPreferences, dan menangani pembatalan login tanpa crash.",
       instruksi: [
-        "Di terminal, buat file .env.local dari contohnya.",
-        "Di panel Explorer, buka file .env.local di dalam folder katalog-budi, isi 3 nilai yang sama seperti di Langkah 5 (setelah tanda =, tanpa spasi, tanpa tanda kutip). Simpan (Ctrl+S / Cmd+S).",
-        "Jalankan aplikasi.",
-        "Buka browser ke http://localhost:3000.",
+        "Di dalam package 'data', buat 'GoogleAuthManager.kt' berisi SignedInUser, signInWithGoogle(webClientId), saveSession(), getSavedSession(), dan signOut().",
+        "Di dalam package 'ui', buat 'LoginScreen.kt' berisi tombol 'Masuk dengan Akun Google' dan mode cadangan 'Masuk Mode Praktik Offline' untuk emulator tanpa Play Store.",
+        "Pastikan GetCredentialException ditangkap menggunakan try-catch.",
       ],
-      kode: ["cp .env.example .env.local          # macOS / Linux", "copy .env.example .env.local        # Windows", "npm run dev"],
-      hasilDiharapkan: "Tampilan sama persis dengan link Vercel-mu: Toko Contoh dengan 6 produk contoh.",
-      peringatan: {
-        judul: "Ingat",
-        isi: "Biarkan terminal npm run dev tetap berjalan selama bekerja. Setiap kali kamu mengubah file .env.local, hentikan dulu (Ctrl+C di terminal), lalu jalankan lagi npm run dev.",
-      },
-      gambar: [
-        { src: "/panduan/dev-env-local.png", alt: "Isi file .env.local dengan alamat dan kunci Supabase" },
-        { src: "/panduan/dev-supabase-ambil-kunci.png", alt: "Ambil Project URL dan anon key dari Supabase" },
-      ],
+      hasilDiharapkan:
+        "Bottom sheet pilih akun Google muncul saat tombol ditekan dan nama + email siswa berhasil terbaca.",
     },
-    // ---------- BAGIAN 2: Jadikan toko milikmu ----------
+
+    // ---------- HARI 2 SIANG-SORE: ROOM DATABASE (KSP) & CRUD ----------
     {
-      id: "d10-identitas-toko",
-      judul: "Ubah identitas toko",
+      id: "d7-room-ksp-gradle",
+      judul: "Pasang plugin KSP dan dependensi Room Database",
       penjelasan:
-        "Sebelum memakai AI, ubah identitas toko sesuai usaha yang kamu pilih, lalu kirim perubahan pertamamu.",
+        "Kita menggunakan KSP (Kotlin Symbol Processing) sebagai pengganti kapt yang lebih cepat dan modern untuk men-generate kode SQL Room.",
       instruksi: [
-        "Buka file lib/toko.js. Ganti isi di dalam tanda kutip: nama toko, tagline, alamat, jam buka.",
-        "Ganti nomorWhatsApp dengan nomor usaha, format internasional tanpa tanda + dan tanpa angka 0 di depan. Contoh: 6281234567890.",
-        "Simpan, lalu cek localhost:3000: nama toko sudah berubah.",
-        "Buka terminal baru (Terminal → New Terminal, biarkan yang lama tetap berjalan), lalu kirim perubahan.",
+        "Cek versi Kotlin proyekmu di gradle/libs.versions.toml.",
+        "Tambahkan plugin 'com.google.devtools.ksp' di build.gradle.kts (Module :app) sesuai versi Kotlin tersebut.",
+        "Tambahkan room-runtime, room-ktx, ksp(room-compiler), dan lifecycle-viewmodel-compose di dependencies.",
+        "Klik 'Sync Now' dan pastikan tidak ada error versi.",
       ],
-      kode: ['git add .', 'git commit -m "Kustomisasi identitas toko"', "git push"],
+      kode: [
+        "implementation(\"androidx.room:room-runtime:2.6.1\")",
+        "implementation(\"androidx.room:room-ktx:2.6.1\")",
+        "ksp(\"androidx.room:room-compiler:2.6.1\")",
+        "implementation(\"androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7\")",
+      ],
       hasilDiharapkan:
-        "Setelah ±1 menit, link Vercel-mu juga menampilkan nama toko yang baru. Artinya alur " +
-        "kerja sudah benar: ubah di laptop → push → Vercel otomatis memperbarui.",
-      troubleshooting: [
-        { masalah: "\"Please tell me who you are\" saat commit", solusi: 'Jalankan dua perintah ini sekali saja, lalu ulangi commit: git config --global user.name "Nama Kamu" dan git config --global user.email "email@kamu.com"' },
-        { masalah: "Link Vercel belum berubah", solusi: "Tunggu 1–2 menit, lalu muat ulang. Cek tab Deployments di Vercel apakah deploy baru sedang berjalan." },
-      ],
+        "Anotasi @Entity, @Dao, dan @Database dapat di-import dari androidx.room.*.",
     },
-    // ---------- BAGIAN 3: Fitur bersama AI ----------
     {
-      id: "d11-us01-katalog",
-      judul: "US-01: Katalog dari database",
+      id: "d8-room-entity-dao-db",
+      judul: "Buat TaskEntity.kt, TaskDao.kt & SakuSiswaDatabase.kt",
       penjelasan:
-        "Mulai sekarang kamu memakai AI. Di VS Code, klik ikon Antigravity di Activity Bar untuk " +
-        "membuka panel chat agent (selanjutnya disebut Agent). Salin prompt, tempel ke Agent, lalu kirim. " +
-        "Tunggu AI selesai sebelum mengecek hasilnya.",
-      blokPrompt:
-        "Baca AGENTS.md dan docs/user-stories.md bagian US-01.\n\n" +
-        "Ubah app/page.jsx supaya daftar produk diambil dari tabel \"produk\" di Supabase, di sisi server, " +
-        "memakai SUPABASE_URL dan SUPABASE_SECRET_KEY dari environment variable. Buat koneksi Supabase " +
-        "untuk server di folder lib/supabase.\n\n" +
-        "Tampilkan produk dengan komponen KartuProduk yang sudah ada, tanpa mengubah tampilannya. " +
-        "Kalau gagal mengambil data, tampilkan pesan error yang jelas di halaman. Kalau tabel kosong, " +
-        "tampilkan tulisan \"Belum ada produk\". Hapus CatatanBelumAktif dari halaman ini.",
-      blokKirim: 'git add .\ngit commit -m "US-01: katalog dari database"\ngit push',
-      hasilDiharapkan:
-        "Tulisan \"Masih data contoh\" hilang dan 6 kartu produk tetap tampil. Karena isinya mirip data " +
-        "contoh, buktikan datanya dari database: buka Supabase Table Editor → produk, klik ganda nama " +
-        "satu produk, ubah (misalnya jadi \"Kopi Spesial\"), tekan Enter. Muat ulang localhost:3000. " +
-        "Nama produk ikut berubah = berhasil.",
-      troubleshooting: [
-        { masalah: "Ada pesan error di halaman", solusi: 'Salin pesan itu ke Agent dengan kalimat: "Muncul error ini di halaman katalog: (tempel pesan). Perbaiki tanpa mengubah tampilan."' },
-        { masalah: "Halaman kosong tanpa pesan apa pun", solusi: "Cek berurutan: (1) terminal npm run dev ada tulisan merah? (2) .env.local ketiga nilai terisi? (3) Supabase Table Editor tabel produk berisi data? (4) Tekan F12 di browser, tab Console, ada tulisan merah? Kalau semua sudah dicek dan masih gagal, panggil pendamping." },
+        "Tiga file inti Room Database: cetakan tabel tugas (per userEmail), antarmuka kuery CRUD dengan Flow, dan koneksi database Singleton.",
+      instruksi: [
+        "Di package 'data', buat 'TaskEntity.kt' dengan @Entity(tableName = \"tasks\") dan @PrimaryKey(autoGenerate = true).",
+        "Buat 'TaskDao.kt' dengan getTasksByUser(email): Flow<List<TaskEntity>>, insertTask, updateTask, dan deleteTask.",
+        "Buat 'SakuSiswaDatabase.kt' dengan pola Singleton getDatabase(context).",
+        "Klik Build -> Make Project untuk memastikan KSP sukses men-generate implementasi database.",
       ],
+      hasilDiharapkan:
+        "Build -> Make Project selesai dengan tanda centang hijau tanpa error SQL.",
     },
     {
-      id: "d12-us02-detail",
-      judul: "US-02: Halaman detail produk",
-      blokPrompt:
-        "Baca docs/user-stories.md bagian US-02.\n\n" +
-        "Ubah app/produk/[id]/page.jsx supaya mengambil satu produk dari tabel \"produk\" di Supabase " +
-        "berdasarkan id di URL, di sisi server, memakai koneksi Supabase yang sudah dibuat di lib/supabase. " +
-        "Kalau produk tidak ditemukan, panggil notFound(). Jangan ubah tampilannya. Hapus CatatanBelumAktif " +
-        "dari halaman ini, tapi biarkan tombol WhatsApp.",
-      blokKirim: 'git add .\ngit commit -m "US-02: detail produk dari database"\ngit push',
+      id: "d9-viewmodel-homescreen",
+      judul: "Buat TaskViewModel, HomeScreen & hubungkan di MainActivity",
+      penjelasan:
+        "Menyatukan LoginScreen, HomeScreen, TaskViewModel, dan Room Database agar seluruh operasi Create, Read, Update, Delete (CRUD) + Search + Filter berjalan nyata.",
+      instruksi: [
+        "Di package 'viewmodel', buat 'TaskViewModel.kt' dengan flatMapLatest, stateIn, addTask, updateTask, toggleTaskCompleted, dan deleteTask.",
+        "Di package 'ui', buat 'HomeScreen.kt' menggunakan Scaffold, TopAppBar, StudentHeaderCard, kotak Search, 3 FilterChip, LazyColumn, dan dialog Tambah/Edit/Konfirmasi Hapus.",
+        "Di 'MainActivity.kt', inisialisasi database, ViewModel, dan GoogleAuthManager, lalu arahkan layar sesuai state currentUser.",
+        "Klik Run (▶) dan uji seluruh alur CRUD + tutup aplikasi & buka kembali!",
+      ],
+      hasilDiharapkan:
+        "Seluruh fitur Login Google, Tambah, Lihat, Cari, Filter, Edit, Centang Selesai, Hapus, dan Logout berjalan lancar dan data tetap tersimpan.",
+    },
+
+    // ---------- HARI 3: DEBUGGING, KREASI MANDIRI, BUILD APK & GITHUB ----------
+    {
+      id: "d10-debugging-kreasi",
+      judul: "Debugging dengan Logcat & tambah 1 fitur kreasi mandiri",
+      penjelasan:
+        "Di Hari ke-3, pastikan aplikasimu bersih dari crash dan tambahkan minimal 1 fitur pembeda hasil rancanganmu sendiri.",
+      instruksi: [
+        "Buka tab Logcat di Android Studio dan ketik filter 'package:mine level:error' sambil menguji semua tombol aplikasi.",
+        "Pilih 1 fitur tambahan: misalnya Progress Bar ketuntasan di StudentHeaderCard, Label Prioritas Tugas, atau Bersihkan Tugas Selesai.",
+        "Rancang alurnya terlebih dahulu di catatan sebelum menyusun prompt diskusi ke AI.",
+        "Uji kembali fitur baru bersama fitur lama untuk memastikan tidak ada regresi.",
+      ],
+      hasilDiharapkan:
+        "Logcat bersih dari error fatal dan fitur kreasi mandiri berjalan sesuai harapan.",
+    },
+    {
+      id: "d11-build-apk-github",
+      judul: "Build file .apk & unggah proyek ke GitHub + README.md",
+      penjelasan:
+        "Buat file installer Android (.apk) dan publikasikan kode sumber proyekmu secara profesional ke repository GitHub publik.",
+      instruksi: [
+        "Klik Build -> Build Bundle(s) / APK(s) -> Build APK(s), lalu klik 'locate' untuk mengambil file app-debug.apk.",
+        "Buat file README.md di folder root proyek yang menjelaskan fitur Login Google, Room Database, CRUD, dan fitur kreasi tambahanmu.",
+        "Buat repository baru berstatus Public di github.com (misalnya 'sakusiswa-android').",
+        "Jalankan perintah Git di Terminal Android Studio untuk mengunggah seluruh proyek.",
+      ],
+      kode: [
+        "git init",
+        "git add .",
+        "git commit -m \"feat: aplikasi Android SakuSiswa SMKN 1\"",
+        "git branch -M main",
+        "git remote add origin https://github.com/USERNAME/sakusiswa-android.git",
+        "git push -u origin main",
+      ],
       hasilItem: [
-        "Klik salah satu kartu produk: halaman detail terbuka dengan foto, harga, dan deskripsi.",
-        "Ubah deskripsi produk itu di Supabase, muat ulang: deskripsi ikut berubah.",
-        "Buka localhost:3000/produk/9999: tampil halaman \"Halaman tidak ditemukan\".",
-      ],
-      troubleshooting: [
-        { masalah: "Halaman detail error tapi katalog normal", solusi: 'Salin pesan error ke Agent dan sebutkan "halaman detail produk".' },
+        "File .apk berhasil dibuat (opsional diunggah ke GitHub Releases / Google Drive)",
+        "Repository GitHub berstatus Public dan menampilkan folder app/, build.gradle.kts, serta README.md",
       ],
     },
     {
-      id: "d13-us03-whatsapp",
-      judul: "US-03: Tombol pesan WhatsApp",
-      blokPrompt:
-        "Baca docs/rancangan-teknis.md bagian \"Pesan WhatsApp (US-03)\".\n\n" +
-        "Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di " +
-        "lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan " +
-        "di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. " +
-        "Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.",
-      blokKirim: 'git add .\ngit commit -m "US-03: tombol pesan WhatsApp"\ngit push',
-      hasilDiharapkan:
-        "Klik tombol di halaman detail: WhatsApp Web (atau aplikasi WhatsApp) terbuka ke nomor tokomu, " +
-        'dengan pesan sudah terisi, misalnya "Halo, saya mau pesan Kopi Bubuk Robusta 250 g (Rp 45.000)".',
-      troubleshooting: [
-        { masalah: "Nomor salah / \"nomor tidak terdaftar\"", solusi: "Cek format di lib/toko.js: 62 di depan, tanpa +, tanpa 0." },
-        { masalah: "Tombol tidak bereaksi", solusi: 'Salin ke Agent: "Tombol WhatsApp tidak membuka apa-apa saat diklik. Periksa components/TombolWhatsApp.jsx."' },
-      ],
-      peringatan: {
-        judul: "Sebelum ISHOMA",
-        isi: "Buka link Vercel-mu di HP, coba tombol WhatsApp di sana. Pastikan semua perubahan sudah di-push.",
-      },
-    },
-    // ---------- BAGIAN 4: Mengamankan aplikasi ----------
-    {
-      id: "d14-us04-login-admin",
-      judul: "US-04: Login admin",
+      id: "d12-kumpul-karya",
+      judul: "Ambil screenshot & kumpulkan karya di ComposeLab SMKN 1",
       penjelasan:
-        "Sekarang katalogmu sudah jalan, tapi halaman admin masih bisa dibuka siapa saja. " +
-        "Kita pasang kuncinya. Pastikan npm run dev berjalan lagi setelah ISHOMA.",
-      blokPrompt:
-        "Baca AGENTS.md bagian aturan keamanan dan docs/user-stories.md bagian US-04.\n\n" +
-        "Buat login admin memakai Supabase Auth (email dan password) dengan @supabase/ssr dan cookie, " +
-        "memakai SUPABASE_URL dan SUPABASE_PUBLISHABLE_KEY. Login diproses dengan Server Action di " +
-        "app/admin/actions.js dan disambungkan ke form di app/admin/login/page.jsx. Login berhasil " +
-        "diarahkan ke /admin; login gagal menampilkan pesan error yang jelas di halaman login. " +
-        "Buat juga tombol \"Keluar\" di components/NavAdmin.jsx berfungsi: mengakhiri sesi lalu kembali " +
-        "ke /admin/login. Jangan ubah tampilan. Hapus CatatanBelumAktif dari halaman login.",
-      blokKirim: 'git add .\ngit commit -m "US-04: login admin"\ngit push',
-      hasilItem: [
-        "Buka localhost:3000/admin/login, masuk dengan password salah: muncul pesan error.",
-        "Masuk dengan email dan password bawaan dari Langkah 4: masuk ke halaman daftar produk admin.",
-        "Klik Keluar: kembali ke halaman login.",
-      ],
-      troubleshooting: [
-        { masalah: "Selalu \"email atau password salah\"", solusi: "Cek akun di Supabase → Authentication → Users. Pastikan statusnya sudah dikonfirmasi (Langkah 4, Auto Confirm User)." },
-        { masalah: "Error tentang cookies atau \"cookies() should be awaited\"", solusi: "Salin pesan error lengkap ke Agent." },
-      ],
-    },
-    {
-      id: "d15-us05-ganti-password",
-      judul: "US-05: Ganti password admin",
-      blokPrompt:
-        "Baca docs/user-stories.md bagian US-05.\n\n" +
-        "Buat Server Action ganti password di app/admin/actions.js untuk admin yang sedang login, " +
-        "memakai Supabase Auth. Validasi di server: password baru minimal 8 karakter dan harus sama " +
-        "dengan konfirmasi. Tampilkan pesan berhasil atau pesan error yang jelas di halaman. " +
-        "Sambungkan ke form di app/admin/password/page.jsx tanpa mengubah tampilannya. " +
-        "Hapus CatatanBelumAktif dari halaman ini.",
-      blokKirim: 'git add .\ngit commit -m "US-05: ganti password admin"\ngit push',
-      hasilItem: [
-        "Login, buka menu Ganti password, isi password baru (minimal 8 karakter). Catat password barumu.",
-        "Muncul pesan berhasil.",
-        "Klik Keluar, coba login dengan password bawaan: gagal. Login dengan password baru: berhasil.",
-      ],
-      peringatan: {
-        judul: "Wajib",
-        isi: "Ganti password juga untuk aplikasimu yang online: buka link Vercel-mu setelah push, login, lalu ganti password di sana. Password bawaan yang masih bisa dipakai akan mengurangi nilai keamanan.",
-      },
-    },
-    {
-      id: "d16-us06-proteksi",
-      judul: "US-06: Proteksi halaman admin",
-      blokPrompt:
-        "Baca AGENTS.md aturan keamanan nomor 3 dan 4, dan docs/user-stories.md bagian US-06.\n\n" +
-        "Buat file proxy.js di root proyek (Next.js 16). Semua rute /admin kecuali /admin/login wajib " +
-        "login dengan Supabase Auth; kalau belum login, alihkan ke /admin/login. Pastikan juga setiap " +
-        "Server Action yang mengubah data memeriksa login di server. Hapus CatatanBelumAktif dari halaman /admin.",
-      blokKirim: 'git add .\ngit commit -m "US-06: proteksi halaman admin"\ngit push',
-      hasilItem: [
-        "Buka jendela penyamaran (Ctrl+Shift+N / Cmd+Shift+N), ketik localhost:3000/admin: langsung dialihkan ke halaman login.",
-        "Coba juga localhost:3000/admin/password: dialihkan ke login.",
-        "Setelah login, halaman admin terbuka normal.",
-      ],
-      troubleshooting: [
-        { masalah: "Halaman admin masih terbuka tanpa login", solusi: "Pastikan file bernama persis proxy.js dan berada di folder utama (sejajar dengan package.json), bukan di dalam app. Hentikan dan jalankan lagi npm run dev." },
-        { masalah: "Halaman login ikut terkunci (berputar terus)", solusi: 'Salin ke Agent: "Halaman /admin/login ikut dialihkan terus. Kecualikan /admin/login dari proteksi di proxy.js."' },
-      ],
-    },
-    {
-      id: "d17-cek-akhir",
-      judul: "Cek akhir & kumpulkan karya",
-      penjelasan:
-        "Semua cek dilakukan di link Vercel, bukan di localhost. Isi form di bagian Kumpulkan karya.",
+        "Langkah terakhir! Kumpulkan karyamu melalui menu Kumpulan Karya agar dapat diperiksa oleh guru dan sistem penilai otomatis.",
       instruksi: [
-        "Buka link Vercel-mu di HP dan di laptop.",
-        "Pastikan link bisa dibuka tanpa login.",
-        "Jalankan semua cek keamanan dan cek fitur.",
-        "Isi form kumpulkan karya sebelum batas waktu.",
+        "Ambil 1 screenshot terbaik aplikasi SakuSiswa yang menampilkan daftar tugas milikmu.",
+        "Buka halaman 'Kumpulan Karya' di ComposeLab SMKN 1.",
+        "Isi judul proyek, deskripsi singkat, centang 6 modul, masukkan Link Repository GitHub (wajib), Link APK / Video Demo (opsional), dan unggah Screenshot (wajib).",
+        "Klik tombol 'Kirim Karya' dan pantau status penilaiannya di Dashboard.",
       ],
-      peringatan: {
-        judul: "Perbarui Next.js",
-        isi: "Next.js 16.3.8 di template punya celah keamanan critical. Di terminal folder proyekmu jalankan npm install next@16.4.3, cek dengan npm run dev, lalu commit dan push. Kerentanan yang baru diumumkan setelah karyamu dikirim tidak mengurangi poin.",
-      },
+      hasilDiharapkan:
+        "Status pengumpulan karya tercatat 'Menunggu Pemeriksaan' di Dashboard siswa dan siap dinilai oleh guru.",
     },
   ],
 };

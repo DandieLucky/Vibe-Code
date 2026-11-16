@@ -1,16 +1,8 @@
 // ============================================================================
-// TUTORIAL PENSIAPAN & DEVELOPMENT — Vibe Code
+// TUTORIAL PERSIAPAN LAPTOP ANDROID — ComposeLab SMKN 1
 // ============================================================================
-// Isi diambil dari workshop Katalog UMKM. Setiap langkah memuat:
-//   - nomor & judul
-//   - penjelasan singkat
-//   - instruksi bernomor
-//   - gambar panduan (opsional)
-//   - blok "Hasil yang diharapkan"
-//   - blok "Kalau tidak sesuai" (troubleshooting)
-//
-// Progress dicatat lewat tombol "Selesai" per langkah dan disimpan ke
-// database, sehingga peserta bisa lanjut dari perangkat lain.
+// Dikerjakan sebelum atau pada awal Hari ke-1 pelatihan 3 hari.
+// Progress dicatat lewat tombol "Selesai" per langkah dan disimpan ke database.
 // ============================================================================
 
 export interface GambarPanduan {
@@ -42,111 +34,113 @@ export interface BagianTutorial {
 }
 
 // ============================================================================
-// BAGIAN 1 — PERSIAPAN (dikerjakan sebelum hari acara)
+// BAGIAN 1 — PERSIAPAN LAPTOP ANDROID
 // ============================================================================
 
 export const PERSIAPAN: BagianTutorial = {
   id: "persiapan",
-  judul: "Tutorial persiapan laptop",
+  judul: "Tutorial Persiapan Laptop Android",
   pengantar:
-    "Selesaikan sebelum hari acara. Pasang tiga software berikut, lalu siapkan akun. " +
+    "Selesaikan langkah persiapan ini sebelum praktik membangun aplikasi SakuSiswa. " +
+    "Pasang Android Studio, siapkan HP Android / Emulator, pasang Git, lalu siapkan akun. " +
     "Tekan Selesai di setiap langkah yang sudah beres.",
   peringatanAwal:
-    "Kalau ada kendala, catat pesan error-nya dan sampaikan ke pendamping saat registrasi.",
+    "Jika ada kendala saat instalasi, catat pesan error-nya atau ambil foto layar, lalu sampaikan ke guru pendamping.",
   langkah: [
     {
       id: "p1-cek-laptop",
-      judul: "Cek laptop",
-      penjelasan: "Pastikan laptopmu memenuhi syarat berikut.",
+      judul: "Cek spesifikasi laptop & kabel data",
+      penjelasan:
+        "Android Studio membutuhkan ruang penyimpanan yang cukup agar proses kompilasi Kotlin dan Gradle berjalan lancar.",
       instruksi: [
-        "Windows 10 atau 11 (64-bit), atau",
-        "macOS 12 (Monterey) atau lebih baru dengan chip Apple Silicon (M1, M2, M3, M4). Mac dengan prosesor Intel tidak didukung Antigravity.",
-        "Bawa charger. Pastikan ruang kosong minimal 10 GB.",
+        "Sistem operasi Windows 10/11 (64-bit) atau macOS 12+.",
+        "RAM minimal 8 GB (jika RAM 8 GB, gunakan HP Android fisik dengan kabel USB agar laptop tetap ringan).",
+        "Pastikan ruang kosong harddisk/SSD minimal 15 GB untuk Android Studio, Android SDK, dan cache Gradle.",
+        "Bawa charger laptop dan kabel data USB yang mendukung transfer data (bukan kabel cas saja).",
       ],
-      gambar: [
-        { src: "/panduan/cek-laptop.png", alt: "Syarat laptop: Windows 10/11 atau macOS Apple Silicon, ruang kosong 10 GB" },
+      hasilItem: [
+        "Ruang penyimpanan tersisa minimal 15 GB",
+        "Kabel data USB siap menghubungkan HP Android ke laptop",
       ],
     },
     {
-      id: "p1-nodejs",
-      judul: "Pasang Node.js",
+      id: "p1-android-studio",
+      judul: "Pasang Android Studio & Android SDK",
       penjelasan:
-        "Node.js dibutuhkan untuk menjalankan aplikasi di laptop. Aplikasi ini memerlukan minimal " +
-        "versi 20.9; yang disarankan adalah versi 24 LTS. Jangan pakai versi 20 ke bawah karena " +
-        "sudah tidak mendapat pembaruan keamanan.",
+        "Android Studio adalah editor resmi dari Google untuk menulis kode Kotlin, melihat Preview Jetpack Compose, membaca error di Logcat, dan merakit file .apk. Sudah membawa JDK (JetBrains Runtime) bawaan sehingga tidak perlu menginstal Java terpisah.",
       instruksi: [
-        "Buka nodejs.org/en/download.",
-        "Pilih versi v24.x (LTS). Kalau di halaman itu versi 26 sudah berlabel LTS, versi 26 juga boleh.",
-        "Pilih sistem operasimu, unduh installer (Windows: .msi, macOS: .pkg), lalu jalankan dan klik Next sampai selesai dengan pilihan bawaan.",
-        "Tutup lalu buka lagi terminal (Windows: Command Prompt atau PowerShell; macOS: Terminal), lalu cek:",
+        "Buka developer.android.com/studio di browser, lalu unduh Android Studio versi stabil terbaru.",
+        "Jalankan installer (Windows: .exe, macOS: .dmg), ikuti wizard instalasi dengan pilihan Standard.",
+        "Saat pertama kali dibuka, ikuti jendela Android Studio Setup Wizard untuk mengunduh komponen Android SDK terbaru (API 34/35) dan Android SDK Platform-Tools.",
+        "Tunggu hingga seluruh unduhan selesai dan muncul layar Welcome to Android Studio.",
       ],
-      kode: ["node -v", "npm -v"],
-      gambar: [{ src: "/panduan/nodejs-pilih-versi.png", alt: "Halaman unduhan Node.js" }],
       hasilItem: [
-        "node -v menampilkan v24.… (atau v26.…), dan",
-        "npm -v menampilkan angka versi, misalnya 11.…",
+        "Android Studio dapat dibuka dengan normal",
+        "Android SDK dan Platform-Tools selesai terpasang tanpa error",
       ],
       troubleshooting: [
-        { masalah: "\"node is not recognized\"", solusi: "Tutup semua jendela terminal lalu buka lagi. Kalau masih, restart laptop." },
-        { masalah: "Muncul versi lama (misalnya v18 atau v20)", solusi: "Hapus Node.js lama lewat Settings → Apps (Windows) lalu pasang ulang versi 24." },
+        {
+          masalah: "Unduhan SDK berhenti di tengah jalan karena koneksi terputus",
+          solusi: "Buka Settings -> Languages & Frameworks -> Android SDK, lalu centang ulang SDK Platform terbaru dan klik Apply.",
+        },
+        {
+          masalah: "Windows menampilkan peringatan ruang disk tidak cukup",
+          solusi: "Kosongkan minimal 15 GB di drive C:\\ sebelum menjalankan Setup Wizard.",
+        },
+      ],
+    },
+    {
+      id: "p1-device-setup",
+      judul: "Siapkan perangkat uji (HP Android USB Debugging atau Emulator)",
+      penjelasan:
+        "Kamu membutuhkan perangkat untuk menjalankan dan menguji aplikasi SakuSiswa. Menggunakan HP Android fisik sangat disarankan karena jauh lebih ringan dibanding Emulator.",
+      instruksi: [
+        "Cara A (HP Fisik — Disarankan): Buka Pengaturan HP -> Tentang Ponsel -> ketuk 'Nomor Versi / Build Number' sebanyak 7 kali hingga muncul pesan 'Anda adalah pengembang'.",
+        "Masuk ke Pengaturan Tambahan / Sistem -> Opsi Pengembang (Developer Options) -> aktifkan 'Debugging USB (USB Debugging)'.",
+        "Colokkan HP ke laptop dengan kabel USB, ubah mode koneksi USB dari 'Hanya Mengisi Daya' menjadi 'Transfer File (MTP)', lalu klik 'Selalu izinkan dari komputer ini' saat muncul dialog RSA di layar HP.",
+        "Cara B (Emulator — jika tidak membawa HP Android): Di Android Studio buka Device Manager -> Create Virtual Device -> pilih Pixel 6 / Medium Phone -> unduh System Image API 34/35 dengan Play Store -> Finish.",
+      ],
+      hasilItem: [
+        "Nama HP Android atau Virtual Device muncul di daftar perangkat pada toolbar atas Android Studio",
+      ],
+      troubleshooting: [
+        {
+          masalah: "HP tidak muncul di daftar device Android Studio",
+          solusi: "Coba ganti port USB atau kabel data lain, lalu matikan dan nyalakan kembali sakelar USB Debugging di HP.",
+        },
       ],
     },
     {
       id: "p1-git",
-      judul: "Pasang Git",
-      penjelasan: "Git dipakai untuk menyimpan dan mengirim kodemu ke GitHub.",
-      instruksi: [
-        "Windows: buka git-scm.com/downloads, unduh versi Windows, jalankan installer dan klik Next sampai selesai dengan pilihan bawaan.",
-        "macOS: buka Terminal, ketik git --version. Kalau muncul jendela tawaran memasang Command Line Developer Tools, klik Install.",
-        "Cek hasilnya:",
-      ],
-      kode: ["git --version"],
-      gambar: [{ src: "/panduan/git-pasang.png", alt: "Halaman unduhan Git" }],
-      hasilItem: ["Muncul tulisan seperti git version 2.…"],
-    },
-    {
-      id: "p1-vscode",
-      judul: "Pasang VS Code & ekstensi Google Antigravity",
+      judul: "Pasang Git & atur identitas",
       penjelasan:
-        "Visual Studio Code (VS Code) adalah editor kode yang dipakai sepanjang workshop. " +
-        "Ekstensi Google Antigravity menambahkan AI agent di dalam VS Code. Keduanya gratis, " +
-        "cukup login dengan akun Google.",
+        "Git dipakai untuk mencatat versi kode dan mengunggah seluruh proyek Android SakuSiswa ke repository GitHub milikmu.",
       instruksi: [
-        "Buka code.visualstudio.com/download.",
-        "Pilih sesuai laptopmu: Windows klik tombol Windows; macOS klik tombol Mac.",
-        "Jalankan installer. Di Windows, setujui lisensi lalu klik Next sampai selesai dengan pilihan bawaan. Di macOS, buka file yang terunduh lalu seret Visual Studio Code ke folder Applications.",
-        "Buka VS Code. Buka panel Extensions dengan Ctrl+Shift+X (Windows) atau Cmd+Shift+X (macOS). Cari Google Antigravity, pastikan penerbitnya Google, lalu klik Install.",
-        "Klik ikon Antigravity di Activity Bar (deretan ikon paling kiri VS Code), lalu login dengan akun Google-mu.",
+        "Windows: buka git-scm.com/downloads, unduh versi Windows, jalankan installer dan klik Next sampai selesai.",
+        "macOS: buka Terminal, ketik git --version. Jika muncul tawaran memasang Command Line Developer Tools, klik Install.",
+        "Cek versi Git dan atur nama serta email Git-mu lewat terminal:",
       ],
-      gambar: [
-        { src: "/panduan/vscode-antigravity.png", alt: "Halaman unduhan VS Code" },
-        { src: "/panduan/nodejs-cek-terminal.png", alt: "Ekstensi Google Antigravity di panel Extensions" },
-        { src: "/panduan/siapkan-akun.png", alt: "Ikon Antigravity di Activity Bar dan halaman login" },
+      kode: [
+        "git --version",
+        "git config --global user.name \"Nama Lengkap Kamu\"",
+        "git config --global user.email \"email_github_kamu@gmail.com\"",
       ],
-      hasilItem: [
-        "VS Code terbuka, ekstensi Google Antigravity terpasang,",
-        "sudah login dengan akun Google, dan",
-        "panel chat agent Antigravity bisa dibuka dari ikonnya di Activity Bar.",
-      ],
-      peringatan: {
-        judul: "Penting",
-        isi: "Pasang hanya ekstensi Google Antigravity dengan penerbit Google; abaikan ekstensi lain yang namanya mirip. Jangan memakai agent Antigravity sepanjang minggu sebelum acara. Kuota AI gratis dihitung per minggu, dan kamu butuh kuota penuh di hari H.",
-      },
+      hasilItem: ["git --version menampilkan git version 2.…"],
     },
     {
       id: "p1-akun",
-      judul: "Siapkan akun",
-      penjelasan: "Kamu memerlukan tiga akun berikut sebelum hari acara.",
+      judul: "Siapkan akun GitHub, Google Cloud & Asisten AI",
+      penjelasan:
+        "Kamu memerlukan tiga akun ini untuk menyimpan kode, mengaktifkan tombol Login Google di aplikasi SakuSiswa, dan berdiskusi dengan asisten AI secara terstruktur.",
       instruksi: [
-        "Akun GitHub (daftar di github.com). Ingat username dan password-nya.",
-        "Akun Google untuk login ekstensi Google Antigravity di VS Code.",
-        "Akun Vercel dan Supabase dibuat saat acara, cukup login memakai GitHub.",
+        "Akun GitHub (daftar di github.com) — pastikan kamu ingat username dan password-nya untuk mengumpulkan link repository.",
+        "Akun Google aktif — dipakai untuk membuka Google Cloud Console (console.cloud.google.com) guna membuat Web Client ID bagi Credential Manager, serta dipakai login di HP/Emulator uji coba.",
+        "Akses Asisten AI (Gemini / Google Antigravity / ChatGPT) di browser untuk latihan menyusun Prompt 6-Bagian dan berdiskusi saat debugging.",
       ],
-      gambar: [
-        { src: "/panduan/siapkan-akun.png", alt: "Membuat akun GitHub" },
-        { src: "/panduan/siapkan-akun.png", alt: "Login Vercel memakai GitHub" },
-        { src: "/panduan/siapkan-akun.png", alt: "Login Supabase memakai GitHub" },
-      ],
+      peringatan: {
+        judul: "Prinsip Belajar di ComposeLab SMKN 1",
+        isi: "AI adalah rekan diskusi dan asisten penulis draf, bukan pengganti otakmu. Biasakan selalu membaca alur 'Pikirkan Dulu' sebelum memakai prompt.",
+      },
     },
   ],
 };
