@@ -1,0 +1,452 @@
+/* Hallmark · shape: Marquee Hero · genre: playful · theme: Bloom (deal 1/3, seed composelab-smkn-platform-pembelajaran-3a97·1a0c6aab·2026-11-16·r0) · job: join · draw: 9bdb76
+ * hero: Corridor · nav: masthead · footer: statement · imagery: the product · signature: interactive SakuSiswa prompt-to-compose workbench
+ * axes: light/grotesk-sans/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: none, scoped under .bloom-page to preserve shared app routes */
+@import "./tokens.css";
+
+.bloom-page {
+  position: relative;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.55;
+  overflow-x: clip;
+  isolation: isolate;
+}
+
+/* Two fixed quiet terracotta blooms */
+.bloom-page::before,
+.bloom-page::after {
+  content: "";
+  position: fixed;
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bloom-page::before {
+  top: -120px;
+  right: -100px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent) 9%, transparent) 0%, transparent 70%);
+}
+
+.bloom-page::after {
+  bottom: -140px;
+  left: -120px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent-2) 6%, transparent) 0%, transparent 70%);
+}
+
+.bloom-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-lg);
+}
+
+.bloom-page ::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+.bloom-page h1,
+.bloom-page h2,
+.bloom-page h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  overflow-wrap: break-word;
+  min-width: 0;
+  text-wrap: balance;
+}
+
+.bloom-page h1 {
+  font-size: var(--text-display-s);
+  line-height: 1.06;
+  max-width: 18ch;
+}
+
+.bloom-page h2 {
+  font-size: var(--text-section);
+  line-height: 1.08;
+  max-width: 26ch;
+}
+
+.bloom-page h3 {
+  font-size: var(--text-title);
+  line-height: 1.2;
+}
+
+.bloom-page a:focus-visible,
+.bloom-page button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Hero Corridor */
+.bloom-hero {
+  padding-block: var(--space-2xl) var(--space-xl);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.bloom-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.bloom-lead {
+  margin-top: var(--space-md);
+  font-size: var(--text-lead);
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  max-width: 44ch;
+}
+
+.bloom-actions {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Primary Rubber Cap CTA */
+.bloom-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-lg) var(--space-xs) var(--space-xs);
+  border-radius: var(--radius-pill);
+  background: var(--color-sheet);
+  color: var(--color-ink);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  box-shadow: 0 0 0 1px var(--shade-1), var(--shadow-card), inset 0 1px 0 var(--hi);
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+
+.bloom-cta-primary:hover {
+  transform: translateY(-1px);
+}
+
+.bloom-cta-primary:active {
+  transform: translateY(1px);
+}
+
+.bloom-rec {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 30%, var(--bezel), var(--color-paper-3));
+  box-shadow: inset 0 2px 3px var(--shade-2), 0 1px 0 var(--hi);
+}
+
+.bloom-rec-cap {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(120% 110% at 50% 18%, var(--rubber-hi), var(--rubber) 48%, var(--rubber-lo));
+  box-shadow: inset 0 1px 0.5px var(--hi), 0 4px 8px -2px var(--shade-3);
+}
+
+.bloom-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  box-shadow: inset 0 0 0 1px var(--color-rule);
+  transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+}
+
+.bloom-cta-secondary:hover {
+  background: var(--color-paper-2);
+  transform: translateY(-1px);
+}
+
+.bloom-note {
+  margin-top: var(--space-md);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+/* Signature Workbench Stage */
+.bloom-roll {
+  --beat: 36px;
+  --row: 14px;
+  background-color: var(--color-sheet);
+  background-image:
+    linear-gradient(to right, var(--grid-bar) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-beat) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-16) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-row) 1px, transparent 1px);
+  background-size: calc(var(--beat) * 4) 100%, var(--beat) 100%, calc(var(--beat) / 4) 100%, 100% var(--row);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-lift), inset 0 1px 0 var(--hi);
+}
+
+.bloom-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.bloom-tab {
+  border: 0;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-2);
+  color: var(--color-ink-2);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+}
+
+.bloom-tab[aria-selected="true"] {
+  background: var(--color-umber);
+  color: var(--color-accent-ink);
+}
+
+.bloom-stage-body {
+  background: var(--color-sheet);
+  border-radius: var(--radius-inner);
+  padding: var(--space-md);
+  box-shadow: inset 0 0 0 var(--rule-hair) var(--color-rule);
+}
+
+.bloom-stage-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.bloom-stage-code {
+  margin: 0;
+  padding: var(--space-sm);
+  border-radius: var(--radius-clip);
+  background: var(--color-paper-2);
+  color: var(--color-ink);
+  font-family: var(--font-code);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.bloom-lane-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.bloom-clip {
+  border-radius: var(--radius-clip);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-xs);
+  color: var(--color-ink);
+  background: linear-gradient(
+    color-mix(in oklab, var(--lane-color, var(--lane-1)) 16%, var(--color-sheet)),
+    color-mix(in oklab, var(--lane-color, var(--lane-1)) 24%, var(--color-sheet))
+  );
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--lane-color, var(--lane-1)) 38%, transparent), inset 0 1px 0 var(--hi);
+}
+
+/* Sections */
+.bloom-section {
+  padding-block: var(--space-2xl);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.bloom-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.bloom-section-sub {
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  max-width: 44ch;
+}
+
+.bloom-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.bloom-step-surface {
+  background: var(--color-sheet);
+  border-radius: var(--radius-card);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-card), inset 0 1px 0 var(--hi);
+}
+
+.bloom-step-num {
+  font-family: var(--font-code);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+}
+
+.bloom-step-desc {
+  margin-top: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+/* Schedule + Gambarino Outlier Moment */
+.bloom-schedule-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.bloom-serif-figure {
+  font-family: var(--font-outlier);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(6.5rem, 12vw, 10rem);
+  line-height: 0.9;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.bloom-serif-caption {
+  margin-top: var(--space-sm);
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+  max-width: 24ch;
+}
+
+.bloom-schedule-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bloom-schedule-row {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-inner);
+  background: var(--color-sheet);
+  box-shadow: var(--shadow-card), inset 0 1px 0 var(--hi);
+}
+
+.bloom-day-label {
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+}
+
+/* Curriculum 6 Module Index Rows */
+.bloom-module-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.bloom-module-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-inner);
+  background: var(--color-sheet);
+  box-shadow: var(--shadow-card), inset 0 1px 0 var(--hi);
+}
+
+.bloom-module-num {
+  font-family: var(--font-code);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  padding-top: var(--space-3xs);
+}
+
+/* Membership / Roles Close */
+.bloom-roles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.bloom-role-panel {
+  border-radius: var(--radius-card);
+  padding: var(--space-xl);
+  background: var(--color-sheet);
+  box-shadow: var(--shadow-card), inset 0 1px 0 var(--hi);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.bloom-role-list {
+  margin: var(--space-md) 0 0;
+  padding-left: var(--space-md);
+  color: var(--color-ink-2);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.bloom-link {
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 900px) {
+  .bloom-hero-grid,
+  .bloom-steps-grid,
+  .bloom-schedule-grid,
+  .bloom-module-list,
+  .bloom-roles-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bloom-schedule-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xs);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom-cta-primary,
+  .bloom-cta-secondary,
+  .bloom-tab {
+    transition-duration: 0.01ms !important;
+  }
+}

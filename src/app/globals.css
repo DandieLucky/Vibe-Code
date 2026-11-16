@@ -7,11 +7,15 @@
   --foreground: #0f172a;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  overflow-x: hidden;
 }
 
 /* Custom scrollbars */
