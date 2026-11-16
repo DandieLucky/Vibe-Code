@@ -4,9 +4,10 @@
 
 **Blocked by:** 06: Adaptasi Form Pengumpulan Karya Android (`/kumpulan-karya`) & Schema Database, 07: Adaptasi Mesin Penilaian Otomatis (`scoring/engine.ts`) untuk Project Android
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Admin dapat meninjau link GitHub, screenshot, link APK, dan hasil skor Android di `/admin/submissions`
-- [ ] Ekspor Excel/CSV dan sinkronisasi Google Sheets menyertakan kolom karya Android tanpa error
-- [ ] `npm run typecheck`, `npm run test`, dan `npm run build` semuanya lulus tanpa error
+- [x] Admin dapat meninjau link GitHub, screenshot, link APK, dan video demo di `/admin/submissions` dan `/admin`
+- [x] Ekspor Excel/CSV dan sinkronisasi Google Sheets menyertakan kolom karya Android tanpa error
+- [x] `supabase/schema.sql` dan `supabase/migrations/20261117000001_android_submission_fields.sql` sinkron
+- [x] `npm run typecheck`, `npm run test`, dan `npm run build` semuanya lulus tanpa error
 

@@ -286,15 +286,28 @@ export default function AdminSubmissionsPage() {
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
-                    <a
-                      href={sub.deployment_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-emerald-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
-                    >
-                      <span>Vercel Live</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    {(sub.apk_url || sub.deployment_url) && (
+                      <a
+                        href={sub.apk_url || sub.deployment_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                      >
+                        <span>{sub.apk_url ? "Link APK" : "Live URL"}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {sub.demo_video_url && (
+                      <a
+                        href={sub.demo_video_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-amber-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                      >
+                        <span>Video Demo</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </td>
                   <td className="py-3 px-4 text-slate-500 whitespace-nowrap">
                     {formatDate(sub.submitted_at)}
@@ -421,15 +434,28 @@ export default function AdminSubmissionsPage() {
                     <span>Buka Repository GitHub</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <a
-                    href={selectedSubmission.deployment_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-emerald-700 font-bold hover:underline"
-                  >
-                    <span>Buka Website Vercel Live</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                  {(selectedSubmission.apk_url || selectedSubmission.deployment_url) && (
+                    <a
+                      href={selectedSubmission.apk_url || selectedSubmission.deployment_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-emerald-700 font-bold hover:underline"
+                    >
+                      <span>{selectedSubmission.apk_url ? "Unduh / Lihat File APK" : "Buka Tautan Proyek"}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  {selectedSubmission.demo_video_url && (
+                    <a
+                      href={selectedSubmission.demo_video_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-amber-700 font-bold hover:underline"
+                    >
+                      <span>Tonton Video Demo</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

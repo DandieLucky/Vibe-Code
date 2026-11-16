@@ -419,15 +419,17 @@ export default function AdminOverviewPage() {
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
-                    <a
-                      href={sub.deployment_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-emerald-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
-                    >
-                      <span>Vercel Live</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                    {(sub.apk_url || sub.deployment_url) && (
+                      <a
+                        href={sub.apk_url || sub.deployment_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-700 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                      >
+                        <span>{sub.apk_url ? "Link APK" : "Live URL"}</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                   </td>
                   <td className="py-3.5 px-4">
                     <SubmissionStatusBadge status={sub.submission_status} />
