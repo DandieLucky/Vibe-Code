@@ -203,11 +203,11 @@ function RegisterPageInner() {
           </div>
 
           <Input
-            label="Asal Sekolah / Kampus / Nama UMKM"
+            label="Asal Sekolah / Kelas"
             value={formData.institution}
             onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
             error={formErrors.institution}
-            placeholder="SMK / Universitas / Nama Usaha"
+            placeholder="Contoh: X RPL 1 — SMKN 1 Jakarta"
             required
           />
 
@@ -251,19 +251,18 @@ function RegisterPageInner() {
 
           <Button
             type="submit"
-            variant="accent"
             size="lg"
             isLoading={isLoading}
-            className="w-full font-bold mt-2 shadow-md"
+            className="w-full font-bold mt-2 shadow-sm bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7]"
           >
             Daftar Sekarang
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </form>
 
-        <div className="text-center pt-2 border-t border-slate-100 text-xs text-slate-500">
+        <div className="text-center pt-2 border-t border-[#E6DDD2] text-xs text-[#6A5A4E]">
           Sudah memiliki akun?{" "}
-          <Link href="/login" className="font-bold text-sky-600 hover:underline">
+          <Link href="/login" className="font-bold text-[#C4552D] hover:underline">
             Masuk di Sini
           </Link>
         </div>
@@ -276,7 +275,7 @@ function RegisterPageInner() {
 /** Dibungkus Suspense karena membaca parameter URL (?redirect=). */
 export default function RegisterPage() {
   return (
-    <Suspense fallback={<div className="min-h-[85vh] bg-slate-50" />}>
+    <Suspense fallback={<div className="min-h-[85vh] bg-[#FAF6F0]" />}>
       <RegisterPageInner />
     </Suspense>
   );
