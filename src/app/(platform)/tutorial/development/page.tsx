@@ -4,7 +4,7 @@ import { TutorialView } from "@/components/tutorial/tutorial-view";
 import { DEVELOPMENT } from "@/lib/data/tutorial-development";
 
 export const metadata = {
-  title: "Tutorial Development — ComposeLab SMKN 1",
+  title: "Tutorial Development — ComposeLab",
   description: "Panduan langkah demi langkah, lengkap dengan gambar dan pemeriksaan hasil.",
 };
 

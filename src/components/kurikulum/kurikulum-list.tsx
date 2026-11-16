@@ -76,7 +76,7 @@ export default function KurikulumList() {
                 Kurikulum Lengkap Android Kotlin &amp; Compose
               </h1>
               <p className="mt-2 text-sm sm:text-base text-ink-2 max-w-2xl">
-                6 modul padat untuk pelatihan 3 hari. Dilengkapi alur berpikir terstruktur dan prompt AI siap diskusi.
+                6 modul padat untuk Pelatihan. Dilengkapi alur berpikir terstruktur dan prompt AI siap diskusi.
               </p>
             </div>
 

@@ -3,9 +3,9 @@ import "./bloom.css";
 import { SakuSiswaWorkbench } from "./sakusiswa-workbench";
 
 export const metadata = {
-  title: "ComposeLab SMKN 1 — Platform Belajar Android & AI Prompting",
+  title: "ComposeLab — Platform Belajar Android & AI Prompting",
   description:
-    "Pelatihan 3 hari membangun aplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, Room Database, dan Google Sign-In untuk kelas 10 SMK Negeri 1 Jakarta.",
+    "Pelatihan membangun aplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, Room Database, dan Google Sign-In untuk siswa.",
 };
 
 const MODULES_SUMMARY = [
@@ -43,17 +43,17 @@ const MODULES_SUMMARY = [
 
 const SCHEDULE = [
   {
-    day: "Hari 1",
+    day: "Tahap 1",
     title: "Modul 1 sampai 3 — Pendampingan Guru",
     desc: "Cara berpikir terstruktur, setup Android Studio, Kotlin dasar, dan tampilan awal SakuSiswa di Jetpack Compose.",
   },
   {
-    day: "Hari 2",
+    day: "Tahap 2",
     title: "Modul 4 dan 5 — Pendampingan Guru",
     desc: "Integrasi Login Google Credential Manager serta pembuatan Room Database lengkap dengan fitur Create, Read, Update, dan Delete.",
   },
   {
-    day: "Hari 3",
+    day: "Tahap 3",
     title: "Modul 6 — Pengerjaan Mandiri & Pengumpulan",
     desc: "Penyempurnaan aplikasi masing-masing siswa, uji coba di HP/Emulator, push GitHub, dan pengumpulan karya di ComposeLab.",
   },
@@ -69,7 +69,7 @@ export default function BerandaPage() {
             <div>
               <h1>Bangun aplikasi Android dengan nalar</h1>
               <p className="bloom-lead">
-                Pelatihan 3 hari SMKN 1 Jakarta: Kotlin, Compose, Room, dan Google Login.
+                Pelatihan Android: Kotlin, Compose, Room, dan Google Login.
               </p>
 
               <div className="bloom-actions">
@@ -167,7 +167,7 @@ export default function BerandaPage() {
           <div className="bloom-section-head">
             <h2>Enam modul kurikulum SakuSiswa</h2>
             <p className="bloom-section-sub">
-              Ringkas untuk 3 hari, namun tetap memuat detail kode, konsep, dan troubleshooting.{" "}
+              Ringkas, namun tetap memuat detail kode, konsep, dan troubleshooting.{" "}
               <Link href="/kurikulum" className="bloom-link">
                 Buka halaman kurikulum
               </Link>
@@ -201,7 +201,7 @@ export default function BerandaPage() {
           <div className="bloom-roles-grid">
             <div className="bloom-role-panel">
               <div>
-                <h3>Siswa Kelas 10 SMKN 1 Jakarta</h3>
+                <h3>Siswa</h3>
                 <ul className="bloom-role-list">
                   <li>Akses 6 modul lengkap beserta blok Pikirkan Dulu dan Prompt AI.</li>
                   <li>Centang progres persiapan Android Studio dan langkah SakuSiswa.</li>
@@ -222,7 +222,7 @@ export default function BerandaPage() {
               <div>
                 <h3>Guru &amp; Fasilitator</h3>
                 <ul className="bloom-role-list">
-                  <li>Pantau progres belajar siswa dari hari pertama hingga hari ketiga.</li>
+                  <li>Pantau progres belajar siswa dari modul pertama hingga modul terakhir.</li>
                   <li>Periksa repositori GitHub, screenshot, dan jalankan penilaian karya.</li>
                   <li>Ekspor rekap nilai ke Excel, CSV, atau Google Sheets.</li>
                 </ul>

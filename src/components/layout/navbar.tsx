@@ -101,9 +101,6 @@ export function Navbar() {
                 <span className="font-extrabold text-lg sm:text-xl tracking-tight text-ink group-hover:text-accent transition-colors">
                   COMPOSELAB
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-accent-soft text-accent border border-rule whitespace-nowrap">
-                  SMKN 1 JKT
-                </span>
               </div>
               <p className="text-[11px] text-muted hidden xl:block whitespace-nowrap">
                 Android Kotlin, Compose &amp; AI Prompting

@@ -135,14 +135,14 @@ export async function fetchRepoCode(
   }
 }
 
-const SYSTEM_PROMPT = `Anda adalah penilai teknis untuk pelatihan pengembangan aplikasi Android pemula (Siswa Kelas 10 SMK Negeri 1 Jakarta).
+const SYSTEM_PROMPT = `Anda adalah penilai teknis untuk pelatihan pengembangan aplikasi Android pemula (siswa).
 
 Peserta adalah SISWA PEMULA yang membangun aplikasi Android lokal (Kotlin + Jetpack Compose Material 3 + Room Database KSP + Google Credential Manager + CRUD) dengan bantuan AI secara terstruktur.
 
 Tugas Anda: nilai 4 aspek, masing-masing skor 0-100, dengan kalibrasi berikut:
 - 0-30: tidak ada / sangat kurang
 - 31-55: ada tapi banyak kekurangan mendasar (misal tidak ada Room atau tidak ada CRUD)
-- 56-70: berfungsi, cukup untuk siswa kelas 10 (ada Compose, Room Entity/DAO, dan CRUD dasar)
+- 56-70: berfungsi, cukup untuk siswa (ada Compose, Room Entity/DAO, dan CRUD dasar)
 - 71-85: bagus, rapi, ada Login Google Credential Manager + Room + CRUD + filter/pencarian
 - 86-100: sangat bagus, struktur MVVM bersih, null-safe, ada fitur kreasi mandiri & README lengkap
 

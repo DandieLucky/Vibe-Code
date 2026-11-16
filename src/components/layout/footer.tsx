@@ -14,11 +14,11 @@ export function Footer() {
                 <Code2 className="w-5 h-5" />
               </div>
               <span className="font-extrabold text-lg text-ink tracking-tight">
-                COMPOSELAB SMKN 1
+                COMPOSELAB
               </span>
             </div>
             <p className="text-ink-2 text-sm leading-relaxed max-w-sm">
-              Platform pembelajaran pengembangan aplikasi Android (Kotlin, Jetpack Compose, Room Database, dan Google Sign-In) dengan pendekatan berpikir terstruktur dan prompting AI untuk siswa kelas 10 SMK Negeri 1 Jakarta.
+              Platform pembelajaran pengembangan aplikasi Android (Kotlin, Jetpack Compose, Room Database, dan Google Sign-In) dengan pendekatan berpikir terstruktur dan prompting AI untuk siswa.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-muted">
               <span className="flex items-center gap-1.5">
@@ -149,9 +149,9 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 mt-8 border-t border-rule flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
-          <p>© {new Date().getFullYear()} ComposeLab SMKN 1 Jakarta. Hak cipta dilindungi.</p>
+          <p>© {new Date().getFullYear()} ComposeLab. Hak cipta dilindungi.</p>
           <p className="flex items-center gap-1 text-muted">
-            Program Pembelajaran Android Kelas 10, SMK Negeri 1 Jakarta
+            Program Pembelajaran Android
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
-# ComposeLab SMKN 1 — Platform Pembelajaran Android & AI Prompting
+# ComposeLab — Platform Pembelajaran Android & AI Prompting
 
-Platform pembelajaran pengembangan aplikasi Android modern menggunakan **Kotlin**, **Jetpack Compose Material 3**, **Room Database (KSP)**, dan **Google Credential Manager API** dengan pendekatan berpikir terstruktur (anti-vibecoding) untuk siswa Kelas 10 SMK Negeri 1 Jakarta.
+Platform pembelajaran pengembangan aplikasi Android modern menggunakan **Kotlin**, **Jetpack Compose Material 3**, **Room Database (KSP)**, dan **Google Credential Manager API** dengan pendekatan berpikir terstruktur (anti-vibecoding).
 
 ---
 

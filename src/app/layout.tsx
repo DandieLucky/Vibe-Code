@@ -4,25 +4,24 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 
 export const metadata: Metadata = {
-  title: "ComposeLab SMKN 1 — Platform Belajar Android & AI Prompting",
+  title: "ComposeLab — Platform Belajar Android & AI Prompting",
   description:
-    "Belajar membangun aplikasi Android dengan Kotlin, Jetpack Compose, Room Database, dan Google Sign-In untuk siswa kelas 10 SMK Negeri 1 Jakarta. Berpikir terstruktur dengan AI, bukan vibecoding.",
+    "Belajar membangun aplikasi Android dengan Kotlin, Jetpack Compose, Room Database, dan Google Sign-In untuk siswa. Berpikir terstruktur dengan AI, bukan vibecoding.",
   keywords: [
-    "ComposeLab SMKN 1",
-    "SMK Negeri 1 Jakarta",
+    "ComposeLab",
     "Kotlin",
     "Jetpack Compose",
     "Room Database",
     "Credential Manager",
     "AI Prompting",
-    "Belajar Android Kelas 10",
+    "Belajar Android",
   ],
-  authors: [{ name: "Tim Pengajar RPL SMKN 1 Jakarta" }],
+  authors: [{ name: "Tim Pengajar ComposeLab" }],
   openGraph: {
-    title: "ComposeLab SMKN 1 — Platform Belajar Android & AI Prompting",
+    title: "ComposeLab — Platform Belajar Android & AI Prompting",
     description:
       "Bangun aplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, Room Database, dan Login Google menggunakan pendekatan berpikir terstruktur.",
-    siteName: "ComposeLab SMKN 1",
+    siteName: "ComposeLab",
     locale: "id_ID",
     type: "website",
   },

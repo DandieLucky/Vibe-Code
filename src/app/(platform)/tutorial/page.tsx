@@ -6,7 +6,7 @@ import { PERSIAPAN } from "@/lib/data/tutorial-persiapan";
 import { DEVELOPMENT } from "@/lib/data/tutorial-development";
 
 export const metadata = {
-  title: "Tutorial — ComposeLab SMKN 1",
+  title: "Tutorial — ComposeLab",
   description: "Dua tutorial: persiapan laptop Android sebelum praktik, dan panduan step-by-step membangun aplikasi SakuSiswa.",
 };
 

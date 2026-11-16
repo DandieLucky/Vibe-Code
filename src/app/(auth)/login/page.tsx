@@ -99,7 +99,7 @@ function LoginForm() {
             <div className="h-11 w-11 rounded-2xl bg-accent flex items-center justify-center shadow-sm">
               <GraduationCap className="w-6 h-6 text-sheet" />
             </div>
-            <span className="text-2xl font-extrabold text-ink tracking-tight">COMPOSELAB SMKN 1</span>
+            <span className="text-2xl font-extrabold text-ink tracking-tight">COMPOSELAB</span>
           </Link>
           <h1 className="text-2xl font-extrabold text-ink">Masuk ke Akun Anda</h1>
           <p className="mt-1.5 text-sm text-muted">
@@ -175,7 +175,7 @@ function LoginForm() {
 
           <div className="mt-6 pt-5 border-t border-rule text-center">
             <p className="text-xs text-muted mb-3">
-              Belum punya akun? Pendaftaran terbuka untuk siswa kelas 10.
+              Belum punya akun? Pendaftaran terbuka untuk siswa.
             </p>
             <Link href="/register">
               <Button variant="outline" size="sm" className="w-full font-semibold">

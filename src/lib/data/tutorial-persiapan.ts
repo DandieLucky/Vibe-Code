@@ -1,7 +1,7 @@
 // ============================================================================
-// TUTORIAL PERSIAPAN LAPTOP ANDROID — ComposeLab SMKN 1
+// TUTORIAL PERSIAPAN LAPTOP ANDROID — ComposeLab
 // ============================================================================
-// Dikerjakan sebelum atau pada awal Hari ke-1 pelatihan 3 hari.
+// Dikerjakan sebelum atau pada awal pelatihan.
 // Progress dicatat lewat tombol "Selesai" per langkah dan disimpan ke database.
 // ============================================================================
 
@@ -138,7 +138,7 @@ export const PERSIAPAN: BagianTutorial = {
         "Akses Asisten AI (Gemini / Google Antigravity / ChatGPT) di browser untuk latihan menyusun Prompt 6-Bagian dan berdiskusi saat debugging.",
       ],
       peringatan: {
-        judul: "Prinsip Belajar di ComposeLab SMKN 1",
+        judul: "Prinsip Belajar di ComposeLab",
         isi: "AI adalah rekan diskusi dan asisten penulis draf, bukan pengganti otakmu. Biasakan selalu membaca alur 'Pikirkan Dulu' sebelum memakai prompt.",
       },
     },

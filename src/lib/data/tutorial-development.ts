@@ -1,5 +1,5 @@
 // ============================================================================
-// TUTORIAL DEVELOPMENT SAKUSISWA — ComposeLab SMKN 1
+// TUTORIAL DEVELOPMENT SAKUSISWA — ComposeLab
 // ============================================================================
 // 12 langkah berurutan membangun aplikasi Android SakuSiswa (Kotlin + Jetpack
 // Compose + Room Database KSP + Google Credential Manager + CRUD Lengkap).
@@ -11,7 +11,7 @@ export const DEVELOPMENT: BagianTutorial = {
   id: "development",
   judul: "Tutorial Step-by-Step Membangun Aplikasi SakuSiswa",
   pengantar:
-    "Ikuti 12 langkah ini secara berurutan dari Hari ke-1 hingga Hari ke-3. Jangan melompati langkah. " +
+    "Ikuti 12 langkah ini secara berurutan dari langkah pertama hingga terakhir. Jangan melompati langkah. " +
     "Setelah satu langkah selesai dan berjalan tanpa error di Android Studio, tekan tombol Selesai di langkah itu.",
   peringatanAwal:
     "Centang langkah hanya untuk membantu melacak progres belajarmu. Karya akhir dinilai dari Repository GitHub, Screenshot Aplikasi, dan kelengkapan fitur Login Google + Room Database + CRUD.",
@@ -24,7 +24,7 @@ export const DEVELOPMENT: BagianTutorial = {
         "Kita memulai dengan template Empty Activity modern yang sudah memakai Kotlin DSL dan Jetpack Compose Material 3 tanpa file XML.",
       instruksi: [
         "Buka Android Studio -> klik New Project -> pilih 'Empty Activity' (yang berlogo Jetpack Compose), lalu klik Next.",
-        "Isi Name: 'SakuSiswa', Package name: 'id.smkn1jakarta.sakusiswa', Minimum SDK: 'API 26 (Android 8.0)', Build configuration language: 'Kotlin DSL (build.gradle.kts)'.",
+        "Isi Name: 'SakuSiswa', Package name: 'id.composelab.sakusiswa', Minimum SDK: 'API 26 (Android 8.0)', Build configuration language: 'Kotlin DSL (build.gradle.kts)'.",
         "Klik Finish dan tunggu proses Gradle Sync di pojok kanan bawah selesai.",
         "Jalankan aplikasi awal ke HP/Emulator dengan menekan tombol Run (▶).",
       ],
@@ -44,11 +44,11 @@ export const DEVELOPMENT: BagianTutorial = {
         "Agar proyek mudah dipelihara dan mudah di-debug, kita pisahkan kode menjadi 3 package sesuai tanggung jawabnya (arsitektur MVVM sederhana).",
       instruksi: [
         "Ubah tampilan panel kiri Android Studio ke mode 'Android'.",
-        "Buka app -> kotlin+java -> klik kanan pada 'id.smkn1jakarta.sakusiswa'.",
+        "Buka app -> kotlin+java -> klik kanan pada 'id.composelab.sakusiswa'.",
         "Pilih New -> Package, lalu buat 3 package secara terpisah: 'data', 'viewmodel', dan 'ui'.",
       ],
       hasilItem: [
-        "Package data, viewmodel, dan ui tampil sejajar di bawah id.smkn1jakarta.sakusiswa",
+        "Package data, viewmodel, dan ui tampil sejajar di bawah id.composelab.sakusiswa",
       ],
     },
     {
@@ -75,8 +75,8 @@ export const DEVELOPMENT: BagianTutorial = {
         "Credential Manager API membutuhkan verifikasi bahwa aplikasi SakuSiswa benar-benar milikmu melalui kode SHA-1 debug dan Web Client ID.",
       instruksi: [
         "Buka tab Terminal di Android Studio dan jalankan perintah di bawah ini untuk melihat SHA-1 pada bagian 'Variant: debug'.",
-        "Buka console.cloud.google.com -> buat proyek 'SakuSiswa-SMKN1' -> atur OAuth consent screen (External) dan tambahkan emailmu di Test Users.",
-        "Buka Credentials -> Create Credentials -> OAuth client ID -> buat tipe 'Android' (masukkan package id.smkn1jakarta.sakusiswa dan SHA-1).",
+        "Buka console.cloud.google.com -> buat proyek 'SakuSiswa' -> atur OAuth consent screen (External) dan tambahkan emailmu di Test Users.",
+        "Buka Credentials -> Create Credentials -> OAuth client ID -> buat tipe 'Android' (masukkan package id.composelab.sakusiswa dan SHA-1).",
         "Buat satu OAuth client ID lagi bertipe 'Web application', lalu salin nilai Client ID-nya (.apps.googleusercontent.com).",
       ],
       kode: ["./gradlew signingReport"],
@@ -178,7 +178,7 @@ export const DEVELOPMENT: BagianTutorial = {
       id: "d10-debugging-kreasi",
       judul: "Debugging dengan Logcat & tambah 1 fitur kreasi mandiri",
       penjelasan:
-        "Di Hari ke-3, pastikan aplikasimu bersih dari crash dan tambahkan minimal 1 fitur pembeda hasil rancanganmu sendiri.",
+        "Pada tahap akhir, pastikan aplikasimu bersih dari crash dan tambahkan minimal 1 fitur pembeda hasil rancanganmu sendiri.",
       instruksi: [
         "Buka tab Logcat di Android Studio dan ketik filter 'package:mine level:error' sambil menguji semua tombol aplikasi.",
         "Pilih 1 fitur tambahan: misalnya Progress Bar ketuntasan di StudentHeaderCard, Label Prioritas Tugas, atau Bersihkan Tugas Selesai.",
@@ -202,7 +202,7 @@ export const DEVELOPMENT: BagianTutorial = {
       kode: [
         "git init",
         "git add .",
-        "git commit -m \"feat: aplikasi Android SakuSiswa SMKN 1\"",
+        "git commit -m \"feat: aplikasi Android SakuSiswa\"",
         "git branch -M main",
         "git remote add origin https://github.com/USERNAME/sakusiswa-android.git",
         "git push -u origin main",
@@ -214,12 +214,12 @@ export const DEVELOPMENT: BagianTutorial = {
     },
     {
       id: "d12-kumpul-karya",
-      judul: "Ambil screenshot & kumpulkan karya di ComposeLab SMKN 1",
+      judul: "Ambil screenshot & kumpulkan karya di ComposeLab",
       penjelasan:
         "Langkah terakhir! Kumpulkan karyamu melalui menu Kumpulan Karya agar dapat diperiksa oleh guru dan sistem penilai otomatis.",
       instruksi: [
         "Ambil 1 screenshot terbaik aplikasi SakuSiswa yang menampilkan daftar tugas milikmu.",
-        "Buka halaman 'Kumpulan Karya' di ComposeLab SMKN 1.",
+        "Buka halaman 'Kumpulan Karya' di ComposeLab.",
         "Isi judul proyek, deskripsi singkat, centang 6 modul, masukkan Link Repository GitHub (wajib), Link APK / Video Demo (opsional), dan unggah Screenshot (wajib).",
         "Klik tombol 'Kirim Karya' dan pantau status penilaiannya di Dashboard.",
       ],

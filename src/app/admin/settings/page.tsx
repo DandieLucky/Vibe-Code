@@ -100,7 +100,7 @@ export default function AdminSettingsPage() {
                   Pendaftaran Terbuka (Public)
                 </span>
                 <span className="text-xs text-slate-500 leading-relaxed">
-                  Siswa kelas 10 SMK Negeri 1 Jakarta dapat langsung mendaftar tanpa kode undangan.
+                  siswa dapat langsung mendaftar tanpa kode undangan.
                 </span>
               </div>
             </label>

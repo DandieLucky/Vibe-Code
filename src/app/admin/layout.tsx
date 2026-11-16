@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard — ComposeLab SMKN 1",
+  title: "Admin Dashboard — ComposeLab",
   robots: {
     index: false,
     follow: false,
@@ -76,7 +76,7 @@ export default async function AdminLayout({
                   ADMIN PORTAL
                 </span>
                 <span className="block text-[10px] text-accent font-semibold">
-                  Fasilitator SMKN 1
+                  Fasilitator
                 </span>
               </div>
             </Link>

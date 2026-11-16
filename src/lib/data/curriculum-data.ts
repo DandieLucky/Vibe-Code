@@ -9,12 +9,12 @@ export const COURSE_INFO = {
   slug: "android-kotlin-jetpack-compose-sakusiswa",
   title: "Pengembangan Aplikasi Android Modern dengan Kotlin, Jetpack Compose & AI Prompting",
   description:
-    "Kurikulum intensif 3 hari (6 modul padat) khusus siswa Kelas 10 SMK Negeri 1 Jakarta. Belajar merancang aplikasi Android SakuSiswa (Catatan & Tugas Sekolah) menggunakan Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager dengan pola berpikir terstruktur.",
+    "Kurikulum intensif (6 modul padat) khusus siswa. Belajar merancang aplikasi Android SakuSiswa (Catatan & Tugas Sekolah) menggunakan Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager dengan pola berpikir terstruktur.",
   cover_image: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=1200",
   total_modules: 6,
   total_estimated_hours: 18,
   target_audience: [
-    "Siswa Kelas 10 RPL / PPLG SMK Negeri 1 Jakarta",
+    "Siswa RPL / PPLG",
     "Pemula Pemrograman Android",
     "Guru & Fasilitator Produktif SMK",
   ],
@@ -63,13 +63,13 @@ Sebaliknya, seorang Software Engineer menggunakan pendekatan Berpikir Komputasio
    - Penyimpanan: Data disimpan ke tabel lokal di HP menggunakan Room Database.
    - Output: Layar Jetpack Compose otomatis menampilkan kartu tugas baru di daftar.
 
-Dalam pelatihan 3 hari ini, kita akan membangun satu aplikasi utuh bernama "SakuSiswa" (Aplikasi Catatan & Manajemen Tugas Siswa) dengan tiga pilar wajib: Login Google (Credential Manager), Database Lokal (Room Database), dan fitur CRUD (Create, Read, Update, Delete).`,
+Dalam Pelatihan ini, kita akan membangun satu aplikasi utuh bernama "SakuSiswa" (Aplikasi Catatan & Manajemen Tugas Siswa) dengan tiga pilar wajib: Login Google (Credential Manager), Database Lokal (Room Database), dan fitur CRUD (Create, Read, Update, Delete).`,
         preparation: [
           "Siapkan buku catatan atau aplikasi catatan di laptop untuk menggambar alur aplikasi",
-          "Buka halaman Beranda ComposeLab SMKN 1 dan amati simulasi alur SakuSiswa",
+          "Buka halaman Beranda ComposeLab dan amati simulasi alur SakuSiswa",
         ],
         thinking_steps: [
-          "Data apa saja yang wajib dicatat saat seorang siswa kelas 10 menambahkan satu tugas sekolah baru?",
+          "Data apa saja yang wajib dicatat saat seorang siswa menambahkan satu tugas sekolah baru?",
           "Mengapa kita perlu menyimpan email akun Google siswa di setiap baris tugas pada database lokal?",
           "Apa yang harus terjadi di layar jika siswa menekan tombol Simpan ketika kolom Judul Tugas masih kosong?",
         ],
@@ -83,10 +83,10 @@ Dalam pelatihan 3 hari ini, kita akan membangun satu aplikasi utuh bernama "Saku
           tujuan:
             "Berdiskusi dengan AI untuk memvalidasi rancangan tabel data dan alur Input-Proses-Output aplikasi SakuSiswa.",
           konteks:
-            "Siswa kelas 10 SMK sedang merancang aplikasi Android SakuSiswa menggunakan Kotlin, Jetpack Compose, Room Database lokal, dan Login Google.",
+            "Siswa SMK sedang merancang aplikasi Android SakuSiswa menggunakan Kotlin, Jetpack Compose, Room Database lokal, dan Login Google.",
           instruksi: [
             "Periksa apakah rancangan kolom data tugas (id, userEmail, subject, title, description, dueDate, isDone) sudah cukup untuk kebutuhan pencatatan tugas harian siswa SMK.",
-            "Jelaskan dengan bahasa sederhana untuk siswa kelas 10 bagaimana alur data mengalir dari tombol Simpan di Jetpack Compose menuju Room Database.",
+            "Jelaskan dengan bahasa sederhana untuk siswa bagaimana alur data mengalir dari tombol Simpan di Jetpack Compose menuju Room Database.",
             "Berikan 3 contoh skenario pengujian (test case) sederhana untuk memastikan fitur tambah tugas berjalan benar.",
           ],
           batasan: [
@@ -97,13 +97,13 @@ Dalam pelatihan 3 hari ini, kita akan membangun satu aplikasi utuh bernama "Saku
             "Ringkasan blueprint arsitektur SakuSiswa dan 3 skenario pengujian yang dipahami siswa.",
           validasi:
             "Siswa dapat menjelaskan kembali fungsi setiap kolom data tanpa membaca teks.",
-          rawPrompt: `[TUJUAN]\nMemvalidasi rancangan tabel data dan alur Input-Proses-Output aplikasi Android SakuSiswa.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK yang sedang merancang aplikasi Android "SakuSiswa" (pencatat tugas & materi sekolah) dengan Kotlin, Jetpack Compose, Room Database lokal, dan Login Google.\n\n[INSTRUKSI]\n1. Evaluasi rancangan kolom tabel tugas saya: id (Int), userEmail (String), subject (String), title (String), notes (String), dueDate (String), isCompleted (Boolean).\n2. Jelaskan dengan analogi sederhana bagaimana alur data bergerak sejak pengguna menekan tombol "Simpan Tugas" di layar Compose hingga tersimpan di Room Database.\n3. Berikan 3 skenario uji coba (test case) termasuk ketika pengguna salah memasukkan input.\n\n[BATASAN]\nJangan langsung menulis kode lengkap. Jelaskan secara bertahap agar saya memahami logikanya terlebih dahulu.\n\n[HASIL AKHIR]\nPenjelasan alur data Input-Proses-Output dan tabel rancangan data SakuSiswa.\n\n[VALIDASI]\nAjukan 2 pertanyaan singkat di akhir penjelasan untuk menguji apakah saya sudah paham.`,
+          rawPrompt: `[TUJUAN]\nMemvalidasi rancangan tabel data dan alur Input-Proses-Output aplikasi Android SakuSiswa.\n\n[KONTEKS]\nSaya siswa SMK yang sedang merancang aplikasi Android "SakuSiswa" (pencatat tugas & materi sekolah) dengan Kotlin, Jetpack Compose, Room Database lokal, dan Login Google.\n\n[INSTRUKSI]\n1. Evaluasi rancangan kolom tabel tugas saya: id (Int), userEmail (String), subject (String), title (String), notes (String), dueDate (String), isCompleted (Boolean).\n2. Jelaskan dengan analogi sederhana bagaimana alur data bergerak sejak pengguna menekan tombol "Simpan Tugas" di layar Compose hingga tersimpan di Room Database.\n3. Berikan 3 skenario uji coba (test case) termasuk ketika pengguna salah memasukkan input.\n\n[BATASAN]\nJangan langsung menulis kode lengkap. Jelaskan secara bertahap agar saya memahami logikanya terlebih dahulu.\n\n[HASIL AKHIR]\nPenjelasan alur data Input-Proses-Output dan tabel rancangan data SakuSiswa.\n\n[VALIDASI]\nAjukan 2 pertanyaan singkat di akhir penjelasan untuk menguji apakah saya sudah paham.`,
         },
         code_snippets: [
           {
             filename: "Blueprint-SakuSiswa.md",
             language: "markdown",
-            code: `# Blueprint Aplikasi SakuSiswa (Kelas 10 SMKN 1 Jakarta)
+            code: `# Blueprint Aplikasi SakuSiswa
 
 ## 1. Alur Input - Proses - Output
 - **Input**: Akun Google Siswa + Form Tugas (Mata Pelajaran, Judul, Catatan, Tenggat)
@@ -202,7 +202,7 @@ Agar AI selalu memberikan jawaban yang relevan dengan standar Android terbaru (2
           tujuan:
             "Melatih penggunaan Formula Prompt 6-Bagian untuk mempelajari konsep dasar Kotlin dan Jetpack Compose bersama AI.",
           konteks:
-            "Proyek belajar Android SakuSiswa untuk siswa kelas 10 SMK menggunakan Kotlin dan Jetpack Compose Material 3.",
+            "Proyek belajar Android SakuSiswa untuk siswa SMK menggunakan Kotlin dan Jetpack Compose Material 3.",
           instruksi: [
             "Jelaskan mengapa Android modern menggunakan Jetpack Compose dibandingkan XML Layout lama.",
             "Tunjukkan 1 contoh fungsi @Composable paling sederhana yang menampilkan teks sapaan nama siswa.",
@@ -210,13 +210,13 @@ Agar AI selalu memberikan jawaban yang relevan dengan standar Android terbaru (2
           ],
           batasan: [
             "Jangan gunakan XML atau Activity lama (AppCompatActivity).",
-            "Gunakan bahasa Indonesia yang ramah untuk siswa kelas 10 SMK.",
+            "Gunakan bahasa Indonesia yang ramah untuk siswa SMK.",
           ],
           hasilAkhir:
             "Penjelasan ringkas dan 1 potongan kode fungsi @Composable beserta penjelasannya.",
           validasi:
             "Siswa memahami fungsi @Composable dan @Preview sebelum membuka Android Studio.",
-          rawPrompt: `[TUJUAN]\nMemahami konsep dasar fungsi @Composable dan @Preview pada Jetpack Compose.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK yang baru belajar membuat aplikasi Android menggunakan bahasa Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Jelaskan secara singkat mengapa Android modern beralih dari XML ke Jetpack Compose.\n2. Berikan 1 contoh kode fungsi @Composable bernama GreetingSiswa(nama: String, kelas: String).\n3. Jelaskan fungsi setiap baris kode tersebut, terutama arti @Composable dan @Preview.\n\n[BATASAN]\nJangan gunakan XML Layout. Gunakan komponen Material 3 (androidx.compose.material3).\n\n[HASIL AKHIR]\nPotongan kode Kotlin singkat disertai penjelasan baris demi baris.\n\n[VALIDASI]\nBerikan 1 soal tebak output singkat di bagian akhir untuk menguji pemahaman saya.`,
+          rawPrompt: `[TUJUAN]\nMemahami konsep dasar fungsi @Composable dan @Preview pada Jetpack Compose.\n\n[KONTEKS]\nSaya siswa SMK yang baru belajar membuat aplikasi Android menggunakan bahasa Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Jelaskan secara singkat mengapa Android modern beralih dari XML ke Jetpack Compose.\n2. Berikan 1 contoh kode fungsi @Composable bernama GreetingSiswa(nama: String, kelas: String).\n3. Jelaskan fungsi setiap baris kode tersebut, terutama arti @Composable dan @Preview.\n\n[BATASAN]\nJangan gunakan XML Layout. Gunakan komponen Material 3 (androidx.compose.material3).\n\n[HASIL AKHIR]\nPotongan kode Kotlin singkat disertai penjelasan baris demi baris.\n\n[VALIDASI]\nBerikan 1 soal tebak output singkat di bagian akhir untuk menguji pemahaman saya.`,
         },
         code_snippets: [
           {
@@ -303,7 +303,7 @@ Untuk menguji aplikasi, kamu punya 2 pilihan:
         step_instructions: [
           "Buka Android Studio, lalu klik tombol 'New Project'.",
           "Pada daftar template, pilih 'Empty Activity' (yang memiliki ikon logo Jetpack Compose), lalu klik Next.",
-          "Isi Name dengan 'SakuSiswa', Package name dengan 'id.smkn1jakarta.sakusiswa', Minimum SDK pilih 'API 26 (Android 8.0)', dan Build configuration language pilih 'Kotlin DSL (build.gradle.kts) [Recommended]'.",
+          "Isi Name dengan 'SakuSiswa', Package name dengan 'id.composelab.sakusiswa', Minimum SDK pilih 'API 26 (Android 8.0)', dan Build configuration language pilih 'Kotlin DSL (build.gradle.kts) [Recommended]'.",
           "Klik Finish dan tunggu proses 'Gradle Sync' di pojok kanan bawah selesai (jangan panik jika butuh beberapa menit saat pertama kali).",
           "Jika memakai HP fisik: buka Pengaturan HP -> Tentang Ponsel -> ketuk 'Nomor Versi / Build Number' 7 kali sampai muncul 'Anda adalah pengembang'. Masuk ke Opsi Pengembang -> aktifkan 'Debugging USB', lalu colokkan HP ke laptop dan pilih 'Izinkan / Allow'.",
           "Klik tombol segitiga hijau 'Run app' di bagian atas Android Studio dan pastikan layar 'Hello Android!' tampil di HP atau Emulator.",
@@ -325,7 +325,7 @@ Untuk menguji aplikasi, kamu punya 2 pilihan:
             "Panduan ringkas mengatasi kendala awal Android Studio dan USB Debugging.",
           validasi:
             "Nama perangkat HP atau Emulator muncul di dropdown daftar device Android Studio.",
-          rawPrompt: `[TUJUAN]\nMengatasi kendala awal pembuatan proyek baru Android Studio dan koneksi USB Debugging.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK menggunakan Android Studio untuk proyek baru "SakuSiswa" dengan template Empty Activity (Jetpack Compose) dan Kotlin DSL.\n\n[INSTRUKSI]\n1. Jelaskan secara sederhana apa yang terjadi saat proses "Gradle Sync" berlangsung.\n2. Berikan langkah praktis mengaktifkan Developer Options & USB Debugging di HP Android.\n3. Berikan 3 solusi paling efektif jika HP sudah dicolokkan ke laptop tetapi belum muncul di daftar device Android Studio.\n\n[BATASAN]\nGunakan bahasa yang jelas, singkat, dan mudah diikuti pemula.\n\n[HASIL AKHIR]\nChecklist langkah koneksi HP ke Android Studio.\n\n[VALIDASI]\nPastikan saya tahu cara mengecek status perangkat lewat tab Device Manager.`,
+          rawPrompt: `[TUJUAN]\nMengatasi kendala awal pembuatan proyek baru Android Studio dan koneksi USB Debugging.\n\n[KONTEKS]\nSaya siswa SMK menggunakan Android Studio untuk proyek baru "SakuSiswa" dengan template Empty Activity (Jetpack Compose) dan Kotlin DSL.\n\n[INSTRUKSI]\n1. Jelaskan secara sederhana apa yang terjadi saat proses "Gradle Sync" berlangsung.\n2. Berikan langkah praktis mengaktifkan Developer Options & USB Debugging di HP Android.\n3. Berikan 3 solusi paling efektif jika HP sudah dicolokkan ke laptop tetapi belum muncul di daftar device Android Studio.\n\n[BATASAN]\nGunakan bahasa yang jelas, singkat, dan mudah diikuti pemula.\n\n[HASIL AKHIR]\nChecklist langkah koneksi HP ke Android Studio.\n\n[VALIDASI]\nPastikan saya tahu cara mengecek status perangkat lewat tab Device Manager.`,
         },
         code_snippets: [
           {
@@ -333,7 +333,7 @@ Untuk menguji aplikasi, kamu punya 2 pilihan:
             language: "yaml",
             code: `Template Project : Empty Activity (Jetpack Compose)
 Name             : SakuSiswa
-Package Name     : id.smkn1jakarta.sakusiswa
+Package Name     : id.composelab.sakusiswa
 Save Location    : Folder kerja masing-masing siswa
 Minimum SDK      : API 26 ("Oreo"; Android 8.0)
 Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
@@ -393,7 +393,7 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
         concept_explanation: `Saat kamu mengubah tampilan panel kiri Android Studio ke mode **"Android"**, kamu akan melihat dua bagian besar: **app** dan **Gradle Scripts**. Mari kita kenali fungsinya satu per satu:
 
 1. **app/manifests/AndroidManifest.xml**: "KTP" dari aplikasimu. Di sini tercatat nama aplikasi, ikon, izin akses (seperti izin internet untuk Login Google), dan Activity mana yang pertama kali dibuka.
-2. **app/kotlin+java/id.smkn1jakarta.sakusiswa/**: Tempat seluruh kode program Kotlin kita berada! Di dalamnya ada \`MainActivity.kt\` (pintu masuk utama aplikasi) dan folder \`ui.theme\` (pengaturan warna & font).
+2. **app/kotlin+java/id.composelab.sakusiswa/**: Tempat seluruh kode program Kotlin kita berada! Di dalamnya ada \`MainActivity.kt\` (pintu masuk utama aplikasi) dan folder \`ui.theme\` (pengaturan warna & font).
 3. **app/res/**: Tempat menyimpan gambar (drawable), ikon aplikasi (mipmap), dan teks statis (values/strings.xml).
 4. **Gradle Scripts/libs.versions.toml**: Daftar katalog versi library (Version Catalog). Di Android modern, kita mendaftarkan versi Room dan Credential Manager di sini agar rapi.
 5. **Gradle Scripts/build.gradle.kts (Module :app)**: Tempat kita memasang plugin (seperti KSP) dan menambahkan \`implementation(...)\` library yang dibutuhkan aplikasi.`,
@@ -406,34 +406,34 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
         ],
         step_instructions: [
           "Klik dua kali pada file 'AndroidManifest.xml' dan temukan baris android:label=\"@string/app_name\".",
-          "Buka 'app/kotlin+java/id.smkn1jakarta.sakusiswa/MainActivity.kt' dan perhatikan fungsi onCreate() serta blok setContent { ... }.",
+          "Buka 'app/kotlin+java/id.composelab.sakusiswa/MainActivity.kt' dan perhatikan fungsi onCreate() serta blok setContent { ... }.",
           "Buka 'Gradle Scripts -> build.gradle.kts (Module :app)' dan amati blok android { ... } serta dependencies { ... }.",
-          "Buat 3 package (folder) baru di dalam 'id.smkn1jakarta.sakusiswa' dengan cara klik kanan -> New -> Package: beri nama 'data', 'ui', dan 'viewmodel' untuk persiapan arsitektur rapi kita.",
+          "Buat 3 package (folder) baru di dalam 'id.composelab.sakusiswa' dengan cara klik kanan -> New -> Package: beri nama 'data', 'ui', dan 'viewmodel' untuk persiapan arsitektur rapi kita.",
         ],
         antigravity_prompt: {
           tujuan:
             "Memahami fungsi blok kode di dalam MainActivity.kt dan build.gradle.kts (Module :app).",
           konteks:
-            "Proyek Android Studio SakuSiswa dengan package id.smkn1jakarta.sakusiswa menggunakan Kotlin DSL.",
+            "Proyek Android Studio SakuSiswa dengan package id.composelab.sakusiswa menggunakan Kotlin DSL.",
           instruksi: [
             "Jelaskan fungsi ComponentActivity(), onCreate(), enableEdgeToEdge(), dan setContent {} di dalam MainActivity.kt.",
             "Jelaskan perbedaan namespace dan applicationId di dalam build.gradle.kts (Module :app).",
             "Jelaskan mengapa kita membagi kode ke dalam 3 package: data, ui, dan viewmodel.",
           ],
           batasan: [
-            "Jelaskan dengan kalimat pendek dan poin-poin yang mudah dicerna siswa kelas 10.",
+            "Jelaskan dengan kalimat pendek dan poin-poin yang mudah dicerna siswa.",
           ],
           hasilAkhir:
             "Kamus ringkas fungsi bagian-bagian MainActivity.kt dan struktur package proyek.",
           validasi:
             "Siswa sudah membuat package data, ui, dan viewmodel di dalam package utama proyek.",
-          rawPrompt: `[TUJUAN]\nMemahami isi file MainActivity.kt dan struktur package aplikasi SakuSiswa.\n\n[KONTEKS]\nProyek Android Kotlin Jetpack Compose dengan package id.smkn1jakarta.sakusiswa.\n\n[INSTRUKSI]\n1. Jelaskan fungsi baris kode berikut kepada siswa kelas 10 SMK: class MainActivity : ComponentActivity(), override fun onCreate(), enableEdgeToEdge(), dan setContent {}.\n2. Jelaskan mengapa memisahkan kode ke dalam package 'data', 'ui', dan 'viewmodel' jauh lebih rapi dibandingkan menumpuk semua kode di satu file MainActivity.kt.\n\n[BATASAN]\nGunakan analogi sederhana (misal: dapur restoran, pelayan, dan meja pelanggan).\n\n[HASIL AKHIR]\nPenjelasan per bagian kode dan analogi arsitektur folder.\n\n[VALIDASI]\nPastikan saya paham file mana yang harus diedit ketika ingin menambah library baru.`,
+          rawPrompt: `[TUJUAN]\nMemahami isi file MainActivity.kt dan struktur package aplikasi SakuSiswa.\n\n[KONTEKS]\nProyek Android Kotlin Jetpack Compose dengan package id.composelab.sakusiswa.\n\n[INSTRUKSI]\n1. Jelaskan fungsi baris kode berikut kepada siswa SMK: class MainActivity : ComponentActivity(), override fun onCreate(), enableEdgeToEdge(), dan setContent {}.\n2. Jelaskan mengapa memisahkan kode ke dalam package 'data', 'ui', dan 'viewmodel' jauh lebih rapi dibandingkan menumpuk semua kode di satu file MainActivity.kt.\n\n[BATASAN]\nGunakan analogi sederhana (misal: dapur restoran, pelayan, dan meja pelanggan).\n\n[HASIL AKHIR]\nPenjelasan per bagian kode dan analogi arsitektur folder.\n\n[VALIDASI]\nPastikan saya paham file mana yang harus diedit ketika ingin menambah library baru.`,
         },
         code_snippets: [
           {
             filename: "Struktur-Package-SakuSiswa.txt",
             language: "markdown",
-            code: `id.smkn1jakarta.sakusiswa/
+            code: `id.composelab.sakusiswa/
 ├── data/          # Tempat menyimpan Room Entity (TaskEntity), DAO (TaskDao), Database, & GoogleAuthManager
 ├── viewmodel/     # Tempat menyimpan pengatur logika layar (TaskViewModel)
 ├── ui/            # Tempat menyimpan layar Compose (LoginScreen, HomeScreen, TaskDialog) & theme/
@@ -444,7 +444,7 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
           "Siswa mengenali letak file penting di Android Studio dan telah menyiapkan 3 folder package (data, viewmodel, ui) untuk proyek SakuSiswa.",
         validation_check: [
           "Dapat menunjukkan letak build.gradle.kts (Module :app) tanpa salah buka",
-          "Memiliki package data, viewmodel, dan ui di dalam id.smkn1jakarta.sakusiswa",
+          "Memiliki package data, viewmodel, dan ui di dalam id.composelab.sakusiswa",
         ],
         common_errors: [
           {
@@ -454,7 +454,7 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
           },
         ],
         exercise:
-          "Buka file res/values/strings.xml, lalu ubah nilai app_name dari 'SakuSiswa' menjadi 'SakuSiswa SMKN 1', jalankan ulang aplikasi dan lihat nama aplikasinya di daftar menu HP!",
+          "Buka file res/values/strings.xml, lalu ubah nilai app_name dari 'SakuSiswa' menjadi 'SakuSiswa', jalankan ulang aplikasi dan lihat nama aplikasinya di daftar menu HP!",
         quiz: [
           {
             question: "Di manakah kita menambahkan daftar library (dependencies) seperti Room Database dan Credential Manager pada proyek Android?",
@@ -515,7 +515,7 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
 3. **Null-Safety (\`?\` dan \`?:\`)**:
    - Penyebab aplikasi Android paling sering *Force Close* (keluar sendiri) adalah \`NullPointerException\` (mencoba membaca data yang ternyata kosong/null).
    - Di Kotlin, variabel biasa **dilarang** bernilai \`null\`. Jika suatu data *boleh* kosong (misalnya foto profil Google belum ada), kita wajib memberi tanda tanya \`String?\`.
-   - Saat menampilkannya, kita gunakan operator Elvis \`?:\` untuk memberi nilai cadangan, contoh: \`val namaTampil = namaGoogle ?: "Siswa SMKN 1"\`.`,
+   - Saat menampilkannya, kita gunakan operator Elvis \`?:\` untuk memberi nilai cadangan, contoh: \`val namaTampil = namaGoogle ?: "Siswa"\`.`,
         preparation: [
           "Buka proyek SakuSiswa di Android Studio",
         ],
@@ -533,7 +533,7 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
           tujuan:
             "Memahami penggunaan val, var, dan Null-Safety (?.) serta operator Elvis (?:) pada kasus profil siswa di aplikasi SakuSiswa.",
           konteks:
-            "Belajar dasar Kotlin untuk aplikasi Android SakuSiswa kelas 10 SMK.",
+            "Belajar dasar Kotlin untuk aplikasi Android SakuSiswa SMK.",
           instruksi: [
             "Berikan contoh kode Kotlin singkat yang memperlihatkan perbedaan val dan var.",
             "Tunjukkan bagaimana cara aman menangani data profil Google (displayName: String?, email: String?) menggunakan operator Elvis (?:).",
@@ -546,20 +546,20 @@ Build Config     : Kotlin DSL (build.gradle.kts) [Recommended]`,
             "Contoh kode pendek dan penjelasan Null-Safety yang mudah dipahami.",
           validasi:
             "Siswa dapat memperbaiki error 'Null can not be a value of a non-null type String'.",
-          rawPrompt: `[TUJUAN]\nMenguasai penggunaan val, var, dan Null-Safety (? dan ?:) di Kotlin.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK yang sedang belajar Kotlin untuk membuat aplikasi Android SakuSiswa.\n\n[INSTRUKSI]\n1. Berikan contoh perbedaan val dan var menggunakan kasus data siswa.\n2. Tunjukkan contoh penggunaan nullable type (String?) dan Elvis operator (?:) ketika mengambil nama akun Google yang mungkin kosong (null).\n3. Jelaskan mengapa muncul pesan error "Null can not be a value of a non-null type String" dan bagaimana cara memperbaikinya.\n\n[BATASAN]\nGunakan contoh kode singkat maksimal 20 baris.\n\n[HASIL AKHIR]\nPenjelasan ringkas dan contoh kode Kotlin yang aman dari NullPointerException.\n\n[VALIDASI]\nBerikan 2 baris kode yang sengaja salah soal null, lalu minta saya menebak perbaikannya.`,
+          rawPrompt: `[TUJUAN]\nMenguasai penggunaan val, var, dan Null-Safety (? dan ?:) di Kotlin.\n\n[KONTEKS]\nSaya siswa SMK yang sedang belajar Kotlin untuk membuat aplikasi Android SakuSiswa.\n\n[INSTRUKSI]\n1. Berikan contoh perbedaan val dan var menggunakan kasus data siswa.\n2. Tunjukkan contoh penggunaan nullable type (String?) dan Elvis operator (?:) ketika mengambil nama akun Google yang mungkin kosong (null).\n3. Jelaskan mengapa muncul pesan error "Null can not be a value of a non-null type String" dan bagaimana cara memperbaikinya.\n\n[BATASAN]\nGunakan contoh kode singkat maksimal 20 baris.\n\n[HASIL AKHIR]\nPenjelasan ringkas dan contoh kode Kotlin yang aman dari NullPointerException.\n\n[VALIDASI]\nBerikan 2 baris kode yang sengaja salah soal null, lalu minta saya menebak perbaikannya.`,
         },
         code_snippets: [
           {
             filename: "LatihanKotlinDasar.kt",
             language: "kotlin",
             code: `// 1. val (tidak bisa diubah) vs var (bisa diubah)
-val sekolah = "SMK Negeri 1 Jakarta"
+val sekolah = "SMK Contoh"
 var jumlahTugasSelesai = 0
 jumlahTugasSelesai = jumlahTugasSelesai + 1 // Boleh karena var
 
 // 2. Nullable (?) dan Operator Elvis (?:)
 val namaAkunGoogle: String? = null // Bisa saja kosong dari Google
-val namaYangDitampilkan: String = namaAkunGoogle ?: "Siswa Kelas 10"
+val namaYangDitampilkan: String = namaAkunGoogle ?: "Siswa"
 
 // 3. String Template ($)
 val pesanHeader = "Halo, $namaYangDitampilkan dari $sekolah! Kamu sudah menyelesaikan $jumlahTugasSelesai tugas."`,
@@ -639,13 +639,13 @@ val pesanHeader = "Halo, $namaYangDitampilkan dari $sekolah! Kamu sudah menyeles
             "Jelaskan analogi sederhana perbedaan fungsi biasa (fun) dan fungsi asinkron (suspend fun) di Android.",
           ],
           batasan: [
-            "Fokus pada logika Kotlin murni yang bersih dan mudah dipahami kelas 10.",
+            "Fokus pada logika Kotlin murni yang bersih dan mudah dipahami pemula.",
           ],
           hasilAkhir:
             "Potongan kode contoh operasi data class, List filter, dan analogi Coroutines.",
           validasi:
             "Siswa memahami fungsi it di dalam blok lambda .filter { it.isCompleted }.",
-          rawPrompt: `[TUJUAN]\nMenguasai penggunaan data class, List.filter, dan konsep suspend function untuk aplikasi SakuSiswa.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK sedang mempelajari pengelolaan data tugas sekolah di bahasa Kotlin.\n\n[INSTRUKSI]\n1. Buat contoh data class Task(val id: Int, val subject: String, val title: String, val isCompleted: Boolean = false).\n2. Tunjukkan cara mengubah status isCompleted menjadi true menggunakan fungsi .copy().\n3. Tunjukkan cara memfilter List<Task> untuk mencari tugas yang belum selesai dan mengandung kata kunci tertentu.\n4. Jelaskan dengan analogi kasir kantin sekolah mengapa operasi berat di Android harus memakai "suspend fun" (Coroutines).\n\n[BATASAN]\nJelaskan secara ringkas dan beri komentar pada setiap langkah kode.\n\n[HASIL AKHIR]\nContoh kode Kotlin dan analogi Coroutines.\n\n[VALIDASI]\nPastikan saya paham apa arti variabel implisit "it" di dalam fungsi .filter { ... }.`,
+          rawPrompt: `[TUJUAN]\nMenguasai penggunaan data class, List.filter, dan konsep suspend function untuk aplikasi SakuSiswa.\n\n[KONTEKS]\nSaya siswa SMK sedang mempelajari pengelolaan data tugas sekolah di bahasa Kotlin.\n\n[INSTRUKSI]\n1. Buat contoh data class Task(val id: Int, val subject: String, val title: String, val isCompleted: Boolean = false).\n2. Tunjukkan cara mengubah status isCompleted menjadi true menggunakan fungsi .copy().\n3. Tunjukkan cara memfilter List<Task> untuk mencari tugas yang belum selesai dan mengandung kata kunci tertentu.\n4. Jelaskan dengan analogi kasir kantin sekolah mengapa operasi berat di Android harus memakai "suspend fun" (Coroutines).\n\n[BATASAN]\nJelaskan secara ringkas dan beri komentar pada setiap langkah kode.\n\n[HASIL AKHIR]\nContoh kode Kotlin dan analogi Coroutines.\n\n[VALIDASI]\nPastikan saya paham apa arti variabel implisit "it" di dalam fungsi .filter { ... }.`,
         },
         code_snippets: [
           {
@@ -748,7 +748,7 @@ Untuk mengatur ukuran, jarak dalam (*padding*), warna latar, atau aksi klik pada
             "Buat fungsi @Composable StudentHeaderCard(studentName: String, studentEmail: String, pendingCount: Int, completedCount: Int).",
             "Gunakan Card Material 3 dengan sudut membulat (RoundedCornerShape(16.dp)).",
             "Tampilkan nama dan email siswa di bagian atas, lalu 2 kotak ringkasan jumlah tugas 'Belum Selesai' dan 'Selesai' secara berdampingan menggunakan Row dan Modifier.weight(1f).",
-            "Jelaskan fungsi Modifier.weight(1f) kepada siswa kelas 10.",
+            "Jelaskan fungsi Modifier.weight(1f) kepada siswa.",
           ],
           batasan: [
             "Gunakan hanya komponen standar androidx.compose.material3 dan androidx.compose.foundation.layout.",
@@ -763,7 +763,7 @@ Untuk mengatur ukuran, jarak dalam (*padding*), warna latar, atau aksi klik pada
           {
             filename: "StudentHeaderCard.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.ui
+            code: `package id.composelab.sakusiswa.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -904,7 +904,7 @@ Di Jetpack Compose:
           tujuan:
             "Membuat komponen dialog form tambah/edit tugas (TaskFormDialog) dengan state management dan validasi input di Jetpack Compose.",
           konteks:
-            "Package id.smkn1jakarta.sakusiswa.ui pada aplikasi Android SakuSiswa menggunakan Material 3.",
+            "Package id.composelab.sakusiswa.ui pada aplikasi Android SakuSiswa menggunakan Material 3.",
           instruksi: [
             "Buat fungsi @Composable TaskFormDialog yang menerima parameter initialSubject, initialTitle, initialNotes, initialDueDate, onDismiss, dan onConfirm.",
             "Gunakan AlertDialog Material 3 berisi OutlinedTextField untuk Mata Pelajaran, Judul Tugas, Catatan, dan Tenggat Waktu.",
@@ -918,13 +918,13 @@ Di Jetpack Compose:
             "File TaskFormDialog.kt yang siap dipakai untuk fitur Create maupun Update tugas.",
           validasi:
             "Tombol Simpan otomatis mati saat kolom judul kosong dan menyala saat diisi.",
-          rawPrompt: `[TUJUAN]\nMembuat komponen AlertDialog form input tugas (Tambah & Edit) dengan validasi state di Jetpack Compose.\n\n[KONTEKS]\nAplikasi SakuSiswa package id.smkn1jakarta.sakusiswa.ui menggunakan Kotlin dan Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable TaskFormDialog(\n   dialogTitle: String,\n   initialSubject: String = "",\n   initialTitle: String = "",\n   initialNotes: String = "",\n   initialDueDate: String = "",\n   onDismiss: () -> Unit,\n   onConfirm: (subject: String, title: String, notes: String, dueDate: String) -> Unit\n).\n2. Gunakan remember { mutableStateOf(...) } untuk mengelola teks pada 4 OutlinedTextField.\n3. Buat tombol Simpan hanya bisa diklik (enabled) apabila subject.isNotBlank() && title.isNotBlank().\n4. Jelaskan mengapa kita wajib menambahkan import androidx.compose.runtime.getValue dan setValue saat memakai kata kunci "by remember".\n\n[BATASAN]\nPastikan kode bersih, tidak menggunakan library form pihak ketiga.\n\n[HASIL AKHIR]\nKode lengkap TaskFormDialog.kt beserta penjelasan cara kerja State & Recomposition.\n\n[VALIDASI]\nPastikan dialog dapat digunakan baik untuk Tambah Tugas Baru (nilai awal kosong) maupun Edit Tugas (nilai awal terisi).`,
+          rawPrompt: `[TUJUAN]\nMembuat komponen AlertDialog form input tugas (Tambah & Edit) dengan validasi state di Jetpack Compose.\n\n[KONTEKS]\nAplikasi SakuSiswa package id.composelab.sakusiswa.ui menggunakan Kotlin dan Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable TaskFormDialog(\n   dialogTitle: String,\n   initialSubject: String = "",\n   initialTitle: String = "",\n   initialNotes: String = "",\n   initialDueDate: String = "",\n   onDismiss: () -> Unit,\n   onConfirm: (subject: String, title: String, notes: String, dueDate: String) -> Unit\n).\n2. Gunakan remember { mutableStateOf(...) } untuk mengelola teks pada 4 OutlinedTextField.\n3. Buat tombol Simpan hanya bisa diklik (enabled) apabila subject.isNotBlank() && title.isNotBlank().\n4. Jelaskan mengapa kita wajib menambahkan import androidx.compose.runtime.getValue dan setValue saat memakai kata kunci "by remember".\n\n[BATASAN]\nPastikan kode bersih, tidak menggunakan library form pihak ketiga.\n\n[HASIL AKHIR]\nKode lengkap TaskFormDialog.kt beserta penjelasan cara kerja State & Recomposition.\n\n[VALIDASI]\nPastikan dialog dapat digunakan baik untuk Tambah Tugas Baru (nilai awal kosong) maupun Edit Tugas (nilai awal terisi).`,
         },
         code_snippets: [
           {
             filename: "TaskFormDialog.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.ui
+            code: `package id.composelab.sakusiswa.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -1099,19 +1099,19 @@ Standar industri Android menggunakan pola **MVVM (Model - View - ViewModel)**:
           tujuan:
             "Memahami pembagian tanggung jawab antara UI (Compose), ViewModel, dan Room Database pada aplikasi SakuSiswa.",
           konteks:
-            "Arsitektur MVVM aplikasi Android SakuSiswa untuk siswa kelas 10 SMK.",
+            "Arsitektur MVVM aplikasi Android SakuSiswa untuk siswa SMK.",
           instruksi: [
             "Gambarkan diagram alur teks (ASCII) bagaimana aksi klik tombol 'Hapus Tugas' mengalir dari TaskItemCard -> HomeScreen -> TaskViewModel -> TaskDao -> Room Database.",
             "Jelaskan bagaimana perubahan data di Room Database otomatis mengalir balik ke layar lewat Flow dan StateFlow.",
           ],
           batasan: [
-            "Gunakan penjelasan konseptual yang mudah dipahami siswa kelas 10.",
+            "Gunakan penjelasan konseptual yang mudah dipahami siswa.",
           ],
           hasilAkhir:
             "Diagram alur satu arah (Unidirectional Data Flow) aplikasi SakuSiswa.",
           validasi:
             "Siswa dapat menyebutkan peran masing-masing file di dalam package data, viewmodel, dan ui.",
-          rawPrompt: `[TUJUAN]\nMemahami alur data satu arah (Unidirectional Data Flow) pada arsitektur MVVM aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, ViewModel, dan Room Database.\n\n[INSTRUKSI]\n1. Buat diagram alur teks sederhana yang menunjukkan perjalanan perintah saat siswa menekan tombol "Centang Selesai" pada kartu tugas.\n2. Jelaskan bagaimana perubahan di tabel Room Database otomatis memperbarui tampilan di Jetpack Compose melalui Flow.\n3. Berikan alasan mengapa kita tidak boleh memanggil fungsi database langsung di dalam fungsi @Composable.\n\n[BATASAN]\nGunakan bahasa Indonesia yang jelas untuk siswa kelas 10 SMK.\n\n[HASIL AKHIR]\nDiagram alur MVVM dan penjelasan peran ViewModel.\n\n[VALIDASI]\nPastikan saya tahu di package mana file TaskViewModel.kt harus disimpan.`,
+          rawPrompt: `[TUJUAN]\nMemahami alur data satu arah (Unidirectional Data Flow) pada arsitektur MVVM aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, ViewModel, dan Room Database.\n\n[INSTRUKSI]\n1. Buat diagram alur teks sederhana yang menunjukkan perjalanan perintah saat siswa menekan tombol "Centang Selesai" pada kartu tugas.\n2. Jelaskan bagaimana perubahan di tabel Room Database otomatis memperbarui tampilan di Jetpack Compose melalui Flow.\n3. Berikan alasan mengapa kita tidak boleh memanggil fungsi database langsung di dalam fungsi @Composable.\n\n[BATASAN]\nGunakan bahasa Indonesia yang jelas untuk siswa SMK.\n\n[HASIL AKHIR]\nDiagram alur MVVM dan penjelasan peran ViewModel.\n\n[VALIDASI]\nPastikan saya tahu di package mana file TaskViewModel.kt harus disimpan.`,
         },
         code_snippets: [
           {
@@ -1185,7 +1185,7 @@ Standar industri Android menggunakan pola **MVVM (Model - View - ViewModel)**:
 
 Selain itu, kita berikan sentuhan visual yang jelas: jika \`isCompleted == true\`, judul tugas otomatis diberi garis coret (\`TextDecoration.LineThrough\`) supaya siswa langsung tahu tugas mana yang sudah beres!`,
         preparation: [
-          "Buka package 'id.smkn1jakarta.sakusiswa.ui' di Android Studio",
+          "Buka package 'id.composelab.sakusiswa.ui' di Android Studio",
         ],
         thinking_steps: [
           "Mengapa TaskItemCard sebaiknya hanya melapor lewat fungsi callback (onEditClick, onDeleteClick) daripada menghapus data database sendiri di dalam kartu?",
@@ -1201,7 +1201,7 @@ Selain itu, kita berikan sentuhan visual yang jelas: jika \`isCompleted == true\
           tujuan:
             "Membuat komponen TaskItemCard.kt yang bersih, informatif, dan mendukung aksi Checkbox, Edit, serta Hapus.",
           konteks:
-            "Aplikasi Android SakuSiswa package id.smkn1jakarta.sakusiswa.ui menggunakan Jetpack Compose Material 3.",
+            "Aplikasi Android SakuSiswa package id.composelab.sakusiswa.ui menggunakan Jetpack Compose Material 3.",
           instruksi: [
             "Buat fungsi @Composable TaskItemCard dengan parameter subject, title, notes, dueDate, isCompleted, onToggleComplete, onEditClick, dan onDeleteClick.",
             "Tampilkan nama mata pelajaran di dalam Surface/Badge kecil di atas judul tugas.",
@@ -1215,13 +1215,13 @@ Selain itu, kita berikan sentuhan visual yang jelas: jika \`isCompleted == true\
             "File TaskItemCard.kt lengkap dengan 2 @Preview (kondisi tugas belum selesai dan sudah selesai).",
           validasi:
             "Tidak ada teks judul panjang yang mendorong tombol Edit/Hapus keluar layar karena sudah memakai Modifier.weight(1f).",
-          rawPrompt: `[TUJUAN]\nMembuat komponen kartu tugas interaktif (TaskItemCard.kt) di Jetpack Compose.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.ui, menggunakan Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable TaskItemCard(\n   subject: String,\n   title: String,\n   notes: String,\n   dueDate: String,\n   isCompleted: Boolean,\n   onToggleComplete: () -> Unit,\n   onEditClick: () -> Unit,\n   onDeleteClick: () -> Unit\n).\n2. Susun Checkbox di sebelah kiri, informasi tugas di tengah dengan Modifier.weight(1f), dan IconButton Edit & Delete di sebelah kanan.\n3. Jika isCompleted bernilai true, berikan efek garis coret (TextDecoration.LineThrough) pada teks judul.\n4. Jelaskan mengapa Modifier.weight(1f) pada Column tengah mencegah tombol Edit dan Delete terdorong keluar layar saat judul tugas sangat panjang.\n\n[BATASAN]\nGunakan hanya ikon standar Icons.Default.Edit dan Icons.Default.Delete.\n\n[HASIL AKHIR]\nKode lengkap TaskItemCard.kt beserta @Preview.\n\n[VALIDASI]\nPastikan kartu tetap rapi meskipun judul tugas panjangnya 2 baris.`,
+          rawPrompt: `[TUJUAN]\nMembuat komponen kartu tugas interaktif (TaskItemCard.kt) di Jetpack Compose.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.composelab.sakusiswa.ui, menggunakan Material 3.\n\n[INSTRUKSI]\n1. Buat fungsi @Composable TaskItemCard(\n   subject: String,\n   title: String,\n   notes: String,\n   dueDate: String,\n   isCompleted: Boolean,\n   onToggleComplete: () -> Unit,\n   onEditClick: () -> Unit,\n   onDeleteClick: () -> Unit\n).\n2. Susun Checkbox di sebelah kiri, informasi tugas di tengah dengan Modifier.weight(1f), dan IconButton Edit & Delete di sebelah kanan.\n3. Jika isCompleted bernilai true, berikan efek garis coret (TextDecoration.LineThrough) pada teks judul.\n4. Jelaskan mengapa Modifier.weight(1f) pada Column tengah mencegah tombol Edit dan Delete terdorong keluar layar saat judul tugas sangat panjang.\n\n[BATASAN]\nGunakan hanya ikon standar Icons.Default.Edit dan Icons.Default.Delete.\n\n[HASIL AKHIR]\nKode lengkap TaskItemCard.kt beserta @Preview.\n\n[VALIDASI]\nPastikan kartu tetap rapi meskipun judul tugas panjangnya 2 baris.`,
         },
         code_snippets: [
           {
             filename: "TaskItemCard.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.ui
+            code: `package id.composelab.sakusiswa.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -1409,7 +1409,7 @@ Di dalam \`LazyColumn\`, kita menggunakan blok \`items(items = daftarTugas, key 
             "Contoh kode LazyColumn + FilterChip beserta penjelasan fungsi key = { it.id }.",
           validasi:
             "Siswa tidak lupa meng-import androidx.compose.foundation.lazy.items.",
-          rawPrompt: `[TUJUAN]\nMembuat daftar tugas bergulir dengan LazyColumn, FilterChip status, dan Empty State di Jetpack Compose.\n\n[KONTEKS]\nAplikasi Android SakuSiswa menggunakan Kotlin dan Material 3.\n\n[INSTRUKSI]\n1. Jelaskan mengapa LazyColumn jauh lebih hemat memori dibandingkan Column untuk menampilkan daftar data dari database.\n2. Tunjukkan contoh penggunaan LazyColumn dengan items(items = daftarTugas, key = { it.id }) yang memanggil komponen TaskItemCard.\n3. Tunjukkan cara menambahkan Row berisi 3 FilterChip ("Semua", "Belum Selesai", "Selesai") di atas LazyColumn.\n4. Jelaskan mengapa import "androidx.compose.foundation.lazy.items" sering terlupakan dan menyebabkan error pada blok items().\n\n[BATASAN]\nGunakan kode yang bersih dan mudah dipahami siswa kelas 10.\n\n[HASIL AKHIR]\nPotongan kode LazyColumn + FilterChip dan tips menghindari error import items.\n\n[VALIDASI]\nPastikan ada tampilan Empty State saat daftar tugas kosong.`,
+          rawPrompt: `[TUJUAN]\nMembuat daftar tugas bergulir dengan LazyColumn, FilterChip status, dan Empty State di Jetpack Compose.\n\n[KONTEKS]\nAplikasi Android SakuSiswa menggunakan Kotlin dan Material 3.\n\n[INSTRUKSI]\n1. Jelaskan mengapa LazyColumn jauh lebih hemat memori dibandingkan Column untuk menampilkan daftar data dari database.\n2. Tunjukkan contoh penggunaan LazyColumn dengan items(items = daftarTugas, key = { it.id }) yang memanggil komponen TaskItemCard.\n3. Tunjukkan cara menambahkan Row berisi 3 FilterChip ("Semua", "Belum Selesai", "Selesai") di atas LazyColumn.\n4. Jelaskan mengapa import "androidx.compose.foundation.lazy.items" sering terlupakan dan menyebabkan error pada blok items().\n\n[BATASAN]\nGunakan kode yang bersih dan mudah dipahami siswa.\n\n[HASIL AKHIR]\nPotongan kode LazyColumn + FilterChip dan tips menghindari error import items.\n\n[VALIDASI]\nPastikan ada tampilan Empty State saat daftar tugas kosong.`,
         },
         code_snippets: [
           {
@@ -1581,7 +1581,7 @@ fun DeleteConfirmDialog(
           },
         ],
         expected_result:
-          "Siswa memahami cara menggabungkan seluruh komponen UI Hari ke-1 ke dalam kerangka Scaffold Material 3 beserta dialog konfirmasi hapus.",
+          "Siswa memahami cara menggabungkan seluruh komponen UI Modul 1 sampai 3 ke dalam kerangka Scaffold Material 3 beserta dialog konfirmasi hapus.",
         validation_check: [
           "Memahami peran topBar, floatingActionButton, dan innerPadding pada Scaffold",
           "Memahami cara kerja state dialog konfirmasi hapus",
@@ -1669,8 +1669,8 @@ Agar Google mengizinkan aplikasi SakuSiswa milikmu membuka jendela login, Google
         step_instructions: [
           "Buka tab Terminal di Android Studio, ketik './gradlew signingReport' (macOS/Linux) atau 'gradlew signingReport' (Windows) lalu tekan Enter.",
           "Cari bagian 'Variant: debug' dan salin deretan kode 'SHA1: AA:BB:CC:...' ke catatanmu.",
-          "Buka Google Cloud Console -> buat project baru 'SakuSiswa-SMKN1' -> masuk ke menu 'APIs & Services -> OAuth consent screen', pilih External, isi nama aplikasi 'SakuSiswa', dan tambahkan emailmu di bagian Test Users.",
-          "Masuk ke menu 'Credentials -> Create Credentials -> OAuth client ID': buat 1 bertipe 'Android' (isi package name 'id.smkn1jakarta.sakusiswa' dan kode SHA-1 tadi), lalu buat 1 lagi bertipe 'Web application' dan salin kode Client ID-nya (yang berakhiran .apps.googleusercontent.com).",
+          "Buka Google Cloud Console -> buat project baru 'SakuSiswa' -> masuk ke menu 'APIs & Services -> OAuth consent screen', pilih External, isi nama aplikasi 'SakuSiswa', dan tambahkan emailmu di bagian Test Users.",
+          "Masuk ke menu 'Credentials -> Create Credentials -> OAuth client ID': buat 1 bertipe 'Android' (isi package name 'id.composelab.sakusiswa' dan kode SHA-1 tadi), lalu buat 1 lagi bertipe 'Web application' dan salin kode Client ID-nya (yang berakhiran .apps.googleusercontent.com).",
         ],
         antigravity_prompt: {
           tujuan:
@@ -1689,7 +1689,7 @@ Agar Google mengizinkan aplikasi SakuSiswa milikmu membuka jendela login, Google
             "Panduan ringkas konfigurasi SHA-1 & Web Client ID beserta daftar penyebab error umum.",
           validasi:
             "Siswa memiliki string Web Client ID (.apps.googleusercontent.com) yang siap dipasang di kode.",
-          rawPrompt: `[TUJUAN]\nMemahami konfigurasi SHA-1 dan Web Client ID untuk Android Credential Manager API.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK sedang menyiapkan Sign in with Google pada aplikasi Android SakuSiswa (package: id.smkn1jakarta.sakusiswa) tanpa backend eksternal.\n\n[INSTRUKSI]\n1. Jelaskan secara sederhana mengapa Android Credential Manager membutuhkan dua OAuth Client ID di Google Cloud Console (satu tipe Android dengan SHA-1, dan satu tipe Web application untuk setServerClientId).\n2. Tunjukkan cara mudah melihat nilai SHA-1 lewat panel Gradle di Android Studio jika terminal mengalami kendala.\n3. Jelaskan apa penyebab error "No credentials available" saat tombol Login Google ditekan di Emulator.\n\n[BATASAN]\nJangan gunakan GoogleSignInClient yang sudah deprecated.\n\n[HASIL AKHIR]\nPenjelasan fungsi SHA-1, Web Client ID, dan checklist pengecekan jika login gagal.\n\n[VALIDASI]\nPastikan saya tahu Client ID mana yang harus ditempelkan ke variabel WEB_CLIENT_ID di kode Kotlin.`,
+          rawPrompt: `[TUJUAN]\nMemahami konfigurasi SHA-1 dan Web Client ID untuk Android Credential Manager API.\n\n[KONTEKS]\nSaya siswa SMK sedang menyiapkan Sign in with Google pada aplikasi Android SakuSiswa (package: id.composelab.sakusiswa) tanpa backend eksternal.\n\n[INSTRUKSI]\n1. Jelaskan secara sederhana mengapa Android Credential Manager membutuhkan dua OAuth Client ID di Google Cloud Console (satu tipe Android dengan SHA-1, dan satu tipe Web application untuk setServerClientId).\n2. Tunjukkan cara mudah melihat nilai SHA-1 lewat panel Gradle di Android Studio jika terminal mengalami kendala.\n3. Jelaskan apa penyebab error "No credentials available" saat tombol Login Google ditekan di Emulator.\n\n[BATASAN]\nJangan gunakan GoogleSignInClient yang sudah deprecated.\n\n[HASIL AKHIR]\nPenjelasan fungsi SHA-1, Web Client ID, dan checklist pengecekan jika login gagal.\n\n[VALIDASI]\nPastikan saya tahu Client ID mana yang harus ditempelkan ke variabel WEB_CLIENT_ID di kode Kotlin.`,
         },
         code_snippets: [
           {
@@ -1701,7 +1701,7 @@ Agar Google mengizinkan aplikasi SakuSiswa milikmu membuka jendela login, Google
 
 2. Di Google Cloud Console (APIs & Services -> Credentials):
    a) OAuth Client ID 1 (Tipe: Android)
-      - Package name : id.smkn1jakarta.sakusiswa
+      - Package name : id.composelab.sakusiswa
       - SHA-1        : (Tempel SHA-1 dari langkah 1)
    b) OAuth Client ID 2 (Tipe: Web application)
       - Salin "Client ID" (contoh: 123456789-abcdef.apps.googleusercontent.com)
@@ -1875,7 +1875,7 @@ Jangan lupa juga menambahkan baris \`<uses-permission android:name="android.perm
 3. **Tips Rekayasa Cerdas untuk Praktik Sekolah**: Terkadang di laboratorium sekolah ada emulator yang tidak memiliki Google Play Services atau internet sedang terputus. Karena itu, pada \`LoginScreen\`, selain tombol utama **"Masuk dengan Akun Google"**, kita juga menyediakan opsi **"Masuk Mode Praktik Offline"** dengan email siswa agar proses belajar CRUD Room Database tidak pernah terhambat!`,
         preparation: [
           "Siapkan Web Client ID dari Materi 4.1",
-          "Buka package 'id.smkn1jakarta.sakusiswa.data' dan 'id.smkn1jakarta.sakusiswa.ui'",
+          "Buka package 'id.composelab.sakusiswa.data' dan 'id.composelab.sakusiswa.ui'",
         ],
         thinking_steps: [
           "Mengapa fungsi signInWithGoogle() harus diberi kata kunci 'suspend'?",
@@ -1891,7 +1891,7 @@ Jangan lupa juga menambahkan baris \`<uses-permission android:name="android.perm
           tujuan:
             "Membuat GoogleAuthManager.kt dan LoginScreen.kt menggunakan Android Credential Manager API dan Jetpack Compose.",
           konteks:
-            "Aplikasi Android SakuSiswa (id.smkn1jakarta.sakusiswa) menggunakan Kotlin, Coroutines, dan Material 3.",
+            "Aplikasi Android SakuSiswa (id.composelab.sakusiswa) menggunakan Kotlin, Coroutines, dan Material 3.",
           instruksi: [
             "Buat data class SignedInUser(val email: String, val displayName: String) dan class GoogleAuthManager(private val context: Context) di package data.",
             "Implementasikan suspend fun signInWithGoogle(webClientId: String): Result<SignedInUser> menggunakan CredentialManager dan GetGoogleIdOption.",
@@ -1905,13 +1905,13 @@ Jangan lupa juga menambahkan baris \`<uses-permission android:name="android.perm
             "File GoogleAuthManager.kt dan LoginScreen.kt yang siap dihubungkan ke sesi pengguna.",
           validasi:
             "Jendela pemilihan akun Google muncul saat tombol Masuk dengan Google ditekan.",
-          rawPrompt: `[TUJUAN]\nMembuat kelas GoogleAuthManager.kt dan layar LoginScreen.kt dengan Android Credential Manager API.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa, menggunakan Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Buat data class SignedInUser(val email: String, val displayName: String) di dalam file GoogleAuthManager.kt.\n2. Buat fungsi suspend signInWithGoogle(webClientId: String): Result<SignedInUser> yang memanggil CredentialManager.create(context).getCredential(...).\n3. Tangkap GetCredentialException di dalam blok try-catch dan kembalikan pesan error bahasa Indonesia yang mudah dimengerti.\n4. Buat fungsi @Composable LoginScreen yang memanggil signInWithGoogle di dalam rememberCoroutineScope().launch { ... }.\n\n[BATASAN]\nPastikan Context yang dikirim ke getCredential berasal dari LocalContext.current (Activity context).\n\n[HASIL AKHIR]\nKode lengkap GoogleAuthManager.kt dan LoginScreen.kt beserta penjelasan alurnya.\n\n[VALIDASI]\nPastikan aplikasi tidak Force Close ketika pengguna menutup pop-up pemilihan akun Google.`,
+          rawPrompt: `[TUJUAN]\nMembuat kelas GoogleAuthManager.kt dan layar LoginScreen.kt dengan Android Credential Manager API.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.composelab.sakusiswa, menggunakan Kotlin dan Jetpack Compose Material 3.\n\n[INSTRUKSI]\n1. Buat data class SignedInUser(val email: String, val displayName: String) di dalam file GoogleAuthManager.kt.\n2. Buat fungsi suspend signInWithGoogle(webClientId: String): Result<SignedInUser> yang memanggil CredentialManager.create(context).getCredential(...).\n3. Tangkap GetCredentialException di dalam blok try-catch dan kembalikan pesan error bahasa Indonesia yang mudah dimengerti.\n4. Buat fungsi @Composable LoginScreen yang memanggil signInWithGoogle di dalam rememberCoroutineScope().launch { ... }.\n\n[BATASAN]\nPastikan Context yang dikirim ke getCredential berasal dari LocalContext.current (Activity context).\n\n[HASIL AKHIR]\nKode lengkap GoogleAuthManager.kt dan LoginScreen.kt beserta penjelasan alurnya.\n\n[VALIDASI]\nPastikan aplikasi tidak Force Close ketika pengguna menutup pop-up pemilihan akun Google.`,
         },
         code_snippets: [
           {
             filename: "GoogleAuthManager.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.data
+            code: `package id.composelab.sakusiswa.data
 
 import android.content.Context
 import androidx.credentials.CredentialManager
@@ -2043,13 +2043,13 @@ Untuk menyimpan informasi sederhana seperti *"Siapa email dan nama siswa yang se
             "Sediakan juga tombol masuk mode simulasi lokal jika siswa sedang menguji di emulator tanpa Play Store.",
           ],
           batasan: [
-            "Gunakan kode yang ringkas dan mudah dipahami siswa kelas 10.",
+            "Gunakan kode yang ringkas dan mudah dipahami siswa.",
           ],
           hasilAkhir:
             "Kode sesi login lokal dan LoginScreen.kt yang siap diintegrasikan.",
           validasi:
             "Sesi pengguna tetap bertahan ketika aplikasi ditutup dan dibuka kembali.",
-          rawPrompt: `[TUJUAN]\nMenambahkan manajemen sesi login lokal (simpan sesi & logout) pada GoogleAuthManager dan membuat LoginScreen.kt.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.\n\n[INSTRUKSI]\n1. Tambahkan fungsi saveSession(user: SignedInUser), getSavedSession(): SignedInUser?, dan suspend fun signOut() (memanggil clearCredentialState) pada GoogleAuthManager.\n2. Buat @Composable fun LoginScreen(webClientId: String, authManager: GoogleAuthManager, onSignedIn: (SignedInUser) -> Unit).\n3. Sediakan tombol utama "Masuk dengan Akun Google" serta form kecil cadangan untuk emulator sekolah yang belum login Play Store.\n\n[BATASAN]\nPastikan semua state error ditampilkan dengan jelas di layar.\n\n[HASIL AKHIR]\nKode lengkap penyimpanan sesi dan LoginScreen.kt.\n\n[VALIDASI]\nPastikan tombol Keluar benar-benar menghapus sesi dan mengembalikan pengguna ke LoginScreen.`,
+          rawPrompt: `[TUJUAN]\nMenambahkan manajemen sesi login lokal (simpan sesi & logout) pada GoogleAuthManager dan membuat LoginScreen.kt.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.composelab.sakusiswa.\n\n[INSTRUKSI]\n1. Tambahkan fungsi saveSession(user: SignedInUser), getSavedSession(): SignedInUser?, dan suspend fun signOut() (memanggil clearCredentialState) pada GoogleAuthManager.\n2. Buat @Composable fun LoginScreen(webClientId: String, authManager: GoogleAuthManager, onSignedIn: (SignedInUser) -> Unit).\n3. Sediakan tombol utama "Masuk dengan Akun Google" serta form kecil cadangan untuk emulator sekolah yang belum login Play Store.\n\n[BATASAN]\nPastikan semua state error ditampilkan dengan jelas di layar.\n\n[HASIL AKHIR]\nKode lengkap penyimpanan sesi dan LoginScreen.kt.\n\n[VALIDASI]\nPastikan tombol Keluar benar-benar menghapus sesi dan mengembalikan pengguna ke LoginScreen.`,
         },
         code_snippets: [
           {
@@ -2067,7 +2067,7 @@ fun saveSession(user: SignedInUser) {
 
 fun getSavedSession(): SignedInUser? {
     val email = prefs.getString("email", null) ?: return null
-    val name = prefs.getString("name", "Siswa SMKN 1") ?: "Siswa SMKN 1"
+    val name = prefs.getString("name", "Siswa") ?: "Siswa"
     return SignedInUser(email = email, displayName = name)
 }
 
@@ -2265,7 +2265,7 @@ dependencies {
 3. **\`SakuSiswaDatabase.kt\`**:
    Menggunakan pola **Singleton (\`INSTANCE\`)** dengan \`@Volatile\` dan \`synchronized\`. Tujuannya agar di seluruh aplikasi hanya ada **satu** koneksi database yang dibuka, sehingga hemat memori dan tidak terjadi bentrokan file database.`,
         preparation: [
-          "Buka package 'id.smkn1jakarta.sakusiswa.data' di Android Studio",
+          "Buka package 'id.composelab.sakusiswa.data' di Android Studio",
         ],
         thinking_steps: [
           "Mengapa pada query 'SELECT * FROM tasks WHERE userEmail = :email ORDER BY isCompleted ASC, id DESC', fungsi getTasksByUser() tidak memakai kata kunci 'suspend' melainkan mengembalikan 'Flow<List<TaskEntity>>'?",
@@ -2281,7 +2281,7 @@ dependencies {
           tujuan:
             "Membuat 3 file lapisan data Room Database: TaskEntity.kt, TaskDao.kt, dan SakuSiswaDatabase.kt.",
           konteks:
-            "Package id.smkn1jakarta.sakusiswa.data menggunakan Room Database 2.6+ dengan KSP dan Kotlin Coroutines Flow.",
+            "Package id.composelab.sakusiswa.data menggunakan Room Database 2.6+ dengan KSP dan Kotlin Coroutines Flow.",
           instruksi: [
             "Buat TaskEntity.kt dengan kolom id, userEmail, subject, title, notes, dueDate, isCompleted, dan createdAt.",
             "Buat TaskDao.kt dengan fungsi getTasksByUser(email: String): Flow<List<TaskEntity>>, suspend fun insertTask, suspend fun updateTask, dan suspend fun deleteTask.",
@@ -2295,13 +2295,13 @@ dependencies {
             "Tiga file Kotlin lapisan Room Database yang lolos kompilasi KSP.",
           validasi:
             "Menu Build -> Make Project sukses tanpa error dari room-compiler.",
-          rawPrompt: `[TUJUAN]\nMembuat lapisan Room Database lengkap (TaskEntity, TaskDao, dan SakuSiswaDatabase) untuk aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.data, menggunakan Room dengan KSP dan Kotlin Flow.\n\n[INSTRUKSI]\n1. Buat TaskEntity.kt (@Entity(tableName = "tasks")) dengan kolom: id (PrimaryKey autoGenerate), userEmail, subject, title, notes, dueDate, dan isCompleted.\n2. Buat TaskDao.kt (@Dao) yang memuat:\n   - @Query("SELECT * FROM tasks WHERE userEmail = :email ORDER BY isCompleted ASC, id DESC") fun getTasksByUser(email: String): Flow<List<TaskEntity>>\n   - @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertTask(task: TaskEntity)\n   - @Update suspend fun updateTask(task: TaskEntity)\n   - @Delete suspend fun deleteTask(task: TaskEntity)\n3. Buat SakuSiswaDatabase.kt (@Database(entities = [TaskEntity::class], version = 1, exportSchema = false)) dengan pola Singleton.\n4. Jelaskan mengapa urutan "ORDER BY isCompleted ASC, id DESC" membuat tugas yang belum selesai selalu berada di urutan atas.\n\n[BATASAN]\nGunakan import resmi dari androidx.room.* dan kotlinx.coroutines.flow.Flow.\n\n[HASIL AKHIR]\nKode lengkap TaskEntity.kt, TaskDao.kt, dan SakuSiswaDatabase.kt.\n\n[VALIDASI]\nPastikan saat menekan Build -> Make Project, KSP berhasil men-generate SakuSiswaDatabase_Impl tanpa error.`,
+          rawPrompt: `[TUJUAN]\nMembuat lapisan Room Database lengkap (TaskEntity, TaskDao, dan SakuSiswaDatabase) untuk aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.composelab.sakusiswa.data, menggunakan Room dengan KSP dan Kotlin Flow.\n\n[INSTRUKSI]\n1. Buat TaskEntity.kt (@Entity(tableName = "tasks")) dengan kolom: id (PrimaryKey autoGenerate), userEmail, subject, title, notes, dueDate, dan isCompleted.\n2. Buat TaskDao.kt (@Dao) yang memuat:\n   - @Query("SELECT * FROM tasks WHERE userEmail = :email ORDER BY isCompleted ASC, id DESC") fun getTasksByUser(email: String): Flow<List<TaskEntity>>\n   - @Insert(onConflict = OnConflictStrategy.REPLACE) suspend fun insertTask(task: TaskEntity)\n   - @Update suspend fun updateTask(task: TaskEntity)\n   - @Delete suspend fun deleteTask(task: TaskEntity)\n3. Buat SakuSiswaDatabase.kt (@Database(entities = [TaskEntity::class], version = 1, exportSchema = false)) dengan pola Singleton.\n4. Jelaskan mengapa urutan "ORDER BY isCompleted ASC, id DESC" membuat tugas yang belum selesai selalu berada di urutan atas.\n\n[BATASAN]\nGunakan import resmi dari androidx.room.* dan kotlinx.coroutines.flow.Flow.\n\n[HASIL AKHIR]\nKode lengkap TaskEntity.kt, TaskDao.kt, dan SakuSiswaDatabase.kt.\n\n[VALIDASI]\nPastikan saat menekan Build -> Make Project, KSP berhasil men-generate SakuSiswaDatabase_Impl tanpa error.`,
         },
         code_snippets: [
           {
             filename: "TaskEntity.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.data
+            code: `package id.composelab.sakusiswa.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -2321,7 +2321,7 @@ data class TaskEntity(
           {
             filename: "TaskDao.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.data
+            code: `package id.composelab.sakusiswa.data
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
@@ -2348,7 +2348,7 @@ interface TaskDao {
           {
             filename: "SakuSiswaDatabase.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.data
+            code: `package id.composelab.sakusiswa.data
 
 import android.content.Context
 import androidx.room.Database
@@ -2441,7 +2441,7 @@ Apa saja tugas \`TaskViewModel\`?
    - **Update (Centang Selesai)**: \`fun toggleTaskCompleted(task: TaskEntity)\` -> memakai \`task.copy(isCompleted = !task.isCompleted)\`!
    - **Delete**: \`fun deleteTask(task: TaskEntity)\``,
         preparation: [
-          "Buka package 'id.smkn1jakarta.sakusiswa.viewmodel' di Android Studio",
+          "Buka package 'id.composelab.sakusiswa.viewmodel' di Android Studio",
         ],
         thinking_steps: [
           "Perhatikan fungsi toggleTaskCompleted(task: TaskEntity): mengapa ekspresi '!task.isCompleted' bisa membalik status dari false menjadi true dan sebaliknya?",
@@ -2456,7 +2456,7 @@ Apa saja tugas \`TaskViewModel\`?
           tujuan:
             "Membuat TaskViewModel.kt lengkap dengan operasi CRUD Room Database dan ViewModelFactory.",
           konteks:
-            "Package id.smkn1jakarta.sakusiswa.viewmodel menggunakan AndroidX Lifecycle ViewModel, StateFlow, dan TaskDao.",
+            "Package id.composelab.sakusiswa.viewmodel menggunakan AndroidX Lifecycle ViewModel, StateFlow, dan TaskDao.",
           instruksi: [
             "Buat class TaskViewModel(private val taskDao: TaskDao) : ViewModel().",
             "Gunakan MutableStateFlow untuk menyimpan email user aktif dan hubungkan ke taskDao.getTasksByUser(email) menggunakan flatMapLatest dan stateIn.",
@@ -2470,19 +2470,19 @@ Apa saja tugas \`TaskViewModel\`?
             "File TaskViewModel.kt yang bersih dan bebas memory leak.",
           validasi:
             "Semua fungsi CRUD di TaskViewModel terkompilasi tanpa error.",
-          rawPrompt: `[TUJUAN]\nMembuat TaskViewModel.kt untuk mengelola state dan operasi CRUD Room Database pada aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.smkn1jakarta.sakusiswa.viewmodel, menggunakan ViewModel, viewModelScope, StateFlow, dan TaskDao.\n\n[INSTRUKSI]\n1. Buat class TaskViewModel(private val taskDao: TaskDao) : ViewModel().\n2. Buat variabel _userEmail = MutableStateFlow("") dan hubungkan dengan taskDao.getTasksByUser(email) menjadi val tasks: StateFlow<List<TaskEntity>> menggunakan flatMapLatest dan stateIn.\n3. Buat fungsi CRUD:\n   - addTask(subject, title, notes, dueDate)\n   - updateTask(task, newSubject, newTitle, newNotes, newDueDate)\n   - toggleTaskCompleted(task)\n   - deleteTask(task)\n4. Buat TaskViewModelFactory untuk menyuntikkan TaskDao ke dalam TaskViewModel.\n5. Jelaskan cara kerja fungsi toggleTaskCompleted yang memanfaatkan task.copy(isCompleted = !task.isCompleted).\n\n[BATASAN]\nPastikan kode aman dan menggunakan viewModelScope.launch untuk setiap operasi tulis database.\n\n[HASIL AKHIR]\nKode lengkap TaskViewModel.kt beserta penjelasan setiap fungsi CRUD.\n\n[VALIDASI]\nPastikan tidak ada error import pada kotlinx.coroutines.flow.*. `,
+          rawPrompt: `[TUJUAN]\nMembuat TaskViewModel.kt untuk mengelola state dan operasi CRUD Room Database pada aplikasi SakuSiswa.\n\n[KONTEKS]\nAplikasi Android SakuSiswa, package id.composelab.sakusiswa.viewmodel, menggunakan ViewModel, viewModelScope, StateFlow, dan TaskDao.\n\n[INSTRUKSI]\n1. Buat class TaskViewModel(private val taskDao: TaskDao) : ViewModel().\n2. Buat variabel _userEmail = MutableStateFlow("") dan hubungkan dengan taskDao.getTasksByUser(email) menjadi val tasks: StateFlow<List<TaskEntity>> menggunakan flatMapLatest dan stateIn.\n3. Buat fungsi CRUD:\n   - addTask(subject, title, notes, dueDate)\n   - updateTask(task, newSubject, newTitle, newNotes, newDueDate)\n   - toggleTaskCompleted(task)\n   - deleteTask(task)\n4. Buat TaskViewModelFactory untuk menyuntikkan TaskDao ke dalam TaskViewModel.\n5. Jelaskan cara kerja fungsi toggleTaskCompleted yang memanfaatkan task.copy(isCompleted = !task.isCompleted).\n\n[BATASAN]\nPastikan kode aman dan menggunakan viewModelScope.launch untuk setiap operasi tulis database.\n\n[HASIL AKHIR]\nKode lengkap TaskViewModel.kt beserta penjelasan setiap fungsi CRUD.\n\n[VALIDASI]\nPastikan tidak ada error import pada kotlinx.coroutines.flow.*. `,
         },
         code_snippets: [
           {
             filename: "TaskViewModel.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.viewmodel
+            code: `package id.composelab.sakusiswa.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import id.smkn1jakarta.sakusiswa.data.TaskDao
-import id.smkn1jakarta.sakusiswa.data.TaskEntity
+import id.composelab.sakusiswa.data.TaskDao
+import id.composelab.sakusiswa.data.TaskEntity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -2615,7 +2615,7 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
         objective:
           "Siswa berhasil merakit aplikasi SakuSiswa yang utuh (Login Google -> Tambah Tugas -> Lihat & Cari Tugas -> Edit Tugas -> Centang Selesai -> Hapus Tugas -> Logout) dan menjalankannya di perangkat.",
         prerequisites: ["Menyelesaikan Materi 5.1 s/d 5.3"],
-        concept_explanation: `Inilah momen puncak di Hari ke-2! Seluruh kepingan puzzle yang sudah kita rancang secara terstruktur sejak Modul 1 kini kita satukan:
+        concept_explanation: `Inilah momen puncak pelatihan! Seluruh kepingan puzzle yang sudah kita rancang secara terstruktur sejak Modul 1 kini kita satukan:
 
 1. **\`HomeScreen.kt\`**:
    - Mengambil daftar tugas terbaru dari \`TaskViewModel\` dengan \`val tasks by viewModel.tasks.collectAsState()\`.
@@ -2644,7 +2644,7 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
           tujuan:
             "Merakit HomeScreen.kt dan MainActivity.kt yang menyatukan Login Google, Room Database, dan seluruh operasi CRUD SakuSiswa.",
           konteks:
-            "Proyek Android SakuSiswa (id.smkn1jakarta.sakusiswa) dengan Kotlin, Jetpack Compose Material 3, Room, dan Credential Manager.",
+            "Proyek Android SakuSiswa (id.composelab.sakusiswa) dengan Kotlin, Jetpack Compose Material 3, Room, dan Credential Manager.",
           instruksi: [
             "Buat HomeScreen.kt yang menampilkan TopAppBar, StudentHeaderCard, OutlinedTextField pencarian, FilterChip status, LazyColumn daftar TaskItemCard, dan ExtendedFloatingActionButton.",
             "Hubungkan dialog tambah tugas (showAddDialog), dialog edit tugas (taskToEdit), dan dialog konfirmasi hapus (taskToDelete) di dalam HomeScreen.kt.",
@@ -2657,13 +2657,13 @@ class TaskViewModel(private val taskDao: TaskDao) : ViewModel() {
             "Kode lengkap HomeScreen.kt dan MainActivity.kt yang siap dijalankan di HP/Emulator.",
           validasi:
             "Data tugas tetap tersimpan di Room Database meskipun aplikasi ditutup paksa dan dibuka kembali.",
-          rawPrompt: `[TUJUAN]\nMenyatukan seluruh komponen ke dalam HomeScreen.kt dan MainActivity.kt sehingga aplikasi SakuSiswa berfungsi penuh.\n\n[KONTEKS]\nAplikasi Android SakuSiswa (package id.smkn1jakarta.sakusiswa) dengan GoogleAuthManager, SakuSiswaDatabase, TaskViewModel, StudentHeaderCard, TaskItemCard, dan TaskFormDialog.\n\n[INSTRUKSI]\n1. Buat HomeScreen.kt yang membaca viewModel.tasks.collectAsState(), menyediakan pencarian judul/mapel, FilterChip (Semua, Belum Selesai, Selesai), dan menampilkan daftar tugas di LazyColumn.\n2. Hubungkan aksi klik tombol "+ Tugas Baru" ke TaskFormDialog (Create), tombol Edit di kartu ke TaskFormDialog (Update), Checkbox ke viewModel.toggleTaskCompleted (Update), dan tombol Delete ke AlertDialog konfirmasi hapus (Delete).\n3. Buat MainActivity.kt yang mengelola state currentUser (SignedInUser?), memanggil viewModel.setUserEmail(), dan menampilkan LoginScreen jika currentUser == null atau HomeScreen jika sudah login.\n\n[BATASAN]\nPastikan kode bersih, lengkap dengan seluruh import yang dibutuhkan.\n\n[HASIL AKHIR]\nKode utuh HomeScreen.kt dan MainActivity.kt.\n\n[VALIDASI]\nBerikan daftar 5 langkah pengujian (checklist) untuk memastikan Login Google dan CRUD Room berjalan sempurna.`,
+          rawPrompt: `[TUJUAN]\nMenyatukan seluruh komponen ke dalam HomeScreen.kt dan MainActivity.kt sehingga aplikasi SakuSiswa berfungsi penuh.\n\n[KONTEKS]\nAplikasi Android SakuSiswa (package id.composelab.sakusiswa) dengan GoogleAuthManager, SakuSiswaDatabase, TaskViewModel, StudentHeaderCard, TaskItemCard, dan TaskFormDialog.\n\n[INSTRUKSI]\n1. Buat HomeScreen.kt yang membaca viewModel.tasks.collectAsState(), menyediakan pencarian judul/mapel, FilterChip (Semua, Belum Selesai, Selesai), dan menampilkan daftar tugas di LazyColumn.\n2. Hubungkan aksi klik tombol "+ Tugas Baru" ke TaskFormDialog (Create), tombol Edit di kartu ke TaskFormDialog (Update), Checkbox ke viewModel.toggleTaskCompleted (Update), dan tombol Delete ke AlertDialog konfirmasi hapus (Delete).\n3. Buat MainActivity.kt yang mengelola state currentUser (SignedInUser?), memanggil viewModel.setUserEmail(), dan menampilkan LoginScreen jika currentUser == null atau HomeScreen jika sudah login.\n\n[BATASAN]\nPastikan kode bersih, lengkap dengan seluruh import yang dibutuhkan.\n\n[HASIL AKHIR]\nKode utuh HomeScreen.kt dan MainActivity.kt.\n\n[VALIDASI]\nBerikan daftar 5 langkah pengujian (checklist) untuk memastikan Login Google dan CRUD Room berjalan sempurna.`,
         },
         code_snippets: [
           {
             filename: "HomeScreen.kt",
             language: "kotlin",
-            code: `package id.smkn1jakarta.sakusiswa.ui
+            code: `package id.composelab.sakusiswa.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -2676,9 +2676,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import id.smkn1jakarta.sakusiswa.data.SignedInUser
-import id.smkn1jakarta.sakusiswa.data.TaskEntity
-import id.smkn1jakarta.sakusiswa.viewmodel.TaskViewModel
+import id.composelab.sakusiswa.data.SignedInUser
+import id.composelab.sakusiswa.data.TaskEntity
+import id.composelab.sakusiswa.viewmodel.TaskViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -2713,7 +2713,7 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("SakuSiswa SMKN 1") },
+                title = { Text("SakuSiswa") },
                 actions = {
                     TextButton(onClick = onSignOut) {
                         Text("Keluar")
@@ -2903,7 +2903,7 @@ fun HomeScreen(
     title: "Debugging di Logcat, Kustomisasi Mandiri, Build APK & Pengumpulan Karya",
     slug: "modul-6-debugging-build-apk-dan-pengumpulan-karya",
     description:
-      "Hari ke-3 pengerjaan karya mandiri: melatih keterampilan membaca pesan error di Logcat dan Build Output, mempercantik fitur SakuSiswa dengan kreasi sendiri, membuat file APK, mengunggah kode ke GitHub, dan mengumpulkan karya.",
+      "Tahap akhir: pengerjaan karya mandiri: melatih keterampilan membaca pesan error di Logcat dan Build Output, mempercantik fitur SakuSiswa dengan kreasi sendiri, membuat file APK, mengunggah kode ke GitHub, dan mengumpulkan karya.",
     estimated_minutes: 210,
     difficulty_level: "Pemula",
     is_published: true,
@@ -2934,7 +2934,7 @@ Di Android Studio, ada **2 Jenis Error Utama**:
 2. **Runtime Error / Force Close (Aplikasi tiba-tiba keluar saat dijalankan)**:
    - Dilihat di tab **Logcat** (ikon kucing di bagian bawah Android Studio).
    - Ketik filter **\`package:mine level:error\`** di kotak pencarian Logcat agar hanya error dari aplikasimu yang tampil berwarna merah!
-   - Cari baris bertuliskan **\`Caused by:\`** diikuti tautan biru nama file dan nomor barismu, misalnya \`at id.smkn1jakarta.sakusiswa.ui.HomeScreenKt(HomeScreen.kt:45)\`. Klik tautan biru itu, dan kursor akan langsung melompat ke baris yang rusak!
+   - Cari baris bertuliskan **\`Caused by:\`** diikuti tautan biru nama file dan nomor barismu, misalnya \`at id.composelab.sakusiswa.ui.HomeScreenKt(HomeScreen.kt:45)\`. Klik tautan biru itu, dan kursor akan langsung melompat ke baris yang rusak!
 
 **Cara Bijak Bertanya Error ke AI**:
 Jangan pernah hanya mengetik *"Kak AI, aplikasiku keluar sendiri, kenapa ya?"*. Salin **1) Pesan \`Caused by:\` dari Logcat**, **2) Potongan fungsi tempat baris error itu berada**, dan minta AI menjelaskan *mengapa* error itu terjadi sebelum memberikan solusinya!`,
@@ -2959,7 +2959,7 @@ Jangan pernah hanya mengetik *"Kak AI, aplikasiku keluar sendiri, kenapa ya?"*. 
             "Debugging aplikasi Android SakuSiswa (Kotlin, Jetpack Compose, Room Database, Credential Manager).",
           instruksi: [
             "Analisis pesan error / stacktrace 'Caused by:' yang saya lampirkan.",
-            "Jelaskan dengan bahasa sederhana untuk siswa kelas 10 apa akar penyebab (root cause) dari error tersebut.",
+            "Jelaskan dengan bahasa sederhana untuk siswa apa akar penyebab (root cause) dari error tersebut.",
             "Tunjukkan baris mana yang harus diperbaiki dan bagaimana cara mencegah error serupa di kemudian hari.",
           ],
           batasan: [
@@ -2969,7 +2969,7 @@ Jangan pernah hanya mengetik *"Kak AI, aplikasiku keluar sendiri, kenapa ya?"*. 
             "Penjelasan akar masalah error dan perbaikan kode yang tepat sasaran.",
           validasi:
             "Error merah di Logcat atau Build Output hilang setelah perbaikan diterapkan.",
-          rawPrompt: `[TUJUAN]\nMendiagnosis dan memperbaiki error pada aplikasi Android SakuSiswa berdasarkan pesan Logcat / Build Output.\n\n[KONTEKS]\nProyek Android SakuSiswa (Kotlin, Jetpack Compose, Room Database KSP, Credential Manager).\nBerikut adalah pesan error dari Logcat / Build Output saya:\n"""\n(Tempel baris Caused by: atau pesan error merah di sini)\n"""\nDan berikut adalah potongan kode pada file yang ditunjuk oleh error tersebut:\n"""\n(Tempel 15-30 baris kode di sekitar nomor baris yang error)\n"""\n\n[INSTRUKSI]\n1. Jelaskan terlebih dahulu MENGAPA error ini terjadi dengan bahasa yang mudah dipahami siswa kelas 10 SMK.\n2. Tunjukkan baris mana yang menjadi penyebab utamanya.\n3. Berikan kode perbaikan untuk bagian tersebut.\n\n[BATASAN]\nJangan mengubah nama fungsi atau variabel lain yang sudah berjalan normal.\n\n[HASIL AKHIR]\nPenjelasan penyebab bug dan potongan kode perbaikan.\n\n[VALIDASI]\nSebutkan bagaimana cara saya menguji bahwa bug ini sudah benar-benar sembuh.`,
+          rawPrompt: `[TUJUAN]\nMendiagnosis dan memperbaiki error pada aplikasi Android SakuSiswa berdasarkan pesan Logcat / Build Output.\n\n[KONTEKS]\nProyek Android SakuSiswa (Kotlin, Jetpack Compose, Room Database KSP, Credential Manager).\nBerikut adalah pesan error dari Logcat / Build Output saya:\n"""\n(Tempel baris Caused by: atau pesan error merah di sini)\n"""\nDan berikut adalah potongan kode pada file yang ditunjuk oleh error tersebut:\n"""\n(Tempel 15-30 baris kode di sekitar nomor baris yang error)\n"""\n\n[INSTRUKSI]\n1. Jelaskan terlebih dahulu MENGAPA error ini terjadi dengan bahasa yang mudah dipahami siswa SMK.\n2. Tunjukkan baris mana yang menjadi penyebab utamanya.\n3. Berikan kode perbaikan untuk bagian tersebut.\n\n[BATASAN]\nJangan mengubah nama fungsi atau variabel lain yang sudah berjalan normal.\n\n[HASIL AKHIR]\nPenjelasan penyebab bug dan potongan kode perbaikan.\n\n[VALIDASI]\nSebutkan bagaimana cara saya menguji bahwa bug ini sudah benar-benar sembuh.`,
         },
         code_snippets: [
           {
@@ -3033,7 +3033,7 @@ Jangan pernah hanya mengetik *"Kak AI, aplikasiku keluar sendiri, kenapa ya?"*. 
         objective:
           "Siswa mampu merancang dan mengimplementasikan minimal 1 fitur tambahan pada aplikasi SakuSiswa secara mandiri dengan bantuan diskusi AI terstruktur.",
         prerequisites: ["Aplikasi inti SakuSiswa sudah berjalan lancar"],
-        concept_explanation: `Di Hari ke-3 ini, setiap siswa memiliki proyek **SakuSiswa** yang sudah memenuhi syarat utama: **Login Google + Room Database Lokal + CRUD Lengkap**. Agar karyamu meraih nilai terbaik dan mencerminkan kreativitasmu sendiri, pilih **minimal 1 fitur pengayaan** berikut untuk kamu tambahkan:
+        concept_explanation: `Di tahap akhir ini, setiap siswa memiliki proyek **SakuSiswa** yang sudah memenuhi syarat utama: **Login Google + Room Database Lokal + CRUD Lengkap**. Agar karyamu meraih nilai terbaik dan mencerminkan kreativitasmu sendiri, pilih **minimal 1 fitur pengayaan** berikut untuk kamu tambahkan:
 
 1. **Ide 1 — Progress Bar Penyelesaian Tugas di Header**:
    Menampilkan \`LinearProgressIndicator\` di dalam \`StudentHeaderCard\` yang menunjukkan persentase tugas yang sudah selesai (misal: \`Selesai 3 dari 4 tugas (75%)\`).
@@ -3184,7 +3184,7 @@ LinearProgressIndicator(
             "Urutan perintah Git dan cara membuat GitHub Release untuk file APK.",
           validasi:
             "Folder app/src/main dan file build.gradle.kts terlihat di halaman repository GitHub.",
-          rawPrompt: `[TUJUAN]\nMengunggah proyek Android SakuSiswa ke GitHub dan mempublikasikan file APK lewat GitHub Releases.\n\n[KONTEKS]\nSaya siswa kelas 10 SMK sudah menyelesaikan aplikasi SakuSiswa di Android Studio dan sudah menghasilkan file app-debug.apk.\n\n[INSTRUKSI]\n1. Berikan urutan perintah Git di Terminal Android Studio mulai dari git init, git add ., git commit, git branch -M main, git remote add origin, hingga git push -u origin main.\n2. Jelaskan solusi jika saat git remote add origin muncul pesan "error: remote origin already exists".\n3. Berikan langkah mudah mengunggah file SakuSiswa.apk ke menu "Releases -> Create a new release" di halaman repository GitHub saya.\n\n[BATASAN]\nGunakan langkah singkat yang mudah diikuti pemula.\n\n[HASIL AKHIR]\nPanduan push GitHub dan pembuatan link unduhan APK.\n\n[VALIDASI]\nPastikan repository berstatus Public dan menampilkan folder app/ serta build.gradle.kts.`,
+          rawPrompt: `[TUJUAN]\nMengunggah proyek Android SakuSiswa ke GitHub dan mempublikasikan file APK lewat GitHub Releases.\n\n[KONTEKS]\nSaya siswa SMK sudah menyelesaikan aplikasi SakuSiswa di Android Studio dan sudah menghasilkan file app-debug.apk.\n\n[INSTRUKSI]\n1. Berikan urutan perintah Git di Terminal Android Studio mulai dari git init, git add ., git commit, git branch -M main, git remote add origin, hingga git push -u origin main.\n2. Jelaskan solusi jika saat git remote add origin muncul pesan "error: remote origin already exists".\n3. Berikan langkah mudah mengunggah file SakuSiswa.apk ke menu "Releases -> Create a new release" di halaman repository GitHub saya.\n\n[BATASAN]\nGunakan langkah singkat yang mudah diikuti pemula.\n\n[HASIL AKHIR]\nPanduan push GitHub dan pembuatan link unduhan APK.\n\n[VALIDASI]\nPastikan repository berstatus Public dan menampilkan folder app/ serta build.gradle.kts.`,
         },
         code_snippets: [
           {
@@ -3242,9 +3242,9 @@ git push -u origin main`,
         is_published: true,
         created_at: new Date().toISOString(),
         objective:
-          "Siswa mampu menulis dokumentasi README.md yang terstruktur, mengambil screenshot aplikasi, dan mengumpulkan karya di platform ComposeLab SMKN 1.",
+          "Siswa mampu menulis dokumentasi README.md yang terstruktur, mengambil screenshot aplikasi, dan mengumpulkan karya di platform ComposeLab.",
         prerequisites: ["Repository GitHub sudah online dan aplikasi sudah berjalan"],
-        concept_explanation: `Karya seorang Software Engineer belum lengkap tanpa **Dokumentasi (\`README.md\`)**. Ketika guru, juri, atau perekrut membuka repository GitHub milikmu, file \`README.md\` adalah halaman sampul pertama yang mereka baca—dan juga dinilai secara otomatis oleh sistem penilai AI di **ComposeLab SMKN 1**!
+        concept_explanation: `Karya seorang Software Engineer belum lengkap tanpa **Dokumentasi (\`README.md\`)**. Ketika guru, juri, atau perekrut membuka repository GitHub milikmu, file \`README.md\` adalah halaman sampul pertama yang mereka baca—dan juga dinilai secara otomatis oleh sistem penilai AI di **ComposeLab**!
 
 \`README.md\` yang baik memuat:
 1. **Judul & Deskripsi Singkat Aplikasi SakuSiswa**.
@@ -3259,23 +3259,23 @@ Setelah \`README.md\` di-push ke GitHub dan kamu mengambil *screenshot* tampilan
         ],
         thinking_steps: [
           "Mengapa menulis dokumentasi README.md dengan kalimatmu sendiri membuktikan bahwa kamu benar-benar memahami cara kerja aplikasimu?",
-          "Apa saja 4 poin pemeriksaan terakhir sebelum kamu menekan tombol Kirim Karya di ComposeLab SMKN 1?",
+          "Apa saja 4 poin pemeriksaan terakhir sebelum kamu menekan tombol Kirim Karya di ComposeLab?",
         ],
         step_instructions: [
           "Buat file bernama 'README.md' di folder paling luar (root) proyek SakuSiswa di Android Studio.",
           "Isi README.md mengikuti template di bawah, sesuaikan dengan nama, kelas, dan fitur kreasi tambahan yang kamu buat.",
           "Jalankan 'git add README.md && git commit -m \"docs: tambah dokumentasi README SakuSiswa\" && git push' di Terminal.",
-          "Buka halaman 'Kumpulan Karya' di website ComposeLab SMKN 1, isi judul proyek, deskripsi, centang 6 modul, masukkan Link GitHub, Link APK, unggah Screenshot, lalu klik Kirim Karya!",
+          "Buka halaman 'Kumpulan Karya' di website ComposeLab, isi judul proyek, deskripsi, centang 6 modul, masukkan Link GitHub, Link APK, unggah Screenshot, lalu klik Kirim Karya!",
         ],
         antigravity_prompt: {
           tujuan:
             "Menyusun file README.md yang rapi dan informatif untuk repository GitHub proyek Android SakuSiswa.",
           konteks:
-            "Proyek akhir pelatihan 3 hari Android Kotlin & Jetpack Compose kelas 10 SMK Negeri 1 Jakarta.",
+            "Proyek akhir Pelatihan Android Kotlin & Jetpack Compose siswa.",
           instruksi: [
             "Buatkan struktur README.md berbahasa Indonesia yang menjelaskan aplikasi SakuSiswa.",
             "Sertakan bagian: Deskripsi Aplikasi, Fitur Utama (Login Google, Room Database, CRUD Tugas, Filter, dan Fitur Tambahan), Arsitektur MVVM, serta Cara Menjalankan di Android Studio.",
-            "Berikan tempat khusus untuk menuliskan refleksi singkat apa yang dipelajari siswa selama 3 hari pelatihan.",
+            "Berikan tempat khusus untuk menuliskan refleksi singkat apa yang dipelajari siswa selama pelatihan.",
           ],
           batasan: [
             "Gunakan format Markdown standar yang bersih dan mudah dibaca di GitHub.",
@@ -3284,7 +3284,7 @@ Setelah \`README.md\` di-push ke GitHub dan kamu mengambil *screenshot* tampilan
             "Dokumen README.md profesional siap push ke GitHub.",
           validasi:
             "Halaman utama repository GitHub siswa menampilkan dokumentasi README.md secara lengkap.",
-          rawPrompt: `[TUJUAN]\nMembuat file dokumentasi README.md profesional untuk repository GitHub aplikasi Android SakuSiswa.\n\n[KONTEKS]\nKarya aplikasi Android siswa Kelas 10 SMK Negeri 1 Jakarta menggunakan Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager.\n\n[INSTRUKSI]\n1. Susun template README.md yang mencakup:\n   - Judul Proyek & Identitas Pembuat (Nama & Kelas)\n   - Deskripsi Singkat Aplikasi SakuSiswa\n   - Daftar Fitur (Login Google Credential Manager, Room Database Lokal, Create/Read/Update/Delete Tugas, Pencarian & Filter, serta Fitur Kreasi Tambahan)\n   - Arsitektur & Tech Stack (MVVM, Kotlin, Jetpack Compose, Room KSP, Coroutines Flow)\n   - Langkah Menjalankan Proyek di Android Studio\n2. Tambahkan bagian "Refleksi Pembelajaran" berisi 3 poin tentang bagaimana saya merancang alur logika sebelum mem-prompt AI.\n\n[BATASAN]\nGunakan Markdown yang rapi dengan tabel atau poin-poin yang jelas.\n\n[HASIL AKHIR]\nIsi file README.md lengkap yang siap disimpan ke root repository.\n\n[VALIDASI]\nPastikan seluruh kriteria penilaian di ComposeLab SMKN 1 tercakup di dalam README.md.`,
+          rawPrompt: `[TUJUAN]\nMembuat file dokumentasi README.md profesional untuk repository GitHub aplikasi Android SakuSiswa.\n\n[KONTEKS]\nKarya aplikasi Android siswa menggunakan Kotlin, Jetpack Compose Material 3, Room Database (KSP), dan Google Credential Manager.\n\n[INSTRUKSI]\n1. Susun template README.md yang mencakup:\n   - Judul Proyek & Identitas Pembuat (Nama & Kelas)\n   - Deskripsi Singkat Aplikasi SakuSiswa\n   - Daftar Fitur (Login Google Credential Manager, Room Database Lokal, Create/Read/Update/Delete Tugas, Pencarian & Filter, serta Fitur Kreasi Tambahan)\n   - Arsitektur & Tech Stack (MVVM, Kotlin, Jetpack Compose, Room KSP, Coroutines Flow)\n   - Langkah Menjalankan Proyek di Android Studio\n2. Tambahkan bagian "Refleksi Pembelajaran" berisi 3 poin tentang bagaimana saya merancang alur logika sebelum mem-prompt AI.\n\n[BATASAN]\nGunakan Markdown yang rapi dengan tabel atau poin-poin yang jelas.\n\n[HASIL AKHIR]\nIsi file README.md lengkap yang siap disimpan ke root repository.\n\n[VALIDASI]\nPastikan seluruh kriteria penilaian di ComposeLab tercakup di dalam README.md.`,
         },
         code_snippets: [
           {
@@ -3293,7 +3293,7 @@ Setelah \`README.md\` di-push ke GitHub dan kamu mengambil *screenshot* tampilan
             code: `# SakuSiswa — Aplikasi Catatan & Manajemen Tugas Siswa
 
 Disusun oleh: **[Nama Lengkap Kamu]** — Kelas **[Kelas Kamu, misal: X RPL 1]**  
-**SMK Negeri 1 Jakarta** — Pelatihan Android ComposeLab
+Pelatihan Android ComposeLab
 
 ## Tentang Aplikasi
 **SakuSiswa** adalah aplikasi Android native untuk membantu siswa mencatat, memantau, dan menyelesaikan tugas sekolah harian secara terorganisir. Aplikasi ini bekerja cepat secara offline menggunakan penyimpanan lokal **Room Database** dan terintegrasi dengan **Sign in with Google (Credential Manager API)**.
@@ -3317,7 +3317,7 @@ Disusun oleh: **[Nama Lengkap Kamu]** — Kelas **[Kelas Kamu, misal: X RPL 1]**
           },
         ],
         expected_result:
-          "Repository GitHub siswa memiliki README.md yang lengkap dan karya telah berhasil dikumpulkan di halaman Kumpulan Karya ComposeLab SMKN 1.",
+          "Repository GitHub siswa memiliki README.md yang lengkap dan karya telah berhasil dikumpulkan di halaman Kumpulan Karya ComposeLab.",
         validation_check: [
           "Repository GitHub berstatus Public dan menampilkan README.md",
           "Status pengumpulan di halaman Kumpulan Karya telah terkirim beserta screenshot aplikasi",

@@ -3,8 +3,8 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import KurikulumList from "@/components/kurikulum/kurikulum-list";
 
 export const metadata = {
-  title: "Kurikulum 6 Modul — ComposeLab SMKN 1",
-  description: "Daftar lengkap 6 modul pelatihan Android Kotlin & Jetpack Compose di ComposeLab SMKN 1.",
+  title: "Kurikulum 6 Modul — ComposeLab",
+  description: "Daftar lengkap 6 modul pelatihan Android Kotlin & Jetpack Compose di ComposeLab.",
 };
 
 /**

@@ -202,14 +202,14 @@ function DashboardPesertaInner() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-extrabold text-ink">
-                  {currentUser?.full_name ?? "Siswa ComposeLab SMKN 1"}
+                  {currentUser?.full_name ?? "Siswa ComposeLab"}
                 </h1>
                 <Badge variant="teal" className="text-[10px]">
                   Siswa Aktif
                 </Badge>
               </div>
               <p className="text-xs sm:text-sm text-ink-2 mt-1">
-                Program Pelatihan Android Kotlin, Jetpack Compose &amp; Room Database, SMKN 1 Jakarta
+                Program Pelatihan Android Kotlin, Jetpack Compose &amp; Room Database
               </p>
             </div>
           </div>
@@ -238,7 +238,7 @@ function DashboardPesertaInner() {
             <div className="text-2xl sm:text-3xl font-extrabold text-ink mt-1">
               {MODULES_DATA.length} Modul
             </div>
-            <p className="text-[11px] text-muted mt-1">Pelatihan 3 Hari</p>
+            <p className="text-[11px] text-muted mt-1">Pelatihan</p>
           </div>
 
           <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">

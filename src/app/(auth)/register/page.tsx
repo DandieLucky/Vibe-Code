@@ -141,7 +141,7 @@ function RegisterPageInner() {
               <Code2 className="w-6 h-6" />
             </div>
             <span className="font-extrabold text-xl text-ink tracking-tight">
-              COMPOSELAB SMKN 1
+              COMPOSELAB
             </span>
           </Link>
           <h2 className="text-xl sm:text-2xl font-extrabold text-ink tracking-tight">
@@ -207,7 +207,7 @@ function RegisterPageInner() {
             value={formData.institution}
             onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
             error={formErrors.institution}
-            placeholder="Contoh: X RPL 1, SMKN 1 Jakarta"
+            placeholder="Contoh: X RPL 1"
             required
           />
 

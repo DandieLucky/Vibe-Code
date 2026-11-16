@@ -55,7 +55,7 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
               Daftar Dulu untuk Membuka {feature}
             </h1>
             <p className="text-sm text-slate-600 leading-relaxed mb-7 max-w-lg mx-auto">
-              Kurikulum ComposeLab SMKN 1 dikhususkan untuk peserta terdaftar. Dengan mendaftar,
+              Kurikulum ComposeLab dikhususkan untuk peserta terdaftar. Dengan mendaftar,
               progres belajar Anda tersimpan otomatis dan karya Anda bisa ikut dinilai.
               Gratis, tanpa biaya.
             </p>
