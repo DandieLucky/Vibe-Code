@@ -52,7 +52,8 @@ export function Navbar() {
   // ----------------------------------------------------------------------
   const navLinks = isAdmin
     ? [
-        { href: "/", label: "Beranda" },
+        { href: "/admin", label: "Dashboard Admin", icon: ShieldCheck },
+        { href: "/beranda", label: "Beranda" },
         { href: "/kurikulum", label: "Kurikulum 6 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya" },
         { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
@@ -66,10 +67,12 @@ export function Navbar() {
         { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
       ]
     : [
-        { href: "/", label: "Beranda" },
-        { href: "/#kurikulum", label: "Kurikulum 6 Modul" },
-        { href: "/#karya", label: "Alur Pelatihan" },
+        { href: "/beranda", label: "Beranda" },
+        { href: "/beranda#kurikulum", label: "Kurikulum 6 Modul" },
+        { href: "/beranda#karya", label: "Alur Pelatihan" },
       ];
+
+  const brandHref = isAdmin ? "/admin" : isAuthenticated ? "/dashboard" : "/beranda";
 
   return (
     <header
@@ -82,7 +85,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Brand Identity */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href={brandHref} className="flex items-center gap-3 group">
             <div className="h-10 w-10 rounded-xl bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] shadow-sm group-hover:scale-105 transition-transform">
               <Code2 className="w-5 h-5" />
             </div>
@@ -104,10 +107,11 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+              const isActive = link.href.includes("#")
+                ? false
+                : link.href === "/beranda"
+                ? pathname === "/beranda" || pathname === "/"
+                : pathname === link.href || pathname.startsWith(`${link.href}/`);
 
               return (
                 <Link
@@ -242,10 +246,11 @@ export function Navbar() {
       {isOpen && (
         <div className="lg:hidden border-t border-[#E6DDD2] bg-[#FAF6F0] px-4 pt-3 pb-6 space-y-2">
           {navLinks.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
+            const isActive = link.href.includes("#")
+              ? false
+              : link.href === "/beranda"
+              ? pathname === "/beranda" || pathname === "/"
+              : pathname === link.href || pathname.startsWith(`${link.href}/`);
 
             return (
               <Link
