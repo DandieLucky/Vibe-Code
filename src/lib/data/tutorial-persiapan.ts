@@ -45,7 +45,7 @@ export const PERSIAPAN: BagianTutorial = {
     "Pasang Android Studio, siapkan HP Android / Emulator, pasang Git, lalu siapkan akun. " +
     "Tekan Selesai di setiap langkah yang sudah beres.",
   peringatanAwal:
-    "Jika ada kendala saat instalasi, catat pesan error-nya atau ambil foto layar, lalu sampaikan ke guru pendamping.",
+    "Jika ada kendala saat instalasi, catat pesan error-nya atau ambil foto layar, lalu tanyakan ke fasilitator.",
   langkah: [
     {
       id: "p1-cek-laptop",

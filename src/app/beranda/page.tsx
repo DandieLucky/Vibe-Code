@@ -44,12 +44,12 @@ const MODULES_SUMMARY = [
 const SCHEDULE = [
   {
     day: "Tahap 1",
-    title: "Modul 1 sampai 3 — Pendampingan Guru",
+    title: "Modul 1 sampai 3",
     desc: "Cara berpikir terstruktur, setup Android Studio, Kotlin dasar, dan tampilan awal SakuSiswa di Jetpack Compose.",
   },
   {
     day: "Tahap 2",
-    title: "Modul 4 dan 5 — Pendampingan Guru",
+    title: "Modul 4 dan 5",
     desc: "Integrasi Login Google Credential Manager serta pembuatan Room Database lengkap dengan fitur Create, Read, Update, dan Delete.",
   },
   {
