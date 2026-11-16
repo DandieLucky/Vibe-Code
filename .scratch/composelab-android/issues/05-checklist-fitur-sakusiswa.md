@@ -4,8 +4,8 @@
 
 **Blocked by:** 03: Kurikulum 6 Modul Android (3 Hari) + Blok "Pikirkan Dulu"
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Seluruh fitur di `bonus-features-data.ts` spesifik untuk aplikasi Android SakuSiswa dengan poin dan kriteria verifikasi yang jelas
-- [ ] Template prompt yang direkomendasikan pada tiap fitur mengikuti pendekatan berpikir terstruktur + Android Kotlin/Compose
+- [x] Seluruh fitur di `bonus-features-data.ts` spesifik untuk aplikasi Android SakuSiswa dengan poin dan kriteria verifikasi yang jelas
+- [x] Template prompt yang direkomendasikan pada tiap fitur mengikuti pendekatan berpikir terstruktur + Android Kotlin/Compose
 
