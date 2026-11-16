@@ -52,21 +52,21 @@ export function Navbar() {
   // ----------------------------------------------------------------------
   const navLinks = isAdmin
     ? [
-        { href: "/admin", label: "Admin", icon: ShieldCheck },
-        { href: "/beranda", label: "Beranda" },
-        { href: "/kurikulum", label: "Kurikulum" },
-        { href: "/kumpulan-karya", label: "Karya" },
-        { href: "/leaderboard", label: "Peringkat", icon: Trophy },
-        { href: "/tutorial", label: "Tutorial", icon: Rocket },
-      ]
+      { href: "/admin", label: "Admin", icon: ShieldCheck },
+      { href: "/beranda", label: "Beranda" },
+      { href: "/kurikulum", label: "Kurikulum" },
+      { href: "/kumpulan-karya", label: "Karya" },
+      { href: "/leaderboard", label: "Peringkat", icon: Trophy },
+      { href: "/tutorial", label: "Tutorial", icon: Rocket },
+    ]
     : isAuthenticated
-    ? [
+      ? [
         { href: "/dashboard", label: "Dashboard", icon: GraduationCap },
         { href: "/tutorial", label: "Tutorial", icon: BookOpen },
         { href: "/kurikulum", label: "Kurikulum 6 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
       ]
-    : [
+      : [
         { href: "/beranda", label: "Beranda" },
         { href: "/beranda#kurikulum", label: "Kurikulum 6 Modul" },
         { href: "/beranda#karya", label: "Alur Pelatihan" },
@@ -78,16 +78,15 @@ export function Navbar() {
     href.includes("#")
       ? false
       : href === "/beranda"
-      ? pathname === "/beranda" || pathname === "/"
-      : pathname === href || pathname.startsWith(`${href}/`);
+        ? pathname === "/beranda" || pathname === "/"
+        : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${
-        scrolled
+      className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${scrolled
           ? "bg-paper backdrop-blur-md border-rule shadow-xs text-ink"
           : "bg-paper border-rule text-ink"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
@@ -117,11 +116,10 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
-                    isActive
+                  className={`relative px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 ${isActive
                       ? "text-accent bg-paper-3 font-semibold"
                       : "text-ink-2 hover:text-ink hover:bg-paper-2"
-                  }`}
+                    }`}
                 >
                   {link.icon && <link.icon className="w-4 h-4 text-accent" />}
                   <span>{link.label}</span>
@@ -221,7 +219,7 @@ export function Navbar() {
                 <Link href="/register">
                   <Button variant="accent" size="sm" className="font-bold">
                     <Sparkles className="w-4 h-4 mr-1.5" />
-                    Daftar Gratis
+                    Daftar
                   </Button>
                 </Link>
               </>
@@ -252,11 +250,10 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
-                  isActive
+                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${isActive
                     ? "bg-paper-3 text-accent font-semibold"
                     : "text-ink-2 hover:bg-paper-2 hover:text-ink"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2">
                   {link.icon && <link.icon className="w-4 h-4 text-accent" />}

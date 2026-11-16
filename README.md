@@ -4,9 +4,9 @@ Platform pembelajaran pengembangan aplikasi Android modern menggunakan **Kotlin*
 
 ---
 
-## Konsep Pembelajaran (Pelatihan 3 Hari)
+## Konsep Pembelajaran
 
-1. **Desain Hallmark Bloom**: Palet kertas hangat (`--color-paper`), tinta umber (`--color-ink`), dan aksen terracotta (`--color-accent`) dengan tipografi Ranade, Gambarino, dan Geist Mono.
+1. **Desain Hallmark Coral**: Palet abu-hangat cotton (`--color-paper`, `--color-sheet`), tinta charcoal (`--color-ink`), dan aksen deep coral (`--color-accent`) dengan tipografi General Sans dan Geist Mono.
 2. **Blok Pikirkan Dulu & Formula Prompt 6-Bagian**: Setiap materi praktik diawali panduan merancang alur logika (*Input-Proses-Output*) sebelum menyusun prompt terstruktur (**TUJUAN, KONTEKS, INSTRUKSI, BATASAN, HASIL AKHIR, VALIDASI**).
 3. **Studi Kasus Aplikasi SakuSiswa**: Aplikasi catatan dan manajemen tugas siswa dengan autentikasi akun Google lokal, penyimpanan Room Database per akun, dan operasi CRUD lengkap.
 4. **Sistem Pengumpulan & Penilaian Karya Android**: Formulir pengumpulan karya peserta dengan verifikasi repository GitHub publik, unggah screenshot aplikasi Android, serta tautan opsional file APK dan video demo.
@@ -22,16 +22,16 @@ Platform pembelajaran pengembangan aplikasi Android modern menggunakan **Kotlin*
 
 ---
 
-## 6 Modul Pembelajaran (Program 3 Hari)
+## 6 Modul Pembelajaran
 
-| Modul | Hari | Judul Modul | Jumlah Materi | Level |
+| Modul | Tahap | Judul Modul | Jumlah Materi | Level |
 | :---: | :---: | :--- | :---: | :---: |
-| **01** | Hari 1 | Berpikir Komputasional, Prompting AI Bijak & Persiapan Android Studio | 4 Materi | Pemula |
-| **02** | Hari 1 | Dasar Bahasa Kotlin & Membangun UI dengan Jetpack Compose | 4 Materi | Pemula |
-| **03** | Hari 1 | Merancang Antarmuka Utama & Navigasi Aplikasi SakuSiswa | 4 Materi | Pemula |
-| **04** | Hari 2 | Autentikasi Akun Google Modern dengan Credential Manager API | 4 Materi | Menengah |
-| **05** | Hari 2 | Penyimpanan Lokal Room Database (KSP) & Operasi CRUD Lengkap | 4 Materi | Menengah |
-| **06** | Hari 3 | Debugging di Logcat, Kustomisasi Mandiri, Build APK & Pengumpulan Karya | 4 Materi | Pemula |
+| **01** | Tahap 1 | Berpikir Komputasional, Prompting AI Bijak & Persiapan Android Studio | 4 Materi | Pemula |
+| **02** | Tahap 1 | Dasar Bahasa Kotlin & Membangun UI dengan Jetpack Compose | 4 Materi | Pemula |
+| **03** | Tahap 1 | Merancang Antarmuka Utama & Navigasi Aplikasi SakuSiswa | 4 Materi | Pemula |
+| **04** | Tahap 2 | Autentikasi Akun Google Modern dengan Credential Manager API | 4 Materi | Menengah |
+| **05** | Tahap 2 | Penyimpanan Lokal Room Database (KSP) & Operasi CRUD Lengkap | 4 Materi | Menengah |
+| **06** | Tahap 3 | Debugging di Logcat, Kustomisasi Mandiri, Build APK & Pengumpulan Karya | 4 Materi | Pemula |
 
 ---
 

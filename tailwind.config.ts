@@ -50,7 +50,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-body)", "system-ui", "-apple-system", "sans-serif"],
         display: ["var(--font-display)", "system-ui", "-apple-system", "sans-serif"],
-        serif: ["var(--font-outlier)", "Georgia", "serif"],
+        serif: ["var(--font-display)", "system-ui", "sans-serif"],
         mono: ["var(--font-code)", "ui-monospace", "monospace"],
       },
     },

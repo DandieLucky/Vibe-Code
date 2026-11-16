@@ -1,6 +1,6 @@
-/* Hallmark · shape: Marquee Hero · genre: playful · theme: Bloom (deal 1/3, seed composelab-smkn-platform-pembelajaran-3a97·1a0c6aab·2026-11-16·r0) · job: join · draw: 9bdb76
+/* Hallmark · shape: Marquee Hero · genre: modern-minimal · theme: Coral (by request) · job: join · draw: 9bdb76
  * hero: Corridor · nav: masthead · footer: statement · imagery: the product · signature: interactive SakuSiswa prompt-to-compose workbench
- * axes: light/grotesk-sans/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+ * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: none, scoped under .bloom-page to preserve shared app routes */
 /* Hallmark · waive 26b · interactive controls on /beranda are navigation links and tab buttons with no disabled state · SakuSiswa workbench tabs are always enabled */
 @import "./tokens.css";
@@ -14,32 +14,6 @@
   line-height: 1.55;
   overflow-x: clip;
   isolation: isolate;
-}
-
-/* Two fixed quiet terracotta blooms */
-.bloom-page::before,
-.bloom-page::after {
-  content: "";
-  position: fixed;
-  border-radius: var(--radius-pill);
-  pointer-events: none;
-  z-index: -1;
-}
-
-.bloom-page::before {
-  top: -120px;
-  right: -100px;
-  width: 520px;
-  height: 520px;
-  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent) 9%, transparent) 0%, transparent 70%);
-}
-
-.bloom-page::after {
-  bottom: -140px;
-  left: -120px;
-  width: 480px;
-  height: 480px;
-  background: radial-gradient(circle, color-mix(in oklab, var(--color-accent-2) 6%, transparent) 0%, transparent 70%);
 }
 
 .bloom-container {
@@ -321,7 +295,7 @@
   color: var(--color-ink-2);
 }
 
-/* Schedule + Gambarino Outlier Moment */
+/* Schedule + Coral Display Figure */
 .bloom-schedule-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
@@ -330,9 +304,9 @@
 }
 
 .bloom-serif-figure {
-  font-family: var(--font-outlier);
+  font-family: var(--font-display);
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   font-size: clamp(6.5rem, 12vw, 10rem);
   line-height: 0.9;
   color: var(--color-ink);

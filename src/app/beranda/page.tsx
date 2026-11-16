@@ -85,7 +85,7 @@ export default function BerandaPage() {
               </div>
 
               <p className="bloom-note">
-                Materi lengkap terbuka setelah siswa mendaftar akun gratis di platform ini.
+                Materi lengkap terbuka setelah siswa mendaftar akun di platform ini.
               </p>
             </div>
 
@@ -130,14 +130,14 @@ export default function BerandaPage() {
         </div>
       </section>
 
-      {/* Schedule with Gambarino outlier figure */}
+      {/* Schedule with Coral display figure */}
       <section id="karya" className="bloom-section">
         <div className="bloom-container">
           <div className="bloom-schedule-grid">
             <div>
-              <p className="bloom-serif-figure">3</p>
+              <p className="bloom-serif-figure">6</p>
               <p className="bloom-serif-caption">
-                Hari pelatihan terpadu: dua hari bimbingan langsung dan satu hari pengerjaan karya mandiri.
+                Modul terpadu dari fondasi logika, autentikasi Google, dan database lokal hingga aplikasi SakuSiswa siap rilis.
               </p>
               <div className="bloom-actions">
                 <Link href="/register" className="bloom-cta-secondary">

@@ -282,7 +282,7 @@ export default function AdminCurriculumCMSPage() {
                     <span
                       className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
                         isSelected
-                          ? "bg-accent text-accent-2"
+                          ? "bg-accent text-sheet"
                           : "bg-paper-2 text-ink-2"
                       }`}
                     >
