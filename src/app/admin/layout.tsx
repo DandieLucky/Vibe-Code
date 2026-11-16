@@ -97,7 +97,7 @@ export default async function AdminLayout({
                     <span>{item.label}</span>
                   </div>
                   {item.badge && (
-                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-accent/15 text-accent border border-accent/30">
+                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-accent-soft text-accent border border-rule">
                       {item.badge}
                     </span>
                   )}

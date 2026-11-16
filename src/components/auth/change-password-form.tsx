@@ -83,16 +83,16 @@ export function ChangePasswordForm({ email, forced = false }: Props) {
   };
 
   return (
-    <div className={`rounded-2xl border bg-white p-6 sm:p-8 shadow-xs ${forced ? "border-amber-300 ring-2 ring-amber-100" : "border-slate-200"}`}>
+    <div className={`rounded-2xl border bg-sheet p-6 sm:p-8 shadow-xs ${forced ? "border-amber-300 ring-2 ring-amber-100" : "border-rule"}`}>
       <div className="flex items-start gap-3 mb-5">
-        <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${forced ? "bg-amber-100 text-amber-700" : "bg-slate-900 text-sky-400"}`}>
+        <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${forced ? "bg-amber-100 text-amber-700" : "bg-ink text-accent-2"}`}>
           {forced ? <AlertTriangle className="w-5 h-5" /> : <KeyRound className="w-5 h-5" />}
         </div>
         <div>
-          <h2 className="font-bold text-slate-900">
+          <h2 className="font-bold text-ink">
             {forced ? "Ganti Password Anda Sekarang" : "Ganti Password"}
           </h2>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-muted mt-0.5">
             {forced
               ? "Akun Anda dibuatkan fasilitator dengan password sementara. Demi keamanan, ganti sekarang. Anda tidak bisa memakai platform sebelum ini selesai."
               : "Gunakan password yang kuat dan tidak dipakai di layanan lain."}
@@ -137,14 +137,14 @@ export function ChangePasswordForm({ email, forced = false }: Props) {
           {next && (
             <div className="mt-2">
               <div className="flex items-center gap-2">
-                <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                <div className="flex-1 h-1.5 bg-paper-3 rounded-full overflow-hidden">
                   <div className={`h-full ${strengthColor} transition-colors duration-300`} style={{ width: `${strengthPct}%` }} />
                 </div>
-                <span className="text-[10px] font-bold text-slate-500 w-20 text-right">{strengthLabel}</span>
+                <span className="text-[10px] font-bold text-muted w-20 text-right">{strengthLabel}</span>
               </div>
               <div className="grid grid-cols-2 gap-1 mt-2">
                 {checks.map((c) => (
-                  <span key={c.label} className={`text-[10px] flex items-center gap-1 ${c.ok ? "text-emerald-600" : "text-slate-400"}`}>
+                  <span key={c.label} className={`text-[10px] flex items-center gap-1 ${c.ok ? "text-emerald-600" : "text-muted"}`}>
                     {c.ok ? <Check className="w-3 h-3" /> : <span className="w-3 h-3 text-center">·</span>}
                     {c.label}
                   </span>

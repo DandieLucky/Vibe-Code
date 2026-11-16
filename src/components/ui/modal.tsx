@@ -51,7 +51,7 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-ink/60 transition-opacity"
+        className="fixed inset-0 bg-[color-mix(in_oklab,var(--color-ink)_60%,transparent)] transition-opacity"
         onClick={onClose}
       />
 

@@ -49,14 +49,14 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-8 max-w-4xl">
       {/* Header */}
-      <div className="pb-4 border-b border-slate-200">
+      <div className="pb-4 border-b border-rule">
         <div className="flex items-center gap-2 mb-1">
           <Badge variant="teal">PENGATURAN GLOBAL</Badge>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
           Pengaturan Platform & Pendaftaran Peserta
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-muted mt-1">
           Atur mode pendaftaran (terbuka vs undangan), tenggat waktu pengumpulan karya, dan pengumuman situs.
         </p>
       </div>
@@ -70,12 +70,12 @@ export default function AdminSettingsPage() {
 
       <form onSubmit={handleSave} className="space-y-6">
         {/* Card 1: Registration Mode */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Users className="w-5 h-5 text-sky-600" />
+        <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs space-y-4">
+          <h2 className="text-base font-bold text-ink flex items-center gap-2">
+            <Users className="w-5 h-5 text-accent" />
             <span>Mode Pengelolaan Pendaftaran Peserta</span>
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-muted">
             Tentukan apakah registrasi akun baru terbuka untuk umum atau hanya untuk peserta berstatus undangan workshop.
           </p>
 
@@ -83,8 +83,8 @@ export default function AdminSettingsPage() {
             <label
               className={`p-4 rounded-xl border cursor-pointer transition-colors flex items-start gap-3 ${
                 registrationMode === "open"
-                  ? "bg-sky-50 border-sky-500 ring-1 ring-sky-300"
-                  : "bg-slate-50/50 border-slate-200 hover:bg-slate-100"
+                  ? "bg-accent-soft border-accent ring-1 ring-accent-2"
+                  : "bg-paper border-rule hover:bg-paper-2"
               }`}
             >
               <input
@@ -96,10 +96,10 @@ export default function AdminSettingsPage() {
                 className="mt-1"
               />
               <div>
-                <span className="text-sm font-bold text-slate-900 block">
+                <span className="text-sm font-bold text-ink block">
                   Pendaftaran Terbuka (Public)
                 </span>
-                <span className="text-xs text-slate-500 leading-relaxed">
+                <span className="text-xs text-muted leading-relaxed">
                   siswa dapat langsung mendaftar tanpa kode undangan.
                 </span>
               </div>
@@ -108,8 +108,8 @@ export default function AdminSettingsPage() {
             <label
               className={`p-4 rounded-xl border cursor-pointer transition-colors flex items-start gap-3 ${
                 registrationMode === "invite_only"
-                  ? "bg-sky-50 border-sky-500 ring-1 ring-sky-300"
-                  : "bg-slate-50/50 border-slate-200 hover:bg-slate-100"
+                  ? "bg-accent-soft border-accent ring-1 ring-accent-2"
+                  : "bg-paper border-rule hover:bg-paper-2"
               }`}
             >
               <input
@@ -121,10 +121,10 @@ export default function AdminSettingsPage() {
                 className="mt-1"
               />
               <div>
-                <span className="text-sm font-bold text-slate-900 block">
+                <span className="text-sm font-bold text-ink block">
                   Berdasarkan Undangan Admin
                 </span>
-                <span className="text-xs text-slate-500 leading-relaxed">
+                <span className="text-xs text-muted leading-relaxed">
                   Calon peserta wajib memasukkan Kode Undangan resmi dari fasilitator saat mengisi form registrasi.
                 </span>
               </div>
@@ -146,8 +146,8 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Card 2: Submissions & Deadline */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+        <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs space-y-4">
+          <h2 className="text-base font-bold text-ink flex items-center gap-2">
             <Clock className="w-5 h-5 text-amber-600" />
             <span>Tenggat Waktu Pengumpulan Karya (Deadline)</span>
           </h2>
@@ -162,7 +162,7 @@ export default function AdminSettingsPage() {
             />
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700">
+              <label className="text-xs font-bold text-ink-2">
                 Status Formulir Karya
               </label>
               <div className="pt-2">
@@ -171,9 +171,9 @@ export default function AdminSettingsPage() {
                     type="checkbox"
                     checked={allowSubmissions}
                     onChange={(e) => setAllowSubmissions(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                    className="h-4 w-4 rounded border-rule text-accent focus:ring-accent"
                   />
-                  <span className="text-xs font-semibold text-slate-800">
+                  <span className="text-xs font-semibold text-ink">
                     Buka Penerimaan Karya Baru
                   </span>
                 </label>
@@ -183,9 +183,9 @@ export default function AdminSettingsPage() {
         </div>
 
         {/* Card 3: Site Announcement */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-          <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Bell className="w-5 h-5 text-teal-600" />
+        <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs space-y-4">
+          <h2 className="text-base font-bold text-ink flex items-center gap-2">
+            <Bell className="w-5 h-5 text-accent" />
             <span>Teks Pengumuman Puncak Platform</span>
           </h2>
 

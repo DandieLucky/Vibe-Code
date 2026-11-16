@@ -85,7 +85,7 @@ export function Navbar() {
     <header
       className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${
         scrolled
-          ? "bg-paper/95 backdrop-blur-md border-rule shadow-xs text-ink"
+          ? "bg-paper backdrop-blur-md border-rule shadow-xs text-ink"
           : "bg-paper border-rule text-ink"
       }`}
     >

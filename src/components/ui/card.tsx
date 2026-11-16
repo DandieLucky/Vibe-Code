@@ -69,7 +69,7 @@ export function CardFooter({
   return (
     <div
       className={cn(
-        "flex items-center p-6 pt-0 border-t border-slate-100 mt-4",
+        "flex items-center p-6 pt-0 border-t border-rule mt-4",
         className
       )}
       {...props}

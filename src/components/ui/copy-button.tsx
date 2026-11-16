@@ -100,19 +100,19 @@ export function CopyButton({
       className={cn(
         "inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold shadow-sm transition-colors duration-200 active:scale-95",
         copied
-          ? "bg-emerald-600 text-white hover:bg-emerald-700 ring-2 ring-emerald-300"
+          ? "bg-emerald-600 text-sheet hover:bg-emerald-700 ring-2 ring-emerald-300"
           : "bg-accent text-sheet hover:bg-rubber-lo",
         className
       )}
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4 text-white" />
+          <Check className="w-4 h-4 text-sheet" />
           <span>{copiedLabel}</span>
         </>
       ) : (
         <>
-          <Copy className="w-4 h-4 text-sky-100" />
+          <Copy className="w-4 h-4 text-accent-soft" />
           <span>{label}</span>
         </>
       )}

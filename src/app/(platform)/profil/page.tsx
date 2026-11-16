@@ -170,9 +170,9 @@ export default function ProfilPage() {
         )}
 
         {/* Data diri */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs mb-6">
-          <h2 className="font-bold text-slate-900 mb-5 flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-sky-600" />
+        <div className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs mb-6">
+          <h2 className="font-bold text-ink mb-5 flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-accent" />
             Data Diri
           </h2>
           <form onSubmit={handleSave} className="space-y-4">

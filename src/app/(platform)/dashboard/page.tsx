@@ -349,19 +349,19 @@ function DashboardPesertaInner() {
           {/* Right Column: Bookmarks & Personal Notes */}
           <div className="lg:col-span-4 space-y-6">
             {/* Submission Status Box */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+              <h3 className="text-sm font-bold text-ink mb-3 flex items-center gap-2">
                 <FileCheck2 className="w-4 h-4 text-emerald-600" />
                 <span>Pengumpulan Karya Anda</span>
               </h3>
               {userSubmission ? (
                 <div className="space-y-3 text-xs">
                   <div>
-                    <span className="text-slate-400">Judul Proyek:</span>
-                    <p className="font-bold text-slate-800">{userSubmission.project_title}</p>
+                    <span className="text-muted">Judul Proyek:</span>
+                    <p className="font-bold text-ink">{userSubmission.project_title}</p>
                   </div>
                   <div>
-                    <span className="text-slate-400">Status Penilaian:</span>
+                    <span className="text-muted">Status Penilaian:</span>
                     <div className="mt-1">
                       <SubmissionStatusBadge status={userSubmission.submission_status} />
                     </div>
@@ -380,7 +380,7 @@ function DashboardPesertaInner() {
                 </div>
               ) : (
                 <div className="text-center py-4 space-y-3">
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <p className="text-xs text-muted leading-relaxed">
                     Anda belum mengumpulkan hasil karya aplikasi Android SakuSiswa.
                   </p>
                   <Link href="/kumpulan-karya" className="block">
@@ -393,8 +393,8 @@ function DashboardPesertaInner() {
             </div>
 
             {/* Bookmarks Widget */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+              <h3 className="text-sm font-bold text-ink mb-3 flex items-center gap-2">
                 <Bookmark className="w-4 h-4 text-amber-500" />
                 <span>Materi Disimpan ({bookmarkedLessons.length})</span>
               </h3>
@@ -415,7 +415,7 @@ function DashboardPesertaInner() {
                       <Link
                         key={lId}
                         href={link}
-                        className="block p-2.5 rounded-lg bg-slate-50 hover:bg-sky-50 text-xs font-medium text-slate-800 hover:text-sky-700 transition-colors border border-slate-100"
+                        className="block p-2.5 rounded-lg bg-paper hover:bg-accent-soft text-xs font-medium text-ink hover:text-accent transition-colors border border-rule"
                       >
                         {title}
                       </Link>
@@ -423,29 +423,29 @@ function DashboardPesertaInner() {
                   })}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-muted">
                   Belum ada materi yang ditandai bookmark.
                 </p>
               )}
             </div>
 
             {/* Personal Notes Widget */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-              <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                <StickyNote className="w-4 h-4 text-teal-600" />
+            <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+              <h3 className="text-sm font-bold text-ink mb-3 flex items-center gap-2">
+                <StickyNote className="w-4 h-4 text-accent" />
                 <span>Catatan Pribadi ({notesList.length})</span>
               </h3>
               {notesList.length > 0 ? (
                 <div className="space-y-2.5 max-h-64 overflow-y-auto">
                   {notesList.map((n, idx) => (
-                    <div key={idx} className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1">
-                      <div className="font-bold text-slate-800">{n.lessonTitle}</div>
-                      <p className="text-slate-600 line-clamp-2">{n.note}</p>
+                    <div key={idx} className="p-3 rounded-lg bg-paper border border-rule text-xs space-y-1">
+                      <div className="font-bold text-ink">{n.lessonTitle}</div>
+                      <p className="text-ink-2 line-clamp-2">{n.note}</p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-muted">
                   Belum ada catatan pribadi yang ditulis.
                 </p>
               )}

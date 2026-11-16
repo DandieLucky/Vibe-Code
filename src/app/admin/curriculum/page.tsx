@@ -232,15 +232,15 @@ export default function AdminCurriculumCMSPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rule">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Badge variant="teal">CMS CONTENT MANAGEMENT</Badge>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
             Manajemen Kurikulum, Modul & Prompt AI
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Kelola modul, materi praktik, prompt AI terstruktur, dan status publikasi tanpa mengubah kode sumber inti.
           </p>
         </div>
@@ -260,7 +260,7 @@ export default function AdminCurriculumCMSPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: 6 Modules Nav List */}
         <div className="lg:col-span-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-2">
+          <div className="flex items-center justify-between text-xs font-bold text-muted mb-2">
             <span>Daftar Modul ({modules.length})</span>
             <span>Urutan</span>
           </div>
@@ -274,16 +274,16 @@ export default function AdminCurriculumCMSPage() {
                   onClick={() => setSelectedModule(m)}
                   className={`p-3.5 rounded-xl border cursor-pointer transition-colors ${
                     isSelected
-                      ? "bg-slate-900 text-white border-slate-900 shadow-sm"
-                      : "bg-white text-slate-800 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+                      ? "bg-ink text-sheet border-ink-2 shadow-sm"
+                      : "bg-sheet text-ink border-rule hover:border-rule hover:bg-paper"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span
                       className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
                         isSelected
-                          ? "bg-sky-500/20 text-sky-300"
-                          : "bg-slate-100 text-slate-600"
+                          ? "bg-accent text-accent-2"
+                          : "bg-paper-2 text-ink-2"
                       }`}
                     >
                       Modul {m.module_number}
@@ -302,24 +302,24 @@ export default function AdminCurriculumCMSPage() {
         {/* Right Column: Module Details & Lessons List */}
         <div className="lg:col-span-8 space-y-6">
           {/* Selected Module Summary Box */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-slate-100">
+          <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-rule">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                  <span className="text-xs font-bold text-accent bg-accent-soft px-2 py-0.5 rounded border border-rule">
                     Modul {selectedModule.module_number}
                   </span>
                   <Badge variant="default" className="text-[10px]">
                     {selectedModule.difficulty_level}
                   </Badge>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-muted">
                     ±{selectedModule.estimated_minutes} Menit
                   </span>
                 </div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-ink">
                   {selectedModule.title}
                 </h2>
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                <p className="text-xs text-muted mt-1 leading-relaxed">
                   {selectedModule.description}
                 </p>
               </div>
@@ -351,7 +351,7 @@ export default function AdminCurriculumCMSPage() {
 
             {/* Lessons Section Header */}
             <div className="pt-4 flex items-center justify-between">
-              <h3 className="text-xs font-bold text-slate-500">
+              <h3 className="text-xs font-bold text-muted">
                 Materi di Modul Ini ({selectedModule.lessons.length})
               </h3>
               <Button
@@ -371,17 +371,17 @@ export default function AdminCurriculumCMSPage() {
               {selectedModule.lessons.map((lesson) => (
                 <div
                   key={lesson.id}
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-slate-100 bg-slate-50/60 hover:bg-white transition-colors gap-3"
+                  className="flex items-center justify-between p-3.5 rounded-xl border border-rule bg-paper hover:bg-sheet transition-colors gap-3"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-slate-400 w-8">
+                    <span className="font-mono text-xs font-bold text-muted w-8">
                       #{selectedModule.module_number}.{lesson.lesson_number}
                     </span>
                     <div>
-                      <div className="text-xs font-bold text-slate-800">
+                      <div className="text-xs font-bold text-ink">
                         {lesson.title}
                       </div>
-                      <p className="text-[11px] text-slate-400 line-clamp-1">
+                      <p className="text-[11px] text-muted line-clamp-1">
                         {lesson.description}
                       </p>
                     </div>
@@ -389,7 +389,7 @@ export default function AdminCurriculumCMSPage() {
 
                   <div className="flex items-center gap-2 shrink-0">
                     {lesson.antigravity_prompt && (
-                      <span className="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-medium hidden sm:inline">
+                      <span className="text-[10px] bg-accent-soft text-accent px-2 py-0.5 rounded font-medium hidden sm:inline">
                         Prompt AI
                       </span>
                     )}
@@ -400,7 +400,7 @@ export default function AdminCurriculumCMSPage() {
                       onClick={() => handleOpenEditLesson(lesson)}
                       className="h-8 w-8 p-0"
                     >
-                      <Edit className="w-3.5 h-3.5 text-slate-600" />
+                      <Edit className="w-3.5 h-3.5 text-ink-2" />
                     </Button>
                     <Button
                       type="button"
@@ -440,7 +440,7 @@ export default function AdminCurriculumCMSPage() {
               required
             />
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700">
+              <label className="text-xs font-bold text-ink-2">
                 Tingkat Kesulitan
               </label>
               <select
@@ -451,7 +451,7 @@ export default function AdminCurriculumCMSPage() {
                     difficulty_level: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white"
+                className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm bg-sheet"
               >
                 <option value="Pemula">Pemula</option>
                 <option value="Menengah">Menengah</option>
@@ -568,8 +568,8 @@ export default function AdminCurriculumCMSPage() {
           />
 
           {/* Antigravity Prompt Builder Fields */}
-          <div className="p-4 rounded-xl bg-sky-50/50 border border-sky-100 space-y-3">
-            <span className="text-xs font-bold text-sky-900 block">
+          <div className="p-4 rounded-xl bg-accent-soft border border-rule space-y-3">
+            <span className="text-xs font-bold text-ink block">
               Prompt AI Terstruktur (Formula 6-Bagian)
             </span>
             <Input

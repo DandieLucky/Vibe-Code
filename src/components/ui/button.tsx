@@ -24,7 +24,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ghost:
         "text-ink-2 hover:bg-paper-2 hover:text-ink focus-visible:ring-accent",
       danger:
-        "bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500 shadow-sm",
+        "bg-rose-600 text-sheet hover:bg-rose-700 focus-visible:ring-rose-500 shadow-sm",
       teal:
         "bg-umber text-sheet hover:bg-ink focus-visible:ring-accent shadow-sm",
       accent:

@@ -256,29 +256,29 @@ export default function KumpulanKaryaPage() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
+    <div className="bg-paper min-h-screen py-10 sm:py-14">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
-          <Link href="/" className="hover:text-slate-800">
+        <div className="flex items-center gap-2 text-xs text-muted mb-4">
+          <Link href="/" className="hover:text-ink">
             Beranda
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="font-semibold text-slate-800">Kumpulan Karya Peserta</span>
+          <span className="font-semibold text-ink">Kumpulan Karya Peserta</span>
         </div>
 
         {/* Header Title & Notice */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded border border-sky-200">
+            <span className="text-xs font-bold text-accent bg-accent-soft px-2.5 py-0.5 rounded border border-rule">
               Modul Wajib Evaluasi
             </span>
             <Badge variant="teal">Sertifikasi & Penilaian</Badge>
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">
             Kumpulan Karya Aplikasi Android
           </h1>
-          <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-ink-2 leading-relaxed">
             Kumpulkan hasil karya aplikasi Android SakuSiswa (Kotlin + Jetpack Compose + Room + Google Login) milikmu. Karya akan diperiksa oleh guru dan sistem penilai otomatis.
           </p>
         </div>
@@ -306,30 +306,30 @@ export default function KumpulanKaryaPage() {
               )}
             </div>
 
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-ink-2">
               <div>
-                <strong className="text-slate-900">Judul Proyek: </strong>
+                <strong className="text-ink">Judul Proyek: </strong>
                 {userSubmission.project_title}
               </div>
               <div>
-                <strong className="text-slate-900">Link GitHub: </strong>
+                <strong className="text-ink">Link GitHub: </strong>
                 <a
                   href={userSubmission.github_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sky-700 font-semibold hover:underline"
+                  className="text-accent font-semibold hover:underline"
                 >
                   {userSubmission.github_url}
                 </a>
               </div>
               {getArtifactUrl(userSubmission) && (
                 <div>
-                  <strong className="text-slate-900">Link File APK / Rilis: </strong>
+                  <strong className="text-ink">Link File APK / Rilis: </strong>
                   <a
                     href={getArtifactUrl(userSubmission)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sky-700 font-semibold hover:underline"
+                    className="text-accent font-semibold hover:underline"
                   >
                     {getArtifactUrl(userSubmission)}
                   </a>
@@ -337,25 +337,25 @@ export default function KumpulanKaryaPage() {
               )}
               {userSubmission.demo_video_url && (
                 <div>
-                  <strong className="text-slate-900">Link Video Demo: </strong>
+                  <strong className="text-ink">Link Video Demo: </strong>
                   <a
                     href={userSubmission.demo_video_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sky-700 font-semibold hover:underline"
+                    className="text-accent font-semibold hover:underline"
                   >
                     {userSubmission.demo_video_url}
                   </a>
                 </div>
               )}
               <div>
-                <strong className="text-slate-900">Modul Selesai: </strong>
+                <strong className="text-ink">Modul Selesai: </strong>
                 {(userSubmission.completed_modules || []).length} Modul
               </div>
             </div>
 
             {userSubmission.admin_notes && (
-              <div className="mt-4 p-3.5 rounded-xl bg-white border border-emerald-200 text-xs text-slate-800">
+              <div className="mt-4 p-3.5 rounded-xl bg-sheet border border-emerald-200 text-xs text-ink">
                 <strong className="text-emerald-900 font-bold block mb-1">
                   Catatan Review Admin:
                 </strong>
@@ -374,7 +374,7 @@ export default function KumpulanKaryaPage() {
                 <h3 className="text-base font-bold">Karya Berhasil Dikumpulkan!</h3>
                 {kodeKarya && (
                   <p className="text-xs font-bold text-emerald-900 mt-1">
-                    Kode karya Anda: <span className="font-mono bg-white px-2 py-0.5 rounded border border-emerald-300">{kodeKarya}</span>
+                    Kode karya Anda: <span className="font-mono bg-sheet px-2 py-0.5 rounded border border-emerald-300">{kodeKarya}</span>
                   </p>
                 )}
                 <p className="text-xs text-emerald-800 mt-1">
@@ -399,13 +399,13 @@ export default function KumpulanKaryaPage() {
         )}
 
         {/* Submission Form Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
-          <div className="pb-4 mb-6 border-b border-slate-100 flex items-center justify-between">
+        <div className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs">
+          <div className="pb-4 mb-6 border-b border-rule flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">
+              <h2 className="text-lg font-bold text-ink">
                 {userSubmission ? "Perbarui Pengumpulan Karya" : "Formulir Pengumpulan Karya"}
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted">
                 Isi data diri dan tautan karya Android Anda. Pastikan repository GitHub berstatus Public dan screenshot aplikasi diunggah.
               </p>
             </div>
@@ -414,7 +414,7 @@ export default function KumpulanKaryaPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Identity Group */}
             <div className="space-y-4">
-              <h3 className="text-xs font-bold text-slate-400">
+              <h3 className="text-xs font-bold text-muted">
                 1. Identitas Peserta
               </h3>
 
@@ -467,8 +467,8 @@ export default function KumpulanKaryaPage() {
             </div>
 
             {/* Project Details Group */}
-            <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold text-slate-400">
+            <div className="space-y-4 pt-4 border-t border-rule">
+              <h3 className="text-xs font-bold text-muted">
                 2. Rincian Proyek Aplikasi
               </h3>
 
@@ -500,12 +500,12 @@ export default function KumpulanKaryaPage() {
             </div>
 
             {/* Completed Modules Checkbox Group */}
-            <div className="space-y-3 pt-4 border-t border-slate-100">
+            <div className="space-y-3 pt-4 border-t border-rule">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-400">
+                <h3 className="text-xs font-bold text-muted">
                   3. Modul yang Telah Diselesaikan
                 </h3>
-                <span className="text-xs text-sky-600 font-semibold">
+                <span className="text-xs text-accent font-semibold">
                   {formData.completed_modules.length} dari {MODULES_DATA.length} Modul Dipilih
                 </span>
               </div>
@@ -516,7 +516,7 @@ export default function KumpulanKaryaPage() {
                 </p>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto p-3 rounded-xl border border-slate-200 bg-slate-50/50">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto p-3 rounded-xl border border-rule bg-paper">
                 {MODULES_DATA.map((m) => {
                   const title = `Modul ${m.module_number}: ${m.title}`;
                   const isChecked = formData.completed_modules.includes(title);
@@ -526,15 +526,15 @@ export default function KumpulanKaryaPage() {
                       key={m.id}
                       className={`flex items-center gap-2.5 p-2 rounded-lg text-xs font-medium cursor-pointer transition-colors ${
                         isChecked
-                        ? "bg-sky-50 text-sky-900 border border-sky-200"
-                        : "bg-white text-slate-700 border border-slate-200/60 hover:bg-slate-100"
+                        ? "bg-accent-soft text-ink border border-rule"
+                        : "bg-sheet text-ink-2 border border-rule hover:bg-paper-2"
                       }`}
                     >
                       <input
                         type="checkbox"
                         checked={isChecked}
                         onChange={() => handleToggleModule(title)}
-                        className="rounded border-slate-300 text-sky-600 focus:ring-sky-500 h-4 w-4"
+                        className="rounded border-rule text-accent focus:ring-accent h-4 w-4"
                       />
                       <span className="truncate">{title}</span>
                     </label>
@@ -544,8 +544,8 @@ export default function KumpulanKaryaPage() {
             </div>
 
             {/* Repository & Android Links Group */}
-            <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold text-slate-400">
+            <div className="space-y-4 pt-4 border-t border-rule">
+              <h3 className="text-xs font-bold text-muted">
                 4. Tautan Karya Android
               </h3>
 
@@ -594,19 +594,19 @@ export default function KumpulanKaryaPage() {
             </div>
 
             {/* File Upload Group */}
-            <div className="space-y-4 pt-4 border-t border-slate-100">
-              <h3 className="text-xs font-bold text-slate-400">
+            <div className="space-y-4 pt-4 border-t border-rule">
+              <h3 className="text-xs font-bold text-muted">
                 5. Lampiran Berkas & Tangkapan Layar (Screenshot)
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Screenshot Upload */}
-                <div className="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50/50 text-center space-y-2">
-                  <ImageIcon className="w-8 h-8 text-slate-400 mx-auto" />
-                  <div className="text-xs font-semibold text-slate-700">
+                <div className="p-4 rounded-xl border border-dashed border-rule bg-paper text-center space-y-2">
+                  <ImageIcon className="w-8 h-8 text-muted mx-auto" />
+                  <div className="text-xs font-semibold text-ink-2">
                     Upload Screenshot Aplikasi Android <span className="text-rose-600">*</span>
                   </div>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-muted">
                     Format PNG, JPEG, atau WebP (Wajib, Maks. 5 MB)
                   </p>
                   {formErrors.screenshot_url && (
@@ -615,7 +615,7 @@ export default function KumpulanKaryaPage() {
                     </p>
                   )}
                   <label className="inline-block cursor-pointer">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50 shadow-2xs">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sheet border border-rule text-xs font-medium text-ink-2 hover:bg-paper shadow-2xs">
                       Pilih Gambar
                     </span>
                     <input
@@ -631,7 +631,7 @@ export default function KumpulanKaryaPage() {
                     </div>
                   )}
                   {formData.screenshot_url && (
-                    <div className="mt-2 rounded-lg overflow-hidden border border-slate-200 max-h-24">
+                    <div className="mt-2 rounded-lg overflow-hidden border border-rule max-h-24">
                       <img
                         src={formData.screenshot_url}
                         alt="Preview Screenshot"
@@ -642,16 +642,16 @@ export default function KumpulanKaryaPage() {
                 </div>
 
                 {/* Document Attachment Upload */}
-                <div className="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50/50 text-center space-y-2">
-                  <FileText className="w-8 h-8 text-slate-400 mx-auto" />
-                  <div className="text-xs font-semibold text-slate-700">
+                <div className="p-4 rounded-xl border border-dashed border-rule bg-paper text-center space-y-2">
+                  <FileText className="w-8 h-8 text-muted mx-auto" />
+                  <div className="text-xs font-semibold text-ink-2">
                     Upload Dokumen Pendukung (Opsional)
                   </div>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-muted">
                     Format PDF atau ZIP (Maks. 10 MB)
                   </p>
                   <label className="inline-block cursor-pointer">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50 shadow-2xs">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sheet border border-rule text-xs font-medium text-ink-2 hover:bg-paper shadow-2xs">
                       Pilih Dokumen
                     </span>
                     <input
@@ -671,8 +671,8 @@ export default function KumpulanKaryaPage() {
             </div>
 
             {/* Submit Action Button */}
-            <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <span className="text-xs text-slate-500 text-center sm:text-left">
+            <div className="pt-6 border-t border-rule flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs text-muted text-center sm:text-left">
                 Setelah dikirim, karya akan masuk ke tabel database admin untuk dinilai.
               </span>
 

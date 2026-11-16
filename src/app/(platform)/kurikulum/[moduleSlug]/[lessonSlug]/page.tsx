@@ -405,7 +405,7 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
         )}
 
         {/* 14. Navigasi Materi Sebelumnya & Berikutnya */}
-        <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+        <div className="flex items-center justify-between pt-6 border-t border-rule">
           {prevLesson ? (
             <Link
               href={`/kurikulum/${prevLesson.moduleSlug}/${prevLesson.lesson.slug}`}

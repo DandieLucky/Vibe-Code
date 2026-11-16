@@ -31,13 +31,13 @@ function BlokKode({ isi }: { isi: string }) {
 
   return (
     <div className="relative group">
-      <pre className="rounded-xl bg-slate-900 text-sky-300 border border-slate-800 px-4 py-3 pr-12 overflow-x-auto">
+      <pre className="rounded-xl bg-ink text-accent-2 border border-ink-2 px-4 py-3 pr-12 overflow-x-auto">
         <code className="text-[11px] sm:text-xs font-mono leading-relaxed whitespace-pre">{isi}</code>
       </pre>
       <button
         type="button"
         onClick={salin}
-        className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-sky-300 hover:bg-slate-700 transition-colors"
+        className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-ink text-muted hover:text-accent-2 hover:bg-ink-2 transition-colors"
         title="Salin"
       >
         {tersalin ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -92,27 +92,27 @@ function Langkah({
     <div className="relative pl-11 sm:pl-14">
       {/* Garis penghubung antar langkah */}
       {!terakhir && (
-        <span className={`absolute left-[19px] sm:left-[23px] top-11 bottom-0 w-0.5 ${selesai ? "bg-emerald-300" : "bg-slate-200"}`} />
+        <span className={`absolute left-[19px] sm:left-[23px] top-11 bottom-0 w-0.5 ${selesai ? "bg-emerald-300" : "bg-paper-3"}`} />
       )}
 
       {/* Nomor langkah */}
       <span
         className={`absolute left-0 top-0 h-10 w-10 sm:h-12 sm:w-12 rounded-2xl flex items-center justify-center font-extrabold text-sm shrink-0 transition-colors ${
-          selesai ? "bg-emerald-500 text-white shadow-md shadow-emerald-500/25" : "bg-slate-900 text-sky-400"
+          selesai ? "bg-emerald-500 text-sheet shadow-md shadow-emerald-500/25" : "bg-ink text-accent-2"
         }`}
       >
         {selesai ? <Check className="w-5 h-5" /> : nomor}
       </span>
 
-      <div className={`rounded-2xl border bg-white p-5 sm:p-6 mb-6 transition-colors ${
-        selesai ? "border-emerald-200 bg-emerald-50/30" : "border-slate-200"
+      <div className={`rounded-2xl border bg-sheet p-5 sm:p-6 mb-6 transition-colors ${
+        selesai ? "border-emerald-200 bg-emerald-50/30" : "border-rule"
       }`}>
         <div className="flex items-start justify-between gap-4 mb-3">
-          <h3 className="font-bold text-slate-900 text-base sm:text-lg leading-snug">{langkah.judul}</h3>
+          <h3 className="font-bold text-ink text-base sm:text-lg leading-snug">{langkah.judul}</h3>
         </div>
 
         {langkah.penjelasan && (
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">{langkah.penjelasan}</p>
+          <p className="text-xs sm:text-sm text-ink-2 leading-relaxed mb-4">{langkah.penjelasan}</p>
         )}
 
         {langkah.peringatan && (
@@ -129,8 +129,8 @@ function Langkah({
         {langkah.instruksi && langkah.instruksi.length > 0 && (
         <ol className="space-y-2.5 mb-4">
           {langkah.instruksi.map((t, i) => (
-            <li key={i} className="flex gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-              <span className="shrink-0 h-5 w-5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-bold flex items-center justify-center mt-0.5">
+            <li key={i} className="flex gap-2.5 text-xs sm:text-sm text-ink-2 leading-relaxed">
+              <span className="shrink-0 h-5 w-5 rounded-md bg-paper-2 text-ink-2 text-[10px] font-bold flex items-center justify-center mt-0.5">
                 {i + 1}
               </span>
               <span>{t}</span>
@@ -150,14 +150,14 @@ function Langkah({
         {langkah.gambar && langkah.gambar.length > 0 && (
           <div className="space-y-3 mb-4">
             {langkah.gambar.map((g, i) => (
-              <figure key={i} className="rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
+              <figure key={i} className="rounded-xl overflow-hidden border border-rule bg-paper">
                 <img
                   src={g.src}
                   alt={g.alt}
                   loading="lazy"
                   className="w-full h-auto"
                 />
-                <figcaption className="px-3 py-2 text-[10px] text-slate-500 bg-white border-t border-slate-100 italic">
+                <figcaption className="px-3 py-2 text-[10px] text-muted bg-sheet border-t border-rule italic">
                   {g.alt}
                 </figcaption>
               </figure>
@@ -206,24 +206,24 @@ function Langkah({
 
         {/* Troubleshooting */}
         {langkah.troubleshooting && langkah.troubleshooting.length > 0 && (
-          <div className="mb-4 rounded-xl border border-slate-200 overflow-hidden">
+          <div className="mb-4 rounded-xl border border-rule overflow-hidden">
             <button
               type="button"
               onClick={() => setBukaTroubleshoot(!bukaTroubleshoot)}
-              className="w-full flex items-center justify-between px-3.5 py-2.5 bg-slate-50 hover:bg-slate-100 transition-colors"
+              className="w-full flex items-center justify-between px-3.5 py-2.5 bg-paper hover:bg-paper-2 transition-colors"
             >
-              <span className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+              <span className="text-[11px] font-bold text-ink-2 flex items-center gap-1.5">
                 <Lightbulb className="w-3.5 h-3.5 text-amber-500" />
                 Kalau tidak sesuai
               </span>
-              <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${bukaTroubleshoot ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-muted transition-transform ${bukaTroubleshoot ? "rotate-180" : ""}`} />
             </button>
             {bukaTroubleshoot && (
-              <div className="px-3.5 py-3 space-y-3 bg-white border-t border-slate-200">
+              <div className="px-3.5 py-3 space-y-3 bg-sheet border-t border-rule">
                 {langkah.troubleshooting.map((t, i) => (
                   <div key={i}>
-                    <p className="text-[11px] font-bold text-slate-800">{t.masalah}</p>
-                    <p className="text-[11px] text-slate-600 leading-relaxed mt-0.5">{t.solusi}</p>
+                    <p className="text-[11px] font-bold text-ink">{t.masalah}</p>
+                    <p className="text-[11px] text-ink-2 leading-relaxed mt-0.5">{t.solusi}</p>
                   </div>
                 ))}
               </div>
@@ -237,7 +237,7 @@ function Langkah({
           onClick={onToggle}
           className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold transition-colors ${
             selesai
-              ? "bg-emerald-500 text-white hover:bg-emerald-600 shadow-sm"
+              ? "bg-emerald-500 text-sheet hover:bg-emerald-600 shadow-sm"
               : "bg-ink text-sheet hover:bg-umber"
           }`}
         >
@@ -315,46 +315,46 @@ export function TutorialView({ bagian, storageKey }: Props) {
   if (!siap) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-sky-500 animate-spin" />
+        <Loader2 className="w-6 h-6 text-accent animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen py-8 sm:py-12">
+    <div className="bg-paper min-h-screen py-8 sm:py-12">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
         {/* Bilah atas */}
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <Link href="/dashboard" className="hover:text-slate-800">Dashboard</Link>
+          <div className="flex items-center gap-2 text-xs text-muted">
+            <Link href="/dashboard" className="hover:text-ink">Dashboard</Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-slate-800">
+            <span className="font-semibold text-ink">
               {bagian.id === "persiapan" ? "Persiapan" : "Development"}
             </span>
           </div>
-          <Link href="/tutorial" className="text-[11px] font-bold text-sky-600 hover:underline">
+          <Link href="/tutorial" className="text-[11px] font-bold text-accent hover:underline">
             Semua Tutorial
           </Link>
         </div>
 
         {/* Kartu judul + progres */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 mb-8 shadow-xs">
+        <div className="rounded-2xl border border-rule bg-sheet p-5 sm:p-6 mb-8 shadow-xs">
           <div className="flex items-start justify-between gap-4 mb-4">
-            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">{bagian.judul}</h1>
-            <span className="shrink-0 px-3 py-1.5 rounded-full bg-slate-900 text-white text-xs font-extrabold">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-ink leading-tight">{bagian.judul}</h1>
+            <span className="shrink-0 px-3 py-1.5 rounded-full bg-ink text-sheet text-xs font-extrabold">
               {jumlahSelesai} / {total} langkah
             </span>
           </div>
 
           {bagian.pengantar && (
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">{bagian.pengantar}</p>
+            <p className="text-xs sm:text-sm text-ink-2 leading-relaxed mb-4">{bagian.pengantar}</p>
           )}
 
           {bagian.peringatanAwal && (
-            <div className="rounded-xl border border-sky-200 bg-sky-50 p-3.5 mb-4 flex gap-2.5">
-              <Info className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
-              <p className="text-[11px] text-sky-900 leading-relaxed">{bagian.peringatanAwal}</p>
+            <div className="rounded-xl border border-rule bg-accent-soft p-3.5 mb-4 flex gap-2.5">
+              <Info className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+              <p className="text-[11px] text-ink leading-relaxed">{bagian.peringatanAwal}</p>
             </div>
           )}
 
@@ -366,7 +366,7 @@ export function TutorialView({ bagian, storageKey }: Props) {
                 style={{ width: `${persen}%` }}
               />
             </div>
-            <span className="text-xs font-extrabold text-slate-600 w-10 text-right">{persen}%</span>
+            <span className="text-xs font-extrabold text-ink-2 w-10 text-right">{persen}%</span>
           </div>
           {persen === 100 && (
             <p className="mt-3 text-[11px] font-bold text-emerald-700 flex items-center gap-1.5">
@@ -389,20 +389,20 @@ export function TutorialView({ bagian, storageKey }: Props) {
         ))}
 
         {/* Penutup */}
-        <div className="rounded-2xl border-2 border-dashed border-slate-300 bg-white p-6 text-center">
-          <p className="text-sm font-bold text-slate-800 mb-1">
+        <div className="rounded-2xl border-2 border-dashed border-rule bg-sheet p-6 text-center">
+          <p className="text-sm font-bold text-ink mb-1">
             {bagian.id === "persiapan"
               ? "Sudah siap semua?"
               : "Sudah selesai semua langkahnya?"}
           </p>
-          <p className="text-xs text-slate-500 mb-4">
+          <p className="text-xs text-muted mb-4">
             {bagian.id === "persiapan"
               ? "Saat acara, kamu akan memakai Tutorial Development untuk membangun aplikasi langkah demi langkah."
               : "Jangan lupa kumpulkan link repository GitHub, screenshot aplikasi Android, dan link APK (opsional) untuk dinilai."}
           </p>
           <Link
             href={bagian.id === "persiapan" ? "/tutorial/development" : "/kumpulan-karya"}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-ink text-sheet text-sm font-bold hover:bg-ink transition-colors"
           >
             {bagian.id === "persiapan" ? "Lanjut ke Tutorial Development" : "Kumpulkan Karya"}
             <ChevronRight className="w-4 h-4" />

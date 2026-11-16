@@ -106,14 +106,14 @@ export default function AdminExportPage() {
   return (
     <div className="space-y-8">
       {/* Header Bar */}
-      <div className="pb-4 border-b border-slate-200">
+      <div className="pb-4 border-b border-rule">
         <div className="flex items-center gap-2 mb-1">
           <Badge variant="teal">FITUR EKSPOR DATA</Badge>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
           Ekspor Data Pengumpulan Karya (Excel & CSV)
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-muted mt-1">
           Unduh laporan lengkap identitas siswa, link GitHub, link APK, video demo, status penilaian, dan catatan fasilitator.
         </p>
       </div>
@@ -126,22 +126,22 @@ export default function AdminExportPage() {
       )}
 
       {/* Filter Configuration Card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-6">
-        <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-          <Filter className="w-4 h-4 text-sky-600" />
+      <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs space-y-6">
+        <h2 className="text-base font-bold text-ink flex items-center gap-2">
+          <Filter className="w-4 h-4 text-accent" />
           <span>Opsi Filter & Periode Data Ekspor</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Status Filter */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700">
+            <label className="text-xs font-bold text-ink-2">
               Filter Berdasarkan Status
             </label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm text-ink bg-paper focus:outline-none focus:ring-2 focus:ring-accent"
             >
               <option value="all">Semua Status (Seluruh Data)</option>
               <option value="pending">Hanya Menunggu Pemeriksaan</option>
@@ -153,36 +153,36 @@ export default function AdminExportPage() {
 
           {/* Start Date */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700">
+            <label className="text-xs font-bold text-ink-2">
               Periode Dari Tanggal
             </label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm text-ink bg-paper focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
           {/* End Date */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-slate-700">
+            <label className="text-xs font-bold text-ink-2">
               Sampai Tanggal
             </label>
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm text-ink bg-paper focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-          <div className="text-xs text-slate-600 font-medium">
+        <div className="pt-4 border-t border-rule flex flex-wrap items-center justify-between gap-4">
+          <div className="text-xs text-ink-2 font-medium">
             Terpilih:{" "}
-            <strong className="text-slate-900 font-bold text-sm">
+            <strong className="text-ink font-bold text-sm">
               {previewList.length} dari {submissions.length} karya
             </strong>
           </div>
@@ -195,7 +195,7 @@ export default function AdminExportPage() {
               onClick={handleExportCsv}
               className="gap-2 text-xs font-semibold"
             >
-              <FileText className="w-4 h-4 text-slate-600" />
+              <FileText className="w-4 h-4 text-ink-2" />
               <span>Ekspor CSV (.csv)</span>
             </Button>
 
@@ -214,19 +214,19 @@ export default function AdminExportPage() {
       </div>
 
       {/* Preview Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
+      <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-            <Table className="w-4 h-4 text-sky-600" />
+          <h3 className="text-sm font-bold text-ink flex items-center gap-2">
+            <Table className="w-4 h-4 text-accent" />
             <span>Pratinjau Data yang Akan Diekspor ({previewList.length} Baris)</span>
           </h3>
-          <span className="text-xs text-slate-400">Format Tabel Bersih & Rapi</span>
+          <span className="text-xs text-muted">Format Tabel Bersih & Rapi</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 text-[11px] bg-slate-50">
+              <tr className="border-b border-rule text-muted text-[11px] bg-paper">
                 <th className="py-2.5 px-3 font-bold">No</th>
                 <th className="py-2.5 px-3 font-bold">Nama Lengkap</th>
                 <th className="py-2.5 px-3 font-bold">Institusi</th>
@@ -236,18 +236,18 @@ export default function AdminExportPage() {
                 <th className="py-2.5 px-3 font-bold">GitHub URL</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
+            <tbody className="divide-y divide-rule font-mono text-[11px]">
               {previewList.slice(0, 10).map((sub, idx) => (
-                <tr key={sub.id} className="hover:bg-slate-50">
-                  <td className="py-2 px-3 text-slate-400">{idx + 1}</td>
-                  <td className="py-2 px-3 font-sans font-bold text-slate-800">{sub.full_name}</td>
-                  <td className="py-2 px-3 font-sans text-slate-600">{sub.institution}</td>
-                  <td className="py-2 px-3 font-sans text-slate-800 truncate max-w-[150px]">{sub.project_title}</td>
+                <tr key={sub.id} className="hover:bg-paper">
+                  <td className="py-2 px-3 text-muted">{idx + 1}</td>
+                  <td className="py-2 px-3 font-sans font-bold text-ink">{sub.full_name}</td>
+                  <td className="py-2 px-3 font-sans text-ink-2">{sub.institution}</td>
+                  <td className="py-2 px-3 font-sans text-ink truncate max-w-[150px]">{sub.project_title}</td>
                   <td className="py-2 px-3 font-sans">
                     <span className="capitalize">{sub.submission_status}</span>
                   </td>
                   <td className="py-2 px-3 font-bold">{sub.score ?? "-"}</td>
-                  <td className="py-2 px-3 text-sky-700 truncate max-w-[150px]">{sub.github_url}</td>
+                  <td className="py-2 px-3 text-accent truncate max-w-[150px]">{sub.github_url}</td>
                 </tr>
               ))}
             </tbody>

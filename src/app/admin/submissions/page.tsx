@@ -164,12 +164,12 @@ export default function AdminSubmissionsPage() {
   return (
     <div className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rule">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-ink tracking-tight">
             Kumpulan Karya Peserta & Penilaian
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-muted mt-1">
             Daftar lengkap hasil proyek siswa untuk diperiksa, diberi skor, dan disetujui kelulusannya.
           </p>
         </div>
@@ -183,10 +183,10 @@ export default function AdminSubmissionsPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 bg-sheet p-4 rounded-2xl border border-rule shadow-2xs">
         {/* Search */}
         <div className="relative w-full lg:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Cari nama, email, institusi, atau judul…"
@@ -195,7 +195,7 @@ export default function AdminSubmissionsPage() {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-slate-50/50"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-rule text-xs sm:text-sm text-ink focus:outline-none focus:ring-2 focus:ring-accent bg-paper"
           />
         </div>
 
@@ -217,8 +217,8 @@ export default function AdminSubmissionsPage() {
               }}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors shrink-0 ${
                 selectedStatus === st.id
-                  ? "bg-slate-900 text-white shadow-2xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-ink text-sheet shadow-2xs"
+                  : "bg-paper-2 text-ink-2 hover:bg-paper-3"
               }`}
             >
               {st.label}
@@ -230,7 +230,7 @@ export default function AdminSubmissionsPage() {
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value as any)}
-          className="px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 self-end lg:self-auto"
+          className="px-3 py-2 rounded-xl border border-rule text-xs text-ink-2 bg-sheet focus:outline-none focus:ring-2 focus:ring-accent self-end lg:self-auto"
         >
           <option value="newest">Pengumpulan Terbaru</option>
           <option value="oldest">Pengumpulan Terlama</option>
@@ -238,11 +238,11 @@ export default function AdminSubmissionsPage() {
       </div>
 
       {/* Submissions Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs">
+      <div className="rounded-2xl border border-rule bg-sheet overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 text-[11px] bg-slate-50">
+              <tr className="border-b border-rule text-muted text-[11px] bg-paper">
                 <th className="py-3 px-3.5 font-bold w-12 text-center">No</th>
                 <th className="py-3 px-4 font-bold">Identitas Peserta</th>
                 <th className="py-3 px-4 font-bold">Institusi</th>
@@ -254,25 +254,25 @@ export default function AdminSubmissionsPage() {
                 <th className="py-3 px-4 font-bold text-right">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-rule">
               {paginated.map((sub, idx) => (
-                <tr key={sub.id} className="hover:bg-slate-50/80 transition-colors">
-                  <td className="py-3 px-3.5 text-center font-mono text-slate-400">
+                <tr key={sub.id} className="hover:bg-paper transition-colors">
+                  <td className="py-3 px-3.5 text-center font-mono text-muted">
                     {(currentPage - 1) * itemsPerPage + idx + 1}
                   </td>
                   <td className="py-3 px-4">
-                    <div className="font-bold text-slate-900">{sub.full_name}</div>
-                    <div className="text-[11px] text-slate-400">{sub.email}</div>
-                    <div className="text-[11px] text-slate-400 font-mono">{sub.whatsapp}</div>
+                    <div className="font-bold text-ink">{sub.full_name}</div>
+                    <div className="text-[11px] text-muted">{sub.email}</div>
+                    <div className="text-[11px] text-muted font-mono">{sub.whatsapp}</div>
                   </td>
-                  <td className="py-3 px-4 text-slate-600 font-medium">
+                  <td className="py-3 px-4 text-ink-2 font-medium">
                     {sub.institution}
                   </td>
                   <td className="py-3 px-4 max-w-[180px]">
-                    <div className="font-semibold text-slate-800 truncate" title={sub.project_title}>
+                    <div className="font-semibold text-ink truncate" title={sub.project_title}>
                       {sub.project_title}
                     </div>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-[10px] text-muted">
                       {sub.completed_modules.length} Modul Selesai
                     </div>
                   </td>
@@ -281,7 +281,7 @@ export default function AdminSubmissionsPage() {
                       href={sub.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sky-600 hover:underline flex items-center gap-1 font-medium text-[11px]"
+                      className="text-accent hover:underline flex items-center gap-1 font-medium text-[11px]"
                     >
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
@@ -313,14 +313,14 @@ export default function AdminSubmissionsPage() {
                         href={sub.screenshot_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-slate-600 hover:underline flex items-center gap-1 font-medium text-[11px]"
+                        className="text-ink-2 hover:underline flex items-center gap-1 font-medium text-[11px]"
                       >
                         <span>Screenshot</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
                   </td>
-                  <td className="py-3 px-4 text-slate-500 whitespace-nowrap">
+                  <td className="py-3 px-4 text-muted whitespace-nowrap">
                     {formatDate(sub.submitted_at)}
                   </td>
                   <td className="py-3 px-4">
@@ -330,7 +330,7 @@ export default function AdminSubmissionsPage() {
                     {sub.score !== undefined && sub.score !== null ? (
                       <span className="text-emerald-700">{sub.score}</span>
                     ) : (
-                      <span className="text-slate-300">-</span>
+                      <span className="text-paper-3">-</span>
                     )}
                   </td>
                   <td className="py-3 px-4 text-right">
@@ -353,15 +353,15 @@ export default function AdminSubmissionsPage() {
 
         {memuat && (
           <div className="text-center py-12 p-4">
-            <Clock className="w-10 h-10 text-slate-300 mx-auto mb-2 animate-pulse motion-reduce:animate-none" />
-            <h3 className="text-sm font-bold text-slate-700">Memuat karya peserta…</h3>
+            <Clock className="w-10 h-10 text-paper-3 mx-auto mb-2 animate-pulse motion-reduce:animate-none" />
+            <h3 className="text-sm font-bold text-ink-2">Memuat karya peserta…</h3>
           </div>
         )}
 
         {!memuat && galat && (
           <div className="text-center py-12 p-4">
             <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-slate-700">{galat}</h3>
+            <h3 className="text-sm font-bold text-ink-2">{galat}</h3>
             <Button type="button" variant="outline" size="sm" className="mt-3" onClick={muatKarya}>
               Muat Ulang
             </Button>
@@ -370,15 +370,15 @@ export default function AdminSubmissionsPage() {
 
         {!memuat && !galat && paginated.length === 0 && (
           <div className="text-center py-12 p-4">
-            <FolderGit2 className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-slate-700">Belum ada karya yang dikumpulkan</h3>
-            <p className="text-xs text-slate-400 mt-1">Coba sesuaikan kata kunci atau status pencarian.</p>
+            <FolderGit2 className="w-10 h-10 text-paper-3 mx-auto mb-2" />
+            <h3 className="text-sm font-bold text-ink-2">Belum ada karya yang dikumpulkan</h3>
+            <p className="text-xs text-muted mt-1">Coba sesuaikan kata kunci atau status pencarian.</p>
           </div>
         )}
 
         {/* Pagination Footer */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-between px-6 py-3 border-t border-slate-100 bg-slate-50/50 text-xs text-slate-500">
+          <div className="flex items-center justify-between px-6 py-3 border-t border-rule bg-paper text-xs text-muted">
             <div>
               Menampilkan {(currentPage - 1) * itemsPerPage + 1} -{" "}
               {Math.min(currentPage * itemsPerPage, sorted.length)} dari {sorted.length} karya
@@ -393,7 +393,7 @@ export default function AdminSubmissionsPage() {
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
-              <span className="px-3 font-semibold text-slate-700">
+              <span className="px-3 font-semibold text-ink-2">
                 {currentPage} / {totalPages}
               </span>
               <Button
@@ -421,26 +421,26 @@ export default function AdminSubmissionsPage() {
         {selectedSubmission && (
           <div className="space-y-6">
             {/* Identity & Links Box */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-xl bg-paper border border-rule text-xs">
               <div>
-                <span className="text-slate-400 block mb-0.5">Nama Peserta:</span>
-                <span className="font-bold text-slate-900 text-sm">{selectedSubmission.full_name}</span>
-                <div className="text-slate-500">{selectedSubmission.email}</div>
-                <div className="text-slate-500">{selectedSubmission.whatsapp}</div>
-                <div className="mt-1 font-semibold text-sky-800">{selectedSubmission.institution}</div>
+                <span className="text-muted block mb-0.5">Nama Peserta:</span>
+                <span className="font-bold text-ink text-sm">{selectedSubmission.full_name}</span>
+                <div className="text-muted">{selectedSubmission.email}</div>
+                <div className="text-muted">{selectedSubmission.whatsapp}</div>
+                <div className="mt-1 font-semibold text-ink">{selectedSubmission.institution}</div>
               </div>
 
               <div className="space-y-2">
                 <div>
-                  <span className="text-slate-400 block mb-0.5">Judul Proyek:</span>
-                  <span className="font-bold text-slate-800">{selectedSubmission.project_title}</span>
+                  <span className="text-muted block mb-0.5">Judul Proyek:</span>
+                  <span className="font-bold text-ink">{selectedSubmission.project_title}</span>
                 </div>
                 <div className="flex flex-col gap-1.5 pt-1">
                   <a
                     href={selectedSubmission.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sky-700 font-bold hover:underline"
+                    className="inline-flex items-center gap-1.5 text-accent font-bold hover:underline"
                   >
                     <span>Buka Repository GitHub</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -473,8 +473,8 @@ export default function AdminSubmissionsPage() {
 
             {/* Description & Completed Modules */}
             <div className="space-y-2 text-xs">
-              <span className="font-bold text-slate-700">Deskripsi Proyek Peserta:</span>
-              <p className="p-3 rounded-lg bg-white border border-slate-200 text-slate-700 leading-relaxed">
+              <span className="font-bold text-ink-2">Deskripsi Proyek Peserta:</span>
+              <p className="p-3 rounded-lg bg-sheet border border-rule text-ink-2 leading-relaxed">
                 {selectedSubmission.project_description}
               </p>
             </div>
@@ -482,11 +482,11 @@ export default function AdminSubmissionsPage() {
             {/* Screenshot Preview if available */}
             {selectedSubmission.screenshot_url && (
               <div className="space-y-2 text-xs">
-                <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                  <ImageIcon className="w-4 h-4 text-sky-600" />
+                <span className="font-bold text-ink-2 flex items-center gap-1.5">
+                  <ImageIcon className="w-4 h-4 text-accent" />
                   <span>Preview Tangkapan Layar (Screenshot):</span>
                 </span>
-                <div className="rounded-xl overflow-hidden border border-slate-200 max-h-60 bg-slate-950 flex items-center justify-center">
+                <div className="rounded-xl overflow-hidden border border-rule max-h-60 bg-ink flex items-center justify-center">
                   <img
                     src={selectedSubmission.screenshot_url}
                     alt="Screenshot Karya"
@@ -497,9 +497,9 @@ export default function AdminSubmissionsPage() {
             )}
 
             {/* Grading Form */}
-            <form onSubmit={handleSaveGrading} className="pt-4 border-t border-slate-200 space-y-4">
+            <form onSubmit={handleSaveGrading} className="pt-4 border-t border-rule space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-slate-900">
+                <h3 className="text-sm font-bold text-ink">
                   Keputusan Penilaian Administrator
                 </h3>
                 {saveSuccessMsg && (
@@ -512,13 +512,13 @@ export default function AdminSubmissionsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Status Selection */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold text-ink-2">
                     Status Kelulusan Karya
                   </label>
                   <select
                     value={gradingStatus}
                     onChange={(e) => setGradingStatus(e.target.value as SubmissionStatus)}
-                    className="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    className="w-full px-3 py-2 rounded-lg border border-rule text-sm text-ink bg-sheet focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="pending">Menunggu Pemeriksaan</option>
                     <option value="accepted">Diterima (Lulus)</option>
@@ -530,11 +530,11 @@ export default function AdminSubmissionsPage() {
                 {/* --------------------------------------------------------- */}
                 {/* Penilaian - hasil otomatis tetap ada, admin bisa mengubah */}
                 {/* --------------------------------------------------------- */}
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="text-[11px] font-extrabold text-slate-500 mb-1">
+                <div className="rounded-xl border border-rule bg-paper p-4">
+                  <p className="text-[11px] font-extrabold text-muted mb-1">
                     Penilaian
                   </p>
-                  <p className="text-[11px] text-slate-500 mb-3 leading-relaxed">
+                  <p className="text-[11px] text-muted mb-3 leading-relaxed">
                     Nilai di bawah diisi otomatis oleh sistem. Ubah bagian mana pun untuk menyesuaikan,
                     atau kosongkan untuk membiarkan nilai otomatis apa adanya.
                   </p>
@@ -570,11 +570,11 @@ export default function AdminSubmissionsPage() {
                     />
                   </div>
 
-                  <div className="mt-3 rounded-lg bg-white border border-slate-200 px-3 py-2.5">
-                    <p className="text-[11px] text-slate-500">
+                  <div className="mt-3 rounded-lg bg-sheet border border-rule px-3 py-2.5">
+                    <p className="text-[11px] text-muted">
                       Skor akhir = <strong>40% nilai teknis + 60% nilai AI - potongan</strong>
                     </p>
-                    <p className="text-lg font-extrabold text-slate-900 mt-0.5">
+                    <p className="text-lg font-extrabold text-ink mt-0.5">
                       {(() => {
                         const t = gradingTechnical === "" ? 0 : Number(gradingTechnical);
                         const a = gradingAi === "" ? 0 : Number(gradingAi);
@@ -582,7 +582,7 @@ export default function AdminSubmissionsPage() {
                         if (gradingTechnical === "" && gradingAi === "") return "-";
                         return Math.max(0, Math.round(t * 0.4 + a * 0.6 - pen));
                       })()}
-                      <span className="text-xs font-semibold text-slate-400"> / 100</span>
+                      <span className="text-xs font-semibold text-muted"> / 100</span>
                     </p>
                   </div>
                 </div>

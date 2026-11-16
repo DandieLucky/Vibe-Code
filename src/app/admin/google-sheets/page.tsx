@@ -99,35 +99,35 @@ export default function AdminGoogleSheetsPage() {
   return (
     <div className="space-y-8">
       {/* Page Header */}
-      <div className="pb-4 border-b border-slate-200">
+      <div className="pb-4 border-b border-rule">
         <div className="flex items-center gap-2 mb-1">
           <Badge variant="teal">INTEGRASI CLOUD OPSIONAL</Badge>
-          <span className="text-xs text-slate-500">• Supabase Tetap Menjadi Database Utama</span>
+          <span className="text-xs text-muted">• Supabase Tetap Menjadi Database Utama</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
           Integrasi Google Sheets API
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+        <p className="text-xs sm:text-sm text-muted mt-1">
           Sinkronkan kumpulan karya siswa ke dokumen Google Spreadsheet otomatis melalui backend yang aman.
         </p>
       </div>
 
       {/* Integration Status Notice */}
-      <div className="rounded-2xl border border-sky-200 bg-sky-50/70 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="rounded-2xl border border-rule bg-accent-soft p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          <div className="h-10 w-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+          <div className="h-10 w-10 rounded-xl bg-accent text-sheet flex items-center justify-center shrink-0 shadow-sm">
             <Sheet className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-ink">
                 Status Integrasi Google Sheets
               </h2>
               <Badge variant={isConfigured ? "success" : "default"}>
                 {isConfigured ? "Terkonfigurasi" : "Belum Dikonfigurasi"}
               </Badge>
             </div>
-            <p className="text-xs text-slate-600 mt-1 leading-relaxed max-w-2xl">
+            <p className="text-xs text-ink-2 mt-1 leading-relaxed max-w-2xl">
               Sinkronisasi dijalankan murni di sisi Server (Backend API) menggunakan Service Account Google Cloud. Kredensial rahasia tidak pernah diekspos ke browser pengguna.
             </p>
           </div>
@@ -169,7 +169,7 @@ export default function AdminGoogleSheetsPage() {
           </div>
           <p className="mt-1 pl-7">{syncStatus.message}</p>
           {syncStatus.lastSyncTime && (
-            <div className="mt-2 pl-7 text-[11px] text-slate-500">
+            <div className="mt-2 pl-7 text-[11px] text-muted">
               Waktu sinkronisasi terakhir: {new Date(syncStatus.lastSyncTime).toLocaleString("id-ID")}
             </div>
           )}
@@ -177,9 +177,9 @@ export default function AdminGoogleSheetsPage() {
       )}
 
       {/* Settings Form Card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs space-y-6">
-        <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-          <Server className="w-4 h-4 text-sky-600" />
+      <div className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs space-y-6">
+        <h2 className="text-base font-bold text-ink flex items-center gap-2">
+          <Server className="w-4 h-4 text-accent" />
           <span>Pengaturan Target Google Spreadsheet</span>
         </h2>
 
@@ -192,11 +192,11 @@ export default function AdminGoogleSheetsPage() {
             helperText="Diambil dari URL Google Sheet: https://docs.google.com/spreadsheets/d/[SPREADSHEET_ID]/edit"
           />
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-2">
-            <div className="font-bold text-slate-900">
+          <div className="p-4 rounded-xl bg-paper border border-rule text-xs text-ink-2 space-y-2">
+            <div className="font-bold text-ink">
               Cara Mengaktifkan Sinkronisasi Google Sheets:
             </div>
-            <ol className="list-decimal pl-4 space-y-1 text-slate-600">
+            <ol className="list-decimal pl-4 space-y-1 text-ink-2">
               <li>Buat dokumen baru di Google Spreadsheet.</li>
               <li>Buka Google Cloud Console &rarr; Aktifkan <strong>Google Sheets API</strong>.</li>
               <li>Buat <strong>Service Account</strong> dan unduh file kunci JSON-nya.</li>
@@ -214,15 +214,15 @@ export default function AdminGoogleSheetsPage() {
       </div>
 
       {/* Graceful Fallback Guarantee Card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex items-start gap-4">
+      <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs flex items-start gap-4">
         <div className="h-10 w-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold shrink-0">
           <ShieldCheck className="w-6 h-6" />
         </div>
         <div className="space-y-1 text-xs">
-          <h3 className="font-bold text-slate-900 text-sm">
+          <h3 className="font-bold text-ink text-sm">
             Jaminan Ketersediaan Data Tanpa Gangguan
           </h3>
-          <p className="text-slate-600 leading-relaxed">
+          <p className="text-ink-2 leading-relaxed">
             Sesuai kriteria arsitektur: Jika Google Sheets API belum dikonfigurasi atau mengalami gangguan jaringan, seluruh fitur platform tetap berjalan normal 100%. Data pengumpulan karya selalu tersimpan aman di database Supabase dan admin dapat mengunduh seluruh data dalam format Excel (.xlsx) kapan saja tanpa ketergantungan pihak ketiga.
           </p>
           <div className="pt-2">

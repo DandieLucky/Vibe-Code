@@ -40,17 +40,17 @@ function rankStyle(rank: number) {
   if (rank === 1)
     return { ring: "ring-2 ring-amber-400", bg: "bg-amber-50", text: "text-amber-700" };
   if (rank === 2)
-    return { ring: "ring-2 ring-slate-300", bg: "bg-slate-50", text: "text-slate-600" };
+    return { ring: "ring-2 ring-rule", bg: "bg-paper", text: "text-ink-2" };
   if (rank === 3)
     return { ring: "ring-2 ring-orange-300", bg: "bg-orange-50", text: "text-orange-700" };
-  return { ring: "", bg: "bg-white", text: "text-slate-500" };
+  return { ring: "", bg: "bg-sheet", text: "text-muted" };
 }
 
 function RankIcon({ rank }: { rank: number }) {
   if (rank === 1) return <Trophy className="w-5 h-5 text-amber-500" />;
-  if (rank === 2) return <Medal className="w-5 h-5 text-slate-400" />;
+  if (rank === 2) return <Medal className="w-5 h-5 text-muted" />;
   if (rank === 3) return <Award className="w-5 h-5 text-orange-500" />;
-  return <span className="text-sm font-bold text-slate-400">#{rank}</span>;
+  return <span className="text-sm font-bold text-muted">#{rank}</span>;
 }
 
 export default async function LeaderboardPage() {
@@ -84,28 +84,28 @@ export default async function LeaderboardPage() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
+    <div className="bg-paper min-h-screen py-10 sm:py-14">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
-          <Link href="/" className="hover:text-slate-800">
+        <div className="flex items-center gap-2 text-xs text-muted mb-4">
+          <Link href="/" className="hover:text-ink">
             Beranda
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="font-semibold text-slate-800">Papan Peringkat</span>
+          <span className="font-semibold text-ink">Papan Peringkat</span>
         </div>
 
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center shadow-md">
-              <Trophy className="w-6 h-6 text-white" />
+              <Trophy className="w-6 h-6 text-sheet" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
                 10 Karya Terbaik
               </h1>
-              <p className="text-xs sm:text-sm text-slate-500">
+              <p className="text-xs sm:text-sm text-muted">
                 Dinilai otomatis dari kualitas kode, situs live, dan performa
               </p>
             </div>
@@ -123,10 +123,10 @@ export default async function LeaderboardPage() {
         )}
 
         {!dbUnavailable && entries.length === 0 && (
-          <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center">
-            <Trophy className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h2 className="font-bold text-slate-800 mb-1">Belum ada karya yang dinilai</h2>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
+          <div className="rounded-2xl border border-rule bg-sheet p-12 text-center">
+            <Trophy className="w-12 h-12 text-paper-3 mx-auto mb-3" />
+            <h2 className="font-bold text-ink mb-1">Belum ada karya yang dinilai</h2>
+            <p className="text-xs text-muted max-w-md mx-auto">
               Papan peringkat akan terisi otomatis setelah peserta mengumpulkan karya dan
               sistem selesai menilai.
             </p>
@@ -140,12 +140,12 @@ export default async function LeaderboardPage() {
             return (
               <div
                 key={e.id}
-                className={`rounded-2xl border border-slate-200 ${style.bg} ${style.ring} p-5 shadow-xs hover:shadow-md transition-shadow`}
+                className={`rounded-2xl border border-rule ${style.bg} ${style.ring} p-5 shadow-xs hover:shadow-md transition-shadow`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   {/* Rank + Skor */}
                   <div className="flex items-center gap-4 shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-sheet border border-rule flex items-center justify-center">
                       <RankIcon rank={e.rank_position} />
                     </div>
                     <div className="text-center">

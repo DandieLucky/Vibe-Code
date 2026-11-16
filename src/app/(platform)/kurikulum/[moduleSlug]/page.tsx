@@ -48,19 +48,19 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
     currentIndex < MODULES_DATA.length - 1 ? MODULES_DATA[currentIndex + 1] : null;
 
   return (
-    <div className="bg-slate-50 min-h-screen py-10 sm:py-14">
+    <div className="bg-paper min-h-screen py-10 sm:py-14">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
-          <Link href="/" className="hover:text-slate-800">
+        <div className="flex items-center gap-2 text-xs text-muted mb-4">
+          <Link href="/" className="hover:text-ink">
             Beranda
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <Link href="/kurikulum" className="hover:text-slate-800">
+          <Link href="/kurikulum" className="hover:text-ink">
             Kurikulum
           </Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="font-semibold text-slate-800 truncate">
+          <span className="font-semibold text-ink truncate">
             Modul {module.module_number}
           </span>
         </div>
@@ -159,7 +159,7 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
         </div>
 
         {/* Previous / Next Module Navigation */}
-        <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+        <div className="flex items-center justify-between pt-6 border-t border-rule">
           {prevModule ? (
             <Link href={`/kurikulum/${prevModule.slug}`}>
               <Button variant="outline" size="sm" className="gap-2">

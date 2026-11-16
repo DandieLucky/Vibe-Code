@@ -33,7 +33,7 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
 
   if (isLoading && !graceExpired) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-paper flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="h-10 w-10 rounded-full border-3 border-rule border-t-accent animate-spin motion-reduce:animate-none" />
           <p className="text-xs text-muted font-medium">Memeriksa akses…</p>
@@ -44,17 +44,17 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-slate-50 py-12 sm:py-16 px-4">
+      <div className="min-h-screen bg-paper py-12 sm:py-16 px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-10 shadow-sm text-center">
-            <div className="h-16 w-16 rounded-2xl bg-slate-900 flex items-center justify-center mx-auto mb-5">
-              <Lock className="w-8 h-8 text-sky-400" />
+          <div className="rounded-3xl border border-rule bg-sheet p-8 sm:p-10 shadow-sm text-center">
+            <div className="h-16 w-16 rounded-2xl bg-ink flex items-center justify-center mx-auto mb-5">
+              <Lock className="w-8 h-8 text-accent-2" />
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-ink mb-3">
               Daftar Dulu untuk Membuka {feature}
             </h1>
-            <p className="text-sm text-slate-600 leading-relaxed mb-7 max-w-lg mx-auto">
+            <p className="text-sm text-ink-2 leading-relaxed mb-7 max-w-lg mx-auto">
               Kurikulum ComposeLab dikhususkan untuk peserta terdaftar. Dengan mendaftar,
               progres belajar Anda tersimpan otomatis dan karya Anda bisa ikut dinilai.
               Gratis, tanpa biaya.
@@ -62,10 +62,10 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 text-left">
               {PERKS.map((p) => (
-                <div key={p.title} className="rounded-xl border border-slate-200 bg-slate-50 p-3.5">
-                  <p.icon className="w-4 h-4 text-sky-600 mb-1.5" />
-                  <p className="text-xs font-bold text-slate-900">{p.title}</p>
-                  <p className="text-[11px] text-slate-500 leading-snug mt-0.5">{p.desc}</p>
+                <div key={p.title} className="rounded-xl border border-rule bg-paper p-3.5">
+                  <p.icon className="w-4 h-4 text-accent mb-1.5" />
+                  <p className="text-xs font-bold text-ink">{p.title}</p>
+                  <p className="text-[11px] text-muted leading-snug mt-0.5">{p.desc}</p>
                 </div>
               ))}
             </div>
@@ -86,9 +86,9 @@ export function LoginGate({ children, feature = "materi ini" }: { children: Reac
             </div>
           </div>
 
-          <p className="mt-6 text-center text-xs text-slate-400">
+          <p className="mt-6 text-center text-xs text-muted">
             Ingin lihat isi platform dulu?{" "}
-            <Link href="/" className="text-sky-600 font-semibold hover:underline">
+            <Link href="/" className="text-accent font-semibold hover:underline">
               Kembali ke Dashboard Utama
             </Link>
           </p>

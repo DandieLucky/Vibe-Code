@@ -47,7 +47,7 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 activeTab === "structured"
                   ? "bg-accent text-sheet shadow-sm"
-                  : "text-paper-3 hover:text-white"
+                  : "text-paper-3 hover:text-sheet"
               }`}
             >
               Terstruktur
@@ -58,7 +58,7 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
               className={`px-2.5 py-1 rounded-md font-medium transition-colors ${
                 activeTab === "raw"
                   ? "bg-accent text-sheet shadow-sm"
-                  : "text-paper-3 hover:text-white"
+                  : "text-paper-3 hover:text-sheet"
               }`}
             >
               Raw Text
@@ -152,7 +152,7 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
             {/* F. VALIDASI */}
             <div className="rounded-xl border border-amber-200 bg-amber-50/40 p-4">
               <div className="flex items-center gap-2 text-amber-900 font-bold text-xs mb-1.5">
-                <span className="flex items-center justify-center h-4 w-4 rounded-full bg-amber-500 text-white text-[10px] font-bold">
+                <span className="flex items-center justify-center h-4 w-4 rounded-full bg-amber-500 text-sheet text-[10px] font-bold">
                   ✓
                 </span>
                 <span>F. Validasi Keberhasilan</span>

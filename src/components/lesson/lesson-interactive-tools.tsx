@@ -129,12 +129,12 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
     <div className="space-y-8 my-8">
       {/* 1. Evaluasi Pemahaman (Interactive Quiz) */}
       {quiz && quiz.length > 0 && (
-        <div className="rounded-2xl border border-sky-100 bg-white p-6 shadow-xs">
+        <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
           <div className="flex items-center gap-2 mb-4">
-            <div className="h-7 w-7 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center">
+            <div className="h-7 w-7 rounded-lg bg-accent-soft text-accent flex items-center justify-center">
               <HelpCircle className="w-4 h-4" />
             </div>
-            <h3 className="text-base font-bold text-slate-900">
+            <h3 className="text-base font-bold text-ink">
               Evaluasi Pemahaman Materi
             </h3>
           </div>
@@ -146,8 +146,8 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
               const isCorrect = selected === q.correctIndex;
 
               return (
-                <div key={qIdx} className="space-y-3 pt-3 border-t border-slate-100 first:border-0 first:pt-0">
-                  <p className="text-sm font-semibold text-slate-800">
+                <div key={qIdx} className="space-y-3 pt-3 border-t border-rule first:border-0 first:pt-0">
+                  <p className="text-sm font-semibold text-ink">
                     {qIdx + 1}. {q.question}
                   </p>
 
@@ -155,10 +155,10 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
                     {q.options.map((opt, optIdx) => {
                       const isOptionSelected = selected === optIdx;
                       let optionClasses =
-                        "border-slate-200 bg-slate-50/50 hover:bg-slate-100 text-slate-700";
+                        "border-rule bg-paper hover:bg-paper-2 text-ink-2";
 
                       if (isOptionSelected) {
-                        optionClasses = "border-sky-500 bg-sky-50 text-sky-900 font-semibold ring-1 ring-sky-300";
+                        optionClasses = "border-accent bg-accent-soft text-ink font-semibold ring-1 ring-accent-2";
                       }
 
                       if (isChecked) {
@@ -219,11 +219,11 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
       )}
 
       {/* 2. Catatan Pribadi Siswa */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
+      <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <StickyNote className="w-4 h-4 text-amber-500" />
-            <h3 className="text-sm font-bold text-slate-900">
+            <h3 className="text-sm font-bold text-ink">
               Catatan Pribadi untuk Materi Ini
             </h3>
           </div>
@@ -263,7 +263,7 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
             className={`p-2.5 rounded-xl border transition-colors ${
               isBookmarked
                 ? "bg-amber-500/20 text-amber-300 border-amber-400/40"
-                : "bg-umber text-paper-3 border-rule hover:text-white"
+                : "bg-umber text-paper-3 border-rule hover:text-sheet"
             }`}
             title={isBookmarked ? "Hapus dari Bookmark" : "Simpan ke Bookmark"}
           >

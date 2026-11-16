@@ -266,12 +266,12 @@ export default function KurikulumList() {
           })}
 
           {filteredModules.length === 0 && (
-            <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 p-8">
-              <Search className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-              <h3 className="text-base font-bold text-slate-800">
+            <div className="text-center py-16 bg-sheet rounded-2xl border border-rule p-8">
+              <Search className="w-10 h-10 text-paper-3 mx-auto mb-3" />
+              <h3 className="text-base font-bold text-ink">
                 Tidak ada modul yang cocok
               </h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-muted mt-1">
                 Coba gunakan kata kunci pencarian yang lain atau reset filter level kesulitan.
               </p>
               <Button
