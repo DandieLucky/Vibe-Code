@@ -133,22 +133,22 @@ function RegisterPageInner() {
   };
 
   return (
-    <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
-      <div className="w-full max-w-lg space-y-8 bg-white p-8 sm:p-10 rounded-2xl border border-slate-200 shadow-md">
+    <div className="min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FAF6F0]">
+      <div className="w-full max-w-lg space-y-8 bg-[#FDFBF7] p-8 sm:p-10 rounded-2xl border border-[#E6DDD2] shadow-sm">
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="h-10 w-10 rounded-xl bg-slate-900 text-sky-400 flex items-center justify-center font-bold">
+            <div className="h-10 w-10 rounded-xl bg-[#C4552D] text-[#FDFBF7] flex items-center justify-center font-bold">
               <Code2 className="w-6 h-6" />
             </div>
-            <span className="font-extrabold text-xl text-slate-900 tracking-tight">
+            <span className="font-extrabold text-xl text-[#2B211B] tracking-tight">
               COMPOSELAB SMKN 1
             </span>
           </Link>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Pendaftaran Peserta Baru
+          <h2 className="text-xl sm:text-2xl font-extrabold text-[#2B211B] tracking-tight">
+            Pendaftaran Siswa Baru
           </h2>
-          <p className="mt-1 text-xs text-slate-500">
-            Daftar untuk menyimpan progres belajar, sertifikasi, dan pengumpulan karya
+          <p className="mt-1 text-xs text-[#6A5A4E]">
+            Daftar untuk menyimpan progres belajar dan pengumpulan karya Android
           </p>
         </div>
 

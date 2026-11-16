@@ -73,29 +73,29 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-200 border-b ${
+      className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${
         scrolled
-          ? "bg-slate-900/95 backdrop-blur-md border-slate-800 shadow-md text-white"
-          : "bg-slate-900 border-slate-800 text-white"
+          ? "bg-[#FAF6F0]/95 backdrop-blur-md border-[#E6DDD2] shadow-xs text-[#2B211B]"
+          : "bg-[#FAF6F0] border-[#E6DDD2] text-[#2B211B]"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Brand Identity */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-400 via-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+            <div className="h-10 w-10 rounded-xl bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] shadow-sm group-hover:scale-105 transition-transform">
               <Code2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-sky-300 transition-colors">
+                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-[#2B211B] group-hover:text-[#C4552D] transition-colors">
                   COMPOSELAB
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#C4552D]/10 text-[#9F3F1D] border border-[#C4552D]/25">
                   SMKN 1 JKT
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 hidden sm:block">
+              <p className="text-[11px] text-[#6A5A4E] hidden sm:block">
                 Android Kotlin, Compose &amp; AI Prompting
               </p>
             </div>
@@ -115,14 +115,14 @@ export function Navbar() {
                   href={link.href}
                   className={`relative px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
                     isActive
-                      ? "text-sky-300 bg-slate-800/80 font-semibold"
-                      : "text-slate-300 hover:text-white hover:bg-slate-800/40"
+                      ? "text-[#9F3F1D] bg-[#EFE7DC] font-semibold"
+                      : "text-[#4A3B31] hover:text-[#2B211B] hover:bg-[#F3ECE2]"
                   }`}
                 >
-                  {link.icon && <link.icon className="w-4 h-4 text-sky-400" />}
+                  {link.icon && <link.icon className="w-4 h-4 text-[#C4552D]" />}
                   <span>{link.label}</span>
                   {link.badge && (
-                    <span className="text-[10px] bg-rose-500/20 text-rose-300 border border-rose-400/30 px-1.5 py-0.2 rounded-full font-bold ml-1 animate-pulse">
+                    <span className="text-[10px] bg-[#C4552D]/15 text-[#9F3F1D] border border-[#C4552D]/30 px-1.5 py-0.2 rounded-full font-bold ml-1">
                       {link.badge}
                     </span>
                   )}
@@ -134,43 +134,43 @@ export function Navbar() {
           {/* Right Action CTA Buttons — menyesuaikan status login */}
           <div className="hidden sm:flex items-center gap-3">
             {isLoading ? (
-              <div className="h-8 w-28 rounded-lg bg-slate-800 animate-pulse" />
+              <div className="h-8 w-28 rounded-lg bg-[#EFE7DC] animate-pulse" />
             ) : isAuthenticated && user ? (
               /* Sudah login: menu pengguna */
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 pl-1 pr-2.5 py-1.5 rounded-xl hover:bg-slate-800 transition-colors"
+                  className="flex items-center gap-2 pl-1 pr-2.5 py-1.5 rounded-xl hover:bg-[#F3ECE2] transition-colors"
                 >
-                  <span className="h-8 w-8 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white text-xs font-extrabold shrink-0">
+                  <span className="h-8 w-8 rounded-lg bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] text-xs font-extrabold shrink-0">
                     {(user.full_name || user.email).charAt(0).toUpperCase()}
                   </span>
                   <span className="text-left hidden lg:block">
-                    <span className="block text-xs font-bold text-white leading-tight max-w-[120px] truncate">
+                    <span className="block text-xs font-bold text-[#2B211B] leading-tight max-w-[120px] truncate">
                       {user.full_name}
                     </span>
-                    <span className="block text-[10px] text-sky-400 font-semibold">
+                    <span className="block text-[10px] text-[#9F3F1D] font-semibold">
                       {isAdmin ? "Administrator" : "Peserta"}
                     </span>
                   </span>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                  <ChevronDown className="w-3.5 h-3.5 text-[#6A5A4E]" />
                 </button>
 
                 {userMenuOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setUserMenuOpen(false)} />
-                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-slate-900 border border-slate-700 shadow-xl z-50 overflow-hidden">
-                      <div className="px-3 py-2.5 border-b border-slate-800">
-                        <p className="text-xs font-bold text-white truncate">{user.full_name}</p>
-                        <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
+                    <div className="absolute right-0 mt-2 w-56 rounded-xl bg-[#FDFBF7] border border-[#E6DDD2] shadow-xl z-50 overflow-hidden">
+                      <div className="px-3 py-2.5 border-b border-[#E6DDD2]">
+                        <p className="text-xs font-bold text-[#2B211B] truncate">{user.full_name}</p>
+                        <p className="text-[10px] text-[#6A5A4E] truncate">{user.email}</p>
                       </div>
 
                       {isAdmin && (
                         <Link
                           href="/admin"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-3 py-2.5 text-xs font-semibold text-sky-300 hover:bg-slate-800 border-b border-slate-800"
+                          className="flex items-center gap-2 px-3 py-2.5 text-xs font-semibold text-[#9F3F1D] hover:bg-[#F3ECE2] border-b border-[#E6DDD2]"
                         >
                           <ShieldCheck className="w-4 h-4" />
                           Buka Dashboard Admin
@@ -180,7 +180,7 @@ export function Navbar() {
                       <Link
                         href="/dashboard"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-[#4A3B31] hover:bg-[#F3ECE2] hover:text-[#2B211B]"
                       >
                         <GraduationCap className="w-4 h-4" />
                         Dashboard Saya
@@ -188,7 +188,7 @@ export function Navbar() {
                       <Link
                         href="/profil"
                         onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-slate-300 hover:bg-slate-800 hover:text-white"
+                        className="flex items-center gap-2 px-3 py-2.5 text-xs text-[#4A3B31] hover:bg-[#F3ECE2] hover:text-[#2B211B]"
                       >
                         <UserCircle2 className="w-4 h-4" />
                         Pengaturan Profil
@@ -196,7 +196,7 @@ export function Navbar() {
                       <button
                         type="button"
                         onClick={() => { setUserMenuOpen(false); signOut(); }}
-                        className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-rose-300 hover:bg-slate-800 border-t border-slate-800"
+                        className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-rose-700 hover:bg-rose-50 border-t border-[#E6DDD2]"
                       >
                         <LogOut className="w-4 h-4" />
                         Keluar
@@ -209,13 +209,13 @@ export function Navbar() {
               /* Belum login: satu pintu masuk untuk admin maupun peserta */
               <>
                 <Link href="/login">
-                  <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white hover:bg-slate-800">
+                  <Button variant="ghost" size="sm" className="text-[#4A3B31] hover:text-[#2B211B] hover:bg-[#F3ECE2]">
                     <User className="w-4 h-4 mr-1.5" />
                     Masuk
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="accent" size="sm" className="font-bold shadow-md shadow-sky-600/20">
+                  <Button size="sm" className="bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7] font-bold shadow-sm">
                     <Sparkles className="w-4 h-4 mr-1.5" />
                     Daftar Gratis
                   </Button>
@@ -229,7 +229,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
+              className="p-2 rounded-lg text-[#6A5A4E] hover:text-[#2B211B] hover:bg-[#F3ECE2] focus:outline-none"
               aria-label="Toggle Menu Navigasi"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -240,7 +240,7 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="lg:hidden border-t border-slate-800 bg-slate-900 px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top-2">
+        <div className="lg:hidden border-t border-[#E6DDD2] bg-[#FAF6F0] px-4 pt-3 pb-6 space-y-2">
           {navLinks.map((link) => {
             const isActive =
               link.href === "/"
@@ -253,12 +253,12 @@ export function Navbar() {
                 href={link.href}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
                   isActive
-                    ? "bg-slate-800 text-sky-400 font-semibold"
-                    : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                    ? "bg-[#EFE7DC] text-[#9F3F1D] font-semibold"
+                    : "text-[#4A3B31] hover:bg-[#F3ECE2] hover:text-[#2B211B]"
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  {link.icon && <link.icon className="w-4 h-4 text-sky-400" />}
+                  {link.icon && <link.icon className="w-4 h-4 text-[#C4552D]" />}
                   <span>{link.label}</span>
                 </div>
                 {link.badge && (
@@ -269,15 +269,15 @@ export function Navbar() {
               </Link>
             );
           })}
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-2">
+          <div className="pt-4 border-t border-[#E6DDD2] flex flex-col gap-2">
             <Link href="/login" className="w-full">
-              <Button variant="outline" className="w-full justify-center bg-slate-800 border-slate-700 text-slate-200">
+              <Button variant="outline" className="w-full justify-center bg-[#FDFBF7] border-[#D8CCBE] text-[#2B211B]">
                 Masuk ke Akun
               </Button>
             </Link>
-            <Link href="/kurikulum" className="w-full">
-              <Button variant="accent" className="w-full justify-center font-bold">
-                Mulai Belajar Sekarang
+            <Link href="/register" className="w-full">
+              <Button className="w-full justify-center bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7] font-bold">
+                Daftar &amp; Mulai Belajar
               </Button>
             </Link>
           </div>

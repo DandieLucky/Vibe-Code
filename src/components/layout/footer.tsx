@@ -4,25 +4,25 @@ import { Code2, Heart, ExternalLink, ShieldCheck, Github, Globe } from "lucide-r
 
 export function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-400 border-t border-slate-800 text-sm">
+    <footer className="bg-[#F3ECE2] text-[#5D4E43] border-t border-[#E6DDD2] text-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-sky-600 flex items-center justify-center text-white shadow-md">
+              <div className="h-9 w-9 rounded-xl bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] shadow-xs">
                 <Code2 className="w-5 h-5" />
               </div>
-              <span className="font-extrabold text-lg text-white tracking-tight">
+              <span className="font-extrabold text-lg text-[#2B211B] tracking-tight">
                 COMPOSELAB SMKN 1
               </span>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+            <p className="text-[#5D4E43] text-sm leading-relaxed max-w-sm">
               Platform pembelajaran pengembangan aplikasi Android (Kotlin, Jetpack Compose, Room Database, dan Google Sign-In) dengan pendekatan berpikir terstruktur dan prompting AI untuk siswa kelas 10 SMK Negeri 1 Jakarta.
             </p>
-            <div className="flex items-center gap-3 pt-2 text-xs text-slate-500">
+            <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-[#6A5A4E]">
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                <ShieldCheck className="w-4 h-4 text-[#C4552D]" />
                 Kotlin &amp; Compose
               </span>
               <span>•</span>
@@ -34,33 +34,33 @@ export function Footer() {
 
           {/* Navigasi Kurikulum */}
           <div>
-            <h4 className="font-bold text-white text-sm mb-4 tracking-wider uppercase">
+            <h4 className="font-bold text-[#2B211B] text-sm mb-4">
               Kurikulum Inti
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <Link href="/kurikulum/modul-1-pengenalan-web-development" className="hover:text-sky-400 transition-colors">
-                  Modul 1: Pengenalan Web & AI
+                <Link href="/kurikulum" className="hover:text-[#C4552D] transition-colors">
+                  Modul 1: Prompting &amp; Logika
                 </Link>
               </li>
               <li>
-                <Link href="/kurikulum/modul-4-menguasai-google-antigravity" className="hover:text-sky-400 transition-colors">
-                  Modul 4: Google Antigravity
+                <Link href="/kurikulum" className="hover:text-[#C4552D] transition-colors">
+                  Modul 3: Jetpack Compose UI
                 </Link>
               </li>
               <li>
-                <Link href="/kurikulum/modul-6-membangun-database-supabase" className="hover:text-sky-400 transition-colors">
-                  Modul 6: Database Supabase
+                <Link href="/kurikulum" className="hover:text-[#C4552D] transition-colors">
+                  Modul 4: Login Google
                 </Link>
               </li>
               <li>
-                <Link href="/kurikulum/modul-7-membangun-aplikasi-katalog-umkm" className="hover:text-sky-400 transition-colors font-semibold text-sky-300">
-                  Modul 7: Proyek Katalog UMKM
+                <Link href="/kurikulum" className="hover:text-[#C4552D] transition-colors font-semibold text-[#9F3F1D]">
+                  Modul 5: Room &amp; CRUD SakuSiswa
                 </Link>
               </li>
               <li>
-                <Link href="/kurikulum/modul-11-github-dan-deployment" className="hover:text-sky-400 transition-colors">
-                  Modul 11: Deployment Vercel
+                <Link href="/kurikulum" className="hover:text-[#C4552D] transition-colors">
+                  Modul 6: Build APK &amp; GitHub
                 </Link>
               </li>
             </ul>
@@ -68,27 +68,27 @@ export function Footer() {
 
           {/* Fitur & Pengumpulan */}
           <div>
-            <h4 className="font-bold text-white text-sm mb-4 tracking-wider uppercase">
-              Karya & Peserta
+            <h4 className="font-bold text-[#2B211B] text-sm mb-4">
+              Karya &amp; Peserta
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <Link href="/kumpulan-karya" className="hover:text-sky-400 transition-colors font-medium text-slate-200">
+                <Link href="/kumpulan-karya" className="hover:text-[#C4552D] transition-colors font-medium text-[#2B211B]">
                   Formulir Pengumpulan Karya
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="hover:text-sky-400 transition-colors">
+                <Link href="/dashboard" className="hover:text-[#C4552D] transition-colors">
                   Dashboard Progres Belajar
                 </Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-sky-400 transition-colors">
+                <Link href="/admin" className="hover:text-[#C4552D] transition-colors">
                   Dashboard Administrator
                 </Link>
               </li>
               <li>
-                <Link href="/profil" className="hover:text-sky-400 transition-colors">
+                <Link href="/profil" className="hover:text-[#C4552D] transition-colors">
                   Pengaturan Profil
                 </Link>
               </li>
@@ -97,52 +97,52 @@ export function Footer() {
 
           {/* Referensi Eksternal */}
           <div>
-            <h4 className="font-bold text-white text-sm mb-4 tracking-wider uppercase">
+            <h4 className="font-bold text-[#2B211B] text-sm mb-4">
               Referensi Resmi
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
                 <a
-                  href="https://worksheet.andixurniawan.com/development"
+                  href="https://developer.android.com/compose"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-sky-400 transition-colors flex items-center gap-1 text-slate-300"
+                  className="hover:text-[#C4552D] transition-colors flex items-center gap-1 text-[#4A3B31]"
                 >
-                  <span>Worksheet Referensi</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                  <span>Jetpack Compose Docs</span>
+                  <ExternalLink className="w-3 h-3 text-[#6A5A4E]" />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://nextjs.org"
+                  href="https://developer.android.com/training/data-storage/room"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-sky-400 transition-colors flex items-center gap-1"
+                  className="hover:text-[#C4552D] transition-colors flex items-center gap-1"
                 >
-                  <span>Dokumentasi Next.js</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                  <span>Room Database Guide</span>
+                  <ExternalLink className="w-3 h-3 text-[#6A5A4E]" />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://supabase.com"
+                  href="https://developer.android.com/identity/sign-in/credential-manager-siwg"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-sky-400 transition-colors flex items-center gap-1"
+                  className="hover:text-[#C4552D] transition-colors flex items-center gap-1"
                 >
-                  <span>Supabase Cloud</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                  <span>Credential Manager</span>
+                  <ExternalLink className="w-3 h-3 text-[#6A5A4E]" />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://vercel.com"
+                  href="https://kotlinlang.org/docs/home.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-sky-400 transition-colors flex items-center gap-1"
+                  className="hover:text-[#C4552D] transition-colors flex items-center gap-1"
                 >
-                  <span>Vercel Platform</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                  <span>Kotlin Documentation</span>
+                  <ExternalLink className="w-3 h-3 text-[#6A5A4E]" />
                 </a>
               </li>
             </ul>
@@ -150,9 +150,9 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 mt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="pt-8 mt-8 border-t border-[#E6DDD2] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6A5A4E]">
           <p>© {new Date().getFullYear()} ComposeLab SMKN 1 Jakarta. Hak cipta dilindungi.</p>
-          <p className="flex items-center gap-1 text-slate-400">
+          <p className="flex items-center gap-1 text-[#6A5A4E]">
             Program Pembelajaran Android Kelas 10 — SMK Negeri 1 Jakarta
           </p>
         </div>

@@ -92,43 +92,43 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAF6F0] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-5">
-            <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg">
-              <GraduationCap className="w-6 h-6 text-white" />
+            <div className="h-11 w-11 rounded-2xl bg-[#C4552D] flex items-center justify-center shadow-sm">
+              <GraduationCap className="w-6 h-6 text-[#FDFBF7]" />
             </div>
-            <span className="text-2xl font-extrabold text-slate-900 tracking-tight">COMPOSELAB SMKN 1</span>
+            <span className="text-2xl font-extrabold text-[#2B211B] tracking-tight">COMPOSELAB SMKN 1</span>
           </Link>
-          <h1 className="text-2xl font-extrabold text-slate-900">Masuk ke Akun Anda</h1>
-          <p className="mt-1.5 text-sm text-slate-500">
-            Satu pintu untuk peserta dan administrator
+          <h1 className="text-2xl font-extrabold text-[#2B211B]">Masuk ke Akun Anda</h1>
+          <p className="mt-1.5 text-sm text-[#6A5A4E]">
+            Satu pintu untuk siswa dan fasilitator
           </p>
         </div>
 
         {/* Penjelasan: satu form untuk dua peran */}
         <div className="mb-5 grid grid-cols-2 gap-2.5">
-          <div className="rounded-xl border border-sky-200 bg-sky-50 p-3">
-            <GraduationCap className="w-4 h-4 text-sky-600 mb-1.5" />
-            <p className="text-[11px] font-bold text-sky-900">Peserta</p>
-            <p className="text-[10px] text-sky-700 leading-snug">
+          <div className="rounded-xl border border-[#C4552D]/25 bg-[#F3ECE2] p-3">
+            <GraduationCap className="w-4 h-4 text-[#C4552D] mb-1.5" />
+            <p className="text-[11px] font-bold text-[#2B211B]">Siswa</p>
+            <p className="text-[10px] text-[#5D4E43] leading-snug">
               Buka kurikulum, simpan progres, kumpulkan karya
             </p>
           </div>
-          <div className="rounded-xl border border-slate-300 bg-slate-100 p-3">
-            <ShieldCheck className="w-4 h-4 text-slate-700 mb-1.5" />
-            <p className="text-[11px] font-bold text-slate-900">Administrator</p>
-            <p className="text-[10px] text-slate-600 leading-snug">
+          <div className="rounded-xl border border-[#E6DDD2] bg-[#FDFBF7] p-3">
+            <ShieldCheck className="w-4 h-4 text-[#4A3B31] mb-1.5" />
+            <p className="text-[11px] font-bold text-[#2B211B]">Administrator</p>
+            <p className="text-[10px] text-[#6A5A4E] leading-snug">
               Kelola karya, penilaian, dan pengaturan
             </p>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
+        <div className="rounded-2xl border border-[#E6DDD2] bg-[#FDFBF7] p-6 sm:p-8 shadow-xs">
           {notice && (
-            <div className="mb-5 p-3 rounded-xl bg-sky-50 border border-sky-200 text-xs text-sky-900 flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+            <div className="mb-5 p-3 rounded-xl bg-[#F3ECE2] border border-[#D8CCBE] text-xs text-[#2B211B] flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-[#C4552D] shrink-0 mt-0.5" />
               <span>{notice}</span>
             </div>
           )}
@@ -141,7 +141,7 @@ function LoginForm() {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="relative">
-              <Mail className="absolute left-3 top-[38px] w-4 h-4 text-slate-400 pointer-events-none" />
+              <Mail className="absolute left-3 top-[38px] w-4 h-4 text-[#6A5A4E] pointer-events-none" />
               <Input
                 label="Alamat Email"
                 type="email"
@@ -154,7 +154,7 @@ function LoginForm() {
               />
             </div>
             <div className="relative">
-              <Lock className="absolute left-3 top-[38px] w-4 h-4 text-slate-400 pointer-events-none" />
+              <Lock className="absolute left-3 top-[38px] w-4 h-4 text-[#6A5A4E] pointer-events-none" />
               <Input
                 label="Password"
                 type="password"
@@ -167,27 +167,27 @@ function LoginForm() {
               />
             </div>
 
-            <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full font-bold">
+            <Button type="submit" size="lg" isLoading={isLoading} className="w-full font-bold bg-[#C4552D] hover:bg-[#A94420] text-[#FDFBF7]">
               <LogIn className="w-4 h-4 mr-1.5" />
               Masuk
             </Button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-slate-100 text-center">
-            <p className="text-xs text-slate-500 mb-3">
-              Belum punya akun? Pendaftaran terbuka untuk umum.
+          <div className="mt-6 pt-5 border-t border-[#E6DDD2] text-center">
+            <p className="text-xs text-[#6A5A4E] mb-3">
+              Belum punya akun? Pendaftaran terbuka untuk siswa kelas 10.
             </p>
             <Link href="/register">
-              <Button variant="outline" size="sm" className="w-full font-semibold">
-                Daftar Sebagai Peserta
+              <Button variant="outline" size="sm" className="w-full font-semibold border-[#D8CCBE] text-[#2B211B] hover:bg-[#F3ECE2]">
+                Daftar Sebagai Siswa
                 <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
               </Button>
             </Link>
           </div>
         </div>
 
-        <p className="mt-6 text-center text-[11px] text-slate-400">
-          Akun administrator dibuat oleh fasilitator. Jika Anda peserta,
+        <p className="mt-6 text-center text-[11px] text-[#6A5A4E]">
+          Akun administrator dibuat oleh fasilitator. Jika Anda siswa,
           silakan daftar sendiri lewat tombol di atas.
         </p>
       </div>
@@ -197,7 +197,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-50" />}>
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF6F0]" />}>
       <LoginForm />
     </Suspense>
   );
