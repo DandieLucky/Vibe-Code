@@ -12,7 +12,7 @@ export default function AdminSettingsPage() {
   const [allowSubmissions, setAllowSubmissions] = useState(true);
   const [submissionDeadline, setSubmissionDeadline] = useState("2026-11-10T15:00");
   const [announcement, setAnnouncement] = useState(
-    "Pengumpulan karya ditutup tepat pukul 15.00 WIB. Pastikan link Vercel dan GitHub Anda dapat dibuka publik tanpa login."
+    "Pengumpulan karya ditutup tepat pukul 15.00 WIB. Pastikan repository GitHub Anda berstatus publik dan screenshot aplikasi Android diunggah."
   );
   const [invitationCode, setInvitationCode] = useState("CHAT2026");
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -100,7 +100,7 @@ export default function AdminSettingsPage() {
                   Pendaftaran Terbuka (Public)
                 </span>
                 <span className="text-xs text-slate-500 leading-relaxed">
-                  Siapapun dari masyarakat umum, pelajar, atau UMKM dapat langsung mendaftar tanpa kode undangan.
+                  Siswa kelas 10 SMK Negeri 1 Jakarta dapat langsung mendaftar tanpa kode undangan.
                 </span>
               </div>
             </label>

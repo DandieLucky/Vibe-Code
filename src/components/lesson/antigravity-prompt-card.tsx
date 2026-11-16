@@ -183,7 +183,7 @@ export function AntigravityPromptCard({ prompt, lessonTitle }: AntigravityPrompt
         <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
           <span className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-            Klik tombol salin di atas, buka panel Antigravity Agent, lalu tekan kirim.
+            Pahami dulu alur logikanya, lalu salin prompt ini untuk berdiskusi dengan asisten AI.
           </span>
           <span className="font-mono text-[11px] text-slate-400">
             Karakter: {prompt.rawPrompt.length}

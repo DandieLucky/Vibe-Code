@@ -193,7 +193,7 @@ export default function ProfilPage() {
               />
             </div>
             <Input
-              label="Asal Sekolah / Kampus / Nama UMKM"
+              label="Asal Sekolah / Kelas"
               value={profile.institution}
               onChange={(e) => setProfile({ ...profile, institution: e.target.value })}
               placeholder="SMK / Universitas / Nama Usaha"

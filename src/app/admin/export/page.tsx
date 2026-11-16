@@ -114,7 +114,7 @@ export default function AdminExportPage() {
           Ekspor Data Pengumpulan Karya (Excel & CSV)
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1">
-          Unduh laporan lengkap identitas siswa, link GitHub, link Vercel, status penilaian, dan catatan fasilitator.
+          Unduh laporan lengkap identitas siswa, link GitHub, link APK, video demo, status penilaian, dan catatan fasilitator.
         </p>
       </div>
 

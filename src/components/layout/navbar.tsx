@@ -52,16 +52,16 @@ export function Navbar() {
   // ----------------------------------------------------------------------
   const navLinks = isAdmin
     ? [
-        { href: "/admin", label: "Dashboard Admin", icon: ShieldCheck },
+        { href: "/admin", label: "Admin", icon: ShieldCheck },
         { href: "/beranda", label: "Beranda" },
-        { href: "/kurikulum", label: "Kurikulum 6 Modul" },
-        { href: "/kumpulan-karya", label: "Kumpulan Karya" },
-        { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
+        { href: "/kurikulum", label: "Kurikulum" },
+        { href: "/kumpulan-karya", label: "Karya" },
+        { href: "/leaderboard", label: "Peringkat", icon: Trophy },
         { href: "/tutorial", label: "Tutorial", icon: Rocket },
       ]
     : isAuthenticated
     ? [
-        { href: "/dashboard", label: "Dashboard Saya", icon: GraduationCap },
+        { href: "/dashboard", label: "Dashboard", icon: GraduationCap },
         { href: "/tutorial", label: "Tutorial", icon: BookOpen },
         { href: "/kurikulum", label: "Kurikulum 6 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
@@ -85,20 +85,20 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Brand Identity */}
-          <Link href={brandHref} className="flex items-center gap-3 group">
-            <div className="h-10 w-10 rounded-xl bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] shadow-sm group-hover:scale-105 transition-transform">
+          <Link href={brandHref} className="flex items-center gap-3 group shrink-0">
+            <div className="h-10 w-10 rounded-xl bg-[#C4552D] flex items-center justify-center text-[#FDFBF7] shadow-sm shrink-0 group-hover:scale-105 transition-transform">
               <Code2 className="w-5 h-5" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 whitespace-nowrap">
                 <span className="font-extrabold text-lg sm:text-xl tracking-tight text-[#2B211B] group-hover:text-[#C4552D] transition-colors">
                   COMPOSELAB
                 </span>
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#C4552D]/10 text-[#9F3F1D] border border-[#C4552D]/25">
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#C4552D]/10 text-[#9F3F1D] border border-[#C4552D]/25 whitespace-nowrap">
                   SMKN 1 JKT
                 </span>
               </div>
-              <p className="text-[11px] text-[#6A5A4E] hidden sm:block">
+              <p className="text-[11px] text-[#6A5A4E] hidden xl:block whitespace-nowrap">
                 Android Kotlin, Compose &amp; AI Prompting
               </p>
             </div>
@@ -117,7 +117,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                  className={`relative px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap shrink-0 ${
                     isActive
                       ? "text-[#9F3F1D] bg-[#EFE7DC] font-semibold"
                       : "text-[#4A3B31] hover:text-[#2B211B] hover:bg-[#F3ECE2]"

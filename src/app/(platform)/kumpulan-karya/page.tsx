@@ -438,7 +438,7 @@ export default function KumpulanKaryaPage() {
                   required
                 />
                 <Input
-                  label="Institusi / Sekolah / Nama UMKM"
+                  label="Asal Sekolah / Kelas"
                   value={formData.institution}
                   onChange={(e) =>
                     setFormData({ ...formData, institution: e.target.value })

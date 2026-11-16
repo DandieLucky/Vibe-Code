@@ -186,7 +186,7 @@ export default function AdminOverviewPage() {
         <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex items-center justify-between">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-              Prompt AI Antigravity
+              Prompt AI Terstruktur
             </span>
             <div className="text-xl sm:text-2xl font-extrabold text-teal-600 mt-1">
               100% Siap Salin

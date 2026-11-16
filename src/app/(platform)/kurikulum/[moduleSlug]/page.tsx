@@ -139,7 +139,7 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
                     {lesson.antigravity_prompt && (
                       <div className="mt-1 flex items-center gap-1.5 text-[11px] text-sky-600 font-medium">
                         <Sparkles className="w-3 h-3 text-sky-500" />
-                        <span>Termasuk Prompt AI Google Antigravity Teruji</span>
+                        <span>Termasuk Prompt AI Terstruktur (Formula 6-Bagian)</span>
                       </div>
                     )}
                   </div>

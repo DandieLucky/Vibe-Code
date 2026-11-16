@@ -111,7 +111,7 @@ export default function AdminCurriculumCMSPage() {
       // Create new module
       const newMod: FullModule = {
         id: `modul-${Date.now()}`,
-        course_id: "course-web-dev-antigravity",
+        course_id: "course-android-compose-smkn1",
         module_number: editingModule.module_number,
         title: editingModule.title,
         slug: `modul-${editingModule.module_number}-${editingModule.title.toLowerCase().replace(/\s+/g, "-")}`,
@@ -241,7 +241,7 @@ export default function AdminCurriculumCMSPage() {
             Manajemen Kurikulum, Modul & Prompt AI
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Kelola modul, materi praktik, prompt Antigravity, dan status publikasi tanpa mengubah kode sumber inti.
+            Kelola modul, materi praktik, prompt AI terstruktur, dan status publikasi tanpa mengubah kode sumber inti.
           </p>
         </div>
 
@@ -570,7 +570,7 @@ export default function AdminCurriculumCMSPage() {
           {/* Antigravity Prompt Builder Fields */}
           <div className="p-4 rounded-xl bg-sky-50/50 border border-sky-100 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-sky-900 block">
-              Prompt AI Google Antigravity
+              Prompt AI Terstruktur (Formula 6-Bagian)
             </span>
             <Input
               label="Tujuan Prompt"
