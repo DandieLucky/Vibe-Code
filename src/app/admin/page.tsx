@@ -84,7 +84,7 @@ export default function AdminOverviewPage() {
             Ringkasan Platform & Penilaian Karya
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Pantau metrik peserta, kurikulum 12 modul, antrean review karya, dan sinkronisasi data.
+            Pantau metrik peserta, kurikulum 6 modul, antrean review karya, dan sinkronisasi data.
           </p>
         </div>
 

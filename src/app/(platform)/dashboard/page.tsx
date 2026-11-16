@@ -203,14 +203,14 @@ function DashboardPesertaInner() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                  {currentUser?.full_name ?? "Peserta Belajar Vibe Code"}
+                  {currentUser?.full_name ?? "Siswa ComposeLab SMKN 1"}
                 </h1>
                 <Badge variant="teal" className="text-[10px]">
                   Siswa Aktif
                 </Badge>
               </div>
               <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                Program Pelatihan Web Development Terintegrasi Google Antigravity & Supabase
+                Program Pelatihan Android Kotlin, Jetpack Compose &amp; Room Database — SMKN 1 Jakarta
               </p>
             </div>
           </div>

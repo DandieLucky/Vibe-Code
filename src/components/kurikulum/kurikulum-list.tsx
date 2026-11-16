@@ -67,16 +67,16 @@ export default function KurikulumList() {
               Beranda
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-slate-800">Kurikulum 12 Modul</span>
+            <span className="font-semibold text-slate-800">Kurikulum 6 Modul</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-200">
             <div>
               <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                Kurikulum Lengkap Web Development
+                Kurikulum Lengkap Android Kotlin &amp; Compose
               </h1>
               <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl">
-                12 modul komprehensif dari nol hingga mahir. Dilengkapi instruksi langkah demi langkah dan prompt AI Google Antigravity siap salin.
+                6 modul padat untuk pelatihan 3 hari. Dilengkapi alur berpikir terstruktur dan prompt AI siap diskusi.
               </p>
             </div>
 

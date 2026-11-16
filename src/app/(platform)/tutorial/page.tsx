@@ -4,7 +4,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { Hammer, Laptop, ChevronRight, Check, BookOpen } from "lucide-react";
 
 export const metadata = {
-  title: "Tutorial — Vibe Code",
+  title: "Tutorial — ComposeLab SMKN 1",
   description: "Dua tutorial: persiapan laptop sebelum acara, dan development aplikasi saat acara.",
 };
 

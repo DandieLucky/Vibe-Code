@@ -99,7 +99,7 @@ function LoginForm() {
             <div className="h-11 w-11 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg">
               <GraduationCap className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-extrabold text-slate-900 tracking-tight">VIBE CODE</span>
+            <span className="text-2xl font-extrabold text-slate-900 tracking-tight">COMPOSELAB SMKN 1</span>
           </Link>
           <h1 className="text-2xl font-extrabold text-slate-900">Masuk ke Akun Anda</h1>
           <p className="mt-1.5 text-sm text-slate-500">

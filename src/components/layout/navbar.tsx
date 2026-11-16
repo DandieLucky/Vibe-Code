@@ -53,7 +53,7 @@ export function Navbar() {
   const navLinks = isAdmin
     ? [
         { href: "/", label: "Beranda" },
-        { href: "/kurikulum", label: "Kurikulum 12 Modul" },
+        { href: "/kurikulum", label: "Kurikulum 6 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya" },
         { href: "/leaderboard", label: "Papan Peringkat", icon: Trophy },
         { href: "/tutorial", label: "Tutorial", icon: Rocket },
@@ -62,13 +62,13 @@ export function Navbar() {
     ? [
         { href: "/dashboard", label: "Dashboard Saya", icon: GraduationCap },
         { href: "/tutorial", label: "Tutorial", icon: BookOpen },
-        { href: "/kurikulum", label: "Kurikulum 12 Modul" },
+        { href: "/kurikulum", label: "Kurikulum 6 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
       ]
     : [
         { href: "/", label: "Beranda" },
-        { href: "/#kurikulum", label: "Kurikulum 12 Modul" },
-        { href: "/#karya", label: "Galeri Karya" },
+        { href: "/#kurikulum", label: "Kurikulum 6 Modul" },
+        { href: "/#karya", label: "Alur Pelatihan" },
       ];
 
   return (
@@ -89,14 +89,14 @@ export function Navbar() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white group-hover:text-sky-300 transition-colors">
-                  VIBE CODE
+                  COMPOSELAB
                 </span>
                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">
-                  ANTIGRAVITY
+                  SMKN 1 JKT
                 </span>
               </div>
               <p className="text-[11px] text-slate-400 hidden sm:block">
-                Platform Pembelajaran Web Dev Terintegrasi
+                Android Kotlin, Compose &amp; AI Prompting
               </p>
             </div>
           </Link>

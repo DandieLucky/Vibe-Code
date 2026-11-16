@@ -4,24 +4,25 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 
 export const metadata: Metadata = {
-  title: "Vibe Code — Platform Pembelajaran Development Terintegrasi",
+  title: "ComposeLab SMKN 1 — Platform Belajar Android & AI Prompting",
   description:
-    "Belajar membuat aplikasi web dari nol sampai online menggunakan Google Antigravity, Next.js, dan Supabase. Kurikulum terstruktur 12 modul dengan prompt AI siap pakai.",
+    "Belajar membangun aplikasi Android dengan Kotlin, Jetpack Compose, Room Database, dan Google Sign-In untuk siswa kelas 10 SMK Negeri 1 Jakarta. Berpikir terstruktur dengan AI, bukan vibecoding.",
   keywords: [
-    "Google Antigravity",
-    "Next.js",
-    "Supabase",
-    "Web Development",
-    "Katalog UMKM",
-    "AI Coding Agent",
-    "Belajar Pemrograman Pemula",
+    "ComposeLab SMKN 1",
+    "SMK Negeri 1 Jakarta",
+    "Kotlin",
+    "Jetpack Compose",
+    "Room Database",
+    "Credential Manager",
+    "AI Prompting",
+    "Belajar Android Kelas 10",
   ],
-  authors: [{ name: "Tim Profesional Vibe Code" }],
+  authors: [{ name: "Tim Pengajar RPL SMKN 1 Jakarta" }],
   openGraph: {
-    title: "Vibe Code — Platform Pembelajaran Development Terintegrasi",
+    title: "ComposeLab SMKN 1 — Platform Belajar Android & AI Prompting",
     description:
-      "Bangun aplikasi web katalog UMKM Anda sendiri dari nol hingga live di Vercel menggunakan Google Antigravity.",
-    siteName: "Vibe Code",
+      "Bangun aplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, Room Database, dan Login Google menggunakan pendekatan berpikir terstruktur.",
+    siteName: "ComposeLab SMKN 1",
     locale: "id_ID",
     type: "website",
   },

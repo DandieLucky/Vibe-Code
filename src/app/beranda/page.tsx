@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
-  title: "Vibe Code — Dashboard Utama",
+  title: "ComposeLab SMKN 1 — Beranda Utama",
   description:
     "Platform pembelajaran development terintegrasi. 12 modul, dari setup environment sampai aplikasi Anda online.",
 };

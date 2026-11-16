@@ -1,5 +1,5 @@
 {
-  "name": "vibe-code-learning-platform",
+  "name": "composelab-smkn1-learning-platform",
   "version": "1.0.0",
   "private": true,
   "imports": {
@@ -18,15 +18,15 @@
     "@supabase/supabase-js": "^2.48.1",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
-    "googleapis": "^144.0.0",
+    "googleapis": "^190.0.0",
     "lucide-react": "^0.475.0",
-    "next": "^15.1.7",
+    "next": "^16.4.6",
     "prismjs": "^1.29.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-merge": "^2.6.0",
     "xlsx": "^0.18.5",
-    "zod": "^3.24.2"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",

@@ -14,21 +14,21 @@ export function Footer() {
                 <Code2 className="w-5 h-5" />
               </div>
               <span className="font-extrabold text-lg text-white tracking-tight">
-                VIBE CODE
+                COMPOSELAB SMKN 1
               </span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Platform pembelajaran web development terintegrasi berbasis AI Coding Agent Google Antigravity, Next.js App Router, dan Supabase PostgreSQL.
+              Platform pembelajaran pengembangan aplikasi Android (Kotlin, Jetpack Compose, Room Database, dan Google Sign-In) dengan pendekatan berpikir terstruktur dan prompting AI untuk siswa kelas 10 SMK Negeri 1 Jakarta.
             </p>
             <div className="flex items-center gap-3 pt-2 text-xs text-slate-500">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-500" />
-                Row Level Security
+                Kotlin &amp; Compose
               </span>
               <span>•</span>
-              <span>Next.js 15 Ready</span>
+              <span>Room Database</span>
               <span>•</span>
-              <span>TypeScript Strict</span>
+              <span>Credential Manager</span>
             </div>
           </div>
 
@@ -151,9 +151,9 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 mt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>© {new Date().getFullYear()} Vibe Code Platform. Hak cipta dilindungi.</p>
+          <p>© {new Date().getFullYear()} ComposeLab SMKN 1 Jakarta. Hak cipta dilindungi.</p>
           <p className="flex items-center gap-1 text-slate-400">
-            Didesain untuk Pelajar, Mahasiswa, Guru, Dosen, dan Pelaku UMKM Indonesia
+            Program Pembelajaran Android Kelas 10 — SMK Negeri 1 Jakarta
           </p>
         </div>
       </div>

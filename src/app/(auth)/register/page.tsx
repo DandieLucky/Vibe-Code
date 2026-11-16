@@ -141,7 +141,7 @@ function RegisterPageInner() {
               <Code2 className="w-6 h-6" />
             </div>
             <span className="font-extrabold text-xl text-slate-900 tracking-tight">
-              VIBE CODE
+              COMPOSELAB SMKN 1
             </span>
           </Link>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">

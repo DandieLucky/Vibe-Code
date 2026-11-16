@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard — Vibe Code",
+  title: "Admin Dashboard — ComposeLab SMKN 1",
   robots: {
     index: false,
     follow: false,
