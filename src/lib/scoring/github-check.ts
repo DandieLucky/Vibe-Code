@@ -27,7 +27,7 @@ export interface GithubCheckResult {
   score: number;
 }
 
-interface GitTreeBlob {
+export interface GitTreeBlob {
   path?: string;
   type?: string;
   sha?: string;

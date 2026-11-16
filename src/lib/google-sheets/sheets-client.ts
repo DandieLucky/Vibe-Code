@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { WorkSubmission } from "@/types/database";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getArtifactUrl } from "@/lib/utils";
 import { formatSubmissionStatus } from "@/lib/export/excel-generator";
 
 export interface SyncResult {
@@ -82,7 +82,7 @@ export async function syncSubmissionsToGoogleSheets(
       sub.project_title || "",
       Array.isArray(sub.completed_modules) ? sub.completed_modules.join(", ") : sub.completed_modules || "",
       sub.github_url || "",
-      sub.apk_url || sub.deployment_url || "",
+      getArtifactUrl(sub),
       sub.demo_video_url || "",
       formatSubmissionStatus(sub.submission_status),
       sub.score !== undefined && sub.score !== null ? sub.score : "",

@@ -36,3 +36,14 @@ export function formatTimeAgo(dateString: string | Date | null | undefined): str
   if (diffInDays < 30) return `${diffInDays} hari yang lalu`;
   return formatDate(dateString);
 }
+
+/**
+ * Tautan hasil karya: APK/rilis Android lebih diutamakan, tautan lama
+ * (deployment_url) hanya dipakai sebagai cadangan untuk data lama.
+ */
+export function getArtifactUrl(sub: {
+  apk_url?: string | null;
+  deployment_url?: string | null;
+}): string {
+  return sub.apk_url || sub.deployment_url || "";
+}

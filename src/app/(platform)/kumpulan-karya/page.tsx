@@ -26,6 +26,7 @@ import { Badge } from "@/components/ui/badge";
 import { MODULES_DATA } from "@/lib/data/curriculum-data";
 import { submissionSchema } from "@/lib/validations";
 import { WorkSubmission } from "@/types/database";
+import { getArtifactUrl } from "@/lib/utils";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import confetti from "canvas-confetti";
 import { submitWork, loadMySubmission, type SubmissionRecord } from "@/lib/data-access/submissions";
@@ -321,16 +322,16 @@ export default function KumpulanKaryaPage() {
                   {userSubmission.github_url}
                 </a>
               </div>
-              {(userSubmission.apk_url || userSubmission.deployment_url) && (
+              {getArtifactUrl(userSubmission) && (
                 <div>
                   <strong className="text-slate-900">Link File APK / Rilis: </strong>
                   <a
-                    href={userSubmission.apk_url || userSubmission.deployment_url}
+                    href={getArtifactUrl(userSubmission)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sky-700 font-semibold hover:underline"
                   >
-                    {userSubmission.apk_url || userSubmission.deployment_url}
+                    {getArtifactUrl(userSubmission)}
                   </a>
                 </div>
               )}

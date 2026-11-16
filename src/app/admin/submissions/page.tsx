@@ -28,7 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Modal } from "@/components/ui/modal";
 import { WorkSubmission, SubmissionStatus } from "@/types/database";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getArtifactUrl } from "@/lib/utils";
 import { ambilKaryaLewatServer, simpanPenilaianLewatServer } from "@/lib/data-access/admin";
 
 export default function AdminSubmissionsPage() {
@@ -286,9 +286,9 @@ export default function AdminSubmissionsPage() {
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
-                    {(sub.apk_url || sub.deployment_url) && (
+                    {getArtifactUrl(sub) && (
                       <a
-                        href={sub.apk_url || sub.deployment_url}
+                        href={getArtifactUrl(sub)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-emerald-700 hover:underline flex items-center gap-1 font-medium text-[11px]"
@@ -445,9 +445,9 @@ export default function AdminSubmissionsPage() {
                     <span>Buka Repository GitHub</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  {(selectedSubmission.apk_url || selectedSubmission.deployment_url) && (
+                  {getArtifactUrl(selectedSubmission) && (
                     <a
-                      href={selectedSubmission.apk_url || selectedSubmission.deployment_url}
+                      href={getArtifactUrl(selectedSubmission)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-emerald-700 font-bold hover:underline"

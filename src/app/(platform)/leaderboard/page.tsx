@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { getLeaderboard } from "@/lib/scoring/engine";
 import { Badge } from "@/components/ui/badge";
+import { getArtifactUrl } from "@/lib/utils";
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
@@ -214,9 +215,9 @@ export default async function LeaderboardPage() {
                       <Github className="w-3.5 h-3.5" />
                       GitHub
                     </a>
-                    {(e.apk_url || e.deployment_url) && (
+                    {getArtifactUrl(e) && (
                       <a
-                        href={e.apk_url || e.deployment_url}
+                        href={getArtifactUrl(e)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors bg-accent text-sheet hover:bg-rubber-lo"

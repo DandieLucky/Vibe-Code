@@ -261,6 +261,8 @@ export async function scoreSubmission(submissionId: string): Promise<ScoringOutc
     .from("work_submissions")
     .update({
       is_github_public: github.isPublic,
+      // Nama kolom DB lama dipertahankan (tanpa migrasi): untuk karya Android,
+      // is_deployment_live berarti "artefak APK/screenshot tersedia".
       is_deployment_live: hasApk || hasScreenshot,
       deployment_http_status: null,
       lighthouse_performance: null,

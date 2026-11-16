@@ -1,6 +1,6 @@
 import ExcelJS from "exceljs";
 import type { WorkSubmission } from "../../types/database.ts";
-import { formatDate } from "../utils.ts";
+import { formatDate, getArtifactUrl } from "../utils.ts";
 
 export interface ExportFilterOptions {
   status?: string;
@@ -95,7 +95,7 @@ export async function generateExcelBuffer(submissions: WorkSubmission[]): Promis
         ? sub.completed_modules.join(", ")
         : sub.completed_modules || "-",
       github_url: sub.github_url || "-",
-      apk_url: sub.apk_url || sub.deployment_url || "-",
+      apk_url: getArtifactUrl(sub) || "-",
       demo_video_url: sub.demo_video_url || "-",
       screenshot_url: sub.screenshot_url || "-",
       attachment_url: sub.attachment_url || "-",
@@ -119,7 +119,7 @@ export function generateCsvString(submissions: WorkSubmission[]): string {
     "Asal Institusi": `"${(sub.institution || "").replace(/"/g, '""')}"`,
     "Judul Proyek": `"${(sub.project_title || "").replace(/"/g, '""')}"`,
     "Link GitHub": `"${(sub.github_url || "").replace(/"/g, '""')}"`,
-    "Link APK": `"${(sub.apk_url || sub.deployment_url || "").replace(/"/g, '""')}"`,
+    "Link APK": `"${getArtifactUrl(sub).replace(/"/g, '""')}"`,
     "Link Video Demo": `"${(sub.demo_video_url || "").replace(/"/g, '""')}"`,
     "Status Penilaian": `"${formatSubmissionStatus(sub.submission_status)}"`,
     "Skor": sub.score !== undefined && sub.score !== null ? sub.score : "",

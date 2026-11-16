@@ -11,7 +11,7 @@
  * terkendali dan tetap dalam batas free tier.
  */
 
-import { parseGithubRepo, githubHeaders } from "./github-check";
+import { parseGithubRepo, githubHeaders, type GitTreeBlob } from "./github-check";
 
 export interface AiScores {
   codeQuality: number;
@@ -94,15 +94,15 @@ export async function fetchRepoCode(
     if (!treeRes.ok) {
       return { files: [], error: `Tidak bisa membaca daftar file (HTTP ${treeRes.status}).` };
     }
-    const tree = await treeRes.json();
+    const tree: { tree?: GitTreeBlob[] } = await treeRes.json();
 
     const candidates = (tree.tree ?? [])
-      .filter((t: any) => t.type === "blob")
-      .filter((t: any) => !SKIP_DIRS.test(t.path))
-      .filter((t: any) => !SKIP_EXT.test(t.path))
-      .filter((t: any) => (t.size ?? 0) > 0 && (t.size ?? 0) < 400000)
-      .map((t: any) => ({ path: t.path, sha: t.sha, weight: scoreFile(t.path) }))
-      .sort((a: any, b: any) => b.weight - a.weight)
+      .filter((t: GitTreeBlob) => t.type === "blob")
+      .filter((t: GitTreeBlob) => !SKIP_DIRS.test(t.path ?? ""))
+      .filter((t: GitTreeBlob) => !SKIP_EXT.test(t.path ?? ""))
+      .filter((t: GitTreeBlob) => (t.size ?? 0) > 0 && (t.size ?? 0) < 400000)
+      .map((t: GitTreeBlob) => ({ path: t.path ?? "", sha: t.sha, weight: scoreFile(t.path ?? "") }))
+      .sort((a: { weight: number }, b: { weight: number }) => b.weight - a.weight)
       .slice(0, MAX_FILES);
 
     const files: Array<{ path: string; content: string }> = [];

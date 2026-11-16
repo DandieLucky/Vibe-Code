@@ -24,7 +24,7 @@ import { MODULES_DATA } from "@/lib/data/curriculum-data";
 import { WorkSubmission } from "@/types/database";
 import { ambilKaryaLewatServer, ambilRingkasanPeserta, hitungStatistik, type RingkasanPeserta } from "@/lib/data-access/admin";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getArtifactUrl } from "@/lib/utils";
 
 export default function AdminOverviewPage() {
   const [submissions, setSubmissions] = useState<WorkSubmission[]>([]);
@@ -419,9 +419,9 @@ export default function AdminOverviewPage() {
                       <span>GitHub</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
-                    {(sub.apk_url || sub.deployment_url) && (
+                    {getArtifactUrl(sub) && (
                       <a
-                        href={sub.apk_url || sub.deployment_url}
+                        href={getArtifactUrl(sub)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-emerald-700 hover:underline flex items-center gap-1 font-medium text-[11px]"
