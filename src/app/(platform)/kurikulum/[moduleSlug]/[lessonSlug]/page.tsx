@@ -34,12 +34,12 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
   // Dicek di server supaya isi pelajaran tidak pernah dikirim ke browser
   // sebelum hak akses terbukti.
   const supabase = await createServerSupabaseClient();
-  if (!supabase) {
-    // Supabase belum dikonfigurasi — platform berjalan dalam mode demo
-    return null as never;
+  // Tanpa Supabase (mode demo/lokal) materi tetap tampil; gerbang login
+  // hanya berlaku saat Supabase aktif.
+  if (supabase) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
   }
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
 
 
   const { moduleSlug, lessonSlug } = await params;
