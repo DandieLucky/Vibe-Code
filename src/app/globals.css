@@ -1,7 +1,7 @@
-/* Hallmark · shape: App Shell · genre: modern-minimal · theme: Coral (by request) · job: join · draw: 9bdb76
+/* Hallmark · shape: App Shell · genre: modern-minimal · theme: Cobalt (by request) · job: join · draw: 9bdb76
  * hero: Corridor · nav: masthead · footer: statement · imagery: the product · signature: interactive SakuSiswa prompt-to-compose workbench
- * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · redesign: restyle · v2.0.0 */
-/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: none, unified Coral tokens and General Sans + Geist Mono across all platform routes and components */
+ * axes: light/grotesk-sans/cool · posture: restrained · contrast: pass · fold: pass · redesign: restyle · v2.0.0 */
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 · weakest: none, unified Cobalt tokens and General Sans + Geist Mono across all platform routes and components */
 @import "./beranda/tokens.css";
 
 @tailwind base;

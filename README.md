@@ -6,7 +6,7 @@ Platform pembelajaran pengembangan aplikasi Android modern menggunakan **Kotlin*
 
 ## Konsep Pembelajaran
 
-1. **Desain Hallmark Coral**: Palet abu-hangat cotton (`--color-paper`, `--color-sheet`), tinta charcoal (`--color-ink`), dan aksen deep coral (`--color-accent`) dengan tipografi General Sans dan Geist Mono.
+1. **Desain Hallmark Cobalt**: Palet kertas putih-sejuk (`--color-paper`, `--color-sheet`), tinta biru-grafit (`--color-ink`), dan aksen electric cobalt (`--color-accent`) dengan tipografi General Sans dan Geist Mono.
 2. **Blok Pikirkan Dulu & Formula Prompt 6-Bagian**: Setiap materi praktik diawali panduan merancang alur logika (*Input-Proses-Output*) sebelum menyusun prompt terstruktur (**TUJUAN, KONTEKS, INSTRUKSI, BATASAN, HASIL AKHIR, VALIDASI**).
 3. **Studi Kasus Aplikasi SakuSiswa**: Aplikasi catatan dan manajemen tugas siswa dengan autentikasi akun Google lokal, penyimpanan Room Database per akun, dan operasi CRUD lengkap.
 4. **Sistem Pengumpulan & Penilaian Karya Android**: Formulir pengumpulan karya peserta dengan verifikasi repository GitHub publik, unggah screenshot aplikasi Android, serta tautan opsional file APK dan video demo.
