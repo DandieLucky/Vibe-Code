@@ -28,12 +28,26 @@ export const submissionSchema = z.object({
     .min(1, "Pilih minimal 1 modul yang telah Anda selesaikan"),
   github_url: z
     .string()
-    .url("Link GitHub harus berupa URL valid (contoh: https://github.com/username/project)")
+    .url("Link GitHub harus berupa URL valid (contoh: https://github.com/username/sakusiswa-android)")
     .regex(/^https?:\/\/(www\.)?github\.com\/.+/i, "URL harus mengarah ke repository GitHub publik"),
+  apk_url: z
+    .string()
+    .url("Link APK harus berupa URL valid (GitHub Releases atau Google Drive)")
+    .optional()
+    .or(z.literal("")),
+  demo_video_url: z
+    .string()
+    .url("Link video demo harus berupa URL valid (YouTube atau Google Drive)")
+    .optional()
+    .or(z.literal("")),
   deployment_url: z
     .string()
-    .url("Link deployment harus berupa URL valid (contoh: https://proyek-anda.vercel.app)"),
-  screenshot_url: z.string().optional().or(z.literal("")),
+    .url("Link deployment harus berupa URL valid")
+    .optional()
+    .or(z.literal("")),
+  screenshot_url: z
+    .string()
+    .min(1, "Screenshot aplikasi Android wajib diunggah"),
   attachment_url: z.string().optional().or(z.literal("")),
 });
 

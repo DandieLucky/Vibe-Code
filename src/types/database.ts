@@ -132,7 +132,9 @@ export interface WorkSubmission {
   project_description: string;
   completed_modules: string[];
   github_url: string;
-  deployment_url: string;
+  deployment_url?: string;
+  apk_url?: string;
+  demo_video_url?: string;
   screenshot_url?: string;
   attachment_url?: string;
   submission_status: SubmissionStatus;

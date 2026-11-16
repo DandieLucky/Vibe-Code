@@ -36,18 +36,15 @@ export default function KumpulanKaryaPage() {
     email: "",
     whatsapp: "",
     institution: "",
-    project_title: "Katalog UMKM Digital Modern",
-    project_description: "Aplikasi katalog produk UMKM interaktif dengan integrasi pemesanan WhatsApp dan admin dashboard aman.",
-    completed_modules: [
-      "Modul 1: Pengenalan Web & AI",
-      "Modul 2: Persiapan Lingkungan",
-      "Modul 3: Membuat Proyek Pertama",
-      "Modul 4: Menguasai Google Antigravity",
-      "Modul 5: Membangun Frontend",
-      "Modul 6: Database Supabase",
-      "Modul 7: Proyek Katalog UMKM",
-    ],
+    project_title: "SakuSiswa — Catatan & Tugas Siswa",
+    project_description:
+      "Aplikasi Android Kotlin & Jetpack Compose dengan Login Google Credential Manager, penyimpanan lokal Room Database (KSP), dan fitur CRUD tugas lengkap.",
+    completed_modules: MODULES_DATA.map(
+      (m) => `Modul ${m.module_number}: ${m.title}`
+    ),
     github_url: "",
+    apk_url: "",
+    demo_video_url: "",
     deployment_url: "",
     screenshot_url: "",
     attachment_url: "",
@@ -97,6 +94,8 @@ export default function KumpulanKaryaPage() {
           project_description: parsedSub.project_description || prev.project_description,
           completed_modules: parsedSub.completed_modules || prev.completed_modules,
           github_url: parsedSub.github_url || prev.github_url,
+          apk_url: parsedSub.apk_url || "",
+          demo_video_url: parsedSub.demo_video_url || "",
           deployment_url: parsedSub.deployment_url || prev.deployment_url,
           screenshot_url: parsedSub.screenshot_url || "",
           attachment_url: (parsedSub as any).attachment_url || "",
@@ -196,6 +195,8 @@ export default function KumpulanKaryaPage() {
         project_description: formData.project_description,
         completed_modules: formData.completed_modules,
         github_url: formData.github_url,
+        apk_url: formData.apk_url,
+        demo_video_url: formData.demo_video_url,
         deployment_url: formData.deployment_url,
         screenshot_url: formData.screenshot_url,
         attachment_url: formData.attachment_url,
@@ -214,7 +215,9 @@ export default function KumpulanKaryaPage() {
         project_title: formData.project_title,
         project_description: formData.project_description,
         github_url: formData.github_url,
-        deployment_url: formData.deployment_url,
+        apk_url: formData.apk_url || undefined,
+        demo_video_url: formData.demo_video_url || undefined,
+        deployment_url: formData.deployment_url || undefined,
         completed_modules: formData.completed_modules,
         full_name: formData.full_name,
         email: formData.email,
@@ -272,10 +275,10 @@ export default function KumpulanKaryaPage() {
             <Badge variant="teal">Sertifikasi & Penilaian</Badge>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Kumpulan Karya Peserta
+            Kumpulan Karya Aplikasi Android
           </h1>
           <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed">
-            Kumpulkan hasil karya aplikasi web katalog UMKM Anda. Seluruh karya akan ditinjau, dinilai, dan dikelola oleh administrator dalam dashboard terpusat.
+            Kumpulkan hasil karya aplikasi Android SakuSiswa (Kotlin + Jetpack Compose + Room + Google Login) milikmu. Karya akan diperiksa oleh guru dan sistem penilai otomatis.
           </p>
         </div>
 
@@ -387,7 +390,7 @@ export default function KumpulanKaryaPage() {
                 {userSubmission ? "Perbarui Pengumpulan Karya" : "Formulir Pengumpulan Karya"}
               </h2>
               <p className="text-xs text-slate-500">
-                Isi data diri dan tautan karya Anda. Pastikan link Vercel dan GitHub dapat dibuka publik tanpa login.
+                Isi data diri dan tautan karya Android Anda. Pastikan repository GitHub berstatus Public dan screenshot aplikasi diunggah.
               </p>
             </div>
           </div>
@@ -460,7 +463,7 @@ export default function KumpulanKaryaPage() {
                   setFormData({ ...formData, project_title: e.target.value })
                 }
                 error={formErrors.project_title}
-                placeholder="Contoh: Katalog Digital Toko Berkah UMKM"
+                placeholder="Contoh: SakuSiswa — Aplikasi Tugas Harian X RPL 1"
                 required
               />
 
@@ -475,7 +478,7 @@ export default function KumpulanKaryaPage() {
                   })
                 }
                 error={formErrors.project_description}
-                placeholder="Jelaskan fitur utama katalog, keunggulan toko, dan bagaimana AI Antigravity membantu Anda membuatnya..."
+                placeholder="Jelaskan fitur utama aplikasi Android SakuSiswa, implementasi Room Database + Google Login, dan fitur kreasi tambahan Anda..."
                 required
               />
             </div>
@@ -487,7 +490,7 @@ export default function KumpulanKaryaPage() {
                   3. Modul yang Telah Diselesaikan
                 </h3>
                 <span className="text-xs text-sky-600 font-semibold font-mono">
-                  {formData.completed_modules.length} dari 12 Modul Dipilih
+                  {formData.completed_modules.length} dari {MODULES_DATA.length} Modul Dipilih
                 </span>
               </div>
 
@@ -524,42 +527,52 @@ export default function KumpulanKaryaPage() {
               </div>
             </div>
 
-            {/* Repository & Deployment URLs Group */}
+            {/* Repository & Android Links Group */}
             <div className="space-y-4 pt-4 border-t border-slate-100">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                4. Tautan Proyek Online (Wajib Publik)
+                4. Tautan Karya Android
               </h3>
+
+              <Input
+                label="Link Repository GitHub (Wajib Publik)"
+                value={formData.github_url}
+                onChange={(e) =>
+                  setFormData({ ...formData, github_url: e.target.value })
+                }
+                error={formErrors.github_url}
+                placeholder="https://github.com/username/sakusiswa-android"
+                helperText="Harus berupa link repository publik di github.com berisi folder app/ dan build.gradle.kts"
+                required
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
-                  label="Link Repository GitHub"
-                  value={formData.github_url}
+                  label="Link File APK (Opsional)"
+                  value={formData.apk_url}
                   onChange={(e) =>
-                    setFormData({ ...formData, github_url: e.target.value })
+                    setFormData({ ...formData, apk_url: e.target.value })
                   }
-                  error={formErrors.github_url}
-                  placeholder="https://github.com/username/katalog-umkm"
-                  helperText="Harus berupa link repository publik di github.com"
-                  required
+                  error={formErrors.apk_url}
+                  placeholder="https://github.com/username/sakusiswa/releases/..."
+                  helperText="Link GitHub Releases atau Google Drive (akses publik)"
                 />
 
                 <Input
-                  label="Link Website Deployment Vercel"
-                  value={formData.deployment_url}
+                  label="Link Video Demo (Opsional)"
+                  value={formData.demo_video_url}
                   onChange={(e) =>
-                    setFormData({ ...formData, deployment_url: e.target.value })
+                    setFormData({ ...formData, demo_video_url: e.target.value })
                   }
-                  error={formErrors.deployment_url}
-                  placeholder="https://katalog-umkm-anda.vercel.app"
-                  helperText="Pastikan dapat dibuka siapapun tanpa login (bukan localhost)"
-                  required
+                  error={formErrors.demo_video_url}
+                  placeholder="https://youtube.com/... atau https://drive.google.com/..."
+                  helperText="Rekaman layar singkat pengujian CRUD & Login Google"
                 />
               </div>
 
               <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                 <span>
-                  <strong>Peringatan Keamanan:</strong> Jangan pernah memasukkan password akun GitHub, Vercel, atau kredensial rahasia Supabase Anda ke dalam formulir ini. Juri hanya membutuhkan tautan publik.
+                  <strong>Peringatan Keamanan:</strong> Jangan pernah mengunggah keystore release pribadi atau token rahasia ke dalam formulir atau repository publik.
                 </span>
               </div>
             </div>
@@ -575,11 +588,16 @@ export default function KumpulanKaryaPage() {
                 <div className="p-4 rounded-xl border border-dashed border-slate-300 bg-slate-50/50 text-center space-y-2">
                   <ImageIcon className="w-8 h-8 text-slate-400 mx-auto" />
                   <div className="text-xs font-semibold text-slate-700">
-                    Upload Screenshot Aplikasi
+                    Upload Screenshot Aplikasi Android <span className="text-rose-600">*</span>
                   </div>
                   <p className="text-[11px] text-slate-500">
-                    Format PNG, JPEG, atau WebP (Maks. 5 MB)
+                    Format PNG, JPEG, atau WebP (Wajib, Maks. 5 MB)
                   </p>
+                  {formErrors.screenshot_url && (
+                    <p className="text-[11px] font-semibold text-rose-600">
+                      {formErrors.screenshot_url}
+                    </p>
+                  )}
                   <label className="inline-block cursor-pointer">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-50 shadow-2xs">
                       Pilih Gambar

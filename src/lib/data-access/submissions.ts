@@ -18,7 +18,9 @@ export interface SubmissionRecord extends Partial<WorkSubmission> {
   project_title: string;
   project_description: string;
   github_url: string;
-  deployment_url: string;
+  deployment_url?: string;
+  apk_url?: string;
+  demo_video_url?: string;
   submission_status: SubmissionStatus;
   submitted_at: string;
   submission_code?: string | null;
@@ -65,7 +67,9 @@ export interface SubmitPayload {
   project_title: string;
   project_description: string;
   github_url: string;
-  deployment_url: string;
+  apk_url?: string;
+  demo_video_url?: string;
+  deployment_url?: string;
   completed_modules: string[];
   full_name: string;
   email: string;
@@ -94,7 +98,7 @@ export async function submitWork(payload: SubmitPayload): Promise<SubmitResult> 
       ...payload,
       submission_status: "pending",
       submitted_at: new Date().toISOString(),
-      submission_code: "VC-DEMO-0001",
+      submission_code: "CL-DEMO-0001",
       scoring_status: "pending",
     };
     try {
@@ -103,7 +107,7 @@ export async function submitWork(payload: SubmitPayload): Promise<SubmitResult> 
         ok: true,
         message:
           "Karya tersimpan dalam mode demo (belum tersambung ke database). Login agar karya Anda masuk ke sistem penilaian.",
-        submissionCode: "VC-DEMO-0001",
+        submissionCode: "CL-DEMO-0001",
       };
     } catch {
       return { ok: false, message: "Gagal menyimpan karya di browser Anda." };

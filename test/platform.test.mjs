@@ -60,23 +60,29 @@ test("Sistem Prompt Antigravity: Memenuhi format formula 6-bagian baku", async (
 test("Validasi: Skema pengumpulan karya menolak input cacat dan meloloskan input valid", async () => {
   const { submissionSchema } = await import("../src/lib/validations.ts");
 
-  // Valid submission
+  // Valid Android submission
   const validData = {
     full_name: "Budi Santoso",
     email: "budi@santoso.com",
     whatsapp: "081234567890",
-    institution: "SMK Negeri 1",
-    project_title: "Katalog UMKM Berkah",
-    project_description: "Aplikasi katalog produk UMKM interaktif dengan integrasi WhatsApp dan Next.js.",
-    completed_modules: ["Modul 1", "Modul 7"],
-    github_url: "https://github.com/budisantoso/katalog-umkm",
-    deployment_url: "https://katalog-umkm-budi.vercel.app",
+    institution: "X RPL 1 — SMKN 1 Jakarta",
+    project_title: "SakuSiswa — Aplikasi Tugas Siswa",
+    project_description: "Aplikasi Android Kotlin & Jetpack Compose dengan Room Database dan Google Login.",
+    completed_modules: ["Modul 1", "Modul 5"],
+    github_url: "https://github.com/budisantoso/sakusiswa-android",
+    apk_url: "https://github.com/budisantoso/sakusiswa-android/releases/tag/v1.0",
+    demo_video_url: "",
     screenshot_url: "https://example.com/screenshot.png",
     attachment_url: "",
   };
 
   const validRes = submissionSchema.safeParse(validData);
   assert.equal(validRes.success, true, "Data valid seharusnya lolos validasi");
+
+  // Invalid: Missing screenshot
+  const missingShot = { ...validData, screenshot_url: "" };
+  const resShot = submissionSchema.safeParse(missingShot);
+  assert.equal(resShot.success, false, "Screenshot kosong harus ditolak");
 
   // Invalid: Non-GitHub URL
   const invalidGit = { ...validData, github_url: "https://gitlab.com/notgithub" };
