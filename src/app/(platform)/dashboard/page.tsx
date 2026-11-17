@@ -207,29 +207,25 @@ function DashboardPesertaInner() {
             </div>
           )}
 
-          <div className="flex items-center gap-3">
-            <Link href="/profil">
-              <Button variant="outline" size="sm">
-                Pengaturan Profil
-              </Button>
-            </Link>
-            <Link href="/kumpulan-karya">
-              <Button variant="accent" size="sm" className="font-bold">
-                <UploadCloud className="w-4 h-4 mr-1.5" />
-                Kumpulkan Karya
-              </Button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Key Metrics Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-          <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
-            <span className="text-xs font-bold text-muted">
-              Total Modul
-            </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-ink mt-1">
-              {modules.length} Modul
+          {/* User Profile Header Card */}
+          <div className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="h-16 w-16 rounded-2xl bg-accent text-sheet flex items-center justify-center font-bold text-2xl shadow-sm">
+                <User className="w-8 h-8" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl sm:text-2xl font-extrabold text-ink">
+                    {currentUser?.full_name ?? "Peserta ComposeLab"}
+                  </h1>
+                  <Badge variant="teal" className="text-[10px]">
+                    Peserta Aktif
+                  </Badge>
+                </div>
+                <p className="text-xs sm:text-sm text-ink-2 mt-1">
+                  Program Pembelajaran Pemrograman Terstruktur &amp; AI Prompting
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">
@@ -254,9 +250,9 @@ function DashboardPesertaInner() {
                 Total Modul
               </span>
               <div className="text-2xl sm:text-3xl font-extrabold text-ink mt-1">
-                {MODULES_DATA.length} Modul
+                {modules.length} Modul
               </div>
-              <p className="text-[11px] text-muted mt-1">Pelatihan 3 Hari</p>
+              <p className="text-[11px] text-muted mt-1">Kurikulum Terstruktur</p>
             </div>
 
             <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
@@ -279,51 +275,90 @@ function DashboardPesertaInner() {
               <p className="text-[11px] text-muted mt-1">Kelulusan Kurikulum</p>
             </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Module Progress Breakdown */}
-          <div className="lg:col-span-8 space-y-6">
-            <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
-              <h2 className="text-base font-bold text-ink mb-4 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-accent" />
-                <span>Rincian Progres Per Modul</span>
-              </h2>
-
-              <div className="space-y-4">
-                {modules.map((module) => {
-                  const doneInMod = module.lessons.filter((l) =>
-                    completedLessons.includes(l.id)
-                  ).length;
-                  const modPct = module.lessons.length > 0 ? Math.round((doneInMod / module.lessons.length) * 100) : 0;
-
-                  return (
-                    <div
-                      key={module.id}
-                      className="p-4 rounded-xl border border-rule bg-paper hover:bg-paper-2 transition-colors"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <Link
-                          href={`/kurikulum/${module.slug}`}
-                          className="text-xs sm:text-sm font-bold text-ink hover:text-accent transition-colors"
-                        >
-                          Modul {module.module_number}: {module.title}
-                        </Link>
-                        <span className="font-mono text-xs font-semibold text-ink-2">
-                          {doneInMod}/{module.lessons.length} ({modPct}%)
-                        </span>
-                      </div>
-                      <div className="w-full bg-paper-3 rounded-full h-1.5 overflow-hidden">
-                        <div
-                          className="bg-accent h-1.5 rounded-full transition-colors duration-300"
-                          style={{ width: `${modPct}%` }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
+            <div className="rounded-2xl border border-rule bg-sheet p-5 shadow-2xs">
+              <span className="text-xs font-bold text-muted">
+                Status Karya
+              </span>
+              <div className="mt-2">
+                {userSubmission ? (
+                  <SubmissionStatusBadge status={userSubmission.submission_status} />
+                ) : (
+                  <span className="text-xs font-semibold text-muted">
+                    Belum Dikumpulkan
+                  </span>
+                )}
               </div>
               <p className="text-[11px] text-muted mt-1">Evaluasi Fasilitator</p>
             </div>
           </div>
+
+          {/* Next Lesson Recommendation Card */}
+          {nextLessonToStudy && (
+            <div className="rounded-2xl border-2 border-rule bg-paper-2 p-6 shadow-sm mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-accent" />
+                  <span>Rekomendasi Materi: Modul {nextLessonToStudy.module.module_number}.{nextLessonToStudy.lesson.lesson_number} {nextLessonToStudy.lesson.title}</span>
+                </h2>
+                <p className="text-xs text-ink-2 mt-1 line-clamp-1">
+                  {nextLessonToStudy.lesson.description}
+                </p>
+              </div>
+              <Link
+                href={`/kurikulum/${nextLessonToStudy.module.slug}/${nextLessonToStudy.lesson.slug}`}
+                className="shrink-0"
+              >
+                <Button variant="accent" size="md" className="font-bold shadow-sm">
+                  Lanjutkan Belajar
+                </Button>
+              </Link>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Left Column: Module Progress Breakdown */}
+            <div className="lg:col-span-8 space-y-6">
+              <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+                <h2 className="text-base font-bold text-ink mb-4 flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-accent" />
+                  <span>Rincian Progres Per Modul</span>
+                </h2>
+
+                <div className="space-y-4">
+                  {modules.map((module) => {
+                    const doneInMod = module.lessons.filter((l) =>
+                      completedLessons.includes(l.id)
+                    ).length;
+                    const modPct = module.lessons.length > 0 ? Math.round((doneInMod / module.lessons.length) * 100) : 0;
+
+                    return (
+                      <div
+                        key={module.id}
+                        className="p-4 rounded-xl border border-rule bg-paper hover:bg-paper-2 transition-colors"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <Link
+                            href={`/kurikulum/${module.slug}`}
+                            className="text-xs sm:text-sm font-bold text-ink hover:text-accent transition-colors"
+                          >
+                            Modul {module.module_number}: {module.title}
+                          </Link>
+                          <span className="font-mono text-xs font-semibold text-ink-2">
+                            {doneInMod}/{module.lessons.length} ({modPct}%)
+                          </span>
+                        </div>
+                        <div className="w-full bg-paper-3 rounded-full h-1.5 overflow-hidden">
+                          <div
+                            className="bg-accent h-1.5 rounded-full transition-colors duration-300"
+                            style={{ width: `${modPct}%` }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
 
           {/* Right Column: Bookmarks & Personal Notes */}
           <div className="lg:col-span-4 space-y-6">
@@ -432,7 +467,6 @@ function DashboardPesertaInner() {
           </div>
         </div>
       </div>
-    </div>
     </div>
     </div>
   );
