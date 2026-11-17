@@ -7,7 +7,7 @@ import { DEVELOPMENT } from "@/lib/data/tutorial-development";
 
 export const metadata = {
   title: "Tutorial — ComposeLab",
-  description: "Dua tutorial: persiapan laptop Android sebelum praktik, dan panduan step-by-step membangun aplikasi SakuSiswa.",
+  description: "Dua tutorial: persiapan perangkat sebelum praktik, dan panduan step-by-step membangun proyek aplikasi.",
 };
 
 export default async function HalamanTutorial() {
@@ -38,8 +38,8 @@ export default async function HalamanTutorial() {
     {
       slug: "development",
       icon: Hammer,
-      judul: "Tutorial development SakuSiswa",
-      ringkas: `${DEVELOPMENT.langkah.length} langkah terstruktur membangun aplikasi Android SakuSiswa (Compose, Google Login, Room CRUD) sampai kumpul karya.`,
+      judul: "Tutorial development proyek aplikasi",
+      ringkas: `${DEVELOPMENT.langkah.length} langkah terstruktur membangun aplikasi (UI, Autentikasi, Database CRUD) sampai kumpul karya.`,
       total: DEVELOPMENT.langkah.length,
       warna: "bg-ink",
     },

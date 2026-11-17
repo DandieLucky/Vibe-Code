@@ -15,7 +15,9 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MODULES_DATA } from "@/lib/data/curriculum-data";
+import { getCurriculumModules } from "@/lib/data-access/curriculum";
+
+export const dynamic = "force-dynamic";
 
 interface ModulePageProps {
   params: Promise<{ moduleSlug: string }>;
@@ -33,19 +35,19 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
     if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
   }
 
-
+  const modules = await getCurriculumModules({ includeUnpublished: false });
   const { moduleSlug } = await params;
-  const module = MODULES_DATA.find((m) => m.slug === moduleSlug);
+  const module = modules.find((m) => m.slug === moduleSlug);
 
   if (!module) {
     notFound();
   }
 
   // Find previous and next module for navigation
-  const currentIndex = MODULES_DATA.findIndex((m) => m.id === module.id);
-  const prevModule = currentIndex > 0 ? MODULES_DATA[currentIndex - 1] : null;
+  const currentIndex = modules.findIndex((m) => m.id === module.id);
+  const prevModule = currentIndex > 0 ? modules[currentIndex - 1] : null;
   const nextModule =
-    currentIndex < MODULES_DATA.length - 1 ? MODULES_DATA[currentIndex + 1] : null;
+    currentIndex < modules.length - 1 ? modules[currentIndex + 1] : null;
 
   return (
     <div className="bg-paper min-h-screen py-10 sm:py-14">
@@ -69,7 +71,7 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
         <div className="rounded-2xl border border-umber bg-ink text-sheet p-6 sm:p-8 shadow-md mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-accent-soft text-accent-2 border border-rule">
-              Modul {module.module_number} dari {MODULES_DATA.length}
+              Modul {module.module_number} dari {modules.length}
             </span>
             <Badge
               variant={

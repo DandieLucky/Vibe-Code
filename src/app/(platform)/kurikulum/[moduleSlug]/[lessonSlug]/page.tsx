@@ -20,8 +20,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MODULES_DATA } from "@/lib/data/curriculum-data";
+import { getCurriculumModules } from "@/lib/data-access/curriculum";
 import { AntigravityPromptCard } from "@/components/lesson/antigravity-prompt-card";
+
+export const dynamic = "force-dynamic";
 import { CodeBlock } from "@/components/lesson/code-block";
 import { LessonInteractiveTools } from "@/components/lesson/lesson-interactive-tools";
 
@@ -42,9 +44,10 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
   }
 
 
+  const modules = await getCurriculumModules({ includeUnpublished: false });
   const { moduleSlug, lessonSlug } = await params;
 
-  const currentModule = MODULES_DATA.find((m) => m.slug === moduleSlug);
+  const currentModule = modules.find((m) => m.slug === moduleSlug);
   if (!currentModule) {
     notFound();
   }
@@ -69,9 +72,9 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
     };
   } else {
     // Check previous module
-    const currentModuleIndex = MODULES_DATA.findIndex((m) => m.id === currentModule.id);
+    const currentModuleIndex = modules.findIndex((m) => m.id === currentModule.id);
     if (currentModuleIndex > 0) {
-      const prevMod = MODULES_DATA[currentModuleIndex - 1];
+      const prevMod = modules[currentModuleIndex - 1];
       if (prevMod.lessons.length > 0) {
         prevLesson = {
           moduleSlug: prevMod.slug,
@@ -88,9 +91,9 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
     };
   } else {
     // Check next module
-    const currentModuleIndex = MODULES_DATA.findIndex((m) => m.id === currentModule.id);
-    if (currentModuleIndex < MODULES_DATA.length - 1) {
-      const nextMod = MODULES_DATA[currentModuleIndex + 1];
+    const currentModuleIndex = modules.findIndex((m) => m.id === currentModule.id);
+    if (currentModuleIndex < modules.length - 1) {
+      const nextMod = modules[currentModuleIndex + 1];
       if (nextMod.lessons.length > 0) {
         nextLesson = {
           moduleSlug: nextMod.slug,

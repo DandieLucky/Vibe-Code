@@ -1,11 +1,14 @@
 import Link from "next/link";
 import "./bloom.css";
 import { SakuSiswaWorkbench } from "./sakusiswa-workbench";
+import { getCurriculumModules } from "@/lib/data-access/curriculum";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "ComposeLab — Platform Belajar Android & AI Prompting",
+  title: "ComposeLab — Platform Belajar Pemrograman Terstruktur & AI Prompting",
   description:
-    "Pelatihan membangun aplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, Room Database, dan Google Sign-In untuk siswa.",
+    "Platform pembelajaran pemrograman terstruktur dengan pendekatan berpikir komputasional dan prompting AI 6-bagian.",
 };
 
 const MODULES_SUMMARY = [
@@ -16,28 +19,28 @@ const MODULES_SUMMARY = [
   },
   {
     num: "02",
-    title: "Persiapan Android Studio & Kotlin Dasar",
-    desc: "Instalasi JDK, Android Studio, Emulator/HP, serta variabel, data class, dan null-safety.",
+    title: "Persiapan Lingkungan & Bahasa Pemrograman",
+    desc: "Instalasi perangkat kerja, struktur proyek modern, dan dasar bahasa pemrograman.",
   },
   {
     num: "03",
-    title: "Jetpack Compose & Desain SakuSiswa",
-    desc: "Membangun antarmuka Material 3, state management, dan navigasi layar aplikasi.",
+    title: "Antarmuka Pengguna & Navigasi Layar",
+    desc: "Membangun antarmuka modern, pengelolaan state, dan navigasi antar halaman.",
   },
   {
     num: "04",
-    title: "Login Google Credential Manager",
-    desc: "Autentikasi akun Google modern dan penyimpanan sesi siswa secara lokal.",
+    title: "Autentikasi & Pengelolaan Sesi",
+    desc: "Integrasi autentikasi modern dan penyimpanan sesi pengguna secara aman.",
   },
   {
     num: "05",
-    title: "Room Database (KSP) & CRUD Lengkap",
-    desc: "Simpan, baca real-time dengan Flow, ubah, hapus, dan filter tugas per akun.",
+    title: "Basis Data Lokal & Operasi CRUD",
+    desc: "Simpan, baca real-time, ubah, hapus, dan filter data aplikasi.",
   },
   {
     num: "06",
-    title: "Debugging, Build APK & Pengumpulan Karya",
-    desc: "Membaca Logcat, ekspor APK, push ke GitHub, dan kumpulkan karya untuk dinilai.",
+    title: "Debugging, Build Rilis & Pengumpulan Karya",
+    desc: "Membaca log error, ekspor paket rilis, push ke GitHub, dan kumpulkan karya.",
   },
 ];
 
@@ -45,21 +48,31 @@ const SCHEDULE = [
   {
     day: "Tahap 1",
     title: "Modul 1 sampai 3",
-    desc: "Cara berpikir terstruktur, setup Android Studio, Kotlin dasar, dan tampilan awal SakuSiswa di Jetpack Compose.",
+    desc: "Cara berpikir terstruktur, persiapan perangkat kerja, dasar bahasa pemrograman, dan antarmuka aplikasi.",
   },
   {
     day: "Tahap 2",
     title: "Modul 4 dan 5",
-    desc: "Integrasi Login Google Credential Manager serta pembuatan Room Database lengkap dengan fitur Create, Read, Update, dan Delete.",
+    desc: "Integrasi autentikasi modern serta pembuatan database lokal lengkap dengan fitur Create, Read, Update, dan Delete.",
   },
   {
     day: "Tahap 3",
     title: "Modul 6 — Pengerjaan Mandiri & Pengumpulan",
-    desc: "Penyempurnaan aplikasi masing-masing siswa, uji coba di HP/Emulator, push GitHub, dan pengumpulan karya di ComposeLab.",
+    desc: "Penyempurnaan aplikasi masing-masing peserta, uji coba, push GitHub, dan pengumpulan karya di ComposeLab.",
   },
 ];
 
-export default function BerandaPage() {
+export default async function BerandaPage() {
+  const liveModules = await getCurriculumModules({ includeUnpublished: false });
+  const modulesSummary =
+    liveModules.length > 0
+      ? liveModules.map((m) => ({
+          num: String(m.module_number).padStart(2, "0"),
+          title: m.title,
+          desc: m.description,
+        }))
+      : MODULES_SUMMARY;
+
   return (
     <div className="bloom-page">
       {/* Hero Corridor */}
@@ -137,7 +150,7 @@ export default function BerandaPage() {
             <div>
               <p className="bloom-serif-figure">6</p>
               <p className="bloom-serif-caption">
-                Modul terpadu dari fondasi logika, autentikasi Google, dan database lokal hingga aplikasi SakuSiswa siap rilis.
+                Modul terpadu dari fondasi logika, autentikasi, dan database hingga proyek aplikasi siap rilis.
               </p>
               <div className="bloom-actions">
                 <Link href="/register" className="bloom-cta-secondary">
@@ -165,7 +178,7 @@ export default function BerandaPage() {
       <section id="kurikulum" className="bloom-section">
         <div className="bloom-container">
           <div className="bloom-section-head">
-            <h2>Enam modul kurikulum SakuSiswa</h2>
+            <h2>Kurikulum terstruktur dan modular</h2>
             <p className="bloom-section-sub">
               Ringkas, namun tetap memuat detail kode, konsep, dan troubleshooting.{" "}
               <Link href="/kurikulum" className="bloom-link">
@@ -175,7 +188,7 @@ export default function BerandaPage() {
           </div>
 
           <div className="bloom-module-list">
-            {MODULES_SUMMARY.map((mod) => (
+            {modulesSummary.map((mod) => (
               <div key={mod.num} className="bloom-module-row">
                 <span className="bloom-module-num">{mod.num}</span>
                 <div>
@@ -203,9 +216,9 @@ export default function BerandaPage() {
               <div>
                 <h3>Siswa</h3>
                 <ul className="bloom-role-list">
-                  <li>Akses 6 modul lengkap beserta blok Pikirkan Dulu dan Prompt AI.</li>
-                  <li>Centang progres persiapan Android Studio dan langkah SakuSiswa.</li>
-                  <li>Kumpulkan link GitHub, screenshot aplikasi, dan link APK.</li>
+                  <li>Akses modul lengkap beserta blok Pikirkan Dulu dan Prompt AI.</li>
+                  <li>Centang progres persiapan perangkat dan langkah pengembangan.</li>
+                  <li>Kumpulkan link GitHub, screenshot aplikasi, dan tautan rilis.</li>
                 </ul>
               </div>
               <div>

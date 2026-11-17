@@ -7,12 +7,12 @@ const STAGES = [
     id: "alur",
     label: "1. Pikirkan Alur",
     title: "Rancang data sebelum menulis prompt",
-    code: `Aplikasi: SakuSiswa (Catatan & Tugas)
-User Login: Google Credential Manager -> email siswa
-Data Lokal (Room):
+    code: `Aplikasi: Manajemen Catatan & Tugas
+User Login: Autentikasi Akun -> email pengguna
+Data Lokal:
   - id: Int (PrimaryKey)
   - userEmail: String
-  - mapel: String
+  - kategori: String
   - judulTugas: String
   - tenggat: String
   - selesai: Boolean`,
@@ -21,22 +21,22 @@ Data Lokal (Room):
     id: "prompt",
     label: "2. Prompt 6-Bagian",
     title: "Instruksi presisi ke AI, bukan menebak",
-    code: `[TUJUAN] Buat TaskEntity & TaskDao untuk Room Database.
-[KONTEKS] Kotlin, Jetpack Compose, KSP, app SakuSiswa.
-[INSTRUKSI] Gunakan Flow<List<TaskEntity>> agar daftar tugas
+    code: `[TUJUAN] Buat model data & akses database lokal.
+[KONTEKS] Arsitektur terstruktur, penyimpanan lokal, reaktif.
+[INSTRUKSI] Gunakan aliran data reaktif agar daftar tugas
 otomatis terbarui saat data ditambah atau dihapus.
 [BATASAN] Filter berdasarkan userEmail yang login.
-[VALIDASI] Pastikan build sukses tanpa error KSP.`,
+[VALIDASI] Pastikan build sukses tanpa error kompilasi.`,
   },
   {
     id: "compose",
-    label: "3. Hasil Compose",
-    title: "Kode Kotlin siap diuji di Android Studio",
+    label: "3. Hasil Implementasi",
+    title: "Kode terstruktur siap diuji",
     code: `@Entity(tableName = "tasks")
 data class TaskEntity(
   @PrimaryKey(autoGenerate = true) val id: Int = 0,
   val userEmail: String,
-  val mapel: String,
+  val kategori: String,
   val judulTugas: String,
   val selesai: Boolean = false
 )`,
@@ -48,7 +48,7 @@ export function SakuSiswaWorkbench() {
   const active = STAGES.find((s) => s.id === activeId) ?? STAGES[0];
 
   return (
-    <div className="bloom-roll" aria-label="Simulasi alur belajar SakuSiswa">
+    <div className="bloom-roll" aria-label="Simulasi alur belajar terstruktur">
       <div className="bloom-tabs" role="tablist" aria-label="Tahap merancang aplikasi">
         {STAGES.map((stage) => (
           <button

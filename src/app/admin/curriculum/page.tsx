@@ -1,77 +1,136 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import {
-  BookOpen,
-  Plus,
-  Edit,
-  Trash2,
-  Clock,
-  Sparkles,
+  ArrowDown,
+  ArrowUp,
   CheckCircle2,
-  AlertCircle,
+  Edit,
+  ExternalLink,
   Eye,
-  FileCode,
-  Save,
+  EyeOff,
+  Plus,
+  RefreshCw,
+  Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Modal } from "@/components/ui/modal";
-import { MODULES_DATA, FullModule } from "@/lib/data/curriculum-data";
-import { Lesson } from "@/types/database";
+import { MODULES_DATA, type FullModule } from "@/lib/data/curriculum-data";
+import type { Lesson } from "@/types/database";
+import {
+  BlogspotLessonEditor,
+  lessonToDraft,
+  type BlogspotLessonDraft,
+} from "@/components/admin/blogspot-lesson-editor";
 
 export default function AdminCurriculumCMSPage() {
   const [modules, setModules] = useState<FullModule[]>(MODULES_DATA);
-  const [selectedModule, setSelectedModule] = useState<FullModule>(MODULES_DATA[0]);
+  const [selectedModuleId, setSelectedModuleId] = useState<string>(MODULES_DATA[0]?.id || "");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [statusMsg, setStatusMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
 
-  // Edit Module Modal
+  // Module modal state
   const [moduleModalOpen, setModuleModalOpen] = useState(false);
   const [editingModule, setEditingModule] = useState<{
     id?: string;
     module_number: number;
     title: string;
+    slug: string;
     description: string;
     estimated_minutes: number;
     difficulty_level: string;
+    is_published: boolean;
+    order_index: number;
   }>({
     module_number: 1,
     title: "",
+    slug: "",
     description: "",
     estimated_minutes: 45,
     difficulty_level: "Pemula",
+    is_published: true,
+    order_index: 1,
   });
 
-  // Edit Lesson Modal
-  const [lessonModalOpen, setLessonModalOpen] = useState(false);
-  const [editingLesson, setEditingLesson] = useState<{
-    id?: string;
-    lesson_number: number;
-    title: string;
-    description: string;
-    estimated_minutes: number;
-    promptTujuan: string;
-    promptInstruksi: string;
-    promptBatasan: string;
-  }>({
-    lesson_number: 1,
-    title: "",
-    description: "",
-    estimated_minutes: 15,
-    promptTujuan: "",
-    promptInstruksi: "",
-    promptBatasan: "",
-  });
+  // Blogspot full-panel lesson editor state
+  const [lessonEditorDraft, setLessonEditorDraft] = useState<BlogspotLessonDraft | null>(null);
 
+  const selectedModule =
+    modules.find((m) => m.id === selectedModuleId) ?? modules[0] ?? null;
+
+  const showNotice = (type: "ok" | "err", text: string) => {
+    setStatusMsg({ type, text });
+    setTimeout(() => setStatusMsg(null), 4000);
+  };
+
+  const loadCurriculum = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/admin/curriculum", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.modules)) {
+          setModules(data.modules);
+          if (data.modules.length > 0) {
+            setSelectedModuleId((prev) =>
+              data.modules.some((m: FullModule) => m.id === prev) ? prev : data.modules[0].id
+            );
+          }
+        }
+      }
+    } catch {
+      // Tetap gunakan data bawaan jika berjalan offline/demo
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadCurriculum();
+  }, [loadCurriculum]);
+
+  const callCurriculumApi = async (payload: Record<string, any>) => {
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/admin/curriculum", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        showNotice("err", data.error || "Gagal menyimpan perubahan ke database.");
+        return null;
+      }
+      if (Array.isArray(data.modules)) {
+        setModules(data.modules);
+      }
+      return data;
+    } catch (err: any) {
+      showNotice("err", err?.message || "Terjadi kesalahan jaringan.");
+      return null;
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // ---------- MODULE ACTIONS ----------
   const handleOpenAddModule = () => {
+    const nextNum = modules.length + 1;
     setEditingModule({
-      module_number: modules.length + 1,
+      module_number: nextNum,
       title: "",
+      slug: "",
       description: "",
       estimated_minutes: 45,
       difficulty_level: "Pemula",
+      is_published: true,
+      order_index: nextNum,
     });
     setModuleModalOpen(true);
   };
@@ -81,345 +140,519 @@ export default function AdminCurriculumCMSPage() {
       id: m.id,
       module_number: m.module_number,
       title: m.title,
+      slug: m.slug,
       description: m.description,
       estimated_minutes: m.estimated_minutes,
       difficulty_level: m.difficulty_level,
+      is_published: m.is_published,
+      order_index: m.order_index,
     });
     setModuleModalOpen(true);
   };
 
-  const handleSaveModule = (e: React.FormEvent) => {
+  const handleSaveModule = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingModule.id) {
-      // Update existing module
-      const updated = modules.map((m) =>
-        m.id === editingModule.id
-          ? {
-              ...m,
-              module_number: editingModule.module_number,
-              title: editingModule.title,
-              description: editingModule.description,
-              estimated_minutes: editingModule.estimated_minutes,
-              difficulty_level: editingModule.difficulty_level as any,
-            }
-          : m
+    const res = await callCurriculumApi({
+      action: "upsert_module",
+      module: editingModule,
+    });
+    if (res) {
+      if (res.id) setSelectedModuleId(res.id);
+      setModuleModalOpen(false);
+      showNotice("ok", editingModule.id ? "Modul berhasil diperbarui." : "Modul baru berhasil ditambahkan.");
+    }
+  };
+
+  const handleToggleModulePublish = async (m: FullModule) => {
+    const res = await callCurriculumApi({
+      action: "upsert_module",
+      module: {
+        id: m.id,
+        module_number: m.module_number,
+        title: m.title,
+        slug: m.slug,
+        description: m.description,
+        estimated_minutes: m.estimated_minutes,
+        difficulty_level: m.difficulty_level,
+        is_published: !m.is_published,
+        order_index: m.order_index,
+      },
+    });
+    if (res) {
+      showNotice(
+        "ok",
+        !m.is_published ? "Modul dipublikasikan ke siswa." : "Modul disimpan sebagai draf."
       );
-      setModules(updated);
-      const cur = updated.find((m) => m.id === editingModule.id);
-      if (cur) setSelectedModule(cur);
-    } else {
-      // Create new module
-      const newMod: FullModule = {
-        id: `modul-${Date.now()}`,
-        course_id: "course-android-compose-smkn1",
-        module_number: editingModule.module_number,
-        title: editingModule.title,
-        slug: `modul-${editingModule.module_number}-${editingModule.title.toLowerCase().replace(/\s+/g, "-")}`,
-        description: editingModule.description,
-        estimated_minutes: editingModule.estimated_minutes,
-        difficulty_level: editingModule.difficulty_level as any,
-        is_published: true,
-        order_index: modules.length + 1,
-        created_at: new Date().toISOString(),
-        lessons: [],
-      };
-      setModules([...modules, newMod]);
-      setSelectedModule(newMod);
-    }
-    setModuleModalOpen(false);
-  };
-
-  const handleDeleteModule = (id: string) => {
-    if (confirm("Apakah Anda yakin ingin menghapus modul ini?")) {
-      const remaining = modules.filter((m) => m.id !== id);
-      setModules(remaining);
-      if (remaining.length > 0) setSelectedModule(remaining[0]);
     }
   };
 
+  const handleDeleteModule = async (id: string) => {
+    if (!confirm("Hapus modul ini beserta seluruh materi di dalamnya?")) return;
+    const res = await callCurriculumApi({ action: "delete_module", moduleId: id });
+    if (res) {
+      const remaining: FullModule[] = res.modules || [];
+      if (remaining.length > 0) setSelectedModuleId(remaining[0].id);
+      showNotice("ok", "Modul berhasil dihapus.");
+    }
+  };
+
+  const handleMoveModule = async (index: number, direction: -1 | 1) => {
+    const target = index + direction;
+    if (target < 0 || target >= modules.length) return;
+    const reordered = [...modules];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(target, 0, moved);
+    setModules(reordered);
+    await callCurriculumApi({
+      action: "reorder_modules",
+      orderedIds: reordered.map((m) => m.id),
+    });
+  };
+
+  // ---------- LESSON (BLOGSPOT POST) ACTIONS ----------
   const handleOpenAddLesson = () => {
-    setEditingLesson({
-      lesson_number: selectedModule.lessons.length + 1,
-      title: "",
-      description: "",
-      estimated_minutes: 15,
-      promptTujuan: "",
-      promptInstruksi: "",
-      promptBatasan: "",
-    });
-    setLessonModalOpen(true);
+    if (!selectedModule) return;
+    setLessonEditorDraft(
+      lessonToDraft(selectedModule.id, undefined, selectedModule.lessons.length + 1)
+    );
   };
 
-  const handleOpenEditLesson = (l: Lesson) => {
-    setEditingLesson({
-      id: l.id,
-      lesson_number: l.lesson_number,
-      title: l.title,
-      description: l.description,
-      estimated_minutes: l.estimated_minutes,
-      promptTujuan: l.antigravity_prompt?.tujuan || "",
-      promptInstruksi: l.antigravity_prompt?.instruksi.join("\n") || "",
-      promptBatasan: l.antigravity_prompt?.batasan.join("\n") || "",
-    });
-    setLessonModalOpen(true);
+  const handleOpenEditLesson = (lesson: Lesson) => {
+    if (!selectedModule) return;
+    setLessonEditorDraft(lessonToDraft(selectedModule.id, lesson));
   };
 
-  const handleSaveLesson = (e: React.FormEvent) => {
-    e.preventDefault();
-    const updatedLessons = [...selectedModule.lessons];
+  const handleSaveLessonDraft = async (draft: BlogspotLessonDraft) => {
+    const instruksi = draft.promptInstruksi
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const batasan = draft.promptBatasan
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const hasPrompt =
+      draft.promptTujuan.trim() || instruksi.length > 0 || batasan.length > 0;
 
-    if (editingLesson.id) {
-      const idx = updatedLessons.findIndex((l) => l.id === editingLesson.id);
-      if (idx !== -1) {
-        updatedLessons[idx] = {
-          ...updatedLessons[idx],
-          lesson_number: editingLesson.lesson_number,
-          title: editingLesson.title,
-          description: editingLesson.description,
-          estimated_minutes: editingLesson.estimated_minutes,
-          antigravity_prompt: {
-            tujuan: editingLesson.promptTujuan || "Menyelesaikan implementasi materi.",
-            konteks: "Next.js 15, TypeScript, Tailwind CSS, Supabase.",
-            instruksi: editingLesson.promptInstruksi.split("\n").filter(Boolean),
-            batasan: editingLesson.promptBatasan.split("\n").filter(Boolean),
-            hasilAkhir: "Fitur berhasil terpasang dan berfungsi normal.",
-            validasi: "Verifikasi tanpa error pada kompilasi kode.",
-            rawPrompt: `[TUJUAN]\n${editingLesson.promptTujuan}\n\n[INSTRUKSI]\n${editingLesson.promptInstruksi}\n\n[BATASAN]\n${editingLesson.promptBatasan}`,
-          },
-        };
-      }
-    } else {
-      const newLesson: Lesson = {
-        id: `lesson-${Date.now()}`,
-        module_id: selectedModule.id,
-        lesson_number: editingLesson.lesson_number,
-        title: editingLesson.title,
-        slug: editingLesson.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-        description: editingLesson.description,
-        estimated_minutes: editingLesson.estimated_minutes,
-        order_index: selectedModule.lessons.length + 1,
-        is_published: true,
-        created_at: new Date().toISOString(),
-        concept_explanation: "Penjelasan materi baru yang baru saja ditambahkan oleh admin.",
-        antigravity_prompt: {
-          tujuan: editingLesson.promptTujuan || "Implementasi materi baru.",
-          konteks: "Next.js 15 App Router.",
-          instruksi: editingLesson.promptInstruksi.split("\n").filter(Boolean),
-          batasan: editingLesson.promptBatasan.split("\n").filter(Boolean),
-          hasilAkhir: "Implementasi berhasil.",
-          validasi: "Uji kode dengan npm run test.",
-          rawPrompt: `[TUJUAN]\n${editingLesson.promptTujuan}\n\n[INSTRUKSI]\n${editingLesson.promptInstruksi}`,
-        },
-      };
-      updatedLessons.push(newLesson);
+    const antigravity_prompt = hasPrompt
+      ? {
+          tujuan: draft.promptTujuan.trim() || "Menyelesaikan materi praktik.",
+          konteks: draft.promptKonteks.trim() || "Proyek terstruktur.",
+          instruksi,
+          batasan,
+          hasilAkhir: draft.promptHasilAkhir.trim() || "Fitur berjalan sesuai rancangan.",
+          validasi: draft.promptValidasi.trim() || "Pastikan tidak ada error saat dijalankan.",
+          rawPrompt: `[TUJUAN]\n${draft.promptTujuan}\n\n[KONTEKS]\n${draft.promptKonteks}\n\n[INSTRUKSI]\n${draft.promptInstruksi}\n\n[BATASAN]\n${draft.promptBatasan}\n\n[HASIL AKHIR]\n${draft.promptHasilAkhir}\n\n[VALIDASI]\n${draft.promptValidasi}`.trim(),
+        }
+      : undefined;
+
+    const validation_check = draft.validation_check_text
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const payload = {
+      action: "upsert_lesson",
+      lesson: {
+        id: draft.id,
+        module_id: draft.module_id,
+        lesson_number: draft.lesson_number,
+        title: draft.title,
+        slug: draft.slug,
+        description: draft.description,
+        estimated_minutes: draft.estimated_minutes,
+        order_index: draft.lesson_number,
+        is_published: draft.is_published,
+        objective: draft.objective || undefined,
+        concept_explanation: draft.concept_explanation,
+        expected_result: draft.expected_result || undefined,
+        validation_check: validation_check.length > 0 ? validation_check : undefined,
+        code_snippets: draft.code_snippets.length > 0 ? draft.code_snippets : undefined,
+        antigravity_prompt,
+      },
+    };
+
+    const res = await callCurriculumApi(payload);
+    if (res) {
+      setLessonEditorDraft(null);
+      showNotice(
+        "ok",
+        draft.is_published
+          ? "Materi berhasil disimpan dan dipublikasikan!"
+          : "Materi disimpan sebagai draf."
+      );
     }
-
-    const updatedModule = { ...selectedModule, lessons: updatedLessons };
-    setSelectedModule(updatedModule);
-    setModules(modules.map((m) => (m.id === updatedModule.id ? updatedModule : m)));
-    setLessonModalOpen(false);
   };
 
-  const handleDeleteLesson = (lessonId: string) => {
-    if (confirm("Hapus materi ini?")) {
-      const updatedLessons = selectedModule.lessons.filter((l) => l.id !== lessonId);
-      const updatedModule = { ...selectedModule, lessons: updatedLessons };
-      setSelectedModule(updatedModule);
-      setModules(modules.map((m) => (m.id === updatedModule.id ? updatedModule : m)));
+  const handleToggleLessonPublish = async (lesson: Lesson) => {
+    const res = await callCurriculumApi({
+      action: "upsert_lesson",
+      lesson: {
+        ...lesson,
+        is_published: !lesson.is_published,
+      },
+    });
+    if (res) {
+      showNotice(
+        "ok",
+        !lesson.is_published ? "Materi dipublikasikan." : "Materi diubah ke draf."
+      );
     }
+  };
+
+  const handleDeleteLesson = async (lessonId: string) => {
+    if (!confirm("Hapus materi ini secara permanen?")) return;
+    const res = await callCurriculumApi({ action: "delete_lesson", lessonId });
+    if (res) {
+      showNotice("ok", "Materi berhasil dihapus.");
+    }
+  };
+
+  const handleMoveLesson = async (index: number, direction: -1 | 1) => {
+    if (!selectedModule) return;
+    const target = index + direction;
+    if (target < 0 || target >= selectedModule.lessons.length) return;
+    const reordered = [...selectedModule.lessons];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(target, 0, moved);
+    await callCurriculumApi({
+      action: "reorder_lessons",
+      orderedIds: reordered.map((l) => l.id),
+    });
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-rule">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Badge variant="teal">CMS CONTENT MANAGEMENT</Badge>
+            <Badge variant="teal">CMS Kurikulum &amp; Materi</Badge>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">
-            Manajemen Kurikulum, Modul & Prompt AI
+            Manajemen Modul &amp; Postingan Materi
           </h1>
           <p className="text-xs sm:text-sm text-muted mt-1">
-            Kelola modul, materi praktik, prompt AI terstruktur, dan status publikasi tanpa mengubah kode sumber inti.
+            Tambah, ubah, atur urutan, terbitkan atau simpan sebagai draf materi layaknya mengelola blog.
           </p>
         </div>
 
-        <Button
-          type="button"
-          variant="accent"
-          size="sm"
-          onClick={handleOpenAddModule}
-          className="gap-2 font-bold shadow-sm"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Tambah Modul Baru</span>
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={loadCurriculum}
+            disabled={isLoading || isSaving}
+            className="gap-1.5 text-xs"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin motion-reduce:animate-none" : ""}`} />
+            <span>Muat Ulang</span>
+          </Button>
+          <Button
+            type="button"
+            variant="accent"
+            size="sm"
+            onClick={handleOpenAddModule}
+            className="gap-2 font-bold shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Tambah Modul Baru</span>
+          </Button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: 6 Modules Nav List */}
-        <div className="lg:col-span-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold text-muted mb-2">
-            <span>Daftar Modul ({modules.length})</span>
-            <span>Urutan</span>
-          </div>
+      {statusMsg && (
+        <div
+          className={`p-3.5 rounded-xl border text-xs font-semibold flex items-center gap-2 ${
+            statusMsg.type === "ok"
+              ? "bg-emerald-50 border-emerald-300 text-emerald-900"
+              : "bg-rose-50 border-rose-300 text-rose-900"
+          }`}
+        >
+          <CheckCircle2 className="w-4 h-4 shrink-0" />
+          <span>{statusMsg.text}</span>
+        </div>
+      )}
 
-          <div className="space-y-2 max-h-[70vh] overflow-y-auto pr-1">
-            {modules.map((m) => {
-              const isSelected = selectedModule.id === m.id;
-              return (
-                <div
-                  key={m.id}
-                  onClick={() => setSelectedModule(m)}
-                  className={`p-3.5 rounded-xl border cursor-pointer transition-colors ${
-                    isSelected
-                      ? "bg-ink text-sheet border-ink-2 shadow-sm"
-                      : "bg-sheet text-ink border-rule hover:border-rule hover:bg-paper"
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <span
-                      className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
-                        isSelected
-                          ? "bg-accent text-sheet"
-                          : "bg-paper-2 text-ink-2"
-                      }`}
-                    >
-                      Modul {m.module_number}
-                    </span>
+      {/* Blogspot-style Full Editor OR Split Module + Lesson List */}
+      {lessonEditorDraft && selectedModule ? (
+        <BlogspotLessonEditor
+          moduleTitle={`Modul ${selectedModule.module_number}: ${selectedModule.title}`}
+          initialDraft={lessonEditorDraft}
+          isSaving={isSaving}
+          onCancel={() => setLessonEditorDraft(null)}
+          onSave={handleSaveLessonDraft}
+        />
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left Column: Modules Sidebar */}
+          <div className="lg:col-span-4 space-y-3">
+            <div className="flex items-center justify-between text-xs font-bold text-muted mb-2">
+              <span>Daftar Modul ({modules.length})</span>
+              <span>Urutan</span>
+            </div>
+
+            <div className="space-y-2 max-h-[72vh] overflow-y-auto pr-1">
+              {modules.map((m, idx) => {
+                const isSelected = selectedModule?.id === m.id;
+                return (
+                  <div
+                    key={m.id}
+                    onClick={() => setSelectedModuleId(m.id)}
+                    className={`p-3.5 rounded-xl border cursor-pointer transition-colors ${
+                      isSelected
+                        ? "bg-ink text-sheet border-ink-2 shadow-sm"
+                        : "bg-sheet text-ink border-rule hover:bg-paper"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                            isSelected ? "bg-accent text-sheet" : "bg-paper-2 text-ink-2"
+                          }`}
+                        >
+                          Modul {m.module_number}
+                        </span>
+                        {!m.is_published && (
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">
+                            Draf
+                          </span>
+                        )}
+                      </div>
+                      <div
+                        className="flex items-center gap-1"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          type="button"
+                          title="Geser ke atas"
+                          disabled={idx === 0 || isSaving}
+                          onClick={() => handleMoveModule(idx, -1)}
+                          className="p-1 rounded hover:bg-paper-3/20 disabled:opacity-30"
+                        >
+                          <ArrowUp className="w-3 h-3" />
+                        </button>
+                        <button
+                          type="button"
+                          title="Geser ke bawah"
+                          disabled={idx === modules.length - 1 || isSaving}
+                          onClick={() => handleMoveModule(idx, 1)}
+                          className="p-1 rounded hover:bg-paper-3/20 disabled:opacity-30"
+                        >
+                          <ArrowDown className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </div>
+                    <h3 className="text-xs font-bold line-clamp-1">{m.title}</h3>
                     <span className="text-[11px] opacity-75">
                       {m.lessons.length} Materi
                     </span>
                   </div>
-                  <h3 className="text-xs font-bold line-clamp-1">{m.title}</h3>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        {/* Right Column: Module Details & Lessons List */}
-        <div className="lg:col-span-8 space-y-6">
-          {/* Selected Module Summary Box */}
-          <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-rule">
-              <div>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-xs font-bold text-accent bg-accent-soft px-2 py-0.5 rounded border border-rule">
-                    Modul {selectedModule.module_number}
-                  </span>
-                  <Badge variant="default" className="text-[10px]">
-                    {selectedModule.difficulty_level}
-                  </Badge>
-                  <span className="text-xs text-muted">
-                    ±{selectedModule.estimated_minutes} Menit
-                  </span>
-                </div>
-                <h2 className="text-lg font-bold text-ink">
-                  {selectedModule.title}
-                </h2>
-                <p className="text-xs text-muted mt-1 leading-relaxed">
-                  {selectedModule.description}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleOpenEditModule(selectedModule)}
-                  className="text-xs gap-1"
-                >
-                  <Edit className="w-3.5 h-3.5" />
-                  <span>Edit Modul</span>
-                </Button>
-                {modules.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="danger"
-                    size="sm"
-                    onClick={() => handleDeleteModule(selectedModule.id)}
-                    className="text-xs"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </Button>
-                )}
-              </div>
-            </div>
-
-            {/* Lessons Section Header */}
-            <div className="pt-4 flex items-center justify-between">
-              <h3 className="text-xs font-bold text-muted">
-                Materi di Modul Ini ({selectedModule.lessons.length})
-              </h3>
-              <Button
-                type="button"
-                variant="accent"
-                size="sm"
-                onClick={handleOpenAddLesson}
-                className="text-xs gap-1 font-bold"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Tambah Materi Praktik</span>
-              </Button>
-            </div>
-
-            {/* Lessons Table in this Module */}
-            <div className="mt-4 space-y-2.5">
-              {selectedModule.lessons.map((lesson) => (
-                <div
-                  key={lesson.id}
-                  className="flex items-center justify-between p-3.5 rounded-xl border border-rule bg-paper hover:bg-sheet transition-colors gap-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-muted w-8">
-                      #{selectedModule.module_number}.{lesson.lesson_number}
-                    </span>
-                    <div>
-                      <div className="text-xs font-bold text-ink">
-                        {lesson.title}
-                      </div>
-                      <p className="text-[11px] text-muted line-clamp-1">
-                        {lesson.description}
-                      </p>
+          {/* Right Column: Selected Module & Blogspot-like Posts List */}
+          <div className="lg:col-span-8 space-y-6">
+            {selectedModule ? (
+              <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-rule">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                      <span className="text-xs font-bold text-accent bg-accent-soft px-2 py-0.5 rounded border border-rule">
+                        Modul {selectedModule.module_number}
+                      </span>
+                      <Badge variant="default" className="text-[10px]">
+                        {selectedModule.difficulty_level}
+                      </Badge>
+                      <Badge variant={selectedModule.is_published ? "success" : "warning"} className="text-[10px]">
+                        {selectedModule.is_published ? "Terbit" : "Draf"}
+                      </Badge>
+                      <span className="text-xs text-muted">
+                        ±{selectedModule.estimated_minutes} Menit
+                      </span>
                     </div>
+                    <h2 className="text-lg font-bold text-ink">{selectedModule.title}</h2>
+                    <p className="text-xs text-muted mt-1 leading-relaxed">
+                      {selectedModule.description}
+                    </p>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    {lesson.antigravity_prompt && (
-                      <span className="text-[10px] bg-accent-soft text-accent px-2 py-0.5 rounded font-medium hidden sm:inline">
-                        Prompt AI
-                      </span>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleToggleModulePublish(selectedModule)}
+                      disabled={isSaving}
+                      className="text-xs gap-1"
+                    >
+                      {selectedModule.is_published ? (
+                        <>
+                          <EyeOff className="w-3.5 h-3.5" />
+                          <span>Jadikan Draf</span>
+                        </>
+                      ) : (
+                        <>
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Terbitkan</span>
+                        </>
+                      )}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleOpenEditModule(selectedModule)}
+                      className="text-xs gap-1"
+                    >
+                      <Edit className="w-3.5 h-3.5" />
+                      <span>Edit</span>
+                    </Button>
+                    {modules.length > 1 && (
+                      <Button
+                        type="button"
+                        variant="danger"
+                        size="sm"
+                        disabled={isSaving}
+                        onClick={() => handleDeleteModule(selectedModule.id)}
+                        className="text-xs"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </Button>
                     )}
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleOpenEditLesson(lesson)}
-                      className="h-8 w-8 p-0"
-                    >
-                      <Edit className="w-3.5 h-3.5 text-ink-2" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDeleteLesson(lesson.id)}
-                      className="h-8 w-8 p-0 text-rose-600 hover:text-rose-700 hover:bg-rose-50"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </Button>
                   </div>
                 </div>
-              ))}
-            </div>
+
+                {/* Lessons Section Header */}
+                <div className="pt-4 flex items-center justify-between">
+                  <h3 className="text-xs font-bold text-muted">
+                    Postingan Materi di Modul Ini ({selectedModule.lessons.length})
+                  </h3>
+                  <Button
+                    type="button"
+                    variant="accent"
+                    size="sm"
+                    onClick={handleOpenAddLesson}
+                    className="text-xs gap-1 font-bold"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Tulis Materi Baru</span>
+                  </Button>
+                </div>
+
+                {/* Lessons List */}
+                <div className="mt-4 space-y-2.5">
+                  {selectedModule.lessons.length === 0 ? (
+                    <div className="p-8 text-center rounded-xl border border-dashed border-rule bg-paper">
+                      <p className="text-sm font-bold text-ink">Belum ada materi di modul ini</p>
+                      <p className="text-xs text-muted mt-1">
+                        Klik tombol Tulis Materi Baru untuk mulai menulis artikel materi pertama.
+                      </p>
+                    </div>
+                  ) : (
+                    selectedModule.lessons.map((lesson, idx) => (
+                      <div
+                        key={lesson.id}
+                        className="flex items-center justify-between p-3.5 rounded-xl border border-rule bg-paper hover:bg-sheet transition-colors gap-3"
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <span className="font-mono text-xs font-bold text-muted w-9 shrink-0">
+                            #{selectedModule.module_number}.{lesson.lesson_number}
+                          </span>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-ink truncate">
+                                {lesson.title}
+                              </span>
+                              {!lesson.is_published && (
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 shrink-0">
+                                  Draf
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-muted line-clamp-1">
+                              {lesson.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            type="button"
+                            title="Geser ke atas"
+                            disabled={idx === 0 || isSaving}
+                            onClick={() => handleMoveLesson(idx, -1)}
+                            className="p-1.5 rounded-lg text-muted hover:text-ink hover:bg-paper-2 disabled:opacity-30"
+                          >
+                            <ArrowUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            title="Geser ke bawah"
+                            disabled={idx === selectedModule.lessons.length - 1 || isSaving}
+                            onClick={() => handleMoveLesson(idx, 1)}
+                            className="p-1.5 rounded-lg text-muted hover:text-ink hover:bg-paper-2 disabled:opacity-30"
+                          >
+                            <ArrowDown className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            title={lesson.is_published ? "Ubah ke Draf" : "Terbitkan"}
+                            disabled={isSaving}
+                            onClick={() => handleToggleLessonPublish(lesson)}
+                            className="p-1.5 rounded-lg text-muted hover:text-ink hover:bg-paper-2"
+                          >
+                            {lesson.is_published ? (
+                              <Eye className="w-3.5 h-3.5 text-emerald-600" />
+                            ) : (
+                              <EyeOff className="w-3.5 h-3.5 text-amber-600" />
+                            )}
+                          </button>
+                          {lesson.is_published && selectedModule.is_published && (
+                            <Link
+                              href={`/kurikulum/${selectedModule.slug}/${lesson.slug}`}
+                              target="_blank"
+                              title="Lihat halaman materi"
+                              className="p-1.5 rounded-lg text-muted hover:text-accent hover:bg-paper-2"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </Link>
+                          )}
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleOpenEditLesson(lesson)}
+                            className="h-8 w-8 p-0"
+                          >
+                            <Edit className="w-3.5 h-3.5 text-ink-2" />
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            disabled={isSaving}
+                            onClick={() => handleDeleteLesson(lesson.id)}
+                            className="h-8 w-8 p-0 text-rose-600 hover:text-rose-700 hover:bg-rose-50"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Edit Module Modal */}
+      {/* Edit / Add Module Modal */}
       <Modal
         isOpen={moduleModalOpen}
         onClose={() => setModuleModalOpen(false)}
@@ -451,7 +684,7 @@ export default function AdminCurriculumCMSPage() {
                     difficulty_level: e.target.value,
                   })
                 }
-                className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm bg-sheet"
+                className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm bg-sheet text-ink"
               >
                 <option value="Pemula">Pemula</option>
                 <option value="Menengah">Menengah</option>
@@ -482,18 +715,36 @@ export default function AdminCurriculumCMSPage() {
             required
           />
 
-          <Input
-            label="Estimasi Waktu Belajar (Menit)"
-            type="number"
-            value={editingModule.estimated_minutes}
-            onChange={(e) =>
-              setEditingModule({
-                ...editingModule,
-                estimated_minutes: Number(e.target.value),
-              })
-            }
-            required
-          />
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              label="Estimasi Waktu (Menit)"
+              type="number"
+              value={editingModule.estimated_minutes}
+              onChange={(e) =>
+                setEditingModule({
+                  ...editingModule,
+                  estimated_minutes: Number(e.target.value),
+                })
+              }
+              required
+            />
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-ink-2">Status</label>
+              <select
+                value={editingModule.is_published ? "published" : "draft"}
+                onChange={(e) =>
+                  setEditingModule({
+                    ...editingModule,
+                    is_published: e.target.value === "published",
+                  })
+                }
+                className="w-full px-3 py-2 rounded-xl border border-rule text-xs sm:text-sm bg-sheet text-ink"
+              >
+                <option value="published">Terbit</option>
+                <option value="draft">Draf</option>
+              </select>
+            </div>
+          </div>
 
           <div className="flex justify-end gap-3 pt-3">
             <Button
@@ -503,122 +754,8 @@ export default function AdminCurriculumCMSPage() {
             >
               Batal
             </Button>
-            <Button type="submit" variant="accent" className="font-bold">
+            <Button type="submit" variant="accent" isLoading={isSaving} className="font-bold">
               Simpan Modul
-            </Button>
-          </div>
-        </form>
-      </Modal>
-
-      {/* Edit Lesson Modal */}
-      <Modal
-        isOpen={lessonModalOpen}
-        onClose={() => setLessonModalOpen(false)}
-        title={editingLesson.id ? "Edit Materi & Prompt AI" : "Tambah Materi Baru"}
-        maxWidth="2xl"
-      >
-        <form onSubmit={handleSaveLesson} className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
-            <Input
-              label="Nomor Materi"
-              type="number"
-              value={editingLesson.lesson_number}
-              onChange={(e) =>
-                setEditingLesson({
-                  ...editingLesson,
-                  lesson_number: Number(e.target.value),
-                })
-              }
-              required
-            />
-            <Input
-              label="Estimasi (Menit)"
-              type="number"
-              value={editingLesson.estimated_minutes}
-              onChange={(e) =>
-                setEditingLesson({
-                  ...editingLesson,
-                  estimated_minutes: Number(e.target.value),
-                })
-              }
-              required
-            />
-          </div>
-
-          <Input
-            label="Judul Materi Pembelajaran"
-            value={editingLesson.title}
-            onChange={(e) =>
-              setEditingLesson({ ...editingLesson, title: e.target.value })
-            }
-            required
-          />
-
-          <Textarea
-            label="Deskripsi Ringkas"
-            rows={2}
-            value={editingLesson.description}
-            onChange={(e) =>
-              setEditingLesson({
-                ...editingLesson,
-                description: e.target.value,
-              })
-            }
-            required
-          />
-
-          {/* Antigravity Prompt Builder Fields */}
-          <div className="p-4 rounded-xl bg-accent-soft border border-rule space-y-3">
-            <span className="text-xs font-bold text-ink block">
-              Prompt AI Terstruktur (Formula 6-Bagian)
-            </span>
-            <Input
-              label="Tujuan Prompt"
-              value={editingLesson.promptTujuan}
-              onChange={(e) =>
-                setEditingLesson({
-                  ...editingLesson,
-                  promptTujuan: e.target.value,
-                })
-              }
-              placeholder="Apa yang akan dibuat oleh AI…"
-            />
-            <Textarea
-              label="Instruksi Teknis (Satu per baris)"
-              rows={3}
-              value={editingLesson.promptInstruksi}
-              onChange={(e) =>
-                setEditingLesson({
-                  ...editingLesson,
-                  promptInstruksi: e.target.value,
-                })
-              }
-              placeholder="1. Buat file X&#10;2. Tambahkan fungsi Y…"
-            />
-            <Textarea
-              label="Batasan (Satu per baris)"
-              rows={2}
-              value={editingLesson.promptBatasan}
-              onChange={(e) =>
-                setEditingLesson({
-                  ...editingLesson,
-                  promptBatasan: e.target.value,
-                })
-              }
-              placeholder="Jangan ubah file layout&#10;Gunakan hanya Jetpack Compose Material 3…"
-            />
-          </div>
-
-          <div className="flex justify-end gap-3 pt-3">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => setLessonModalOpen(false)}
-            >
-              Batal
-            </Button>
-            <Button type="submit" variant="accent" className="font-bold">
-              Simpan Materi
             </Button>
           </div>
         </form>

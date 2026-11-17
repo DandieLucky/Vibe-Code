@@ -1,10 +1,13 @@
 import { redirect } from "next/navigation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getCurriculumModules } from "@/lib/data-access/curriculum";
 import KurikulumList from "@/components/kurikulum/kurikulum-list";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
-  title: "Kurikulum 6 Modul — ComposeLab",
-  description: "Daftar lengkap 6 modul pelatihan Android Kotlin & Jetpack Compose di ComposeLab.",
+  title: "Kurikulum Pembelajaran — ComposeLab",
+  description: "Daftar lengkap modul pelatihan pemrograman terstruktur & AI prompting di ComposeLab.",
 };
 
 /**
@@ -21,5 +24,6 @@ export default async function KurikulumPage() {
     if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
   }
 
-  return <KurikulumList />;
+  const modules = await getCurriculumModules({ includeUnpublished: false });
+  return <KurikulumList modules={modules} />;
 }

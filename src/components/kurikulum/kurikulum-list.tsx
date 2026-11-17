@@ -18,9 +18,9 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MODULES_DATA } from "@/lib/data/curriculum-data";
+import { MODULES_DATA, type FullModule } from "@/lib/data/curriculum-data";
 
-export default function KurikulumList() {
+export default function KurikulumList({ modules = MODULES_DATA }: { modules?: FullModule[] }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
@@ -37,11 +37,11 @@ export default function KurikulumList() {
     }
   }, []);
 
-  const totalLessons = MODULES_DATA.reduce((acc, m) => acc + m.lessons.length, 0);
+  const totalLessons = modules.reduce((acc, m) => acc + m.lessons.length, 0);
   const totalCompleted = completedLessons.length;
-  const progressPercent = Math.min(100, Math.round((totalCompleted / totalLessons) * 100));
+  const progressPercent = totalLessons > 0 ? Math.min(100, Math.round((totalCompleted / totalLessons) * 100)) : 0;
 
-  const filteredModules = MODULES_DATA.filter((m) => {
+  const filteredModules = modules.filter((m) => {
     if (selectedDifficulty !== "all" && m.difficulty_level !== selectedDifficulty) {
       return false;
     }
@@ -67,16 +67,16 @@ export default function KurikulumList() {
               Beranda
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="font-semibold text-ink">Kurikulum 6 Modul</span>
+            <span className="font-semibold text-ink">Kurikulum ({modules.length} Modul)</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-rule">
             <div>
               <h1 className="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight">
-                Kurikulum Lengkap Android Kotlin &amp; Compose
+                Kurikulum &amp; Modul Pembelajaran
               </h1>
               <p className="mt-2 text-sm sm:text-base text-ink-2 max-w-2xl">
-                6 modul padat untuk Pelatihan. Dilengkapi alur berpikir terstruktur dan prompt AI siap diskusi.
+                {modules.length} modul terstruktur dilengkapi alur berpikir dan prompt AI siap diskusi.
               </p>
             </div>
 

@@ -20,13 +20,14 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MODULES_DATA } from "@/lib/data/curriculum-data";
+import { MODULES_DATA, type FullModule } from "@/lib/data/curriculum-data";
 import { WorkSubmission } from "@/types/database";
 import { ambilKaryaLewatServer, ambilRingkasanPeserta, hitungStatistik, type RingkasanPeserta } from "@/lib/data-access/admin";
 import { SubmissionStatusBadge } from "@/components/submission/submission-status-badge";
 import { formatDate, getArtifactUrl } from "@/lib/utils";
 
 export default function AdminOverviewPage() {
+  const [modules, setModules] = useState<FullModule[]>(MODULES_DATA);
   const [submissions, setSubmissions] = useState<WorkSubmission[]>([]);
   const [peserta, setPeserta] = useState<RingkasanPeserta[]>([]);
   const [statistik, setStatistik] = useState<{
@@ -58,10 +59,20 @@ export default function AdminOverviewPage() {
     }
   }, []);
 
-  useEffect(() => { muatData(); }, [muatData]);
+  useEffect(() => {
+    muatData();
+    fetch("/api/curriculum")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (Array.isArray(d?.modules) && d.modules.length > 0) {
+          setModules(d.modules);
+        }
+      })
+      .catch(() => {});
+  }, [muatData]);
 
-  const totalModules = MODULES_DATA.length;
-  const totalLessons = MODULES_DATA.reduce((acc, m) => acc + m.lessons.length, 0);
+  const totalModules = modules.length;
+  const totalLessons = modules.reduce((acc, m) => acc + m.lessons.length, 0);
   const totalSubmissions = submissions.length;
 
   const countPending = submissions.filter((s) => s.submission_status === "pending").length;

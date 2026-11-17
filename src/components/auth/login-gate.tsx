@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 const PERKS = [
-  { icon: BookOpen, title: "6 Modul Terstruktur", desc: "Dari instalasi Android Studio sampai aplikasi SakuSiswa selesai" },
+  { icon: BookOpen, title: "Kurikulum Terstruktur", desc: "Dari persiapan lingkungan kerja sampai proyek aplikasi siap rilis" },
   { icon: Save, title: "Progres Tersimpan", desc: "Lanjutkan kapan saja, dari perangkat mana saja" },
   { icon: Trophy, title: "Ikut Papan Peringkat", desc: "Karya Anda dinilai otomatis dan diperingkat" },
-  { icon: ShieldCheck, title: "Sertifikat & Umpan Balik", desc: "Penilaian kualitas kode Kotlin & Room oleh AI" },
+  { icon: ShieldCheck, title: "Sertifikat & Umpan Balik", desc: "Penilaian kualitas kode & arsitektur oleh AI" },
 ];
 
 /**

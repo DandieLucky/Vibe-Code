@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Tim Pengajar ComposeLab" }],
   openGraph: {
-    title: "ComposeLab — Platform Belajar Android & AI Prompting",
+    title: "ComposeLab — Platform Belajar Pemrograman Terstruktur & AI Prompting",
     description:
-      "Bangun aplikasi Android SakuSiswa dengan Kotlin, Jetpack Compose, Room Database, dan Login Google menggunakan pendekatan berpikir terstruktur.",
+      "Platform pembelajaran pemrograman terstruktur dengan bantuan AI, studi kasus aplikasi modern, dan penilaian proyek otomatis.",
     siteName: "ComposeLab",
     locale: "id_ID",
     type: "website",

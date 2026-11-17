@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { MODULES_DATA } from "@/lib/data/curriculum-data";
+import { MODULES_DATA, type FullModule } from "@/lib/data/curriculum-data";
 import { submissionSchema } from "@/lib/validations";
 import { WorkSubmission } from "@/types/database";
 import { getArtifactUrl } from "@/lib/utils";
@@ -32,12 +32,13 @@ import confetti from "canvas-confetti";
 import { submitWork, loadMySubmission, type SubmissionRecord } from "@/lib/data-access/submissions";
 
 export default function KumpulanKaryaPage() {
+  const [modules, setModules] = useState<FullModule[]>(MODULES_DATA);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
     whatsapp: "",
     institution: "",
-    project_title: "SakuSiswa — Catatan & Tugas Siswa",
+    project_title: "Aplikasi Catatan & Tugas Siswa",
     project_description:
       "Aplikasi Android Kotlin & Jetpack Compose dengan Login Google Credential Manager, penyimpanan lokal Room Database (KSP), dan fitur CRUD tugas lengkap.",
     completed_modules: MODULES_DATA.map(
@@ -64,6 +65,14 @@ export default function KumpulanKaryaPage() {
 
   // Load profile and existing submission from storage
   useEffect(() => {
+    fetch("/api/curriculum")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (Array.isArray(d?.modules) && d.modules.length > 0) {
+          setModules(d.modules);
+        }
+      })
+      .catch(() => {});
     (async () => {
     try {
       // Auto-fill from profile if available
@@ -279,7 +288,7 @@ export default function KumpulanKaryaPage() {
             Kumpulan Karya Aplikasi Android
           </h1>
           <p className="mt-2 text-sm sm:text-base text-ink-2 leading-relaxed">
-            Kumpulkan hasil karya aplikasi Android SakuSiswa (Kotlin + Jetpack Compose + Room + Google Login) milikmu. Karya akan diperiksa oleh guru dan sistem penilai otomatis.
+            Kumpulkan hasil karya aplikasi Android (Kotlin + Jetpack Compose + Room + Google Login) milikmu. Karya akan diperiksa oleh guru dan sistem penilai otomatis.
           </p>
         </div>
 
@@ -479,7 +488,7 @@ export default function KumpulanKaryaPage() {
                   setFormData({ ...formData, project_title: e.target.value })
                 }
                 error={formErrors.project_title}
-                placeholder="Contoh: SakuSiswa, Aplikasi Tugas Harian X RPL 1"
+                placeholder="Contoh: Aplikasi Catatan Tugas Harian"
                 required
               />
 
@@ -494,7 +503,7 @@ export default function KumpulanKaryaPage() {
                   })
                 }
                 error={formErrors.project_description}
-                placeholder="Jelaskan fitur utama aplikasi Android SakuSiswa, implementasi Room Database + Google Login, dan fitur kreasi tambahan Anda…"
+                placeholder="Jelaskan fitur utama aplikasi Android Anda, implementasi Room Database + Google Login, dan fitur kreasi tambahan Anda…"
                 required
               />
             </div>
@@ -506,7 +515,7 @@ export default function KumpulanKaryaPage() {
                   3. Modul yang Telah Diselesaikan
                 </h3>
                 <span className="text-xs text-accent font-semibold">
-                  {formData.completed_modules.length} dari {MODULES_DATA.length} Modul Dipilih
+                  {formData.completed_modules.length} dari {modules.length} Modul Dipilih
                 </span>
               </div>
 
@@ -517,7 +526,7 @@ export default function KumpulanKaryaPage() {
               )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto p-3 rounded-xl border border-rule bg-paper">
-                {MODULES_DATA.map((m) => {
+                {modules.map((m) => {
                   const title = `Modul ${m.module_number}: ${m.title}`;
                   const isChecked = formData.completed_modules.includes(title);
 
@@ -556,7 +565,7 @@ export default function KumpulanKaryaPage() {
                   setFormData({ ...formData, github_url: e.target.value })
                 }
                 error={formErrors.github_url}
-                placeholder="https://github.com/username/sakusiswa-android"
+                placeholder="https://github.com/username/proyek-android"
                 helperText="Harus berupa link repository publik di github.com berisi folder app/ dan build.gradle.kts"
                 required
               />
@@ -569,7 +578,7 @@ export default function KumpulanKaryaPage() {
                     setFormData({ ...formData, apk_url: e.target.value })
                   }
                   error={formErrors.apk_url}
-                  placeholder="https://github.com/username/sakusiswa/releases"
+                  placeholder="https://github.com/username/proyek-android/releases"
                   helperText="Link GitHub Releases atau Google Drive (akses publik)"
                 />
 

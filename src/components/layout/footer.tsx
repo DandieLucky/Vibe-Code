@@ -18,15 +18,15 @@ export function Footer() {
               </span>
             </div>
             <p className="text-ink-2 text-sm leading-relaxed max-w-sm">
-              Platform pembelajaran pengembangan aplikasi Android (Kotlin, Jetpack Compose, Room Database, dan Google Sign-In) dengan pendekatan berpikir terstruktur dan prompting AI untuk siswa.
+              Platform pembelajaran pengembangan aplikasi modern dengan pendekatan berpikir terstruktur, manajemen modul fleksibel, dan prompting AI.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-muted">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-accent" />
-                Kotlin &amp; Compose
+                Berpikir Terstruktur
               </span>
-              <span>Room Database</span>
-              <span>Credential Manager</span>
+              <span>AI Prompting</span>
+              <span>Proyek Terpadu</span>
             </div>
           </div>
 
@@ -43,22 +43,22 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 3: Jetpack Compose UI
+                  Modul 3: Antarmuka &amp; Navigasi
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 4: Login Google
+                  Modul 4: Autentikasi Modern
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors font-semibold text-accent">
-                  Modul 5: Room &amp; CRUD SakuSiswa
+                  Modul 5: Database Lokal &amp; CRUD
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 6: Build APK &amp; GitHub
+                  Modul 6: Build Rilis &amp; GitHub
                 </Link>
               </li>
             </ul>
