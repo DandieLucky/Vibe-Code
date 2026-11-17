@@ -324,7 +324,7 @@ export default function AdminCurriculumCMSPage() {
   const handleResetDefaults = async () => {
     if (
       !confirm(
-        "Sinkronkan database dengan 7 modul kurikulum bawaan terbaru? Perubahan kustom sebelumnya di database akan diganti."
+        "Sinkronkan database dengan 10 modul kurikulum bawaan terbaru? Perubahan kustom sebelumnya di database akan diganti."
       )
     ) {
       return;
@@ -336,7 +336,7 @@ export default function AdminCurriculumCMSPage() {
       }
       showNotice(
         "ok",
-        res.warning || "Database berhasil disinkronkan dengan 7 modul kurikulum pemula."
+        res.warning || "Database berhasil disinkronkan dengan 10 modul kurikulum bawaan."
       );
     }
   };
@@ -366,7 +366,7 @@ export default function AdminCurriculumCMSPage() {
             disabled={isLoading || isSaving}
             className="gap-1.5 text-xs"
           >
-            <span>Sinkronkan Bawaan (7 Modul)</span>
+            <span>Sinkronkan Bawaan (10 Modul)</span>
           </Button>
           <Button
             type="button"

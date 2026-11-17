@@ -5,22 +5,22 @@ export interface FullModule extends Module {
 }
 
 export const COURSE_INFO = {
-  id: "course-android-compose-pemula",
-  slug: "android-kotlin-jetpack-compose-pemula",
-  title: "Pemrograman Android Kotlin & Jetpack Compose untuk Pemula Bersama Gemini",
+  id: "course-android-compose-10modul",
+  slug: "android-kotlin-jetpack-compose-lengkap",
+  title: "Pemrograman Android Dasar: Kotlin & Jetpack Compose (Modul 1–10)",
   description:
-    "Kurikulum bertahap dari nol (7 modul ringan) untuk belajar Android Kotlin dan Jetpack Compose menggunakan pendekatan PRIMM dan LLM Gemini sebagai partner belajar—bukan vibecoding.",
+    "Kurikulum 10 modul bertahap untuk membangun aplikasi Android modern CatatanBelajar menggunakan Kotlin, Jetpack Compose Material 3, Navigation Compose, ViewModel, Room Database (KSP), AlertDialog, dan DataStore Preferences dengan dukungan LLM Gemini.",
   cover_image: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?w=1200",
-  total_modules: 7,
-  total_estimated_hours: 12,
+  total_modules: 10,
+  total_estimated_hours: 18,
   target_audience: [
-    "Programmer Pemula Total",
-    "Pelajar yang Baru Mengenal Kotlin & Android",
-    "Pembelajar Mandiri yang Ingin Memakai Gemini Secara Tepat",
+    "Programmer Pemula Android",
+    "Pelajar & Mahasiswa Pemrograman Mobile",
+    "Pembelajar Mandiri Kotlin & Jetpack Compose",
   ],
 };
 
-interface BeginnerLessonInput {
+interface StepLessonInput {
   id: string;
   moduleId: string;
   num: number;
@@ -42,7 +42,6 @@ interface BeginnerLessonInput {
   expectedResult: string;
   validationCheck: string[];
   commonErrors?: { error: string; solution: string }[];
-  exercise?: string;
   quiz?: {
     question: string;
     options: string[];
@@ -53,7 +52,7 @@ interface BeginnerLessonInput {
 
 const CREATED_AT = "2026-11-17T00:00:00.000Z";
 
-function makeLesson(input: BeginnerLessonInput): Lesson {
+function makeLesson(input: StepLessonInput): Lesson {
   const rawPrompt = [
     `[TUJUAN]\n${input.promptTujuan}`,
     `[KONTEKS]\n${input.promptKonteks}`,
@@ -91,23 +90,22 @@ function makeLesson(input: BeginnerLessonInput): Lesson {
     expected_result: input.expectedResult,
     validation_check: input.validationCheck,
     common_errors: input.commonErrors,
-    exercise: input.exercise,
     quiz: input.quiz ? [input.quiz] : undefined,
   };
 }
 
 export const MODULES_DATA: FullModule[] = [
   // =========================================================================
-  // MODUL 1: CARA KERJA APLIKASI & BERPIKIR TERSTRUKTUR BERSAMA GEMINI
+  // MODUL 1: PENGENALAN ANDROID STUDIO, PROYEK PERTAMA & POLA KERJA GEMINI
   // =========================================================================
   {
     id: "modul-1",
     course_id: COURSE_INFO.id,
     module_number: 1,
-    title: "Cara Kerja Aplikasi & Berpikir Terstruktur Bersama Gemini",
-    slug: "modul-1-berpikir-terstruktur-dan-gemini",
+    title: "Pengenalan Android Studio & Proyek Pertama",
+    slug: "modul-1-pengenalan-android-studio",
     description:
-      "Mengenal pola Input-Proses-Output, perbedaan vibecoding vs belajar terstruktur bersama Gemini, 3 mode prompt anti-salin-buta, dan persiapan Android Studio.",
+      "Menyiapkan lingkungan pengembangan Android Studio, memahami struktur proyek Kotlin + Jetpack Compose (Version Catalog), dan cara memanfaatkan Gemini sebagai asisten belajar.",
     estimated_minutes: 60,
     difficulty_level: "Pemula",
     is_published: true,
@@ -118,278 +116,182 @@ export const MODULES_DATA: FullModule[] = [
         id: "m1-l1",
         moduleId: "modul-1",
         num: 1,
-        title: "Memahami Input–Proses–Output di Balik Setiap Aplikasi",
-        slug: "memahami-input-proses-output",
+        title: "Ekosistem Android Modern & Peran Gemini Tanpa Salin Buta",
+        slug: "ekosistem-android-dan-peran-gemini",
         description:
-          "Menguraikan fitur aplikasi yang terlihat rumit menjadi tiga langkah sederhana: data masuk, pengolahan, dan tampilan hasil.",
-        objective:
-          "Pemula mampu memecah ide fitur aplikasi menjadi alur Input, Proses, dan Output sebelum menyentuh kode atau AI.",
-        concept: `## Analogi Dapur Restoran
+          "Memahami arsitektur dasar Android (Kotlin + Jetpack Compose) dan cara bertanya ke Gemini untuk mempercepat pemahaman kode.",
+        objective: "Memahami alur kerja pengembangan aplikasi Android modern dan pola diskusi terstruktur bersama Gemini.",
+        concept: `## Mengapa Kotlin & Jetpack Compose?
+Pengembangan Android modern tidak lagi memakai file layout XML terpisah, melainkan **Jetpack Compose**—antarmuka ditulis langsung dengan fungsi **Kotlin**. Sepanjang Modul 1–10 kita akan membangun aplikasi **CatatanBelajar** secara bertahap.
 
-Sebelum menulis satu baris kode pun, programmer pemula perlu tahu satu rahasia sederhana: **semua aplikasi di dunia bekerja dengan 3 langkah yang sama**, yaitu **Input → Proses → Output**.
-
-Bayangkan kamu memesan kopi di kedai:
-- **Input (Bahan Masuk):** Kamu menyebutkan pesanan (*Es Kopi Susu, gula sedikit*).
-- **Proses (Pengolahan):** Barista mencampur espresso, susu, dan es sesuai takaran.
-- **Output (Hasil Keluar):** Segelas kopi tersaji di meja.
-
-Di aplikasi Android:
-- **Input:** Pengguna mengetik nama di kotak teks atau menekan tombol.
-- **Proses:** Aplikasi mengecek apakah teksnya kosong, lalu menyimpannya.
-- **Output:** Nama pengguna muncul di layar atau pesan berhasil tampil.`,
+## Pola Memakai Gemini Secara Benar
+Saat memakai LLM Gemini (Gemini Chat atau Gemini in Android Studio), selalu sertakan:
+1. **Tujuan & Konteks:** Bagian mana yang sedang dikerjakan (misal *Modul 4 Input Validasi*).
+2. **Potongan Kode / Error Spesifik:** Tempel baris terkait agar Gemini tidak mengarang.
+3. **Minta Penjelasan Singkat:** Pastikan kamu mengerti cara kerja kode sebelum menyimpannya.`,
         thinkingSteps: [
-          "Tentukan satu fitur kecil yang ingin dibuat (misalnya: tombol sapaan).",
-          "Tulis apa Input-nya (teks nama yang diketik pengguna).",
-          "Tulis apa Proses-nya (gabungkan kata 'Halo, ' dengan nama).",
-          "Tulis apa Output-nya (teks sapaan tampil di layar).",
+          "Tentukan masalah atau bagian layar yang ingin dibuat (Input -> Proses -> Output).",
+          "Siapkan konteks proyek (Kotlin, Jetpack Compose Material 3, Gradle Version Catalog).",
         ],
         instructions: [
-          "Ambil buku catatan atau buka teks kosong.",
-          "Pilih 1 aplikasi yang sering kamu pakai (misalnya kalkulator atau daftar belanja).",
-          "Tuliskan alur Input → Proses → Output untuk satu tombol di aplikasi tersebut.",
-          "Uji pemahamanmu dengan meminta Gemini mengecek alur yang sudah kamu tulis.",
+          "Pastikan Android Studio versi terbaru sudah terpasang beserta Android SDK.",
+          "Siapkan akun Google untuk mengakses Gemini saat butuh menjelaskan pesan error atau API baru.",
         ],
-        code: [
-          {
-            filename: "AlurSapaan.txt",
-            language: "markdown",
-            code: `# Rancangan Sebelum Membuka Kode
-Input  : Pengguna mengetik nama "Rina" lalu klik tombol Sapa
-Proses : Cek nama tidak kosong -> gabungkan "Halo, " + nama
-Output : Muncul tulisan "Halo, Rina!" di layar`,
-          },
-        ],
-        promptTujuan: "Memeriksa apakah rancangan Input-Proses-Output fitur sederhana saya sudah logis.",
-        promptKonteks: "Saya pemula total yang baru belajar merancang alur aplikasi Android sebelum menulis kode.",
+        promptTujuan: "Memahami peran komponen utama dalam proyek Android Jetpack Compose.",
+        promptKonteks: "Saya pemula yang baru mulai membangun aplikasi Android dengan Kotlin dan Jetpack Compose.",
         promptInstruksi: [
-          "Baca rancangan Input-Proses-Output yang saya tulis.",
-          "Sebutkan 1 hal yang sudah bagus dari rancangan saya.",
-          "Sebutkan 1 skenario aneh (edge case) yang mungkin terjadi jika pengguna salah klik atau membiarkan input kosong.",
+          "Jelaskan secara ringkas hubungan antara Activity, Composable function, dan MaterialTheme.",
         ],
-        promptBatasan: [
-          "JANGAN menulis kode Kotlin atau Compose dulu.",
-          "Gunakan bahasa Indonesia sederhana maksimal 3 paragraf.",
-        ],
-        promptHasilAkhir: "Umpan balik singkat tentang kejelasan alur Input-Proses-Output.",
-        promptValidasi: "Saya bisa menjelaskan ulang alur fitur tanpa bingung istilah teknis.",
-        expectedResult: "Kamu memiliki rancangan Input–Proses–Output yang jelas sebelum meminta kode apa pun.",
-        validationCheck: [
-          "Sudah menuliskan Input, Proses, dan Output secara terpisah.",
-          "Sudah memikirkan kasus jika input dibiarkan kosong.",
-        ],
-        quiz: {
-          question: "Jika pengguna menekan tombol 'Simpan' pada catatan kosong lalu muncul pesan 'Judul tidak boleh kosong', bagian pengecekan tersebut termasuk tahap apa?",
-          options: ["Input", "Proses", "Output", "Database"],
-          correctIndex: 1,
-          explanation: "Pengecekan apakah teks kosong adalah langkah pengolahan logika sebelum menentukan hasil yang ditampilkan (Proses).",
-        },
+        promptBatasan: ["Jawab maksimal 3 paragraf dengan contoh sederhana."],
+        promptHasilAkhir: "Gambaran jelas tentang struktur aplikasi Compose.",
+        promptValidasi: "Bisa menyebutkan fungsi masing-masing komponen dengan bahasa sendiri.",
+        expectedResult: "Memahami peta besar materi Modul 1 sampai 10.",
+        validationCheck: ["Android Studio sudah terpasang.", "Memahami pola diskusi terstruktur dengan Gemini."],
       }),
       makeLesson({
         id: "m1-l2",
         moduleId: "modul-1",
         num: 2,
-        title: "Vibecoding vs Belajar Cepat dengan Gemini",
-        slug: "vibecoding-vs-belajar-terstruktur-gemini",
+        title: "Membuat Proyek Empty Activity & Mengenal libs.versions.toml",
+        slug: "membuat-proyek-dan-version-catalog",
         description:
-          "Mengapa asal menyalin kode dari AI justru memperlambat belajar, dan bagaimana memakai Gemini sebagai mentor Socratic.",
-        objective:
-          "Pemula memahami bahaya vibecoding dan mampu menerapkan aturan PRIMM sebelum menyalin kode dari Gemini.",
-        concept: `## Jebakan *Vibecoding*
+          "Membuat proyek Android baru dengan template Empty Activity Compose dan memahami file gradle/libs.versions.toml.",
+        objective: "Mampu membuat proyek Jetpack Compose dan membaca daftar versi library di Version Catalog.",
+        concept: `## Langkah Membuat Proyek Baru
+1. Buka Android Studio → **New Project**.
+2. Pilih **Empty Activity** (ikon Compose) → klik **Next**.
+3. Isi **Name:** \`CatatanBelajar\`, **Package name:** \`com.belajar.catatan\`, **Minimum SDK:** API 24 (Android 7.0).
+4. Klik **Finish** dan tunggu proses *Gradle Sync* selesai.
 
-*Vibecoding* adalah kebiasaan mengetik *"Buatkan saya aplikasi lengkap"*, lalu menyalin semua hasilnya tanpa tahu cara kerjanya. Riset pendidikan pemrograman menunjukkan pola ini menimbulkan **ilusi paham**: aplikasi tampak jalan sebentar, tetapi begitu muncul 1 error merah atau diminta mengubah warna tombol saja, kamu langsung buntu.
-
-### Solusinya: Siklus PRIMM Bersama Gemini
-Alih-alih meminta AI mengerjakan semuanya, kita memakai siklus 5 langkah:
-1. **Predict (Tebak):** Baca potongan kode pendek (5–15 baris) dan tebak hasilnya dulu.
-2. **Run (Jalankan):** Uji tebakanmu di Android Studio atau Kotlin Playground.
-3. **Investigate (Bedah):** Tanya Gemini arti baris tertentu dengan analogi.
-4. **Modify (Ubah):** Ubah sendiri teks, angka, atau logikanya.
-5. **Make (Buat):** Baru buat fitur kecil sendiri setelah paham polanya.`,
+## Mengenal \`gradle/libs.versions.toml\`
+Proyek Android modern mengelola versi library terpusat di \`gradle/libs.versions.toml\` dengan 3 bagian: \`[versions]\`, \`[libraries]\`, dan \`[plugins]\`.`,
         thinkingSteps: [
-          "Berhenti sejenak sebelum menekan tombol Copy pada jawaban Gemini.",
-          "Tanyakan pada diri sendiri: 'Apakah saya tahu apa fungsi tiap baris di kode ini?'",
-          "Jika belum tahu, minta Gemini menjelaskan barisnya dulu, bukan menulis kode baru.",
+          "Tunggu Gradle selesai mengunduh dependensi awal sebelum mengedit kode.",
+          "Periksa folder gradle/ untuk melihat file libs.versions.toml.",
         ],
         instructions: [
-          "Bandingkan contoh prompt buruk (vibecoding) vs prompt baik di bawah ini.",
-          "Buka Gemini Chat (gemini.google.com) atau Gemini di Android Studio.",
-          "Uji coba menanyakan satu konsep kecil menggunakan aturan PRIMM.",
+          "Buat proyek CatatanBelajar dengan template Empty Activity.",
+          "Buka gradle/libs.versions.toml dan amati bagian [versions] serta [libraries].",
+          "Buka app/build.gradle.kts untuk melihat bagaimana alias(libs.plugins.kotlin.compose) dipanggil.",
         ],
         code: [
           {
-            filename: "PerbandinganPrompt.txt",
-            language: "markdown",
-            code: `# BURUK (Vibecoding):
-"Buatkan aplikasi catatan Android lengkap sekarang."
+            filename: "gradle/libs.versions.toml (cuplikan)",
+            language: "toml",
+            code: `[versions]
+kotlin = "2.3.10"
+composeBom = "2026.02.01"
 
-# BAIK (Belajar Cepat Anti-Vibecoding):
-"Saya pemula. Jelaskan fungsi 5 baris kode ini dengan analogi,
-lalu beri 1 pertanyaan untuk mengecek pemahaman saya."`,
+[libraries]
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }`,
           },
         ],
-        promptTujuan: "Melatih cara meminta penjelasan terstruktur ke Gemini tanpa diberi jawaban kode utuh.",
-        promptKonteks: "Saya pemula total yang ingin cepat paham cara kerja kode Android, bukan sekadar copy-paste.",
-        promptInstruksi: [
-          "Jelaskan dengan 1 analogi sehari-hari mengapa menyalin kode tanpa paham berbahaya saat aplikasi mulai membesar.",
-          "Ajukan 1 pertanyaan pendek untuk saya jawab.",
-        ],
-        promptBatasan: [
-          "Jangan berikan potongan kode apa pun.",
-          "Maksimal 150 kata.",
-        ],
-        promptHasilAkhir: "Penjelasan ringkas dan 1 pertanyaan refleksi dari Gemini.",
-        promptValidasi: "Saya bisa membedakan mana prompt yang membuat bergantung dan mana prompt yang mempercepat pemahaman.",
-        expectedResult: "Kamu siap menggunakan Gemini sebagai mentor pribadi, bukan mesin copy-paste.",
-        validationCheck: [
-          "Mengetahui kepanjangan dan urutan PRIMM (Predict, Run, Investigate, Modify, Make).",
-          "Sudah mencoba mengirim 1 prompt berpagar ke Gemini.",
-        ],
-        quiz: {
-          question: "Apa langkah pertama dalam metode PRIMM sebelum menjalankan kode?",
-          options: ["Langsung menyalin kode baru", "Predict (menebak hasil kode)", "Menghapus error", "Membuat proyek baru"],
-          correctIndex: 1,
-          explanation: "Predict melatih otak membaca alur kode lebih dulu sebelum melihat output asli.",
-        },
+        promptTujuan: "Memahami fungsi Compose BOM (Bill of Materials) di libs.versions.toml.",
+        promptKonteks: "Saya baru membuat proyek Android Compose dan melihat androidx-compose-bom di libs.versions.toml.",
+        promptInstruksi: ["Jelaskan fungsi Compose BOM agar saya tahu kenapa library material3 tidak perlu ditulis versinya satu per satu."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman cara kerja Gradle Version Catalog dan BOM.",
+        promptValidasi: "Gradle Sync sukses tanpa error.",
+        expectedResult: "Proyek CatatanBelajar terbentuk dengan Gradle Sync hijau.",
+        validationCheck: ["Proyek berhasil di-sync.", "Menemukan file libs.versions.toml dan build.gradle.kts."],
       }),
       makeLesson({
         id: "m1-l3",
         moduleId: "modul-1",
         num: 3,
-        title: "Tiga Jurus Bertanya ke Gemini (Analogi, PRIMM, & Bedah Error)",
-        slug: "tiga-jurus-bertanya-ke-gemini",
+        title: "Mengenal MainActivity.kt, @Composable, dan @Preview",
+        slug: "mengenal-mainactivity-dan-preview",
         description:
-          "Menguasai 3 template prompt siap pakai menggunakan tag struktural agar jawaban Gemini ringkas, jelas, dan mendidik.",
-        objective:
-          "Pemula mampu memakai 3 mode prompt Gemini: Tanya Konsep, Bedah Kode PRIMM, dan Bedah Error Logcat.",
-        concept: `## Kenapa Harus Pakai Tag \`<aturan>\`, \`<kode>\`, dan \`<tugas>\`?
+          "Membedah struktur MainActivity.kt, blok setContent, dan cara menggunakan @Preview untuk melihat UI tanpa emulator.",
+        objective: "Mampu memodifikasi Composable bawaan dan melihat hasilnya di panel Split/Design Preview.",
+        concept: `## Titik Awal Aplikasi: \`MainActivity.kt\`
+Saat aplikasi dijalankan, sistem Android memanggil fungsi \`onCreate()\` di \`MainActivity.kt\`. Di dalamnya terdapat \`setContent { ... }\` yang menjadi pintu masuk seluruh tampilan Jetpack Compose.
 
-Gemini jauh lebih akurat dan patuh saat instruksimu dipisahkan rapi dengan tag pembatas:
-- **\`<aturan>\`:** Mengatur gaya bahasa Gemini (*pakai bahasa sederhana, jangan beri kode jawaban utuh*).
-- **\`<kode>\` / \`<error>\`:** Tempat menempel potongan kode atau pesan error yang sedang kamu hadapi.
-- **\`<tugas>\`:** Pertanyaan spesifik atau tebakanmu sendiri.
-
-Dengan memisahkan ketiga bagian ini, Gemini tidak akan mencampuradukkan kode milikmu dengan instruksi yang kamu minta.`,
+Tambahkan anotasi \`@Preview(showBackground = true)\` di atas fungsi Composable tanpa parameter agar Android Studio langsung menggambar pratinjaunya di sebelah kanan editor.`,
         thinkingSteps: [
-          "Pilih mode sesuai kebutuhan: baru kenal istilah (Mode 1), sedang baca kode (Mode 2), atau ketemu error merah (Mode 3).",
-          "Isi tag <aturan> agar Gemini menahan diri tidak membuang kode utuh.",
-          "Selalu tuliskan tebakanmu sendiri di bagian <tugas>.",
+          "Cari fungsi onCreate dan setContent di MainActivity.kt.",
+          "Amati tab Code | Split | Design di pojok kanan atas editor.",
         ],
         instructions: [
-          "Simpan ketiga template pada cuplikan kode ke catatan pribadimu.",
-          "Coba jalankan Mode 1 di Gemini untuk menanyakan istilah 'Compiler' atau 'APK'.",
-        ],
-        code: [
-          {
-            filename: "3-Template-Prompt-Gemini.md",
-            language: "markdown",
-            code: `# MODE 1: TANYA KONSEP & ANALOGI
-<aturan>
-Saya programmer pemula total. Jelaskan dengan bahasa sederhana,
-maksimal 3 paragraf, 1 analogi sehari-hari, tanpa kode proyek utuh.
-</aturan>
-<tugas>Jelaskan apa itu [ISTILAH] dan kenapa dibutuhkan.</tugas>
-
-# MODE 2: BEDAH KODE PRIMM
-<aturan>
-JANGAN tulis ulang kode secara utuh. Jelaskan baris per baris,
-lalu ajukan 1 pertanyaan untuk menguji pemahaman saya.
-</aturan>
-<kode>[TEMPEL 5-15 BARIS KODE]</kode>
-<tugas>Prediksi saya: [TEBAKAN SAYA]. Apakah tepat?</tugas>
-
-# MODE 3: BEDAH ERROR LOGCAT
-<aturan>
-JANGAN langsung memberi kode perbaikan siap salin.
-1) Jelaskan arti error dengan bahasa manusia.
-2) Tunjuk baris penyebabnya.
-3) Beri 1 petunjuk agar saya perbaiki sendiri.
-</aturan>
-<error>[TEMPEL ERROR MERAH]</error>`,
-          },
-        ],
-        promptTujuan: "Menguji Mode 1 untuk memahami istilah teknis Android dalam bahasa manusia.",
-        promptKonteks: "Saya baru pertama kali mendengar istilah 'Gradle' dan 'Emulator' di Android Studio.",
-        promptInstruksi: [
-          "Jelaskan perbedaan singkat antara Gradle dan Emulator memakai analogi dapur atau bengkel.",
-          "Akhiri dengan 1 pertanyaan cek pemahaman.",
-        ],
-        promptBatasan: [
-          "Maksimal 3 paragraf pendek.",
-          "Jangan gunakan istilah teknis lain tanpa menjelaskannya.",
-        ],
-        promptHasilAkhir: "Analogi mudah dipahami tentang Gradle dan Emulator.",
-        promptValidasi: "Saya bisa menjelaskan fungsi Gradle dan Emulator kepada teman dengan bahasa sendiri.",
-        expectedResult: "Kamu memiliki 3 template prompt Gemini yang bisa dipakai berulang di seluruh modul.",
-        validationCheck: [
-          "Sudah memahami fungsi tag <aturan>, <kode>, dan <tugas>.",
-          "Sudah mencoba Mode 1 di Gemini.",
-        ],
-      }),
-      makeLesson({
-        id: "m1-l4",
-        moduleId: "modul-1",
-        num: 4,
-        title: "Mengenal Android Studio & Menjalankan Proyek Pertama",
-        slug: "mengenal-android-studio-dan-proyek-pertama",
-        description:
-          "Membuat proyek Empty Activity Jetpack Compose, mengenal 3 file utama, dan menjalankannya tanpa panik melihat banyak folder.",
-        objective:
-          "Pemula mampu membuat proyek Jetpack Compose baru dan mengenali lokasi file MainActivity.kt.",
-        concept: `## Jangan Panik Melihat Banyak Folder!
-
-Saat pertama membuka **Android Studio**, kamu akan melihat puluhan folder. Untuk pemula, **90% folder itu tidak perlu disentuh**. Fokus saja pada 3 tempat ini:
-1. **\`MainActivity.kt\`:** Titik awal aplikasi menyala dan tempat kita mulai menggambar layar.
-2. **\`AndroidManifest.xml\`:** KTP aplikasi (berisi nama aplikasi, ikon, dan izin seperti internet).
-3. **\`build.gradle.kts (Module :app)\`:** Daftar bahan tambahan (*library*) yang dipakai proyek.
-
-### Langkah Membuat Proyek Baru
-1. Buka Android Studio → **New Project** → pilih **Empty Activity** (ikon Compose).
-2. Beri nama proyek (misal \`BelajarPertama\`), pilih bahasa **Kotlin**.
-3. Tunggu proses *Gradle Sync* di pojok kanan bawah selesai (pastikan internet aktif).
-4. Tekan tombol **Run (▶)** untuk melihat tulisan \`Hello Android!\` di Emulator atau HP.`,
-        thinkingSteps: [
-          "Identifikasi folder app -> kotlin+java untuk mencari MainActivity.kt.",
-          "Tunggu Gradle selesai mengunduh kebutuhan awal sebelum menekan tombol Run.",
-        ],
-        instructions: [
-          "Buat proyek baru Empty Activity di Android Studio.",
-          "Buka file MainActivity.kt dan temukan tulisan Greeting(\"Android\").",
-          "Ubah teks \"Android\" menjadi namamu sendiri (Modify!), lalu klik Run atau Split Preview.",
+          "Buka MainActivity.kt dan ubah fungsi Greeting menjadi SalamPembuka.",
+          "Klik tab Split di kanan atas untuk melihat panel Preview.",
+          "Klik Build & Refresh jika preview belum muncul.",
         ],
         code: [
           {
             filename: "MainActivity.kt",
             language: "kotlin",
-            code: `// Cari bagian ini di MainActivity.kt, lalu ubah teksnya!
+            code: `class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            CatatanBelajarTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    SalamPembuka(
+                        nama = "CatatanBelajar",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Halo $name, selamat belajar Kotlin!",
-        modifier = modifier
-    )
+fun SalamPembuka(nama: String, modifier: Modifier = Modifier) {
+    Text(text = "Selamat datang di $nama!", modifier = modifier)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewSalamPembuka() {
+    CatatanBelajarTheme { SalamPembuka("CatatanBelajar") }
 }`,
           },
         ],
-        promptTujuan: "Memahami bagian dasar di MainActivity.kt saat proyek baru pertama kali dibuat.",
-        promptKonteks: "Saya baru membuat proyek Empty Activity Jetpack Compose di Android Studio.",
-        promptInstruksi: [
-          "Jelaskan secara singkat apa tugas fungsi onCreate() dan setContent { ... } dengan analogi panggung pertunjukan.",
+        promptTujuan: "Memahami fungsi innerPadding dari Scaffold di MainActivity.kt.",
+        promptKonteks: "Di MainActivity.kt ada parameter innerPadding yang diteruskan ke Modifier.padding(innerPadding).",
+        promptInstruksi: ["Jelaskan apa yang terjadi di layar HP jika Modifier.padding(innerPadding) dihapus saat enableEdgeToEdge() aktif."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman penanganan status bar / edge-to-edge di Compose.",
+        promptValidasi: "Preview SalamPembuka tampil bersih di panel Split.",
+        expectedResult: "Panel Preview menampilkan teks sapaan tanpa terpotong status bar.",
+        validationCheck: ["Preview muncul di tab Split.", "Memahami fungsi setContent dan innerPadding."],
+      }),
+      makeLesson({
+        id: "m1-l4",
+        moduleId: "modul-1",
+        num: 4,
+        title: "Menjalankan Aplikasi di Emulator & Perangkat HP Fisik",
+        slug: "menjalankan-di-emulator-dan-hp",
+        description:
+          "Membuat Virtual Device (AVD) atau menyambungkan HP Android via USB Debugging lalu menjalankan aplikasi.",
+        objective: "Mampu menjalankan aplikasi CatatanBelajar di Emulator Android atau HP fisik.",
+        concept: `## Dua Pilihan Menjalankan Aplikasi
+1. **Android Emulator (AVD):** Buka **Device Manager** → **Create Virtual Device** → pilih Pixel dengan Play Store / API terbaru → klik **Run (▶)**.
+2. **HP Android Fisik (Lebih Ringan):** Aktifkan **Developer Options** (ketuk *Build Number* 7x di *About Phone*), nyalakan **USB Debugging**, lalu hubungkan kabel USB ke laptop.`,
+        thinkingSteps: [
+          "Pilih target perangkat di dropdown toolbar atas Android Studio.",
+          "Tekan tombol Run (Shift+F10 / Ctrl+R).",
         ],
-        promptBatasan: [
-          "Jangan ubah atau tambahkan kode kompleks.",
-          "Maksimal 2 paragraf.",
+        instructions: [
+          "Buat 1 Emulator di Device Manager (atau sambungkan HP dengan USB Debugging aktif).",
+          "Klik Run (▶) dan tunggu aplikasi terpasang dan terbuka otomatis.",
         ],
-        promptHasilAkhir: "Pemahaman sederhana tentang titik masuk aplikasi Android.",
-        promptValidasi: "Teks sapaan dengan namamu berhasil muncul di layar Emulator atau Preview.",
-        expectedResult: "Proyek Android pertamamu berjalan dan menampilkan teks yang sudah kamu ubah sendiri.",
-        validationCheck: [
-          "Gradle Sync selesai tanpa error merah.",
-          "Berhasil mengubah teks Greeting menjadi namamu sendiri.",
-        ],
+        promptTujuan: "Mengatasi kendala perangkat tidak terdeteksi saat akan Run aplikasi.",
+        promptKonteks: "Saya ingin menjalankan proyek Jetpack Compose di Android Studio.",
+        promptInstruksi: ["Berikan daftar cek singkat jika emulator lambat atau HP Android tidak muncul di daftar perangkat."],
+        promptBatasan: ["Format daftar bernomor maksimal 5 poin."],
+        promptHasilAkhir: "Langkah troubleshooting perangkat Android Studio.",
+        promptValidasi: "Aplikasi tampil di layar Emulator atau HP.",
+        expectedResult: "Aplikasi CatatanBelajar berhasil berjalan di layar perangkat.",
+        validationCheck: ["Aplikasi terpasang dan terbuka tanpa crash."],
         commonErrors: [
           {
-            error: "Gradle sync failed / timeout",
-            solution: "Pastikan koneksi internet stabil, lalu klik File → Sync Project with Gradle Files.",
+            error: "Device unauthorized / tidak muncul",
+            solution: "Cabut-pasang kabel USB, lalu tekan 'Allow USB Debugging' pada pop-up di layar HP.",
           },
         ],
       }),
@@ -397,16 +299,16 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
   },
 
   // =========================================================================
-  // MODUL 2: KOTAK DATA KOTLIN (VAL, VAR, TIPE DATA, & IF/ELSE)
+  // MODUL 2: MEMBANGUN APLIKASI PERTAMA & TATA LETAK DASAR COMPOSE
   // =========================================================================
   {
     id: "modul-2",
     course_id: COURSE_INFO.id,
     module_number: 2,
-    title: "Kotak Data Kotlin (val, var, Tipe Data, & if/else)",
-    slug: "modul-2-dasar-kotlin-ringan",
+    title: "Membangun Aplikasi Pertama & Tata Letak Dasar",
+    slug: "modul-2-aplikasi-pertama-dan-layout",
     description:
-      "Mengenal cara komputer menyimpan data sementara menggunakan val vs var, tipe teks/angka/boolean, percabangan if/else, dan null-safety dasar.",
+      "Menggunakan variabel Kotlin, menyusun layout Column dan Row, mengelola State tombol interaktif, serta memakai Scaffold dan TopAppBar Material 3.",
     estimated_minutes: 60,
     difficulty_level: "Pemula",
     is_published: true,
@@ -417,267 +319,211 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         id: "m2-l1",
         moduleId: "modul-2",
         num: 1,
-        title: "Kotak Penyimpanan Bernama Variabel (val vs var)",
-        slug: "variabel-kotlin-val-vs-var",
+        title: "Dasar Kotlin (val vs var), Text, dan Modifier.padding",
+        slug: "dasar-kotlin-text-dan-modifier",
         description:
-          "Kenali cara komputer menyimpan data sementara menggunakan val (terkunci) dan var (bisa diubah) tanpa menghafal teori rumit.",
-        objective:
-          "Pemula mampu membedakan kapan memakai val dan var, serta memprediksi error jika mencoba mengubah nilai val.",
-        concept: `## Analogi Loker Terkunci vs Papan Tulis
-
-Bayangkan aplikasi perlu mengingat informasi seperti nama pengguna atau jumlah poin. Di Kotlin, tempat menyimpan satu informasi disebut **variabel**.
-
-Ada dua jenis kotak penyimpanan di Kotlin:
-- **\`val\` (Value — Loker Terkunci):** Sekali kamu menaruh barang di dalamnya dan menguncinya, isinya **tidak bisa diganti**. Cocok untuk data tetap seperti \`namaAplikasi\`.
-- **\`var\` (Variable — Papan Tulis Kapur):** Isinya bisa dihapus dan ditulis ulang berkali-kali. Cocok untuk data yang berubah seperti \`jumlahPoin\`.
-
-> **Aturan Emas Pemula:** Selalu mulai dengan \`val\`. Baru ganti ke \`var\` jika kamu yakin nilainya perlu berubah di tengah jalan.`,
+          "Menggunakan val/var dalam komponen Compose, mengatur gaya teks MaterialTheme.typography, dan memberi jarak dengan Modifier.",
+        objective: "Mampu menampilkan teks dengan tipografi Material 3 dan mengatur padding.",
+        concept: `## \`val\` vs \`var\` & Gaya \`Text\`
+- Gunakan \`val\` untuk nilai tetap (seperti judul aplikasi) dan \`var\` untuk nilai yang berubah.
+- Di Compose, komponen \`Text\` diatur tampilannya lewat \`style = MaterialTheme.typography.headlineMedium\` dan \`modifier = Modifier.padding(16.dp)\`.`,
         thinkingSteps: [
-          "Predict: Baca kode di bawah dan tebak apakah baris ke-5 berhasil atau error.",
-          "Run: Jalankan di Kotlin Playground (play.kotlinlang.org) untuk melihat hasilnya.",
-          "Investigate: Gunakan prompt Gemini untuk memahami pesan error Val cannot be reassigned.",
-          "Modify: Ubah poin menjadi var agar bisa bernilai 15.",
+          "Gunakan satuan dp (density-independent pixels) untuk ukuran jarak dan padding.",
+          "Gunakan MaterialTheme.typography agar ukuran teks konsisten.",
         ],
         instructions: [
-          "Baca cuplikan kode BelajarVariabel.kt dan tuliskan tebakanmu terlebih dahulu.",
-          "Jalankan kode tersebut di play.kotlinlang.org.",
-          "Tanyakan arti error-nya ke Gemini jika muncul garis merah, lalu perbaiki sendiri.",
+          "Buat file baru ui/screen/HalamanUtama.kt.",
+          "Tambahkan Text dengan padding 16.dp dan style titleLarge.",
         ],
         code: [
           {
-            filename: "BelajarVariabel.kt",
+            filename: "HalamanUtama.kt",
             language: "kotlin",
-            code: `fun main() {
-    val poin = 10
-    var nyawa = 3
-    nyawa = 2
-    poin = 15 // Tebak: baris ini berhasil atau error?
-    println("Poin: $poin, Nyawa: $nyawa")
+            code: `@Composable
+fun HeaderBelajar(judul: String, modifier: Modifier = Modifier) {
+    Text(
+        text = judul,
+        style = MaterialTheme.typography.titleLarge,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = modifier.padding(16.dp)
+    )
 }`,
           },
         ],
-        promptTujuan: "Memahami perbedaan val dan var serta membaca pesan error compiler Kotlin.",
-        promptKonteks: "Saya pemula total belajar Kotlin dasar menggunakan pendekatan PRIMM.",
-        promptInstruksi: [
-          "Baca kode BelajarVariabel.kt yang saya tempel.",
-          "Jelaskan arti pesan error 'Val cannot be reassigned' dalam bahasa sehari-hari.",
-          "Berikan 1 pertanyaan latihan singkat untuk menguji pemahaman kapan memakai val vs var.",
-        ],
-        promptBatasan: [
-          "JANGAN tulis ulang kode yang sudah diperbaiki.",
-          "Gunakan maksimal 3 paragraf pendek.",
-        ],
-        promptHasilAkhir: "Penjelasan arti error + 1 pertanyaan latihan.",
-        promptValidasi: "Saya bisa memperbaiki sendiri kode sehingga mencetak 'Poin: 15, Nyawa: 2'.",
-        expectedResult: "Program mencetak Poin: 15, Nyawa: 2 setelah kamu mengganti val menjadi var.",
-        validationCheck: [
-          "Sudah menebak hasil kode sebelum menekan Run.",
-          "Berhasil memperbaiki error tanpa menyalin kode utuh dari AI.",
-        ],
-        quiz: {
-          question: "Untuk menyimpan 'Tanggal Lahir' pengguna yang tidak pernah berubah saat aplikasi berjalan, kata kunci mana yang paling tepat?",
-          options: ["var", "val", "fun", "class"],
-          correctIndex: 1,
-          explanation: "Gunakan val untuk nilai yang tidak berubah agar lebih aman dari perubahan yang tidak disengaja.",
-        },
+        promptTujuan: "Memahami penggunaan satuan dp dan sp di Jetpack Compose.",
+        promptKonteks: "Saya sedang mengatur padding dan ukuran font pada komponen Text di Compose.",
+        promptInstruksi: ["Jelaskan secara singkat kapan memakai dp dan kapan memakai sp di Android."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman unit ukuran UI Android.",
+        promptValidasi: "Teks muncul dengan warna primary dan jarak 16.dp.",
+        expectedResult: "Header teks tampil rapi dengan warna tema Material 3.",
+        validationCheck: ["File HalamanUtama.kt berhasil dibuat.", "Padding dan warna tampil di Preview."],
       }),
       makeLesson({
         id: "m2-l2",
         moduleId: "modul-2",
         num: 2,
-        title: "Tipe Data Sehari-hari (String, Int, Boolean) & Teks Template",
-        slug: "tipe-data-dasar-kotlin",
+        title: "Menyusun Komponen dengan Column, Row, dan Spacer",
+        slug: "column-row-dan-spacer",
         description:
-          "Memahami 3 jenis isi kotak data paling sering dipakai di aplikasi: teks (String), angka bulat (Int), dan ya/tidak (Boolean).",
-        objective:
-          "Pemula mampu mendeklarasikan String, Int, dan Boolean serta menggabungkannya dengan String Template ($).",
-        concept: `## Tiga Jenis Isi Kotak Data
-
-Setiap kotak variabel di Kotlin punya jenis isi (**Tipe Data**) agar komputer tidak salah menghitung:
-1. **\`String\` (Teks):** Selalu diapit tanda kutip ganda, misalnya \`"Belajar Kotlin"\`.
-2. **\`Int\` (Angka Bulat):** Angka tanpa koma dan tanpa tanda kutip, misalnya \`25\`.
-3. **\`Boolean\` (Status Ya/Tidak):** Hanya punya dua nilai: \`true\` (benar/aktif) atau \`false\` (salah/mati).
-
-Untuk menyisipkan variabel ke dalam teks, Kotlin punya cara praktis bernama **String Template** menggunakan tanda \`$\`: \`"Halo $nama, skormu $skor"\`.`,
+          "Menata beberapa komponen secara vertikal dengan Column, horizontal dengan Row, serta memberi jarak rapi dengan Spacer.",
+        objective: "Mampu menyusun komponen bertingkat tanpa saling bertumpuk.",
+        concept: `## Tata Letak Vertikal & Horizontal
+- **\`Column\`:** Menumpuk komponen dari atas ke bawah. Atur jarak otomatis lewat \`verticalArrangement = Arrangement.spacedBy(12.dp)\`.
+- **\`Row\`:** Menjajarkan komponen dari kiri ke kanan. Atur perataan vertikal dengan \`verticalAlignment = Alignment.CenterVertically\`.`,
         thinkingSteps: [
-          "Predict: Perhatikan perbedaan \"10\" + \"5\" (String) dengan 10 + 5 (Int).",
-          "Run: Uji di Kotlin Playground.",
-          "Modify: Buat variabel nama, umur (Int), dan sudahSarapan (Boolean) milikmu sendiri.",
+          "Bungkus elemen yang ingin disusun ke bawah dalam Column.",
+          "Gunakan Row untuk tombol-tombol yang bersebelahan.",
         ],
         instructions: [
-          "Tebak apa yang dicetak oleh baris teksGabung vs angkaJumlah.",
-          "Jalankan kode di play.kotlinlang.org dan periksa apakah tebakanmu benar.",
-          "Tambahkan 1 variabel Boolean baru bernama siapBelajar = true dan cetak ke layar.",
+          "Susun teks judul, deskripsi, dan dua tombol sejajar di dalam Column dan Row.",
+          "Periksa tampilannya di Preview.",
         ],
         code: [
           {
-            filename: "TipeData.kt",
+            filename: "LayoutDasar.kt",
             language: "kotlin",
-            code: `fun main() {
-    val teksGabung = "10" + "5"
-    val angkaJumlah = 10 + 5
-    val sudahSelesai: Boolean = false
-
-    println("Hasil teks: $teksGabung")
-    println("Hasil angka: $angkaJumlah")
-    println("Status selesai: $sudahSelesai")
+            code: `@Composable
+fun RingkasanSesi(jumlahSelesai: Int, onTambah: () -> Unit, onReset: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text("Target Selesai Hari Ini: $jumlahSelesai", style = MaterialTheme.typography.headlineSmall)
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Button(onClick = onTambah) { Text("+1 Target") }
+            OutlinedButton(onClick = onReset) { Text("Reset") }
+        }
+    }
 }`,
           },
         ],
-        promptTujuan: "Memahami perbedaan String dan Int saat memakai operator +.",
-        promptKonteks: "Saya baru mengenal tipe data String, Int, dan Boolean di Kotlin.",
-        promptInstruksi: [
-          "Jelaskan kenapa \"10\" + \"5\" menghasilkan \"105\", sedangkan 10 + 5 menghasilkan 15.",
-          "Beri 1 contoh kasus nyata di aplikasi HP di mana kita wajib memakai Boolean.",
-        ],
-        promptBatasan: [
-          "Jangan berikan kode proyek lengkap.",
-          "Maksimal 3 paragraf.",
-        ],
-        promptHasilAkhir: "Penjelasan sederhana tentang tipe data dan String Template.",
-        promptValidasi: "Saya bisa membedakan String, Int, dan Boolean tanpa tertukar.",
-        expectedResult: "Program menampilkan Hasil teks: 105 dan Hasil angka: 15.",
-        validationCheck: [
-          "Memahami mengapa teks perlu tanda kutip dan angka tidak.",
-          "Berhasil memakai $namaVariabel di dalam println().",
-        ],
+        promptTujuan: "Memahami Arrangement vs Alignment pada Column dan Row.",
+        promptKonteks: "Saya menyusun tombol di dalam Row dan Column pada LayoutDasar.kt.",
+        promptInstruksi: ["Jelaskan perbedaan Arrangement dan Alignment pada Row dengan contoh sederhana."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman posisi sumbu utama dan sumbu silang di Compose.",
+        promptValidasi: "Kedua tombol sejajar rapi horizontal di bawah teks.",
+        expectedResult: "Teks dan tombol tersusun bersih tanpa tumpang tindih.",
+        validationCheck: ["Column dan Row tersusun sesuai arahnya.", "Jarak antar tombol konsisten."],
       }),
       makeLesson({
         id: "m2-l3",
         moduleId: "modul-2",
         num: 3,
-        title: "Mengambil Keputusan dengan if, else, dan when",
-        slug: "percabangan-if-else-when",
+        title: "State Interaktif dengan remember { mutableStateOf(...) }",
+        slug: "state-remember-mutablestateof",
         description:
-          "Melatih aplikasi mengambil keputusan otomatis berdasarkan kondisi tertentu menggunakan if/else dan when.",
-        objective:
-          "Pemula mampu menulis logika percabangan sederhana if/else dan when di Kotlin.",
-        concept: `## Analogi Lampu Lalu Lintas
-
-Aplikasi terasa pintar karena bisa memilih tindakan berbeda tergantung situasinya:
-- **\`if / else\`:** Jika kondisi benar (\`true\`), lakukan A; kalau tidak, lakukan B.
-- **\`when\`:** Versi lebih rapi saat pilihannya lebih dari dua (misalnya status: \`"Baru"\`, \`"Proses"\`, \`"Selesai"\`).
-
-Di Kotlin, \`if\` dan \`when\` bahkan bisa langsung mengembalikan nilai ke dalam variabel \`val\`, sehingga kode jadi singkat dan bersih!`,
+          "Membuat angka penghitung atau status layar berubah otomatis saat tombol diklik menggunakan remember dan mutableStateOf.",
+        objective: "Mampu menyimpan dan mengubah state lokal di dalam Composable.",
+        concept: `## Mengapa Harus \`remember { mutableStateOf(...) }\`?
+Saat tombol diklik, Compose menjalankan ulang fungsi Composable (*recomposition*).
+- \`mutableStateOf(0)\` memberi sinyal ke Compose untuk menggambar ulang UI saat nilainya berubah.
+- \`remember\` menjaga agar nilai hitungan tidak kembali ke \`0\` saat digambar ulang.`,
         thinkingSteps: [
-          "Predict: Jika nilaiUjian = 75, apakah statusnya Lulus atau Remedial?",
-          "Run: Jalankan kode dan ubah-ubah angka nilaiUjian (misal 69, 70, 95).",
-          "Modify: Tambahkan kondisi when untuk memberi predikat A, B, atau C.",
+          "Import androidx.compose.runtime.getValue dan setValue agar bisa memakai kata kunci 'by'.",
+          "Pastikan tombol memanggil jumlah++ saat onClick.",
         ],
         instructions: [
-          "Tebak output untuk nilaiUjian = 75 dan nilaiUjian = 70.",
-          "Jalankan kode di play.kotlinlang.org.",
-          "Ubah batas lulus menjadi 75 dan lihat perubahan output-nya.",
+          "Buat komponen PenghitungTarget menggunakan var jumlah by remember { mutableStateOf(0) }.",
+          "Hubungkan tombol +1 dan Reset ke variabel jumlah.",
+          "Jalankan aplikasi di Emulator dan uji klik tombol berkali-kali.",
         ],
         code: [
           {
-            filename: "LogikaKeputusan.kt",
+            filename: "PenghitungTarget.kt",
             language: "kotlin",
-            code: `fun main() {
-    val nilaiUjian = 75
-    val status = if (nilaiUjian >= 70) "Lulus" else "Belajar Lagi"
-    println("Status: $status")
+            code: `import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
-    val tingkat = when {
-        nilaiUjian >= 90 -> "Sangat Baik"
-        nilaiUjian >= 70 -> "Baik"
-        else -> "Perlu Latihan"
-    }
-    println("Predikat: $tingkat")
+@Composable
+fun PenghitungTarget(modifier: Modifier = Modifier) {
+    var jumlah by remember { mutableStateOf(0) }
+    RingkasanSesi(
+        jumlahSelesai = jumlah,
+        onTambah = { jumlah++ },
+        onReset = { jumlah = 0 }
+    )
 }`,
           },
         ],
-        promptTujuan: "Memahami alur kerja if/else dan when sebagai ekspresi di Kotlin.",
-        promptKonteks: "Saya pemula yang sedang membedah contoh kode LogikaKeputusan.kt.",
-        promptInstruksi: [
-          "Jelaskan arti simbol >= dan -> pada blok when di kode saya.",
-          "Berikan 1 soal latihan kecil memakai when untuk status baterai HP (misal >80, >20, else).",
-        ],
-        promptBatasan: [
-          "Jangan langsung menuliskan jawaban soal latihan baterainya.",
-        ],
-        promptHasilAkhir: "Penjelasan simbol percabangan + 1 latihan mandiri.",
-        promptValidasi: "Saya bisa menulis 1 blok when sederhana secara mandiri.",
-        expectedResult: "Program mencetak status dan predikat sesuai angka nilaiUjian.",
-        validationCheck: [
-          "Mengerti arti >=, ==, dan else.",
-          "Sudah mencoba mengubah angka batas kelulusan dan melihat hasilnya.",
-        ],
+        promptTujuan: "Memahami cara kerja delegate 'by remember' dan import getValue/setValue.",
+        promptKonteks: "Saya menambahkan var jumlah by remember { mutableStateOf(0) } di Compose.",
+        promptInstruksi: ["Jelaskan perbedaan memakai '=' (mengakses .value) dengan memakai 'by' di Kotlin Compose."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman sintaks State di Compose.",
+        promptValidasi: "Angka bertambah dan kembali ke 0 saat tombol Reset ditekan.",
+        expectedResult: "Aplikasi penghitung sederhana bekerja interaktif.",
+        validationCheck: ["Tombol +1 menambah angka.", "Tombol Reset mengembalikan ke 0."],
       }),
       makeLesson({
         id: "m2-l4",
         moduleId: "modul-2",
         num: 4,
-        title: "Null-Safety Dasar (? dan ?:) Agar Aplikasi Tidak Crash",
-        slug: "null-safety-dasar-kotlin",
+        title: "Kerangka Layar Material 3 dengan Scaffold & TopAppBar",
+        slug: "scaffold-dan-topappbar-material3",
         description:
-          "Mengenal arti nilai kosong (null) di Kotlin dan cara aman menanganinya dengan operator Elvis (?:).",
-        objective:
-          "Pemula memahami perbedaan String dan String? serta cara memberi nilai cadangan dengan ?:",
-        concept: `## Analogi Kotak Kosong yang Diberi Label
-
-Dalam aplikasi nyata, data kadang belum diisi (misalnya nama panggilan pengguna masih kosong). Keadaan "tidak ada isi sama sekali" di pemrograman disebut **\`null\`**.
-
-Di bahasa lama, menyentuh data \`null\` sering membuat aplikasi mendadak keluar sendiri (*crash*). Kotlin mencegah hal ini:
-- **\`String\`:** Dijamin selalu berisi teks, tidak boleh \`null\`.
-- **\`String?\`:** Boleh kosong (\`null\`). Tanda tanya \`?\` artinya *"hati-hati, kotak ini bisa saja kosong"*.
-- **\`?:\` (Elvis Operator):** Nilai cadangan otomatis kalau ternyata kosong: \`val tampil = nama ?: "Tamu"\`.`,
+          "Membungkus layar dengan Scaffold dan TopAppBar agar aplikasi memiliki header standar Android Material 3.",
+        objective: "Mampu memasang TopAppBar di dalam Scaffold dan meneruskan innerPadding ke konten utama.",
+        concept: `## Struktur Kerangka \`Scaffold\`
+\`Scaffold\` menyediakan slot standar aplikasi Android: \`topBar\`, \`floatingActionButton\`, \`snackbarHost\`, dan konten utama.
+Saat menggunakan \`TopAppBar\`, tambahkan anotasi \`@OptIn(ExperimentalMaterial3Api::class)\` di atas fungsi Composable.`,
         thinkingSteps: [
-          "Predict: Jika catatan = null, apa yang dicetak oleh baris println?",
-          "Run: Jalankan kode dengan catatan = null, lalu ganti jadi \"Bawa buku\".",
-          "Investigate: Tanya Gemini apa yang terjadi jika tanda ? di String? dihapus.",
+          "Tempatkan TopAppBar pada parameter topBar = { ... } milik Scaffold.",
+          "Teruskan innerPadding ke Column konten utama agar konten tidak tertutup TopAppBar.",
         ],
         instructions: [
-          "Tebak hasil eksekusi saat variabel catatan bernilai null.",
-          "Jalankan kode, lalu ganti nilai catatan menjadi kalimat biasa.",
-          "Coba hapus tanda ? pada String? untuk melihat bagaimana Kotlin melindungimu sebelum aplikasi dijalankan.",
+          "Bungkus PenghitungTarget di dalam Scaffold dengan TopAppBar berjudul 'CatatanBelajar'.",
+          "Atur warna containerColor TopAppBar menggunakan MaterialTheme.colorScheme.primaryContainer.",
         ],
         code: [
           {
-            filename: "AmanDariNull.kt",
+            filename: "LayarKerangka.kt",
             language: "kotlin",
-            code: `fun main() {
-    val catatan: String? = null
-    val teksAman = catatan ?: "Belum ada catatan"
-    val panjangHuruf = catatan?.length ?: 0
-
-    println("Isi: $teksAman")
-    println("Jumlah huruf: $panjangHuruf")
+            code: `@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LayarUtamaScaffold() {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("CatatanBelajar") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                )
+            )
+        }
+    ) { innerPadding ->
+        PenghitungTarget(modifier = Modifier.padding(innerPadding))
+    }
 }`,
           },
         ],
-        promptTujuan: "Memahami mengapa Kotlin memisahkan String dan String? serta cara kerja operator ?:",
-        promptKonteks: "Saya pemula yang sedang mempelajari file AmanDariNull.kt.",
-        promptInstruksi: [
-          "Jelaskan perbedaan ?. dan ?: dengan analogi kehidupan sehari-hari.",
-          "Beri 1 pertanyaan cek pemahaman singkat.",
-        ],
-        promptBatasan: [
-          "Jangan sarankan memakai operator !! (non-null assertion).",
-          "Maksimal 3 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman konsep null-safety dasar yang aman.",
-        promptValidasi: "Saya tahu kenapa memakai ?: lebih aman daripada memaksa nilai kosong.",
-        expectedResult: "Program tetap berjalan mulus tanpa crash dan mencetak nilai cadangan.",
-        validationCheck: [
-          "Memahami arti tanda tanya pada String?.",
-          "Berhasil memakai ?: untuk memberi nilai default.",
-        ],
+        promptTujuan: "Memahami slot topBar dan content pada Scaffold Material 3.",
+        promptKonteks: "Saya menggunakan TopAppBar di dalam Scaffold Jetpack Compose.",
+        promptInstruksi: ["Jelaskan fungsi @OptIn(ExperimentalMaterial3Api::class) saat memakai TopAppBar."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman kerangka Scaffold Material 3.",
+        promptValidasi: "TopAppBar tampil di atas dan konten berada tepat di bawahnya.",
+        expectedResult: "Layar memiliki bilah judul Material 3 yang rapi.",
+        validationCheck: ["TopAppBar muncul di bagian atas layar.", "Konten tidak tertutup TopAppBar."],
       }),
     ],
   },
 
   // =========================================================================
-  // MODUL 3: DAFTAR DATA & FUNGSI KECIL (LIST, DATA CLASS, FUN)
+  // MODUL 3: BEKERJA DENGAN GAMBAR, IKON & RESOURCE ANDROID
   // =========================================================================
   {
     id: "modul-3",
     course_id: COURSE_INFO.id,
     module_number: 3,
-    title: "Daftar Data & Fungsi Kecil (List, data class, fun)",
-    slug: "modul-3-daftar-data-dan-fungsi",
+    title: "Bekerja dengan Gambar, Ikon & Resource",
+    slug: "modul-3-gambar-ikon-dan-resource",
     description:
-      "Membungkus logika berulang menjadi fungsi (fun), mengelompokkan data terkait (data class), dan menyaring daftar (List.filter).",
+      "Mengelola folder res/drawable dan strings.xml, menampilkan gambar dengan ContentScale, memotong sudut gambar, serta memakai Material Icons.",
     estimated_minutes: 60,
     difficulty_level: "Pemula",
     is_published: true,
@@ -688,264 +534,179 @@ Di bahasa lama, menyentuh data \`null\` sering membuat aplikasi mendadak keluar 
         id: "m3-l1",
         moduleId: "modul-3",
         num: 1,
-        title: "Membungkus Logika ke Dalam Fungsi (fun)",
-        slug: "fungsi-kotlin-reusable",
+        title: "Mengenal Folder res/drawable & Impor Gambar ke Proyek",
+        slug: "mengenal-res-drawable",
         description:
-          "Membuat blok tugas kecil yang bisa dipanggil berkali-kali dengan input berbeda menggunakan kata kunci fun.",
-        objective:
-          "Pemula mampu membuat fungsi dengan parameter dan nilai kembali (return value).",
-        concept: `## Analogi Mesin Blender
-
-Bayangkan kamu membuat jus 10 kali sehari. Kamu tidak merakit mesin setiap kali butuh jus—kamu cukup memasukkan buah (**parameter**), menekan tombol, dan keluar segelas jus (**return value**).
-
-Di Kotlin, mesin tersebut adalah **fungsi (\`fun\`)**:
-\`\`\`kotlin
-fun sapa(nama: String): String {
-    return "Halo, $nama!"
-}
-\`\`\`
-Dengan fungsi, kode tidak perlu ditulis berulang-ulang dan jauh lebih mudah dibaca.`,
+          "Cara memasukkan file PNG/JPG/WebP ke folder res/drawable dengan aturan penamaan resource Android yang valid.",
+        objective: "Mampu mengimpor aset gambar ke res/drawable tanpa error penamaan resource.",
+        concept: `## Aturan Penamaan File di \`res/drawable\`
+Android sangat ketat soal nama file resource:
+- Hanya boleh **huruf kecil** (\`a-z\`), **angka** (\`0-9\`), dan **garis bawah** (\`_\`).
+- **Dilarang** memakai spasi, tanda hubung (\`-\`), huruf kapital, atau diawali angka! Contoh valid: \`banner_belajar.png\`.`,
         thinkingSteps: [
-          "Predict: Tebak hasil pemanggilan hitungDiskon(100000, 10).",
-          "Run: Jalankan dan panggil fungsi tersebut dua kali dengan angka berbeda.",
-          "Modify: Buat fungsi baru bernama hitungLuasPersegi(sisi: Int): Int.",
+          "Siapkan 1 gambar ilustrasi atau ikon berformat PNG/JPG.",
+          "Ganti nama file menjadi huruf kecil dengan underscore sebelum disalin ke app/src/main/res/drawable.",
         ],
         instructions: [
-          "Baca fungsi hitungTotal pada cuplikan kode dan tebak output-nya.",
-          "Jalankan kode di play.kotlinlang.org.",
-          "Tambahkan satu pemanggilan fungsi baru di dalam main() dengan angka milikmu sendiri.",
+          "Salin gambar bernama ilustrasi_belajar.png ke folder res/drawable melalui Resource Manager.",
+          "Pastikan Gradle mengenali ID R.drawable.ilustrasi_belajar.",
         ],
-        code: [
-          {
-            filename: "BelajarFungsi.kt",
-            language: "kotlin",
-            code: `fun hitungTotal(harga: Int, jumlah: Int): Int {
-    return harga * jumlah
-}
-
-fun main() {
-    val kopi = hitungTotal(15000, 2)
-    val roti = hitungTotal(8000, 3)
-    println("Total kopi: Rp$kopi")
-    println("Total roti: Rp$roti")
-}`,
-          },
-        ],
-        promptTujuan: "Memahami anatomi fungsi Kotlin: nama fungsi, parameter input, dan tipe return.",
-        promptKonteks: "Saya pemula mempelajari fungsi hitungTotal di BelajarFungsi.kt.",
-        promptInstruksi: [
-          "Tunjukkan mana bagian input (parameter) dan mana bagian output (return) pada kode saya.",
-          "Berikan 1 ide fungsi kecil lain untuk latihan saya tulis sendiri.",
-        ],
-        promptBatasan: [
-          "Jangan tulis kode jawaban latihan yang kamu berikan.",
-        ],
-        promptHasilAkhir: "Pemahaman struktur fungsi sederhana di Kotlin.",
-        promptValidasi: "Saya bisa memanggil fungsi yang sama dengan nilai input berbeda.",
-        expectedResult: "Program mencetak Total kopi: Rp30000 dan Total roti: Rp24000.",
-        validationCheck: [
-          "Mengetahui arti kata kunci fun dan return.",
-          "Berhasil membuat minimal 1 fungsi sederhana sendiri.",
-        ],
+        promptTujuan: "Memahami aturan penamaan file resource Android di folder res/drawable.",
+        promptKonteks: "Saya memasukkan gambar ke folder res/drawable di Android Studio.",
+        promptInstruksi: ["Jelaskan kenapa nama file 'Banner-Belajar 1.png' menyebabkan build error di Android."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman konvensi penamaan resource Android.",
+        promptValidasi: "R.drawable.ilustrasi_belajar dikenali tanpa garis merah.",
+        expectedResult: "Aset gambar siap dipanggil lewat R.drawable.",
+        validationCheck: ["Nama file hanya huruf kecil dan underscore.", "Tidak ada error build pada resource."],
       }),
       makeLesson({
         id: "m3-l2",
         moduleId: "modul-3",
         num: 2,
-        title: "Mengelompokkan Data Terkait dengan data class",
-        slug: "mengenal-data-class-kotlin",
+        title: "Menampilkan Image dengan ContentScale & Clip Sudut Membulat",
+        slug: "menampilkan-image-contentscale-clip",
         description:
-          "Menyatukan beberapa informasi milik satu benda (misalnya judul, kategori, status) ke dalam satu cetakan data class.",
-        objective:
-          "Pemula mampu membuat data class dan menyalin perubahan data memakai .copy().",
-        concept: `## Analogi Kartu Identitas (KTP)
-
-Kalau satu catatan punya 3 data (\`id\`, \`judul\`, \`selesai\`), membuat 30 variabel terpisah untuk 10 catatan pasti merepotkan. Solusinya adalah membuat **cetakan kartu** bernama **\`data class\`**.
-
-Keuntungan \`data class\` di Kotlin:
-- Mudah dicetak langsung dengan \`println()\`.
-- Punya fungsi **\`.copy()\`** untuk membuat salinan baru dengan hanya mengubah satu bagian tanpa merusak data asli.`,
+          "Menampilkan gambar di Jetpack Compose dengan proporsi tepat (ContentScale.Crop) dan sudut membulat (RoundedCornerShape).",
+        objective: "Mampu menampilkan gambar yang proporsional dan tidak gepeng di berbagai ukuran layar.",
+        concept: `## Proporsi Gambar dengan \`ContentScale\`
+- \`ContentScale.Crop\`: Mengisi penuh ukuran kotak sambil menjaga rasio aspek (memotong pinggir yang berlebih agar gambar tidak gepeng).
+- \`ContentScale.Fit\`: Menampilkan seluruh gambar utuh di dalam kotak.
+- Tambahkan \`.clip(RoundedCornerShape(12.dp))\` pada \`Modifier\` untuk memberi sudut melengkung yang rapi.`,
         thinkingSteps: [
-          "Predict: Setelah cat2 = cat1.copy(selesai = true), apakah cat1.selesai ikut berubah?",
-          "Run: Jalankan kode dan periksa isi cat1 dan cat2.",
-          "Modify: Tambahkan properti baru prioritas: String = \"Normal\" ke dalam data class.",
+          "Selalu isi parameter contentDescription untuk aksesibilitas pembaca layar.",
+          "Atur tinggi tetap (misal .height(160.dp)) dan .fillMaxWidth() agar gambar konsisten.",
         ],
         instructions: [
-          "Tebak nilai cat1.selesai dan cat2.selesai sebelum menjalankan kode.",
-          "Jalankan kode di play.kotlinlang.org.",
-          "Ubah isi judul pada cat2 lewat .copy(judul = ..., selesai = true).",
+          "Tambahkan komponen Image menggunakan painterResource(id = R.drawable.ilustrasi_belajar).",
+          "Pasang contentScale = ContentScale.Crop dan Modifier.clip(RoundedCornerShape(12.dp)).",
         ],
         code: [
           {
-            filename: "BelajarDataClass.kt",
+            filename: "BannerIlustrasi.kt",
             language: "kotlin",
-            code: `data class Catatan(
-    val id: Int,
-    val judul: String,
-    val selesai: Boolean = false
-)
-
-fun main() {
-    val cat1 = Catatan(1, "Baca Modul Kotlin")
-    val cat2 = cat1.copy(selesai = true)
-    println("Asli   : $cat1")
-    println("Salinan: $cat2")
+            code: `@Composable
+fun BannerIlustrasi(modifier: Modifier = Modifier) {
+    Image(
+        painter = painterResource(id = R.drawable.ilustrasi_belajar),
+        contentDescription = "Ilustrasi catatan belajar",
+        contentScale = ContentScale.Crop,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(160.dp)
+            .clip(RoundedCornerShape(12.dp))
+    )
 }`,
           },
         ],
-        promptTujuan: "Memahami alasan memakai data class dan fungsi .copy() dibanding mengubah variabel langsung.",
-        promptKonteks: "Saya pemula sedang mempelajari BelajarDataClass.kt.",
-        promptInstruksi: [
-          "Jelaskan kenapa .copy() sangat berguna saat nanti kita membuat tampilan layar di Jetpack Compose.",
-        ],
-        promptBatasan: [
-          "Gunakan bahasa sederhana tanpa istilah arsitektur rumit.",
-          "Maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman konsep immutability sederhana lewat .copy().",
-        promptValidasi: "Saya tahu bahwa .copy() tidak mengubah objek aslinya.",
-        expectedResult: "cat1 tetap selesai=false, sedangkan cat2 berubah menjadi selesai=true.",
-        validationCheck: [
-          "Berhasil membuat 1 data class sendiri.",
-          "Memahami cara kerja .copy().",
-        ],
+        promptTujuan: "Memahami perbedaan ContentScale.Crop, Fit, dan FillBounds di Jetpack Compose.",
+        promptKonteks: "Saya menampilkan gambar di BannerIlustrasi.kt dengan ukuran 160.dp.",
+        promptInstruksi: ["Jelaskan kapan sebaiknya memakai ContentScale.Crop dibanding ContentScale.Fit."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman pengaturan rasio gambar di Compose.",
+        promptValidasi: "Gambar tampil proporsional dengan sudut membulat di Preview.",
+        expectedResult: "Gambar banner tampil penuh, tajam, dan tidak gepeng.",
+        validationCheck: ["Gambar tampil dengan sudut membulat.", "contentDescription terisi."],
       }),
       makeLesson({
         id: "m3-l3",
         moduleId: "modul-3",
         num: 3,
-        title: "Menyimpan Banyak Item dengan List dan mutableListOf",
-        slug: "menyimpan-daftar-list-kotlin",
+        title: "Menggunakan Material Icons & IconButton",
+        slug: "material-icons-dan-iconbutton",
         description:
-          "Mengenal daftar data berurutan (List) yang bersifat tetap dan daftar yang bisa ditambah atau dihapus (mutableListOf).",
-        objective:
-          "Pemula mampu membuat List<T>, membaca jumlah item (.size), dan menambah item ke mutableListOf.",
-        concept: `## Analogi Rak Buku vs Keranjang Belanja
-
-- **\`listOf(...)\` (Rak Pajangan):** Daftarnya tetap, hanya untuk dibaca (aman dari perubahan tak sengaja).
-- **\`mutableListOf(...)\` (Keranjang Belanja):** Bisa ditambah (\`.add(...)\`) dan dihapus (\`.removeAt(...)\`).
-
-Ingat: komputer selalu mulai menghitung urutan (*index*) dari angka **0**, bukan 1! Item pertama berada di posisi \`[0]\`.`,
+          "Menambahkan ikon vektor bawaan Material Design dan tombol ikon interaktif pada baris judul atau kartu.",
+        objective: "Mampu memakai Icon dan IconButton serta menambahkan material-icons-extended jika butuh lebih banyak ikon.",
+        concept: `## Ikon Vektor di Compose
+Compose sudah menyertakan ikon dasar di \`Icons.Default.*\` (seperti \`Add\`, \`Delete\`, \`Edit\`, \`Check\`, \`ArrowBack\`).
+Jika butuh ikon lebih lengkap (misal \`Icons.Default.Bookmark\`), tambahkan \`androidx.compose.material:material-icons-extended\` ke \`libs.versions.toml\`.`,
         thinkingSteps: [
-          "Predict: Jika daftar punya 3 item, apa yang dicetak oleh daftar[1]?",
-          "Run: Uji tebakanmu di Kotlin Playground.",
-          "Modify: Tambah 1 item baru memakai .add() lalu cetak jumlah totalnya dengan .size.",
+          "Gunakan IconButton jika ikon harus bisa diklik (otomatis memberi area sentuh 48.dp).",
+          "Gunakan tint = MaterialTheme.colorScheme.primary untuk mewarnai ikon.",
         ],
         instructions: [
-          "Tebak item mana yang muncul dari buah[1].",
-          "Jalankan kode di play.kotlinlang.org.",
-          "Tambahkan 1 item lagi ke daftar dan cetak seluruh isinya memakai perulangan for.",
+          "Tambahkan IconButton pada TopAppBar (misalnya tombol Tentang/Info).",
+          "Atur contentDescription dengan stringResource atau deskripsi singkat.",
         ],
         code: [
           {
-            filename: "BelajarList.kt",
+            filename: "TombolIkon.kt",
             language: "kotlin",
-            code: `fun main() {
-    val daftarBelanja = mutableListOf("Buku", "Pulpen", "Penggaris")
-    println("Item index 1: \${daftarBelanja[1]}")
-
-    daftarBelanja.add("Penghapus")
-    println("Total item: \${daftarBelanja.size}")
-    for (item in daftarBelanja) {
-        println("- $item")
+            code: `@Composable
+fun TombolTambahIkon(onClick: () -> Unit) {
+    IconButton(onClick = onClick) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "Tambah catatan",
+            tint = MaterialTheme.colorScheme.primary
+        )
     }
 }`,
           },
         ],
-        promptTujuan: "Memahami perbedaan listOf vs mutableListOf dan index dimulai dari 0.",
-        promptKonteks: "Saya pemula sedang mempelajari BelajarList.kt.",
-        promptInstruksi: [
-          "Jelaskan apa yang terjadi jika saya memanggil daftarBelanja[10] padahal isinya hanya 4 item.",
-          "Berikan 1 tips cara aman mengecek isi List sebelum mengakses index-nya.",
-        ],
-        promptBatasan: [
-          "Jangan berikan kode program panjang.",
-        ],
-        promptHasilAkhir: "Pemahaman index 0 dan pencegahan IndexOutOfBoundsException.",
-        promptValidasi: "Saya tahu item pertama ada di index 0 dan bisa menambah item ke mutableListOf.",
-        expectedResult: "Program mencetak Item index 1: Pulpen dan Total item: 4.",
-        validationCheck: [
-          "Tahu perbedaan listOf dan mutableListOf.",
-          "Mengerti cara kerja perulangan for (item in daftar).",
-        ],
+        promptTujuan: "Memahami alasan memakai IconButton daripada Modifier.clickable langsung pada Icon.",
+        promptKonteks: "Saya menambahkan tombol ikon di Jetpack Compose.",
+        promptInstruksi: ["Jelaskan keuntungan aksesibilitas dan area sentuh (touch target) saat memakai IconButton."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman standar aksesibilitas tombol ikon Android.",
+        promptValidasi: "Ikon dapat diklik dengan efek riak (ripple) Material.",
+        expectedResult: "Tombol ikon muncul rapi dan memiliki efek klik.",
+        validationCheck: ["Ikon tampil jelas.", "Klik memicu aksi onClick."],
       }),
       makeLesson({
         id: "m3-l4",
         moduleId: "modul-3",
         num: 4,
-        title: "Menyaring & Mengolah Daftar Data (filter & map) dengan PRIMM",
-        slug: "menyaring-daftar-filter-map",
+        title: "Mengelola Teks dengan res/values/strings.xml",
+        slug: "mengelola-teks-strings-xml",
         description:
-          "Mengolah List data class dengan cara ringkas memakai .filter untuk menyaring dan .map untuk mengambil bagian tertentu.",
-        objective:
-          "Pemula mampu memakai List.filter dengan variabel implisit it untuk mencari data sesuai kondisi.",
-        concept: `## Analogi Menyaring Biji Kopi
-
-Di aplikasi nyata, pengguna sering ingin melihat *"daftar yang belum selesai saja"* atau *"cari yang mengandung kata tertentu"*. Kotlin menyediakan fungsi ajaib:
-- **\`.filter { syarat }\`:** Memilih item yang memenuhi syarat. Di dalam kurung kurawal, kata **\`it\`** mewakili *"satu item yang sedang diperiksa saat ini"*.
-- **\`.map { ubah }\`:** Mengubah tiap item menjadi bentuk lain (misalnya mengambil judulnya saja).`,
+          "Memindahkan teks statis dari kode Kotlin ke strings.xml agar mudah diterjemahkan ke berbagai bahasa.",
+        objective: "Mampu menyimpan teks di strings.xml dan memanggilnya lewat stringResource(R.string.*).",
+        concept: `## Mengapa Tidak Menulis Teks Mentah di Kode?
+Menyimpan semua label tombol dan judul di \`res/values/strings.xml\` memudahkan pemeliharaan teks dan mendukung multi-bahasa (misal \`values-en/strings.xml\`). Di Compose, panggil dengan \`stringResource(R.string.nama_string)\`.`,
         thinkingSteps: [
-          "Predict: Dari 3 item catatan, berapa item yang lolos dari filter { !it.selesai }?",
-          "Run: Jalankan kode dan periksa hasilnya.",
-          "Investigate: Tanya Gemini arti tanda seru ! pada !it.selesai.",
-          "Modify: Ubah filter agar hanya mencari catatan yang mengandung kata 'Kotlin'.",
+          "Buka app/src/main/res/values/strings.xml.",
+          "Tambahkan entri <string name=\"...\">...</string> untuk judul dan tombol.",
         ],
         instructions: [
-          "Tebak jumlah dan isi daftar belumSelesai.",
-          "Jalankan kode di play.kotlinlang.org.",
-          "Modifikasi filter untuk mencari judul dengan .contains(\"Kotlin\", ignoreCase = true).",
+          "Tambahkan <string name=\"judul_app\">CatatanBelajar</string> dan <string name=\"tombol_simpan\">Simpan</string> ke strings.xml.",
+          "Ganti string hardcoded di Composable dengan stringResource(R.string.judul_app).",
         ],
         code: [
           {
-            filename: "SaringCatatan.kt",
-            language: "kotlin",
-            code: `data class Item(val judul: String, val selesai: Boolean)
-
-fun main() {
-    val semua = listOf(
-        Item("Install Android Studio", true),
-        Item("Belajar Kotlin val/var", false),
-        Item("Coba Jetpack Compose", false)
-    )
-    val belumSelesai = semua.filter { !it.selesai }
-    val daftarJudul = belumSelesai.map { it.judul }
-    println("Belum selesai: $daftarJudul")
-}`,
+            filename: "res/values/strings.xml",
+            language: "xml",
+            code: `<resources>
+    <string name="app_name">CatatanBelajar</string>
+    <string name="tombol_simpan">Simpan</string>
+    <string name="sapa_pengguna">Halo, %1$s!</string>
+</resources>`,
           },
         ],
-        promptTujuan: "Memahami cara kerja kata kunci it di dalam .filter dan .map.",
-        promptKonteks: "Saya pemula sedang mempelajari kode SaringCatatan.kt dengan metode PRIMM.",
-        promptInstruksi: [
-          "Jelaskan apa arti 'it' dan tanda '!' pada baris semua.filter { !it.selesai }.",
-          "Ajukan 1 pertanyaan singkat untuk menguji pemahaman saya tentang .filter.",
-        ],
-        promptBatasan: [
-          "Jangan ubah kode saya secara utuh.",
-          "Maksimal 3 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman jelas tentang lambda filter dan variabel it.",
-        promptValidasi: "Saya bisa menulis filter baru tanpa bingung arti kata kunci it.",
-        expectedResult: "Program mencetak daftar judul yang belum selesai saja.",
-        validationCheck: [
-          "Memahami bahwa it berarti item saat ini.",
-          "Berhasil memodifikasi syarat filter sendiri.",
-        ],
+        promptTujuan: "Memahami cara memakai placeholder %1$s di strings.xml bersama stringResource().",
+        promptKonteks: "Saya memindahkan teks aplikasi ke strings.xml di Android Studio.",
+        promptInstruksi: ["Tunjukkan cara memanggil string 'sapa_pengguna' yang memiliki placeholder %1$s menggunakan stringResource()."],
+        promptBatasan: ["Tunjukkan maksimal 3 baris contoh pemanggilan."],
+        promptHasilAkhir: "Pemahaman resource string dinamis dengan argumen.",
+        promptValidasi: "Teks tampil dari strings.xml di Preview dan Emulator.",
+        expectedResult: "Aplikasi membaca label teks dari strings.xml.",
+        validationCheck: ["strings.xml diperbarui tanpa error XML.", "stringResource() tampil benar."],
       }),
     ],
   },
 
   // =========================================================================
-  // MODUL 4: LAYAR PERTAMA DENGAN JETPACK COMPOSE
+  // MODUL 4: MENERIMA INPUT PENGGUNA, VALIDASI & STATE HOISTING
   // =========================================================================
   {
     id: "modul-4",
     course_id: COURSE_INFO.id,
     module_number: 4,
-    title: "Layar Pertama dengan Jetpack Compose",
-    slug: "modul-4-layar-pertama-jetpack-compose",
+    title: "Menerima Input Pengguna & Validasi Form",
+    slug: "modul-4-input-pengguna-dan-validasi",
     description:
-      "Mengenal @Composable dan @Preview, menyusun tata letak Column & Row, mempercantik tampilan dengan Modifier, serta membuat Card Material 3.",
-    estimated_minutes: 60,
+      "Membangun form interaktif dengan OutlinedTextField, RadioButton, Switch, validasi error form (isError), serta merapikan state dengan State Hoisting.",
+    estimated_minutes: 65,
     difficulty_level: "Pemula",
     is_published: true,
     order_index: 4,
@@ -955,269 +716,206 @@ fun main() {
         id: "m4-l1",
         moduleId: "modul-4",
         num: 1,
-        title: "Mengenal @Composable & Cara Kerja @Preview",
-        slug: "mengenal-composable-dan-preview",
+        title: "Kotak Input OutlinedTextField & KeyboardOptions",
+        slug: "outlined-textfield-dan-keyboard-options",
         description:
-          "Memahami bagaimana fungsi Kotlin berubah menjadi komponen tampilan layar dan melihat hasilnya instan lewat @Preview.",
-        objective:
-          "Pemula mampu membuat satu fungsi @Composable dan menampilkannya di panel Preview Android Studio.",
-        concept: `## Analogi Balok LEGO Digital
-
-Dulu, membuat tampilan Android harus menulis file XML terpisah. Sekarang dengan **Jetpack Compose**, tampilan ditulis langsung memakai fungsi Kotlin yang diberi label **\`@Composable\`**.
-
-Setiap \`@Composable\` seperti satu balok LEGO (\`Text\`, \`Button\`, \`Icon\`) yang bisa disusun dan dipakai ulang. Tambahkan label **\`@Preview(showBackground = true)\`** di atas fungsi agar kamu bisa melihat hasilnya di Android Studio tanpa harus menunggu Emulator menyala.`,
+          "Membuat input teks dengan label, placeholder, tombol aksi keyboard (ImeAction), dan tipe keyboard khusus angka/teks.",
+        objective: "Mampu membuat form ketikan dengan OutlinedTextField dan mengatur KeyboardOptions.",
+        concept: `## Pola Input Terkontrol
+\`OutlinedTextField\` menerima \`value\` (teks saat ini) dan \`onValueChange\` (callback saat user mengetik). Atur \`singleLine = true\` dan \`keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)\` agar user nyaman berpindah kolom form.`,
         thinkingSteps: [
-          "Perhatikan huruf awal nama fungsi @Composable (selalu diawali Huruf Kapital, misal KartuSalam).",
-          "Jalankan Preview di tab Split / Design di Android Studio.",
-          "Modify: Ubah fontSize dan warna teks pada Text().",
+          "Siapkan state String untuk judul dan catatan.",
+          "Gunakan KeyboardType.Number jika input khusus angka (misal target menit belajar).",
         ],
         instructions: [
-          "Buat file baru atau tambahkan fungsi KartuSalam di MainActivity.kt.",
-          "Tambahkan @Preview(showBackground = true) di atas fungsi preview.",
-          "Klik ikon Build & Refresh di panel Preview sebelah kanan.",
+          "Buat form input Judul Materi dan Target Menit memakai OutlinedTextField.",
+          "Atur singleLine = true pada kolom Judul Materi.",
         ],
         code: [
           {
-            filename: "KartuSalam.kt",
+            filename: "FormInputMateri.kt",
             language: "kotlin",
             code: `@Composable
-fun KartuSalam(nama: String) {
-    Text(
-        text = "Selamat datang, $nama!",
-        style = MaterialTheme.typography.headlineSmall
+fun KolomJudul(nilai: String, onUbah: (String) -> Unit) {
+    OutlinedTextField(
+        value = nilai,
+        onValueChange = onUbah,
+        label = { Text("Judul Materi") },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(
+            capitalization = KeyboardCapitalization.Sentences,
+            imeAction = ImeAction.Next
+        ),
+        modifier = Modifier.fillMaxWidth()
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewKartuSalam() {
-    KartuSalam(nama = "Rina")
 }`,
           },
         ],
-        promptTujuan: "Memahami syarat fungsi @Composable dan fungsi @Preview.",
-        promptKonteks: "Saya pemula sedang mencoba membuat @Composable pertama di Android Studio.",
-        promptInstruksi: [
-          "Jelaskan kenapa fungsi @Composable diawali huruf kapital sedangkan fungsi biasa diawali huruf kecil.",
-          "Jelaskan kenapa fungsi @Preview tidak boleh punya parameter wajib.",
-        ],
-        promptBatasan: [
-          "Penjelasan ringkas maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman aturan dasar @Composable dan @Preview.",
-        promptValidasi: "Preview KartuSalam muncul di panel sebelah kanan Android Studio.",
-        expectedResult: "Teks Selamat datang tampil di panel Preview tanpa menjalankan emulator.",
-        validationCheck: [
-          "Fungsi memiliki anotasi @Composable.",
-          "Preview berhasil tampil di Android Studio.",
-        ],
+        promptTujuan: "Memahami konfigurasi KeyboardOptions dan ImeAction di Jetpack Compose.",
+        promptKonteks: "Saya membuat beberapa OutlinedTextField untuk form tambah catatan.",
+        promptInstruksi: ["Jelaskan fungsi KeyboardType.Number dan ImeAction.Done pada form input Android."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman pengaturan keyboard virtual Android.",
+        promptValidasi: "Keyboard memunculkan tombol Next/Done sesuai pengaturan.",
+        expectedResult: "Kotak ketikan berfungsi mulus dengan label mengambang.",
+        validationCheck: ["Teks bisa diketik dan dihapus.", "KeyboardOptions sesuai jenis input."],
       }),
       makeLesson({
         id: "m4-l2",
         moduleId: "modul-4",
         num: 2,
-        title: "Menyusun Tata Letak dengan Column & Row",
-        slug: "tata-letak-column-dan-row",
+        title: "Pilihan Kategori dengan RadioButton & Switch",
+        slug: "radiobutton-dan-switch-compose",
         description:
-          "Menyusun elemen layar secara ke bawah (Column) dan ke samping (Row) dengan jarak rapi.",
-        objective:
-          "Pemula mampu menggabungkan Column dan Row untuk menyusun tata letak layar yang teratur.",
-        concept: `## Dua Arah Dasar Penyusunan Layar
-
-Jika kamu menaruh dua \`Text()\` tanpa wadah, keduanya akan saling bertumpuk di tempat yang sama! Untuk merapikannya, gunakan dua wadah utama:
-- **\`Column\`:** Menyusun komponen **ke bawah** (vertikal, seperti daftar menu).
-- **\`Row\`:** Menyusun komponen **ke samping** (horizontal, seperti ikon di sebelah judul).
-
-Gunakan \`verticalArrangement = Arrangement.spacedBy(8.dp)\` pada \`Column\` atau \`horizontalArrangement\` pada \`Row\` agar otomatis ada jarak antar komponen.`,
+          "Menyediakan pilihan kategori tunggal (Teori / Praktik / Proyek) dengan RadioButton dan opsi aktif dengan Switch.",
+        objective: "Mampu membuat kelompok RadioButton yang dapat diklik seluruh barisnya.",
+        concept: `## Kelompok Pilihan \`RadioButton\`
+Agar pengguna mudah memilih, jangan hanya membuat lingkaran \`RadioButton\` yang bisa diklik—buat seluruh baris \`Row\` bisa dipilih dengan \`Modifier.selectable(...)\` dan beri \`role = Role.RadioButton\` untuk aksesibilitas.`,
         thinkingSteps: [
-          "Predict: Gambar sketsa kotak sederhana di kertas sebelum menyusun Column & Row.",
-          "Run: Lihat hasil Preview susunan Column dan Row.",
-          "Modify: Tambahkan 1 Row lagi di bawahnya untuk menampilkan tanggal dan status.",
+          "Siapkan daftar pilihan kategori: listOf(\"Teori\", \"Praktik\", \"Proyek\").",
+          "Simpan pilihan terpilih ke dalam state String.",
         ],
         instructions: [
-          "Ketik atau salin contoh ProfilRingkas ke Android Studio.",
-          "Lihat hasil Preview-nya.",
-          "Ubah jarak spacedBy(8.dp) menjadi 16.dp dan amati perubahannya.",
+          "Buat daftar RadioButton untuk memilih kategori belajar.",
+          "Tambahkan Switch untuk menandai 'Prioritas Tinggi'.",
         ],
         code: [
           {
-            filename: "ProfilRingkas.kt",
+            filename: "PilihanKategori.kt",
             language: "kotlin",
             code: `@Composable
-fun ProfilRingkas(nama: String, peran: String) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(Icons.Default.Person, contentDescription = null)
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(text = nama, style = MaterialTheme.typography.titleMedium)
-            Text(text = peran, style = MaterialTheme.typography.bodySmall)
+fun PilihanKategori(
+    daftar: List<String>,
+    terpilih: String,
+    onPilih: (String) -> Unit
+) {
+    Column(Modifier.selectableGroup()) {
+        daftar.forEach { opsi ->
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .selectable(
+                        selected = (opsi == terpilih),
+                        onClick = { onPilih(opsi) },
+                        role = Role.RadioButton
+                    )
+                    .padding(vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(selected = (opsi == terpilih), onClick = null)
+                Text(text = opsi, modifier = Modifier.padding(start = 12.dp))
+            }
         }
     }
 }`,
           },
         ],
-        promptTujuan: "Memahami perbedaan susunan Column vs Row dan pengaturan Alignment.",
-        promptKonteks: "Saya pemula sedang menyusun tampilan profil dengan Row dan Column di Jetpack Compose.",
-        promptInstruksi: [
-          "Jelaskan perbedaan verticalArrangement pada Column vs verticalAlignment pada Row dengan bahasa sederhana.",
-        ],
-        promptBatasan: [
-          "Jangan berikan kode layar lengkap.",
-          "Gunakan maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman intuisi tata letak 2 arah di Jetpack Compose.",
-        promptValidasi: "Ikon dan dua baris teks tersusun rapi berdampingan di Preview.",
-        expectedResult: "Ikon orang berada di sebelah kiri nama dan peran yang tersusun atas-bawah.",
-        validationCheck: [
-          "Komponen tidak lagi saling bertumpuk.",
-          "Memahami kapan memakai Column dan kapan memakai Row.",
-        ],
+        promptTujuan: "Memahami alasan onClick = null pada RadioButton saat baris Row sudah memakai Modifier.selectable.",
+        promptKonteks: "Saya membangun PilihanKategori dengan RadioButton di Jetpack Compose.",
+        promptInstruksi: ["Jelaskan kenapa menaruh onClick = null di RadioButton dan menaruhnya di Row lebih baik untuk pengalaman pengguna."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman pola seleksi baris Material 3.",
+        promptValidasi: "Mengetuk teks kategori langsung memindahkan pilihan RadioButton.",
+        expectedResult: "Pengguna dapat memilih kategori dengan nyaman di area baris yang luas.",
+        validationCheck: ["Hanya 1 kategori terpilih dalam satu waktu.", "Seluruh baris dapat diklik."],
       }),
       makeLesson({
         id: "m4-l3",
         moduleId: "modul-4",
         num: 3,
-        title: "Mempercantik Tampilan dengan Modifier",
-        slug: "mempercantik-dengan-modifier",
+        title: "Validasi Form: isError, supportingText, dan Pesan Kesalahan",
+        slug: "validasi-form-iserror-supportingtext",
         description:
-          "Mengatur ruang napas (padding), ukuran lebar (fillMaxWidth), warna latar, dan sudut membulat memakai Modifier.",
-        objective:
-          "Pemula memahami cara merangkai Modifier dan mengapa urutan Modifier memengaruhi tampilan akhir.",
-        concept: `## Analogi Membungkus Kado (Urutan Itu Penting!)
-
-**\`Modifier\`** adalah alat rias untuk komponen Compose. Kamu bisa merangkainya berurutan dari atas ke bawah:
-\`\`\`kotlin
-Modifier
-    .fillMaxWidth()
-    .padding(16.dp)
-    .background(Color.LightGray)
-\`\`\`
-**Hati-hati dengan urutan!**
-- \`.padding(16.dp).background(Color)\` → memberi jarak luar dulu (margin), baru mewarnai bagian dalam.
-- \`.background(Color).padding(16.dp)\` → mewarnai seluruh kotak dulu, baru memberi jarak di dalam kotak.`,
+          "Menampilkan indikator merah dan pesan kesalahan di bawah OutlinedTextField apabila input masih kosong atau tidak valid.",
+        objective: "Mampu memvalidasi input form saat tombol Simpan ditekan dan menampilkan pesan error yang ramah.",
+        concept: `## Validasi yang Membantu Pengguna
+Jangan langsung membiarkan data kosong tersimpan. Gunakan state \`judulError: Boolean\` bersama parameter:
+- \`isError = judulError\` (mengubah garis kotak jadi merah)
+- \`supportingText = { if (judulError) Text("Judul tidak boleh kosong") }\`
+- \`trailingIcon\` ikon peringatan saat \`isError = true\`.`,
         thinkingSteps: [
-          "Predict: Bandingkan hasil saat .padding() ditaruh sebelum vs sesudah .background().",
-          "Run: Tukar urutan keduanya dan lihat langsung di Preview.",
-          "Modify: Tambahkan .clip(RoundedCornerShape(12.dp)) sebelum .background().",
+          "Cek kondisi validasi di handler tombol Simpan: judulError = judul.isBlank().",
+          "Jika judulError bernilai true, batalkan penyimpanan dan tampilkan supportingText.",
         ],
         instructions: [
-          "Pasang Modifier.fillMaxWidth().padding(16.dp) pada komponen Column.",
-          "Coba tukar posisi .background() dan .padding() lalu lihat bedanya di Preview.",
+          "Tambahkan state judulError by remember { mutableStateOf(false) }.",
+          "Reset judulError = false begitu pengguna mulai mengetik ulang di onValueChange.",
         ],
         code: [
           {
-            filename: "KotakRapi.kt",
+            filename: "ValidasiInput.kt",
             language: "kotlin",
-            code: `@Composable
-fun KotakRapi(judul: String) {
-    Text(
-        text = judul,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(MaterialTheme.colorScheme.primaryContainer)
-            .padding(16.dp)
-    )
-}`,
+            code: `OutlinedTextField(
+    value = judul,
+    onValueChange = {
+        judul = it
+        judulError = false
+    },
+    label = { Text("Judul Materi") },
+    isError = judulError,
+    supportingText = {
+        if (judulError) Text("Judul materi wajib diisi!")
+    },
+    trailingIcon = {
+        if (judulError) Icon(Icons.Default.Warning, contentDescription = "Error")
+    },
+    modifier = Modifier.fillMaxWidth()
+)`,
           },
         ],
-        promptTujuan: "Memahami kenapa urutan pemanggilan fungsi pada Modifier mengubah tampilan.",
-        promptKonteks: "Saya pemula sedang bereksperimen menukar urutan .padding() dan .background() di Compose.",
-        promptInstruksi: [
-          "Jelaskan kenapa .padding() di awal bertindak seperti margin luar, sedangkan .padding() setelah .background() bertindak seperti padding dalam.",
-        ],
-        promptBatasan: [
-          "Gunakan analogi pembungkus kado atau bingkai foto.",
-        ],
-        promptHasilAkhir: "Pemahaman visual urutan Modifier di Compose.",
-        promptValidasi: "Bisa mengatur jarak dalam dan jarak luar kotak secara tepat.",
-        expectedResult: "Teks berada di dalam kotak berwarna dengan sudut membulat dan ruang napas rapi.",
-        validationCheck: [
-          "Memahami pengaruh urutan Modifier.",
-          "Kotak tampil dengan sudut membulat dan padding nyaman dibaca.",
-        ],
+        promptTujuan: "Memahami alur reset error saat pengguna mengetik ulang di Compose.",
+        promptKonteks: "Saya menambahkan validasi isError pada OutlinedTextField.",
+        promptInstruksi: ["Jelaskan kenapa penting mengubah judulError = false di dalam onValueChange."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman UX validasi form yang responsif.",
+        promptValidasi: "Menekan Simpan saat kosong memunculkan pesan merah; mengetik huruf langsung menghilangkan merahnya.",
+        expectedResult: "Form menolak input kosong dan memberi tahu pengguna apa yang kurang.",
+        validationCheck: ["Garis merah dan pesan tampil saat submit kosong.", "Error hilang saat kolom diisi."],
       }),
       makeLesson({
         id: "m4-l4",
         moduleId: "modul-4",
         num: 4,
-        title: "Membuat Kartu Data Rapi dengan Card Material 3",
-        slug: "membuat-kartu-material-3",
+        title: "Merapikan Komponen dengan Pola State Hoisting",
+        slug: "pola-state-hoisting-compose",
         description:
-          "Menggabungkan Card, Row, Column, dan Icon untuk membangun satu kartu daftar item bergaya aplikasi modern.",
-        objective:
-          "Pemula mampu merancang komponen Card reusable yang menerima data sebagai parameter.",
-        concept: `## Prinsip Komponen Reusable
-
-Dalam aplikasi modern, kita tidak menulis desain kartu satu per satu untuk 50 item. Kita membuat **1 cetakan \`@Composable\`** (misalnya \`KartuItem\`) yang menerima data sebagai parameter:
-- \`judul: String\`
-- \`subjudul: String\`
-- \`selesai: Boolean\`
-
-Komponen \`Card\` dari Material 3 otomatis memberi sudut membulat, warna permukaan yang lembut, dan garis batas/bayangan tipis.`,
+          "Memindahkan state dari komponen kecil ke komponen induk agar komponen lebih mudah diuji dan dipakai ulang.",
+        objective: "Mampu menerapkan State Hoisting (mengalirkan data ke bawah, event ke atas).",
+        concept: `## Prinsip *State Hoisting*
+Komponen yang tidak menyimpan \`remember\` di dalamnya (*stateless*) jauh lebih fleksibel dan mudah di-Preview. Caranya, angkat \`var nilai\` ke layar induk, lalu kirim dua hal ke komponen anak:
+1. **\`nilai: String\`** (data yang mengalir ke bawah)
+2. **\`onNilaiUbah: (String) -> Unit\`** (event yang mengalir ke atas).`,
         thinkingSteps: [
-          "Rancang struktur di dalam Card: Row -> Column (Modifier.weight(1f)) -> Badge/Status di kanan.",
-          "Tanya diri sendiri: kenapa Column teks perlu Modifier.weight(1f)? (Supaya judul panjang tidak mendorong ikon di kanan keluar layar!).",
+          "Identifikasi komponen form yang sebelumnya menyimpan remember sendiri.",
+          "Ubah menjadi parameter (value, onValueChange) dan simpan state-nya di layar induk.",
         ],
         instructions: [
-          "Buat komponen KartuItem dengan parameter judul, kategori, dan selesai.",
-          "Bungkus isi kartu dengan Card(modifier = Modifier.fillMaxWidth()).",
-          "Uji di Preview dengan satu judul pendek dan satu judul sangat panjang.",
+          "Refaktor KolomJudul dan PilihanKategori agar bersifat stateless.",
+          "Satukan seluruh state form di dalam layar FormCatatanScreen.",
         ],
-        code: [
-          {
-            filename: "KartuItem.kt",
-            language: "kotlin",
-            code: `@Composable
-fun KartuItem(judul: String, kategori: String) {
-    Card(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(text = kategori, style = MaterialTheme.typography.labelSmall)
-                Text(text = judul, style = MaterialTheme.typography.titleMedium)
-            }
-            Icon(Icons.Default.ChevronRight, contentDescription = null)
-        }
-    }
-}`,
-          },
-        ],
-        promptTujuan: "Memahami fungsi Modifier.weight(1f) pada Row agar teks panjang tidak merusak tata letak.",
-        promptKonteks: "Saya pemula membuat komponen KartuItem.kt di Jetpack Compose Material 3.",
-        promptInstruksi: [
-          "Jelaskan apa yang terjadi pada ikon kanan jika Modifier.weight(1f) dihapus saat teks judul sangat panjang.",
-        ],
-        promptBatasan: [
-          "Maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman tata letak responsif sederhana di dalam Row.",
-        promptValidasi: "Kartu tetap rapi meskipun judulnya 2 baris.",
-        expectedResult: "Satu komponen Card Material 3 rapi yang siap dipakai berulang di daftar.",
-        validationCheck: [
-          "Komponen Card menerima parameter dinamis (bukan teks statis).",
-          "Sudah diuji dengan teks panjang di Preview.",
-        ],
+        promptTujuan: "Memahami manfaat State Hoisting pada komponen Jetpack Compose.",
+        promptKonteks: "Saya memindahkan remember { mutableStateOf(...) } dari komponen anak ke layar induk.",
+        promptInstruksi: ["Sebutkan 2 keuntungan utama membuat komponen form menjadi stateless."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman pola arsitektur Compose yang bersih.",
+        promptValidasi: "Komponen form bisa di-Preview dengan data dummy tanpa state internal.",
+        expectedResult: "Komponen input bersih, modular, dan siap dipakai di berbagai layar.",
+        validationCheck: ["Komponen anak menerima value dan onChange callback.", "Preview tetap berjalan lancar."],
       }),
     ],
   },
 
   // =========================================================================
-  // MODUL 5: MEMBUAT APLIKASI HIDUP (BUTTON, STATE, & TEXTFIELD)
+  // MODUL 5: NAVIGASI ANTAR LAYAR DENGAN NAVIGATION COMPOSE
   // =========================================================================
   {
     id: "modul-5",
     course_id: COURSE_INFO.id,
     module_number: 5,
-    title: "Membuat Aplikasi Hidup (Button, State, & TextField)",
-    slug: "modul-5-state-dan-interaksi",
+    title: "Navigasi Antar Layar (Navigation Compose)",
+    slug: "modul-5-navigation-compose",
     description:
-      "Memahami kenapa layar berubah saat tombol diklik (State & Recomposition), remember { mutableStateOf(...) }, form ketikan TextField, dan LazyColumn.",
+      "Menambahkan Navigation Compose, mendefinisikan rute layar yang aman, membangun NavHost, dan memasang tombol Back di TopAppBar.",
     estimated_minutes: 65,
     difficulty_level: "Pemula",
     is_published: true,
@@ -1228,266 +926,206 @@ fun KartuItem(judul: String, kategori: String) {
         id: "m5-l1",
         moduleId: "modul-5",
         num: 1,
-        title: "Kenapa Layar Tidak Berubah? Mengenal State & Recomposition",
-        slug: "state-dan-recomposition-dasar",
+        title: "Menambahkan Dependensi navigation-compose di Gradle",
+        slug: "dependensi-navigation-compose",
         description:
-          "Memecahkan kebingungan klasik pemula: mengapa variabel var biasa tidak membuat teks di layar Compose ikut berubah saat tombol diklik.",
-        objective:
-          "Pemula memahami konsep State dan Recomposition secara intuitif.",
-        concept: `## Analogi Papan Skor Stadion
-
-Jika kamu menulis \`var skor = 0\` biasa di dalam \`@Composable\` dan menambahkannya saat tombol diklik (\`skor++\`), angka di layar **tidak akan berubah**! Mengapa? Karena Jetpack Compose tidak tahu bahwa variabel biasa itu baru saja diubah.
-
-Agar layar otomatis digambar ulang (**Recomposition**) saat data berubah, data tersebut harus dibungkus sebagai **State** (\`mutableStateOf\`). Begitu isi State berubah, Compose otomatis menyegarkan komponen yang membacanya.`,
+          "Menambahkan library androidx.navigation:navigation-compose melalui Version Catalog libs.versions.toml.",
+        objective: "Mampu menambahkan library resmi Navigation Compose dan melakukan Sync Gradle.",
+        concept: `## Mengapa Pakai Navigation Compose?
+Untuk aplikasi multi-layar nyata, Jetpack **Navigation Compose** otomatis mengatur tumpukan layar (*back stack*), tombol Back bawaan HP Android, dan animasi transisi antar halaman.`,
         thinkingSteps: [
-          "Predict: Apa yang terjadi jika variabel penghitung memakai var biasa tanpa mutableStateOf?",
-          "Run: Bandingkan sebelum dan sesudah memakai mutableStateOf.",
-          "Investigate: Tanya Gemini apa arti kata Recomposition dengan analogi sederhana.",
+          "Tambahkan versi navigationCompose di [versions] pada libs.versions.toml.",
+          "Tambahkan definisi library di [libraries], lalu panggil implementation(libs.androidx.navigation.compose) di app/build.gradle.kts.",
         ],
         instructions: [
-          "Baca kode PenghitungKlik di bawah ini.",
-          "Jalankan di Emulator atau Interactive Preview di Android Studio.",
-          "Klik tombol Tambah beberapa kali dan amati angka di layar.",
+          "Edit gradle/libs.versions.toml untuk menambahkan androidx-navigation-compose.",
+          "Tambahkan ke dependencies di app/build.gradle.kts dan klik Sync Now.",
         ],
         code: [
           {
-            filename: "PenghitungKlik.kt",
-            language: "kotlin",
-            code: `@Composable
-fun PenghitungKlik() {
-    var jumlah by remember { mutableStateOf(0) }
+            filename: "gradle/libs.versions.toml",
+            language: "toml",
+            code: `[versions]
+navigationCompose = "2.9.0"
 
-    Column(modifier = Modifier.padding(24.dp)) {
-        Text(text = "Tombol ditekan: $jumlah kali")
-        Spacer(modifier = Modifier.height(12.dp))
-        Button(onClick = { jumlah++ }) {
-            Text("Tambah +1")
-        }
-    }
+[libraries]
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }`,
+          },
+          {
+            filename: "app/build.gradle.kts",
+            language: "kotlin",
+            code: `dependencies {
+    implementation(libs.androidx.navigation.compose)
 }`,
           },
         ],
-        promptTujuan: "Memahami perbedaan var biasa dan remember { mutableStateOf(...) } di Jetpack Compose.",
-        promptKonteks: "Saya pemula yang baru mencoba PenghitungKlik.kt.",
-        promptInstruksi: [
-          "Jelaskan kenapa tanpa 'remember', angka 'jumlah' akan kembali menjadi 0 setiap kali layar digambar ulang.",
-          "Beri 1 pertanyaan cek pemahaman.",
-        ],
-        promptBatasan: [
-          "Gunakan bahasa non-akademis yang ramah pemula.",
-        ],
-        promptHasilAkhir: "Pemahaman jelas mengapa State dan remember selalu berpasangan.",
-        promptValidasi: "Angka di layar bertambah setiap kali tombol diklik.",
-        expectedResult: "Tombol interaktif pertama berfungsi dan memperbarui angka di layar secara real-time.",
-        validationCheck: [
-          "Mengetahui fungsi mutableStateOf (memicu gambar ulang).",
-          "Mengetahui fungsi remember (menjaga nilai agar tidak reset ke awal).",
-        ],
+        promptTujuan: "Memahami cara menambah library baru dengan aman lewat Gradle Version Catalog.",
+        promptKonteks: "Saya menambahkan androidx-navigation-compose ke libs.versions.toml.",
+        promptInstruksi: ["Jelaskan urutan langkah jika muncul error 'Unresolved reference: navigation' setelah mengedit toml."],
+        promptBatasan: ["Maksimal 3 poin singkat."],
+        promptHasilAkhir: "Library Navigation Compose terpasang dan siap dipakai.",
+        promptValidasi: "Sync Gradle selesai tanpa error.",
+        expectedResult: "rememberNavController() dapat di-import di file Kotlin.",
+        validationCheck: ["Sync Now berhasil.", "NavHost dikenali oleh Android Studio."],
       }),
       makeLesson({
         id: "m5-l2",
         moduleId: "modul-5",
         num: 2,
-        title: "Mengenal Tombol & Umpan Balik Visual (Toggle State)",
-        slug: "tombol-dan-toggle-state",
+        title: "Mendefinisikan Rute Layar (Screen) & Membangun NavHost",
+        slug: "definisi-screen-dan-navhost",
         description:
-          "Mengubah status Boolean (aktif/nonaktif atau selesai/belum) lewat tombol dan Checkbox dengan umpan balik visual langsung.",
-        objective:
-          "Pemula mampu membuat state Boolean untuk mengubah teks, warna, atau garis coret di layar.",
-        concept: `## Mengubah Tampilan Berdasarkan State
-
-Begitu kamu menguasai \`Boolean\` state (\`true\`/\`false\`), layar bisa langsung merespons pengguna:
-- Teks berubah: *"Belum Selesai"* ↔ *"Sudah Tuntas"*
-- Gaya teks berubah: \`TextDecoration.LineThrough\` (garis coret) saat \`selesai == true\`.
-
-Ini adalah fondasi semua fitur interaktif seperti tombol suka (*Like*), tandai selesai (*Checklist*), atau mode gelap.`,
+          "Membuat daftar rute layar dengan sealed class dan menyusun peta navigasi NavHost.",
+        objective: "Mampu membuat Screen routes yang terstruktur dan NavHost dengan startDestination.",
+        concept: `## Peta Jalan Aplikasi: \`NavHost\`
+- **\`NavController\`:** Pengemudi yang memindahkan kita dari satu layar ke layar lain.
+- **\`NavHost\`:** Peta jalan yang mendaftarkan setiap alamat (\`route\`) dan layar Composable mana yang harus tampil.`,
         thinkingSteps: [
-          "Predict: Apa efek tanda seru !selesai saat Checkbox diklik?",
-          "Modify: Tambahkan warna teks yang berbeda saat selesai == true vs false.",
+          "Buat sealed class Screen(val route: String) agar nama rute tidak salah ketik.",
+          "Daftarkan composable(Screen.Utama.route) dan composable(Screen.Tentang.route) di dalam NavHost.",
         ],
         instructions: [
-          "Buat komponen BarisChecklist sederhana dengan Checkbox dan Text.",
-          "Hubungkan onCheckedChange dengan perubahan state Boolean.",
-          "Uji dengan mengklik kotak centang beberapa kali di Interactive Preview.",
+          "Buat file navigation/Screen.kt berisi rute Utama dan Tentang.",
+          "Buat file navigation/NavGraph.kt berisi NavHost(navController, startDestination = Screen.Utama.route).",
         ],
         code: [
           {
-            filename: "BarisChecklist.kt",
+            filename: "navigation/Screen.kt",
+            language: "kotlin",
+            code: `sealed class Screen(val route: String) {
+    data object Utama : Screen("utama")
+    data object Tentang : Screen("tentang")
+}`,
+          },
+          {
+            filename: "navigation/NavGraph.kt",
             language: "kotlin",
             code: `@Composable
-fun BarisChecklist(judul: String) {
-    var selesai by remember { mutableStateOf(false) }
-
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Checkbox(checked = selesai, onCheckedChange = { selesai = it })
-        Text(
-            text = judul,
-            textDecoration = if (selesai) TextDecoration.LineThrough else TextDecoration.None
-        )
+fun SetupNavGraph(navController: NavHostController = rememberNavController()) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Utama.route
+    ) {
+        composable(Screen.Utama.route) {
+            HalamanUtama(onBukaTentang = { navController.navigate(Screen.Tentang.route) })
+        }
+        composable(Screen.Tentang.route) {
+            HalamanTentang(onKembali = { navController.popBackStack() })
+        }
     }
 }`,
           },
         ],
-        promptTujuan: "Memahami bagaimana satu state Boolean mengendalikan beberapa properti visual sekaligus.",
-        promptKonteks: "Saya pemula sedang melatih BarisChecklist.kt.",
-        promptInstruksi: [
-          "Jelaskan apa isi variabel 'it' di dalam onCheckedChange = { selesai = it }.",
-        ],
-        promptBatasan: [
-          "Maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman alur event onCheckedChange di Compose.",
-        promptValidasi: "Teks otomatis tercoret saat Checkbox dicentang.",
-        expectedResult: "Klik Checkbox mencoret dan menghapus coretan teks secara mulus.",
-        validationCheck: [
-          "Checkbox dapat dicentang dan dibatalkan.",
-          "Teks merespons perubahan state.",
-        ],
+        promptTujuan: "Memahami perbedaan sealed class Screen dengan menulis string rute langsung.",
+        promptKonteks: "Saya membuat Screen.kt dan NavGraph.kt dengan Navigation Compose.",
+        promptInstruksi: ["Jelaskan kenapa lebih aman membungkus string rute di sealed class Screen daripada mengetik \"tentang\" berulang kali."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Peta navigasi NavHost siap digunakan di MainActivity.",
+        promptValidasi: "SetupNavGraph() dapat dipanggil dari setContent di MainActivity.kt.",
+        expectedResult: "Layar Utama tampil sebagai halaman pertama saat aplikasi dibuka.",
+        validationCheck: ["Screen.kt dan NavGraph.kt tidak memiliki error merah."],
       }),
       makeLesson({
         id: "m5-l3",
         moduleId: "modul-5",
         num: 3,
-        title: "Menerima Ketikan Pengguna dengan OutlinedTextField",
-        slug: "form-input-outlined-textfield",
+        title: "Berpindah Layar dengan navigate() dan popBackStack()",
+        slug: "navigate-dan-popbackstack",
         description:
-          "Menghubungkan kotak ketikan pengguna dengan state String serta menonaktifkan tombol Simpan jika input masih kosong.",
-        objective:
-          "Pemula mampu membuat input teks terkontrol dan melakukan validasi sederhana sebelum submit.",
-        concept: `## Pola Dua Arah pada Input Teks
-
-Di Jetpack Compose, kotak ketikan (\`OutlinedTextField\`) tidak menyimpan teksnya sendiri. Kamu harus menyediakan:
-1. **\`value\`:** Teks yang sedang tampil (diambil dari \`remember { mutableStateOf("") }\`).
-2. **\`onValueChange\`:** Aksi setiap kali pengguna menekan 1 huruf di keyboard.
-
-Untuk mencegah pengguna menyimpan teks kosong (atau hanya spasi), gunakan **\`enabled = teks.isNotBlank()\`** pada tombol Simpan!`,
+          "Memahami tumpukan layar (back stack) saat berpindah ke halaman baru dan kembali ke halaman sebelumnya.",
+        objective: "Mampu berpindah antar layar tanpa menumpuk halaman ganda di back stack.",
+        concept: `## Cara Kerja Back Stack
+- \`navController.navigate(rute)\`: Menaruh layar baru di atas tumpukan.
+- \`navController.popBackStack()\`: Menutup layar paling atas dan kembali ke layar sebelumnya (sama seperti menekan tombol Back HP).
+- Jangan pernah memanggil \`popBackStack()\` jika tumpukan sudah di layar awal agar layar tidak menjadi putih kosong! Gunakan \`navigateUp()\`.`,
         thinkingSteps: [
-          "Predict: Apa yang terjadi jika onValueChange = {} dibiarkan kosong?",
-          "Run: Uji mengetik di OutlinedTextField dan lihat tombol Tambah aktif saat teks terisi.",
-          "Modify: Tambahkan tombol Reset untuk mengosongkan kembali kotak teks.",
+          "Sambungkan aksi tombol Info di TopAppBar ke navController.navigate(Screen.Tentang.route).",
+          "Uji tombol Back fisik/gestur Android saat berada di Halaman Tentang.",
         ],
         instructions: [
-          "Buat komponen InputCatatan dengan OutlinedTextField dan Button.",
-          "Tambahkan enabled = inputTeks.isNotBlank() pada Button.",
-          "Uji mengetik spasi saja — pastikan tombol tetap nonaktif.",
+          "Buat HalamanTentang.kt sederhana berisi deskripsi aplikasi CatatanBelajar.",
+          "Uji navigasi dari HalamanUtama ke HalamanTentang lalu kembali.",
         ],
-        code: [
-          {
-            filename: "InputCatatan.kt",
-            language: "kotlin",
-            code: `@Composable
-fun InputCatatan(onTambah: (String) -> Unit) {
-    var teks by remember { mutableStateOf("") }
-
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        OutlinedTextField(
-            value = teks,
-            onValueChange = { teks = it },
-            label = { Text("Tulis catatan") },
-            modifier = Modifier.weight(1f)
-        )
-        Spacer(Modifier.width(8.dp))
-        Button(
-            onClick = { onTambah(teks.trim()); teks = "" },
-            enabled = teks.isNotBlank()
-        ) {
-            Text("Tambah")
-        }
-    }
-}`,
-          },
-        ],
-        promptTujuan: "Memahami perbedaan .isNotEmpty() dan .isNotBlank() untuk validasi form pemula.",
-        promptKonteks: "Saya membuat form input di Jetpack Compose dengan OutlinedTextField.",
-        promptInstruksi: [
-          "Jelaskan perbedaan teks.isNotEmpty() dengan teks.isNotBlank() jika pengguna mengetik 3 spasi.",
-        ],
-        promptBatasan: [
-          "Jawab singkat maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman validasi teks kosong dan whitespace.",
-        promptValidasi: "Tombol tidak bisa diklik saat input kosong atau hanya berisi spasi.",
-        expectedResult: "Kotak input bisa diketik, tombol aktif saat ada huruf, dan kotak kosong kembali setelah diklik.",
-        validationCheck: [
-          "Tombol nonaktif saat input kosong/spasi.",
-          "Input otomatis bersih setelah tombol Tambah diklik.",
-        ],
+        promptTujuan: "Memahami perbedaan popBackStack() dan navigateUp() di Navigation Compose.",
+        promptKonteks: "Saya memasang tombol kembali di HalamanTentang.",
+        promptInstruksi: ["Jelaskan risiko memanggil popBackStack() terlalu cepat (misal double click) dan cara aman memakai navigateUp()."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Navigasi maju dan mundur berjalan mulus tanpa layar kosong.",
+        promptValidasi: "Tombol Back HP dan tombol Kembali di layar berfungsi identik.",
+        expectedResult: "Berpindah antara Layar Utama dan Layar Tentang berjalan mulus.",
+        validationCheck: ["Bisa membuka Halaman Tentang dan kembali ke Halaman Utama."],
       }),
       makeLesson({
         id: "m5-l4",
         moduleId: "modul-5",
         num: 4,
-        title: "Menampilkan Daftar Dinamis di Layar dengan LazyColumn",
-        slug: "daftar-dinamis-lazycolumn",
+        title: "Memasang Tombol Back (navigationIcon) di TopAppBar",
+        slug: "tombol-back-di-topappbar",
         description:
-          "Menampilkan daftar item yang panjang dan bisa di-scroll dengan hemat memori menggunakan LazyColumn.",
-        objective:
-          "Pemula mampu menggabungkan Input + State List + LazyColumn menjadi satu layar interaktif utuh.",
-        concept: `## Analogi Memuat Foto di Galeri
-
-Kalau kamu punya 1.000 item dan memasukkannya ke \`Column\`, HP akan menggambar semuanya sekaligus dan terasa lambat. **\`LazyColumn\`** lebih pintar: ia hanya menggambar item yang sedang terlihat di layar saat di-scroll!
-
-Tambahkan parameter \`key = { it }\` atau \`key = { item -> item.id }\` agar Compose mengenali tiap baris dengan akurat saat ada item yang ditambah atau dihapus.`,
+          "Menambahkan ikon panah kembali di pojok kiri atas TopAppBar pada halaman sekunder sesuai standar Material 3.",
+        objective: "Mampu memasang navigationIcon dengan Icons.AutoMirrored.Filled.ArrowBack.",
+        concept: `## Standar Tombol Kembali Material 3
+Di halaman kedua (seperti \`HalamanTentang\` atau \`HalamanDetail\`), pengguna berharap ada panah kembali di kiri atas \`TopAppBar\`. Gunakan \`Icons.AutoMirrored.Filled.ArrowBack\` di slot \`navigationIcon\` milik \`TopAppBar\`.`,
         thinkingSteps: [
-          "Gabungkan state daftar item (mutableStateListOf) dengan komponen InputCatatan dari materi sebelumnya.",
-          "Tampilkan daftarnya menggunakan LazyColumn { items(daftar) { ... } }.",
+          "Tambahkan parameter navigationIcon = { IconButton(onClick = onKembali) { ... } } di TopAppBar halaman kedua.",
         ],
         instructions: [
-          "Buat layar mini CatatanSederhana menggunakan remember { mutableStateListOf<String>() }.",
-          "Sambungkan InputCatatan agar menambahkan teks baru ke daftar.",
-          "Uji menambahkan 5 item berbeda dan scroll daftarnya.",
+          "Buka HalamanTentang.kt dan bungkus dengan Scaffold + TopAppBar.",
+          "Pasang navigationIcon yang memanggil onKembali.",
         ],
         code: [
           {
-            filename: "LayarCatatanMini.kt",
+            filename: "HalamanTentang.kt",
             language: "kotlin",
-            code: `@Composable
-fun LayarCatatanMini() {
-    val daftar = remember { mutableStateListOf("Contoh catatan pertama") }
-
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-        InputCatatan(onTambah = { baru -> daftar.add(0, baru) })
-        Spacer(Modifier.height(16.dp))
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(daftar) { teks ->
-                KartuItem(judul = teks, kategori = "Catatan")
-            }
+            code: `@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HalamanTentang(onKembali: () -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Tentang Aplikasi") },
+                navigationIcon = {
+                    IconButton(onClick = onKembali) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Kembali"
+                        )
+                    }
+                }
+            )
         }
+    ) { innerPadding ->
+        Text(
+            text = "CatatanBelajar membantu mencatat materi dan target harian.",
+            modifier = Modifier.padding(innerPadding).padding(16.dp)
+        )
     }
 }`,
           },
         ],
-        promptTujuan: "Memahami perbedaan Column biasa dan LazyColumn serta kapan memakai mutableStateListOf.",
-        promptKonteks: "Saya menggabungkan InputCatatan dan LazyColumn di LayarCatatanMini.kt.",
-        promptInstruksi: [
-          "Jelaskan apa arti daftar.add(0, baru) dibanding daftar.add(baru).",
-          "Beri 1 ide bagaimana cara menambahkan tombol hapus di samping tiap item.",
-        ],
-        promptBatasan: [
-          "Jangan langsung menulis kode solusi tombol hapusnya.",
-        ],
-        promptHasilAkhir: "Layar daftar interaktif pertama berjalan di Emulator.",
-        promptValidasi: "Menambah catatan baru langsung memunculkannya di paling atas daftar.",
-        expectedResult: "Aplikasi catatan mini di memori sudah bisa menambah dan menggulir daftar secara langsung.",
-        validationCheck: [
-          "Item baru muncul di daftar begitu tombol Tambah diklik.",
-          "Daftar dapat di-scroll dengan lancar.",
-        ],
+        promptTujuan: "Memahami perbedaan Icons.Default.ArrowBack dan Icons.AutoMirrored.Filled.ArrowBack.",
+        promptKonteks: "Saya memasang tombol kembali pada TopAppBar di Compose Material 3.",
+        promptInstruksi: ["Jelaskan kenapa versi terbaru Android menyarankan Icons.AutoMirrored.Filled.ArrowBack."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "TopAppBar halaman kedua tampil sesuai standar Material 3.",
+        promptValidasi: "Ikon panah kiri tampil di kiri atas dan mengembalikan ke layar utama saat diklik.",
+        expectedResult: "Navigasi antar layar lengkap dengan header Material 3.",
+        validationCheck: ["Panah kembali muncul di Halaman Tentang.", "Klik panah kembali menutup Halaman Tentang."],
       }),
     ],
   },
 
   // =========================================================================
-  // MODUL 6: MENYIMPAN DATA & BERPINDAH HALAMAN
+  // MODUL 6: JEMBATAN ARSITEKTUR: VIEWMODEL, STATEFLOW & DEBUGGING LOGCAT
   // =========================================================================
   {
     id: "modul-6",
     course_id: COURSE_INFO.id,
     module_number: 6,
-    title: "Menyimpan Data & Berpindah Halaman",
-    slug: "modul-6-simpan-data-dan-navigasi",
+    title: "ViewModel, StateFlow & Debugging Logcat",
+    slug: "modul-6-viewmodel-stateflow-dan-logcat",
     description:
-      "Menjaga agar data tidak hilang saat aplikasi ditutup dengan penyimpanan lokal sederhana, berpindah 2 layar, dan memisahkan logika ke ViewModel.",
+      "Memisahkan logika aplikasi ke ViewModel, mengelola state reaktif dengan StateFlow, merapikan struktur paket proyek, dan membaca error di Logcat bersama Gemini.",
     estimated_minutes: 65,
     difficulty_level: "Menengah",
     is_published: true,
@@ -1498,259 +1136,200 @@ fun LayarCatatanMini() {
         id: "m6-l1",
         moduleId: "modul-6",
         num: 1,
-        title: "Mengenal Penyimpanan Lokal Sederhana (SharedPreferences)",
-        slug: "penyimpanan-lokal-sharedpreferences",
+        title: "Memisahkan Logika Data ke ViewModel",
+        slug: "memisahkan-logika-ke-viewmodel",
         description:
-          "Menyimpan pengaturan atau teks sederhana ke memori HP sehingga datanya tetap ada meski aplikasi ditutup.",
-        objective:
-          "Pemula memahami perbedaan memori sementara (RAM / remember) dengan memori permanen HP.",
-        concept: `## Analogi Catatan di Kertas vs Papan Tulis
+          "Menambahkan lifecycle-viewmodel-compose dan memindahkan data daftar catatan dari UI Composable ke ViewModel.",
+        objective: "Mampu membuat kelas ViewModel agar data tidak hilang saat layar HP diputar (rotate).",
+        concept: `## Mengapa \`remember\` Saja Tidak Cukup?
+\`remember\` akan ter-reset ketika konfigurasi berubah (misal layar HP diputar *landscape*). **\`ViewModel\`** dirancang khusus untuk bertahan melampaui rotasi layar dan memisahkan logika bisnis dari UI.
 
-Sejauh ini semua data kita memakai \`remember\`. Begitu aplikasi ditutup penuh (*force close*), semua catatan hilang karena \`remember\` hanya hidup di RAM.
-
-Untuk menyimpan data ringan agar bertahan di memori HP (seperti nama pengguna, preferensi tema, atau catatan ringkas), Android menyediakan **\`SharedPreferences\`** yang menyimpan data dalam bentuk pasangan **Kunci → Nilai** (*Key–Value*), mirip kamus kecil.`,
+Tambahkan \`androidx.lifecycle:lifecycle-viewmodel-compose\` ke \`libs.versions.toml\`, lalu panggil \`val viewModel: CatatanViewModel = viewModel()\` di Composable.`,
         thinkingSteps: [
-          "Identifikasi data mana yang cukup disimpan lokal sebagai Key-Value.",
-          "Pahami 2 operasi utamanya: edit().putString(kunci, nilai).apply() dan getString(kunci, default).",
+          "Tambahkan lifecycle-viewmodel-compose di libs.versions.toml dan build.gradle.kts.",
+          "Buat package model/ dan ui/screen/ agar struktur proyek rapi sebelum masuk daftar data besar.",
         ],
         instructions: [
-          "Pelajari fungsi simpanNama dan bacaNama di cuplikan kode.",
-          "Tanyakan ke Gemini perbedaan .apply() dan .commit() pada SharedPreferences.",
+          "Tambahkan dependensi androidx-lifecycle-viewmodel-compose dan Sync Gradle.",
+          "Buat CatatanViewModel : ViewModel() yang menyimpan daftar catatan.",
         ],
         code: [
           {
-            filename: "PenyimpananSederhana.kt",
+            filename: "gradle/libs.versions.toml",
+            language: "toml",
+            code: `[libraries]
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }`,
+          },
+          {
+            filename: "CatatanViewModel.kt",
             language: "kotlin",
-            code: `fun simpanNama(context: Context, nama: String) {
-    val prefs = context.getSharedPreferences("pengaturan_app", Context.MODE_PRIVATE)
-    prefs.edit().putString("nama_pengguna", nama).apply()
-}
-
-fun bacaNama(context: Context): String {
-    val prefs = context.getSharedPreferences("pengaturan_app", Context.MODE_PRIVATE)
-    return prefs.getString("nama_pengguna", "Tamu") ?: "Tamu"
+            code: `class CatatanViewModel : ViewModel() {
+    // Logika tambah/ubah/hapus akan dikelola di sini
 }`,
           },
         ],
-        promptTujuan: "Memahami cara kerja penyimpanan Key-Value di SharedPreferences.",
-        promptKonteks: "Saya pemula sedang mempelajari PenyimpananSederhana.kt.",
-        promptInstruksi: [
-          "Jelaskan fungsi parameter kedua pada getString(\"nama_pengguna\", \"Tamu\") dengan bahasa sederhana.",
-        ],
-        promptBatasan: [
-          "Jangan perkenalkan library database kompleks dulu.",
-        ],
-        promptHasilAkhir: "Pemahaman jelas tentang baca/tulis Key-Value lokal.",
-        promptValidasi: "Tahu di mana data disimpan saat aplikasi ditutup.",
-        expectedResult: "Fungsi baca/tulis nama pengguna ke memori HP siap dipanggil dari UI.",
-        validationCheck: [
-          "Memahami perbedaan RAM (remember) dan Storage (SharedPreferences).",
-          "Memahami peran kunci (key) saat membaca dan menyimpan.",
-        ],
+        promptTujuan: "Memahami siklus hidup ViewModel dibanding remember di Jetpack Compose.",
+        promptKonteks: "Saya menambahkan ViewModel ke proyek Android Compose.",
+        promptInstruksi: ["Jelaskan kapan rememberSaveable cukup dan kapan kita wajib memakai ViewModel."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman arsitektur pemisahan UI dan state.",
+        promptValidasi: "CatatanViewModel dapat diinstansiasi dengan viewModel().",
+        expectedResult: "Dependensi ViewModel terpasang dan siap menampung data daftar.",
+        validationCheck: ["Sync Gradle sukses.", "CatatanViewModel berhasil dibuat."],
       }),
       makeLesson({
         id: "m6-l2",
         moduleId: "modul-6",
         num: 2,
-        title: "Menyimpan & Membaca Daftar Data Saat Aplikasi Dibuka Ulang",
-        slug: "membaca-data-saat-aplikasi-dibuka",
+        title: "Mengamati Data Reaktif dengan StateFlow & collectAsState",
+        slug: "stateflow-dan-collectasstate",
         description:
-          "Menggunakan remember + LocalContext untuk langsung memuat data tersimpan begitu layar pertama kali tampil.",
-        objective:
-          "Pemula mampu memuat data tersimpan dari penyimpanan lokal ke state layar Compose saat pertama dibuka.",
-        concept: `## Menghubungkan Storage ke State Layar
-
-Di Jetpack Compose, kita bisa mengambil \`Context\` Android dengan satu baris:
-\`val context = LocalContext.current\`
-
-Lalu kita langsung mengisi nilai awal \`remember\` dengan data yang dibaca dari \`SharedPreferences\`, dan setiap kali pengguna menekan tombol Simpan, kita memperbarui **keduanya**: State layar *dan* \`SharedPreferences\`.`,
+          "Menggunakan MutableStateFlow di ViewModel dan collectAsState() di Compose agar UI otomatis terbarui saat data berubah.",
+        objective: "Mampu mengekspos StateFlow baca-saja ke UI Compose.",
+        concept: `## Pola \`MutableStateFlow\` + \`StateFlow\`
+Di dalam \`ViewModel\`, kita menjaga data tetap aman dengan dua properti:
+- \`private val _daftar = MutableStateFlow<List<Catatan>>(emptyList())\` (hanya boleh diubah oleh ViewModel).
+- \`val daftar: StateFlow<List<Catatan>> = _daftar.asStateFlow()\` (hanya boleh dibaca oleh UI Compose).
+Di layar Compose, baca nilainya lewat \`val daftar by viewModel.daftar.collectAsState()\`.`,
         thinkingSteps: [
-          "Predict: Jika pengguna menyimpan nama 'Andi', menutup aplikasi, lalu membukanya lagi, nilai apa yang muncul pertama kali?",
-          "Modify: Tambahkan tombol Hapus Nama yang mengembalikan nilainya ke string kosong.",
+          "Biasakan pola private MutableStateFlow dan public StateFlow agar UI tidak mengubah list secara sembarangan.",
         ],
         instructions: [
-          "Tambahkan komponen ProfilTersimpan ke proyek Android-mu.",
-          "Jalankan di Emulator, ketik namamu, lalu klik Simpan.",
-          "Tutup paksa aplikasi dari Recent Apps Emulator dan buka lagi — pastikan namamu masih ada!",
-        ],
-        code: [
-          {
-            filename: "ProfilTersimpan.kt",
-            language: "kotlin",
-            code: `@Composable
-fun ProfilTersimpan() {
-    val context = LocalContext.current
-    var nama by remember { mutableStateOf(bacaNama(context)) }
-    var input by remember { mutableStateOf(nama) }
-
-    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text("Halo, $nama!")
-        OutlinedTextField(value = input, onValueChange = { input = it })
-        Button(onClick = { nama = input; simpanNama(context, input) }) {
-            Text("Simpan ke Memori HP")
-        }
-    }
-}`,
-          },
-        ],
-        promptTujuan: "Memahami pola sinkronisasi antara UI State dan penyimpanan lokal HP.",
-        promptKonteks: "Saya menguji ProfilTersimpan.kt di Emulator Android.",
-        promptInstruksi: [
-          "Jelaskan kenapa kita perlu memperbarui 'nama = input' sekaligus memanggil 'simpanNama(context, input)'.",
-        ],
-        promptBatasan: [
-          "Maksimal 2 paragraf.",
-        ],
-        promptHasilAkhir: "Pemahaman alur baca saat start dan tulis saat aksi tombol.",
-        promptValidasi: "Data tetap bertahan setelah aplikasi ditutup dan dibuka ulang.",
-        expectedResult: "Nama yang disimpan tetap muncul saat aplikasi dibuka kembali.",
-        validationCheck: [
-          "Sudah menguji menutup dan membuka ulang aplikasi di Emulator/HP.",
-        ],
-      }),
-      makeLesson({
-        id: "m6-l3",
-        moduleId: "modul-6",
-        num: 3,
-        title: "Berpindah Antar Dua Layar Secara Aman",
-        slug: "berpindah-antar-dua-layar",
-        description:
-          "Mengenal cara sederhana berpindah antara Layar Daftar dan Layar Detail/Pengaturan menggunakan state halaman.",
-        objective:
-          "Pemula mampu membuat navigasi 2 layar yang bersih tanpa tersesat dengan library navigasi rumit.",
-        concept: `## Navigasi Berbasis State untuk Pemula
-
-Sebelum belajar library navigasi yang panjang, pemula bisa membuat navigasi 2 layar dengan sangat mudah hanya memakai sebuah \`var halamanAktif by remember { mutableStateOf("utama") }\` dan blok \`when\`:
-- Jika \`"utama"\` → tampilkan \`LayarUtama(onBukaPengaturan = { halamanAktif = "pengaturan" })\`
-- Jika \`"pengaturan"\` → tampilkan \`LayarPengaturan(onKembali = { halamanAktif = "utama" })\`
-
-Pola ini mengajarkan konsep terpenting di Compose: **layar adalah fungsi dari state saat ini**.`,
-        thinkingSteps: [
-          "Rancang 2 nama halaman: \"utama\" dan \"pengaturan\".",
-          "Berikan callback onBukaPengaturan dan onKembali ke masing-masing layar.",
-        ],
-        instructions: [
-          "Buat enum atau string halamanAktif di komponen induk.",
-          "Tambahkan tombol Pengaturan di layar utama dan tombol Kembali di layar kedua.",
-          "Uji bolak-balik antar dua layar di Emulator.",
-        ],
-        code: [
-          {
-            filename: "NavigasiSederhana.kt",
-            language: "kotlin",
-            code: `@Composable
-fun AplikasiDuaLayar() {
-    var halaman by remember { mutableStateOf("utama") }
-
-    when (halaman) {
-        "utama" -> Column(Modifier.padding(24.dp)) {
-            Text("Halaman Utama")
-            Button(onClick = { halaman = "detail" }) { Text("Buka Detail") }
-        }
-        "detail" -> Column(Modifier.padding(24.dp)) {
-            Text("Halaman Detail")
-            Button(onClick = { halaman = "utama" }) { Text("Kembali") }
-        }
-    }
-}`,
-          },
-        ],
-        promptTujuan: "Memahami konsep navigasi berbasis state di Jetpack Compose.",
-        promptKonteks: "Saya pemula yang baru mencoba AplikasiDuaLayar() di NavigasiSederhana.kt.",
-        promptInstruksi: [
-          "Jelaskan keunggulan membuat callback onKembali: () -> Unit daripada langsung mengubah state di dalam layar anak.",
-        ],
-        promptBatasan: [
-          "Jangan memaksa saya langsung memasang Navigation Compose library jika konsep dasarnya belum diminta.",
-        ],
-        promptHasilAkhir: "Pemahaman state hoisting sederhana untuk navigasi.",
-        promptValidasi: "Berhasil berpindah maju dan kembali antar dua layar.",
-        expectedResult: "Tombol membuka layar kedua dan tombol kembali membawa ke layar utama.",
-        validationCheck: [
-          "Kedua layar tampil bergantian sesuai state.",
-        ],
-      }),
-      makeLesson({
-        id: "m6-l4",
-        moduleId: "modul-6",
-        num: 4,
-        title: "Memisahkan Logika Aplikasi ke Kelas Pengelola (ViewModel)",
-        slug: "memisahkan-logika-ke-viewmodel",
-        description:
-          "Merapikan kode agar layar Compose hanya mengurus tampilan, sedangkan data dan aturan bisnis tinggal di ViewModel.",
-        objective:
-          "Pemula mampu memindahkan daftar state dari layar Compose ke sebuah kelas ViewModel sederhana.",
-        concept: `## Analogi Kasir vs Koki
-
-Kalau satu file Compose mengurus warna tombol, tata letak, validasi teks, *dan* daftar data sekaligus, kodenya cepat berantakan. Kita pisahkan tugasnya:
-- **Layar Compose (Kasir):** Hanya menampilkan apa yang ada dan melaporkan klik tombol.
-- **ViewModel (Koki):** Menyimpan daftar data (\`mutableStateListOf\`) dan mengolah logika tambah/hapus.
-
-Bonusnya: saat layar HP diputar (*rotate*), data di dalam \`ViewModel\` tidak ikut ter-reset!`,
-        thinkingSteps: [
-          "Pindahkan daftar catatan ke dalam class CatatanViewModel : ViewModel().",
-          "Pindahkan fungsi tambahCatatan(judul: String) ke dalam ViewModel.",
-          "Di Compose, cukup panggil viewModel.tambahCatatan(...).",
-        ],
-        instructions: [
-          "Buat file CatatanViewModel.kt.",
-          "Pindahkan logika validasi .isNotBlank() ke dalam fungsi ViewModel.",
-          "Sambungkan CatatanViewModel ke layar utamamu.",
+          "Tambahkan _daftar dan daftar di CatatanViewModel.",
+          "Tambahkan fungsi tambahCatatan(judul: String, kategori: String).",
         ],
         code: [
           {
             filename: "CatatanViewModel.kt",
             language: "kotlin",
             code: `class CatatanViewModel : ViewModel() {
-    val daftarCatatan = mutableStateListOf<String>()
+    private val _daftar = MutableStateFlow<List<String>>(emptyList())
+    val daftar: StateFlow<List<String>> = _daftar.asStateFlow()
 
-    fun tambah(judul: String) {
-        val bersih = judul.trim()
-        if (bersih.isNotEmpty()) {
-            daftarCatatan.add(0, bersih)
-        }
-    }
-
-    fun hapus(index: Int) {
-        if (index in daftarCatatan.indices) {
-            daftarCatatan.removeAt(index)
+    fun tambah(teks: String) {
+        if (teks.isNotBlank()) {
+            _daftar.value = listOf(teks.trim()) + _daftar.value
         }
     }
 }`,
           },
         ],
-        promptTujuan: "Memahami pemisahan tugas antara UI Compose dan ViewModel.",
-        promptKonteks: "Saya pemula yang baru memindahkan logika tambah dan hapus daftar ke CatatanViewModel.kt.",
+        promptTujuan: "Memahami mengapa _daftar.value harus diganti dengan List baru (immutable update) di StateFlow.",
+        promptKonteks: "Saya memakai StateFlow<List<String>> di CatatanViewModel.",
+        promptInstruksi: ["Jelaskan kenapa memanggil list.add() pada MutableList di dalam StateFlow sering gagal memicu pembaruan UI di Compose."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Pemahaman pembaruan state immutable pada StateFlow.",
+        promptValidasi: "UI langsung menampilkan item baru saat viewModel.tambah() dipanggil.",
+        expectedResult: "Perubahan state di ViewModel otomatis memperbarui layar Compose.",
+        validationCheck: ["StateFlow terhubung dengan collectAsState()."],
+      }),
+      makeLesson({
+        id: "m6-l3",
+        moduleId: "modul-6",
+        num: 3,
+        title: "Membaca Error Merah & Caused by: di Logcat Bersama Gemini",
+        slug: "debugging-logcat-bersama-gemini",
+        description:
+          "Cara cepat menemukan akar penyebab crash di tab Logcat Android Studio dan meminta diagnosis akurat ke Gemini.",
+        objective: "Mampu menyaring Logcat dan membedah pesan Caused by: dengan Gemini.",
+        concept: `## Teknik 3 Langkah Membaca Logcat
+Saat aplikasi *Force Close*:
+1. Buka tab **Logcat** di bawah Android Studio dan pilih level **Error**.
+2. Cari baris bertuliskan **\`Caused by:\`** diikuti tautan biru nama file dan nomor barismu (misal \`MainActivity.kt:42\`).
+3. Salin 5–10 baris tersebut dan tanyakan ke Gemini dengan menyertakan konteks file terkait.`,
+        thinkingSteps: [
+          "Filter Logcat dengan package:mine agar log sistem Android lain tersembunyi.",
+          "Klik tautan biru di stack trace untuk langsung melompat ke baris penyebabnya.",
+        ],
+        instructions: [
+          "Buka tab Logcat di Android Studio dan aktifkan filter package:mine level:error.",
+          "Pelajari contoh stack trace di bawah ini dan temukan file penyebabnya.",
+        ],
+        code: [
+          {
+            filename: "ContohStackTrace.txt",
+            language: "text",
+            code: `FATAL EXCEPTION: main
+java.lang.IllegalArgumentException: Navigation destination that matches route detail/5 cannot be found
+    at androidx.navigation.NavController.navigate(...)
+    at com.belajar.catatan.ui.MainScreenKt.MainScreen(MainScreen.kt:64)`,
+          },
+        ],
+        promptTujuan: "Mendiagnosis penyebab crash dari cuplikan Logcat bersama Gemini.",
+        promptKonteks: "Aplikasi Compose saya crash saat tombol navigasi diklik.",
         promptInstruksi: [
-          "Jelaskan kenapa pengecekan 'if (index in daftarCatatan.indices)' penting sebelum menghapus item.",
+          "Jelaskan arti pesan 'Navigation destination that matches route ... cannot be found'.",
+          "Sebutkan 2 kemungkinan kesalahan penulisan di NavHost atau Screen.kt.",
         ],
-        promptBatasan: [
-          "Maksimal 2 paragraf.",
+        promptBatasan: ["Maksimal 3 poin singkat."],
+        promptHasilAkhir: "Diagnosis cepat error navigasi atau null pointer dari Logcat.",
+        promptValidasi: "Bisa menemukan baris error pada file sendiri di stack trace.",
+        expectedResult: "Siap menghadapi dan memperbaiki crash di modul-modul berikutnya.",
+        validationCheck: ["Tahu cara menyaring Logcat dengan package:mine."],
+      }),
+      makeLesson({
+        id: "m6-l4",
+        moduleId: "modul-6",
+        num: 4,
+        title: "Menambahkan FloatingActionButton & Merapikan Struktur Paket",
+        slug: "floating-action-button-dan-struktur-paket",
+        description:
+          "Menambahkan tombol aksi mengambang (+) di Scaffold serta menata folder model, ui/screen, dan navigation.",
+        objective: "Mampu memasang FloatingActionButton di Scaffold dan menyusun paket proyek yang rapi.",
+        concept: `## Struktur Paket Proyek yang Bersih
+Sebelum membangun daftar data besar di Modul 7–10, rapikan folder di bawah \`com.belajar.catatan\`:
+- \`model/\`: \`data class\`
+- \`database/\`: Room Entity, DAO, Database (Modul 9)
+- \`navigation/\`: \`Screen.kt\`, \`NavGraph.kt\`
+- \`ui/screen/\`: Layar-layar Compose & \`ViewModel\``,
+        thinkingSteps: [
+          "Pasang floatingActionButton = { FloatingActionButton(onClick = ...) { Icon(...) } } di Scaffold layar utama.",
         ],
-        promptHasilAkhir: "Kode proyek lebih bersih dan aman dari bug index.",
-        promptValidasi: "Layar Compose tinggal memanggil viewModel.tambah() dan viewModel.hapus().",
-        expectedResult: "Struktur kode rapi: logika berada di ViewModel, tampilan berada di Composable.",
-        validationCheck: [
-          "Fitur tambah dan hapus berjalan lewat ViewModel.",
-          "Memahami alasan memisahkan UI dan logika.",
+        instructions: [
+          "Buat folder model, navigation, dan ui/screen di Android Studio.",
+          "Tambahkan FloatingActionButton(+) pada Scaffold layar utama untuk membuka halaman tambah/dialog.",
         ],
+        code: [
+          {
+            filename: "FabScaffold.kt",
+            language: "kotlin",
+            code: `Scaffold(
+    topBar = { /* TopAppBar */ },
+    floatingActionButton = {
+        FloatingActionButton(onClick = onTambahBaru) {
+            Icon(Icons.Default.Add, contentDescription = "Tambah catatan")
+        }
+    }
+) { innerPadding ->
+    // Konten utama
+}`,
+          },
+        ],
+        promptTujuan: "Memahami tata letak standar FloatingActionButton pada Scaffold.",
+        promptKonteks: "Saya menambahkan FloatingActionButton pada Scaffold halaman utama.",
+        promptInstruksi: ["Jelaskan kenapa FloatingActionButton diletakkan di slot Scaffold, bukan ditaruh manual di dalam Column."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Struktur paket bersih dan FAB tampil di pojok kanan bawah.",
+        promptValidasi: "FAB muncul mengambang rapi di kanan bawah layar.",
+        expectedResult: "Kerangka proyek siap memasuki Modul 7 (Scrollable List).",
+        validationCheck: ["Folder paket tertata rapi.", "FAB muncul di kanan bawah."],
       }),
     ],
   },
 
   // =========================================================================
-  // MODUL 7: MEMBACA ERROR LOGCAT, MODIFIKASI MANDIRI & RILIS KE GITHUB
+  // MODUL 7: DAFTAR DAPAT DIGULIR (LAZYCOLUMN, LAZYVERTICALGRID, & CARD)
   // =========================================================================
   {
     id: "modul-7",
     course_id: COURSE_INFO.id,
     module_number: 7,
-    title: "Membaca Error Logcat, Modifikasi Mandiri & Rilis ke GitHub",
-    slug: "modul-7-debugging-modifikasi-dan-rilis",
+    title: "Daftar Dapat Digulir (Scrollable List & Grid)",
+    slug: "modul-7-scrollable-list-dan-grid",
     description:
-      "Cara membaca pesan error merah di Logcat bersama Gemini Mode 3, menambah 1 fitur kreasi sendiri, membangun file APK, dan mengunggah proyek ke GitHub.",
-    estimated_minutes: 70,
-    difficulty_level: "Pemula",
+      "Membuat model data Catatan, merancang Card item responsif, menampilkan daftar dengan LazyColumn dan LazyVerticalGrid, serta tombol toggle tampilan List/Grid.",
+    estimated_minutes: 65,
+    difficulty_level: "Menengah",
     is_published: true,
     order_index: 7,
     created_at: CREATED_AT,
@@ -1759,219 +1338,854 @@ Bonusnya: saat layar HP diputar (*rotate*), data di dalam \`ViewModel\` tidak ik
         id: "m7-l1",
         moduleId: "modul-7",
         num: 1,
-        title: "Cara Membaca Error Merah & Caused by di Logcat Bersama Gemini",
-        slug: "membaca-error-logcat-bersama-gemini",
+        title: "Membuat Model data class Catatan & Daftar Sampel Awal",
+        slug: "model-data-class-catatan",
         description:
-          "Tidak lagi panik melihat ratusan baris log merah: temukan baris Caused by: dan bedah bersama Gemini Mode 3.",
-        objective:
-          "Pemula mampu menemukan baris penyebab crash di Logcat dan meminta petunjuk perbaikan tanpa salin buta.",
-        concept: `## Jurus 3 Detik Membaca Logcat
-
-Saat aplikasi crash, **Logcat** memang menampilkan puluhan baris teks merah. Jangan dibaca semua! Cari saja 2 kata kunci ini:
-1. **Filter \`Error\`** di bilah atas Logcat Android Studio.
-2. Cari baris yang diawali **\`Caused by:\`** lalu lihat tautan biru nama file & nomor barismu sendiri (misal \`MainActivity.kt:42\`).
-
-Setelah ketemu, tempel 5–10 baris tersebut ke Gemini menggunakan **Mode 3 (Bedah Error Logcat)** agar kamu mengerti akar masalahnya, bukan sekadar menempel tambalan.`,
+          "Mendefinisikan struktur data Catatan (id, judul, isi, kategori) serta menyiapkan daftar data awal di ViewModel.",
+        objective: "Mampu membuat data class terstruktur untuk menampung item daftar.",
+        concept: `## Cetakan Data \`Catatan\`
+Setiap item di daftar membutuhkan \`id\` unik (penting untuk navigasi detail di Modul 8 dan Room di Modul 9), \`judul\`, \`isi\`, dan \`kategori\`.`,
         thinkingSteps: [
-          "Buka tab Logcat di bawah Android Studio.",
-          "Ketik package aplikasi atau pilih level Error.",
-          "Salin bagian Exception / Caused by, lalu tempel ke prompt Mode 3 Gemini.",
+          "Buat data class Catatan di dalam paket model/.",
+          "Sertakan nilai id: Long sebagai pengenal unik setiap baris.",
         ],
         instructions: [
-          "Pelajari contoh log error pada cuplikan kode.",
-          "Temukan file dan baris penyebab error pada contoh tersebut.",
-          "Uji menempelkannya ke Gemini menggunakan aturan Mode 3.",
+          "Buat file model/Catatan.kt.",
+          "Perbarui CatatanViewModel agar menyimpan List<Catatan> beserta beberapa data sampel awal.",
         ],
         code: [
           {
-            filename: "ContohLogcatError.txt",
-            language: "text",
-            code: `FATAL EXCEPTION: main
-java.lang.IndexOutOfBoundsException: Index 5 out of bounds for length 3
-    at com.belajar.app.MainActivityKt.LayarCatatan(MainActivity.kt:48)`,
+            filename: "model/Catatan.kt",
+            language: "kotlin",
+            code: `data class Catatan(
+    val id: Long,
+    val judul: String,
+    val isi: String,
+    val kategori: String
+)`,
           },
         ],
-        promptTujuan: "Mendiagnosis penyebab crash dari cuplikan Logcat dengan panduan Socratic Gemini.",
-        promptKonteks: "Saya pemula Android dan baru menemukan error IndexOutOfBoundsException di Logcat.",
-        promptInstruksi: [
-          "Jelaskan arti error tersebut dengan bahasa manusia.",
-          "Tunjuk baris dan file mana yang harus saya buka.",
-          "Beri 1 petunjuk pengecekan yang harus saya tambahkan agar error ini tidak terulang.",
-        ],
-        promptBatasan: [
-          "JANGAN langsung memberi kode perbaikan siap salin.",
-        ],
-        promptHasilAkhir: "Pemahaman cara membaca stack trace Logcat secara mandiri.",
-        promptValidasi: "Saya bisa menemukan nama file dan nomor baris penyebab error dalam 10 detik.",
-        expectedResult: "Kamu tidak lagi takut saat melihat error merah di Android Studio.",
-        validationCheck: [
-          "Tahu cara membuka tab Logcat dan mencari 'Caused by:'.",
-          "Sudah mencoba Mode 3 ke Gemini.",
-        ],
+        promptTujuan: "Memahami pentingnya properti id unik pada model data daftar Compose.",
+        promptKonteks: "Saya membuat data class Catatan untuk ditampilkan di LazyColumn.",
+        promptInstruksi: ["Jelaskan kenapa setiap item di daftar Compose sebaiknya punya id unik (Long/Int) daripada hanya mengandalkan urutan index."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Model Catatan siap dipakai di daftar dan navigasi.",
+        promptValidasi: "Data sampel muncul di ViewModel tanpa error.",
+        expectedResult: "Struktur model data aplikasi sudah seragam.",
+        validationCheck: ["model/Catatan.kt berhasil dibuat."],
       }),
       makeLesson({
         id: "m7-l2",
         moduleId: "modul-7",
         num: 2,
-        title: "Latihan Modifikasi Mandiri: Tambah 1 Fitur Pembeda",
-        slug: "latihan-modifikasi-mandiri-fitur-pembeda",
+        title: "Merancang Komponen Card Item Daftar yang Rapi",
+        slug: "komponen-card-item-daftar",
         description:
-          "Menerapkan tahap Make pada siklus PRIMM dengan merancang dan membangun sendiri minimal 1 fitur tambahan.",
-        objective:
-          "Pemula mampu merancang alur Input-Proses-Output untuk 1 fitur baru dan mengimplementasikannya bersama Gemini.",
-        concept: `## Saatnya Tahap *Make* (Karya Milikmu Sendiri)
-
-Sekarang kamu sudah punya fondasi lengkap: variabel, list, Compose UI, state, penyimpanan lokal, dan debugging. Pilih **1 fitur tambahan** untuk memperkaya aplikasimu, misalnya:
-- Kotak pencarian kata kunci di atas daftar catatan (memakai \`.filter\`).
-- Penanda kategori warna (Penting / Belajar / Pribadi).
-- Penghitung jumlah item aktif di judul atas.
-- Dialog konfirmasi *"Yakin ingin menghapus?"* sebelum item terhapus.
-
-Wajib tulis rancangan **Input → Proses → Output** lebih dulu sebelum membuka Gemini!`,
+          "Mendesain tampilan satu baris catatan memakai Card, Column, TextOverflow.Ellipsis, dan event onClick.",
+        objective: "Mampu membuat Card Material 3 yang tidak berantakan ketika judul atau isi catatan sangat panjang.",
+        concept: `## Membatasi Teks Panjang di Kartu
+Gunakan \`maxLines = 2\` dan \`overflow = TextOverflow.Ellipsis\` agar kartu di daftar tetap seragam tingginya meski isi catatan panjang. Pasang \`onClick\` langsung pada \`Card(onClick = onClick)\`.`,
         thinkingSteps: [
-          "Pilih 1 fitur pembeda yang paling kamu suka.",
-          "Tulis Input -> Proses -> Output-nya dalam 3 baris.",
-          "Gunakan Gemini untuk menanyakan konsep bagian yang belum kamu kuasai, lalu rakit sendiri.",
+          "Gunakan Card(onClick = onClick, modifier = Modifier.fillMaxWidth()) agar kartu langsung punya efek ripple saat ditekan.",
         ],
         instructions: [
-          "Pilih salah satu ide fitur tambahan di atas.",
-          "Implementasikan di proyek Android-mu.",
-          "Uji langsung di Emulator atau HP untuk memastikan fitur berjalan tanpa crash.",
+          "Buat Composable KartuCatatan(catatan: Catatan, onClick: () -> Unit).",
+          "Tambahkan maxLines = 1 pada judul dan maxLines = 2 pada isi catatan.",
         ],
         code: [
           {
-            filename: "RancanganFiturMandiri.md",
-            language: "markdown",
-            code: `# Contoh Rancangan Fitur Pencarian
-Input  : Pengguna mengetik kata kunci di kotak Cari
-Proses : Saring daftarCatatan dengan .filter { it.contains(kataKunci, true) }
-Output : LazyColumn hanya menampilkan item yang cocok`,
+            filename: "ui/component/KartuCatatan.kt",
+            language: "kotlin",
+            code: `@Composable
+fun KartuCatatan(catatan: Catatan, onClick: () -> Unit) {
+    Card(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(
+                text = catatan.judul,
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = catatan.isi,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = catatan.kategori,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+}`,
           },
         ],
-        promptTujuan: "Mendapatkan bimbingan langkah demi langkah untuk menambahkan fitur pencarian di daftar catatan.",
-        promptKonteks: "Saya sudah punya LayarCatatanMini dengan ViewModel dan ingin menambah kotak pencarian.",
-        promptInstruksi: [
-          "Baca rancangan Input-Proses-Output saya.",
-          "Sebutkan state baru apa saja yang saya butuhkan.",
-          "Berikan langkah bertahap (tanpa kode proyek penuh) cara menyambungkan kotak pencarian ke daftar.",
-        ],
-        promptBatasan: [
-          "Jangan menulis ulang seluruh file MainActivity saya.",
-        ],
-        promptHasilAkhir: "Panduan implementasi fitur pembeda yang tetap dipahami pemula.",
-        promptValidasi: "Fitur tambahan berfungsi dan saya bisa menjelaskan cara kerjanya.",
-        expectedResult: "Aplikasimu memiliki ciri khas fitur buatanmu sendiri.",
-        validationCheck: [
-          "Menulis rancangan Input-Proses-Output sebelum coding.",
-          "Minimal 1 fitur tambahan berjalan lancar saat diuji.",
-        ],
+        promptTujuan: "Memahami penanganan teks panjang dengan TextOverflow.Ellipsis di Compose.",
+        promptKonteks: "Saya mendesain KartuCatatan.kt untuk daftar item.",
+        promptInstruksi: ["Jelaskan perbedaan TextOverflow.Clip dan TextOverflow.Ellipsis."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Komponen kartu daftar tampil rapi dan dapat diklik.",
+        promptValidasi: "Teks panjang terpotong rapi dengan tanda '...' di Preview.",
+        expectedResult: "Satu kartu item yang bersih dan siap dirender di LazyColumn.",
+        validationCheck: ["Card dapat diklik.", "Teks panjang tidak meluber keluar kartu."],
       }),
       makeLesson({
         id: "m7-l3",
         moduleId: "modul-7",
         num: 3,
-        title: "Membangun File APK & Menguji Aplikasi di HP Android",
-        slug: "membangun-file-apk-dan-uji-hp",
+        title: "Menampilkan Daftar Hemat Memori dengan LazyColumn",
+        slug: "daftar-lazycolumn-dan-empty-state",
         description:
-          "Menghasilkan file installer .apk dari Android Studio agar aplikasimu bisa dipasang langsung di HP Android.",
-        objective:
-          "Pemula mampu mengekspor Build APK dan menguji seluruh alur aplikasi di perangkat nyata atau emulator.",
-        concept: `## Mengubah Kode Menjadi Aplikasi Nyata (.apk)
-
-Supaya teman atau guru bisa mencoba aplikasimu di HP mereka, kita perlu membungkus proyek menjadi satu file installer **\`.apk\`**:
-1. Di menu atas Android Studio, klik **Build → Build Bundle(s) / APK(s) → Build APK(s)**.
-2. Tunggu beberapa saat sampai muncul notifikasi **Build APK(s) generated successfully** di pojok kanan bawah.
-3. Klik tulisan **locate** untuk langsung membuka folder berisi file \`app-debug.apk\`.
-
-Sebelum dibagikan, selalu uji ulang semua tombol: tambah, hapus, tutup aplikasi lalu buka lagi!`,
+          "Menampilkan ratusan data secara efisien dengan LazyColumn, parameter key, serta tampilan Empty State ketika daftar masih kosong.",
+        objective: "Mampu merender daftar catatan dengan LazyColumn dan menangani kondisi daftar kosong.",
+        concept: `## \`LazyColumn\` + Kondisi Kosong (*Empty State*)
+\`LazyColumn\` hanya menggambar item yang tampak di layar. Selalu tambahkan:
+- \`items(daftar, key = { it.id }) { ... }\`
+- \`contentPadding = PaddingValues(bottom = 84.dp)\` agar item paling bawah tidak tertutup \`FloatingActionButton\`!
+- Tampilan teks ramah *"Belum ada catatan"* jika \`daftar.isEmpty()\`.`,
         thinkingSteps: [
-          "Pastikan tidak ada error merah di proyek sebelum Build APK.",
-          "Uji skenario ekstrem (input kosong, teks panjang, tutup dan buka ulang app).",
+          "Cek if (daftar.isEmpty()) sebelum merender LazyColumn.",
+          "Tambahkan PaddingValues di LazyColumn agar tidak tertutup FAB.",
         ],
         instructions: [
-          "Klik Build → Build Bundle(s) / APK(s) → Build APK(s).",
-          "Temukan file app-debug.apk lewat tombol locate.",
-          "Ubah namanya menjadi nama-aplikasi-kamu.apk lalu pasang di Emulator atau HP.",
+          "Gunakan LazyColumn di LayarUtama untuk merender daftar catatan dari ViewModel.",
+          "Tambahkan tampilan teks tengah apabila daftar kosong.",
         ],
-        promptTujuan: "Mengatasi kendala jika Build APK gagal di Android Studio.",
-        promptKonteks: "Saya mencoba Build APK(s) di Android Studio untuk pertama kalinya.",
-        promptInstruksi: [
-          "Sebutkan 3 hal paling umum yang membuat Build APK gagal bagi pemula dan cara mengeceknya di tab Build Output.",
+        code: [
+          {
+            filename: "DaftarLazyColumn.kt",
+            language: "kotlin",
+            code: `if (daftar.isEmpty()) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("Belum ada catatan. Tekan + untuk menambah.")
+    }
+} else {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 84.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        items(daftar, key = { it.id }) { item ->
+            KartuCatatan(catatan = item, onClick = { onKlikCatatan(item.id) })
+        }
+    }
+}`,
+          },
         ],
-        promptBatasan: [
-          "Jawab ringkas dalam bentuk daftar bernomor.",
-        ],
-        promptHasilAkhir: "Daftar cek cepat apabila proses build APK menemui kendala.",
-        promptValidasi: "File .apk terbentuk dan aplikasi dapat dipasang tanpa error.",
-        expectedResult: "File .apk siap diuji dan dilampirkan pada rilis proyek.",
-        validationCheck: [
-          "File app-debug.apk berhasil dibuat.",
-          "Seluruh fitur utama sudah diuji setelah instalasi.",
-        ],
+        promptTujuan: "Memahami pentingnya parameter key dan contentPadding bottom pada LazyColumn.",
+        promptKonteks: "Saya menampilkan daftar catatan memakai LazyColumn di LayarUtama.",
+        promptInstruksi: ["Jelaskan perbedaan memberi padding di Modifier.padding(bottom = 84.dp) vs contentPadding = PaddingValues(bottom = 84.dp) pada LazyColumn."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Daftar dapat di-scroll penuh tanpa terpotong FAB.",
+        promptValidasi: "Item terbawah bisa digulir ke atas melewati posisi FAB.",
+        expectedResult: "Daftar catatan tampil mulus dan mendukung scroll.",
+        validationCheck: ["Empty state muncul saat daftar kosong.", "Daftar bisa digulir lancar."],
       }),
       makeLesson({
         id: "m7-l4",
         moduleId: "modul-7",
         num: 4,
-        title: "Mengunggah ke GitHub, Menulis README.md & Mengumpulkan Karya",
-        slug: "unggah-github-readme-dan-kumpulkan-karya",
+        title: "Menampilkan Grid dengan LazyVerticalGrid & Toggle List/Grid",
+        slug: "lazyverticalgrid-dan-toggle-tampilan",
         description:
-          "Mempublikasikan proyek ke repository GitHub publik, menulis dokumentasi singkat yang jujur, dan mengumpulkan karya di ComposeLab.",
-        objective:
-          "Pemula mampu push proyek ke GitHub, menulis README.md, dan mengirim karya melalui halaman Kumpulan Karya.",
-        concept: `## Menutup Proyek Layaknya Engineer Profesional
-
-Kode yang bagus perlu **dokumentasi (\`README.md\`)** agar orang lain tahu apa yang kamu buat dan apa yang kamu pelajari.
-
-Isi minimal \`README.md\` untuk pemula:
-1. **Nama & Tujuan Aplikasi:** 1–2 kalimat penjelasan singkat.
-2. **Fitur yang Dibuat:** Daftar fitur utama + fitur pembeda buatanmu sendiri.
-3. **Refleksi Belajar Bersama Gemini:** 1 paragraf singkat tentang error atau konsep tersulit yang berhasil kamu pahami lewat PRIMM!`,
+          "Mengubah tata letak daftar menjadi 2 kolom (Grid) menggunakan LazyVerticalGrid serta tombol switch di TopAppBar.",
+        objective: "Mampu menyediakan pilihan tampilan List (1 kolom) dan Grid (2 kolom) secara dinamis.",
+        concept: `## \`LazyVerticalGrid\` 2 Kolom
+Compose menyediakan \`LazyVerticalGrid(columns = GridCells.Fixed(2))\` atau \`GridCells.Adaptive(160.dp)\`. Dengan satu state \`var tampilList by remember { mutableStateOf(true) }\`, tombol ikon di \`TopAppBar\` bisa langsung mengganti tata letak dari List ke Grid!`,
         thinkingSteps: [
-          "Pastikan repository GitHub berstatus Public (bukan Private).",
-          "Ambil 1 screenshot layar aplikasimu yang paling rapi.",
-          "Kumpulkan link GitHub, link APK (opsional), dan screenshot di halaman Kumpulan Karya.",
+          "Tambahkan IconButton di actions = { ... } milik TopAppBar.",
+          "Gunakan if (tampilList) LazyColumn(...) else LazyVerticalGrid(...).",
         ],
         instructions: [
-          "Buat repository publik baru di github.com.",
-          "Push proyek Android Studio-mu ke repository tersebut (atau unggah lewat menu Git di Android Studio).",
-          "Buat file README.md di root proyek dan unggah screenshot aplikasimu.",
-          "Buka halaman Kumpulan Karya di ComposeLab untuk mengirim karyamu!",
+          "Tambahkan tombol toggle List/Grid pada actions di TopAppBar LayarUtama.",
+          "Tambahkan LazyVerticalGrid(columns = GridCells.Fixed(2)) untuk mode Grid.",
         ],
         code: [
           {
-            filename: "README.md",
-            language: "markdown",
-            code: `# Proyek Android Pertamaku
-
-Aplikasi catatan & daftar tugas sederhana yang dibangun bertahap dengan Kotlin & Jetpack Compose.
-
-## Fitur Utama
-- Menambah dan menandai item selesai
-- Penyimpanan lokal agar data tidak hilang
-- Fitur kreasi mandiri: [Tulis fitur buatanmu]
-
-## Yang Saya Pelajari
-Memahami perbedaan val/var, State/Recomposition, serta cara membedah error Logcat menggunakan Gemini tanpa asal salin kode.`,
+            filename: "DaftarGrid.kt",
+            language: "kotlin",
+            code: `LazyVerticalGrid(
+    columns = GridCells.Fixed(2),
+    modifier = Modifier.fillMaxSize(),
+    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 84.dp),
+    verticalArrangement = Arrangement.spacedBy(12.dp),
+    horizontalArrangement = Arrangement.spacedBy(12.dp)
+) {
+    items(daftar, key = { it.id }) { item ->
+        KartuCatatan(catatan = item, onClick = { onKlikCatatan(item.id) })
+    }
+}`,
           },
         ],
-        promptTujuan: "Menyusun draf README.md singkat dan rapi berdasarkan fitur yang benar-benar saya buat.",
-        promptKonteks: "Saya sudah menyelesaikan aplikasi Android pertama saya dan ingin mengunggahnya ke GitHub.",
-        promptInstruksi: [
-          "Bantu saya merapikan teks README.md berdasarkan daftar fitur yang saya sebutkan.",
-          "Jangan mengarang fitur yang tidak saya kerjakan.",
+        promptTujuan: "Memahami perbedaan GridCells.Fixed(2) dan GridCells.Adaptive(minSize).",
+        promptKonteks: "Saya menambahkan LazyVerticalGrid agar pengguna bisa melihat catatan dalam 2 kolom.",
+        promptInstruksi: ["Jelaskan kapan lebih baik memakai GridCells.Adaptive(160.dp) dibanding GridCells.Fixed(2) untuk tablet."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Tampilan dapat beralih mulus antara List dan Grid.",
+        promptValidasi: "Menekan tombol di TopAppBar langsung mengubah 1 kolom menjadi 2 kolom.",
+        expectedResult: "Layar utama mendukung mode List dan mode Grid.",
+        validationCheck: ["Mode List dan Grid sama-sama bisa digulir rapi."],
+      }),
+    ],
+  },
+
+  // =========================================================================
+  // MODUL 8: NAVIGASI DENGAN MENGIRIM DATA (ROUTE ARGUMENTS)
+  // =========================================================================
+  {
+    id: "modul-8",
+    course_id: COURSE_INFO.id,
+    module_number: 8,
+    title: "Navigasi dengan Mengirim Data (Route Arguments)",
+    slug: "modul-8-navigasi-dengan-data",
+    description:
+      "Mengirim ID item dari daftar ke halaman Detail/Form Edit menggunakan Navigation Arguments (navArgument), serta menangani tambah baru vs edit.",
+    estimated_minutes: 65,
+    difficulty_level: "Menengah",
+    is_published: true,
+    order_index: 8,
+    created_at: CREATED_AT,
+    lessons: [
+      makeLesson({
+        id: "m8-l1",
+        moduleId: "modul-8",
+        num: 1,
+        title: "Merancang Rute dengan Argumen ID di Screen.kt",
+        slug: "rute-dengan-argumen-id",
+        description:
+          "Menambahkan parameter opsional atau wajib pada rute Navigation Compose untuk membuka detail/edit catatan tertentu.",
+        objective: "Mampu mendefinisikan pola rute dengan placeholder {id} dan helper fungsi pembuat rutenya.",
+        concept: `## Mengirim ID Lewat Alamat Rute
+Jangan kirim seluruh objek \`Catatan\` besar lewat URL rute—cukup kirim **ID-nya** saja (misal \`"form?id={id}"\` atau \`"form/{id}"\`), lalu halaman tujuan mengambil data lengkapnya dari ViewModel / Database!`,
+        thinkingSteps: [
+          "Definisikan konstanta KEY_ID = \"idCatatan\".",
+          "Buat fungsi helper withId(id: Long) agar pemanggil tidak salah format string rute.",
         ],
-        promptBatasan: [
-          "Gunakan format Markdown sederhana yang mudah dibaca.",
+        instructions: [
+          "Perbarui navigation/Screen.kt dengan rute FormTambah dan FormEdit(\"form/{$KEY_ID}\").",
         ],
-        promptHasilAkhir: "File README.md siap salin ke repository GitHub.",
-        promptValidasi: "Link repository GitHub bisa dibuka publik dan berisi file build.gradle.kts serta README.md.",
-        expectedResult: "Karya terpublikasi di GitHub dan berhasil dikirim di halaman Kumpulan Karya.",
-        validationCheck: [
-          "Repository GitHub berstatus Public.",
-          "README.md sudah terisi rapi.",
-          "Formulir Kumpulan Karya sudah dikirim.",
+        code: [
+          {
+            filename: "navigation/Screen.kt",
+            language: "kotlin",
+            code: `const val KEY_ID_CATATAN = "idCatatan"
+
+sealed class Screen(val route: String) {
+    data object Utama : Screen("utama")
+    data object FormBaru : Screen("form")
+    data object FormEdit : Screen("form/{$KEY_ID_CATATAN}") {
+        fun withId(id: Long) = "form/$id"
+    }
+}`,
+          },
         ],
+        promptTujuan: "Memahami alasan hanya mengirim ID (Long) antar layar di Navigation Compose.",
+        promptKonteks: "Saya memperbarui Screen.kt untuk rute FormEdit yang membawa idCatatan.",
+        promptInstruksi: ["Jelaskan kenapa mengirim ID lebih disarankan daripada mengirim objek data penuh lewat argumen rute."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Definisi rute dinamis siap didaftarkan di NavHost.",
+        promptValidasi: "Screen.FormEdit.withId(5) menghasilkan \"form/5\".",
+        expectedResult: "Rute FormBaru dan FormEdit siap dipakai.",
+        validationCheck: ["Screen.kt terkompilasi tanpa error."],
+      }),
+      makeLesson({
+        id: "m8-l2",
+        moduleId: "modul-8",
+        num: 2,
+        title: "Membaca navArgument di NavHost",
+        slug: "membaca-nav-argument-di-navhost",
+        description:
+          "Mendaftarkan tipe argumen NavType.LongType di NavHost dan mengekstrak nilainya dari backStackEntry.arguments.",
+        objective: "Mampu mendeklarasikan arguments = listOf(navArgument(...)) dan membaca nilai Long dengan aman.",
+        concept: `## Menangkap Argumen di \`NavHost\`
+Pada \`composable(route = Screen.FormEdit.route, arguments = ...)\`, beri tahu Navigation bahwa \`KEY_ID_CATATAN\` bertipe \`NavType.LongType\`. Lalu baca lewat \`backStackEntry.arguments?.getLong(KEY_ID_CATATAN)\`.`,
+        thinkingSteps: [
+          "Daftarkan Screen.FormBaru.route (tanpa id / id = null) dan Screen.FormEdit.route (dengan LongType).",
+        ],
+        instructions: [
+          "Perbarui NavGraph.kt untuk mendaftarkan FormBaru dan FormEdit beserta navArgument.",
+          "Teruskan parameter id: Long? ke DetailCatatanScreen.",
+        ],
+        code: [
+          {
+            filename: "navigation/NavGraph.kt",
+            language: "kotlin",
+            code: `composable(Screen.FormBaru.route) {
+    DetailCatatanScreen(id = null, navController = navController)
+}
+composable(
+    route = Screen.FormEdit.route,
+    arguments = listOf(navArgument(KEY_ID_CATATAN) { type = NavType.LongType })
+) { backStackEntry ->
+    val id = backStackEntry.arguments?.getLong(KEY_ID_CATATAN)
+    DetailCatatanScreen(id = id, navController = navController)
+}`,
+          },
+        ],
+        promptTujuan: "Memahami cara kerja NavType dan arguments di NavHost.",
+        promptKonteks: "Saya mendaftarkan navArgument bertipe LongType di NavGraph.kt.",
+        promptInstruksi: ["Jelaskan apa yang terjadi jika lupa menuliskan type = NavType.LongType saat memanggil getLong()."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "NavHost berhasil meneruskan ID catatan ke layar tujuan.",
+        promptValidasi: "Nilai id diterima dengan benar saat kartu diklik.",
+        expectedResult: "Klik FAB membuka form kosong (id = null); klik kartu membuka form terisi (id != null).",
+        validationCheck: ["Klik kartu mengirim ID yang sesuai.", "Klik FAB membuka form tambah baru."],
+      }),
+      makeLesson({
+        id: "m8-l3",
+        moduleId: "modul-8",
+        num: 3,
+        title: "Membangun DetailCatatanScreen (Tambah Baru vs Edit)",
+        slug: "membangun-detail-catatan-screen",
+        description:
+          "Membuat satu layar form serbaguna yang mengisi kolom otomatis saat id != null, dan menampilkan tombol Simpan serta Hapus.",
+        objective: "Mampu memuat data catatan berdasarkan ID menggunakan LaunchedEffect dan menyimpannya kembali.",
+        concept: `## Memuat Data Awal dengan \`LaunchedEffect(id)\`
+Saat \`DetailCatatanScreen(id)\` dibuka untuk mengedit (\`id != null\`), panggil fungsi \`viewModel.ambilById(id)\` di dalam \`LaunchedEffect(id)\` agar kolom \`judul\`, \`isi\`, dan \`kategori\` langsung terisi nilai lama!`,
+        thinkingSteps: [
+          "Gunakan LaunchedEffect(id) agar pengambilan data hanya berjalan sekali saat layar dibuka.",
+          "Tampilkan judul TopAppBar 'Tambah Catatan' jika id == null, dan 'Edit Catatan' jika id != null.",
+        ],
+        instructions: [
+          "Buat ui/screen/DetailCatatanScreen.kt lengkap dengan form input dan tombol Simpan di TopAppBar (Check icon).",
+          "Tambahkan fungsi ambilById, ubah, dan hapus di CatatanViewModel.",
+        ],
+        code: [
+          {
+            filename: "DetailCatatanScreen.kt (cuplikan)",
+            language: "kotlin",
+            code: `LaunchedEffect(id) {
+    if (id != null) {
+        val data = viewModel.ambilById(id)
+        if (data != null) {
+            judul = data.judul
+            isi = data.isi
+            kategori = data.kategori
+        }
+    }
+}`,
+          },
+        ],
+        promptTujuan: "Memahami mengapa pengambilan data awal harus ditaruh di LaunchedEffect.",
+        promptKonteks: "Saya mengisi state awal kolom edit di DetailCatatanScreen memakai LaunchedEffect(id).",
+        promptInstruksi: ["Jelaskan masalah yang muncul jika viewModel.ambilById(id) dipanggil langsung di body Composable tanpa LaunchedEffect."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Form edit terisi data lama dan bisa memperbarui daftar.",
+        promptValidasi: "Mengklik catatan membuka form dengan teks lama yang siap diedit.",
+        expectedResult: "Layar form mendukung mode Tambah maupun Edit dalam satu file rapi.",
+        validationCheck: ["Mode Tambah dan Edit berfungsi penuh.", "Perubahan terlihat di daftar setelah kembali."],
+      }),
+      makeLesson({
+        id: "m8-l4",
+        moduleId: "modul-8",
+        num: 4,
+        title: "Menghubungkan Menu Hapus & Navigasi Kembali yang Aman",
+        slug: "menu-hapus-dan-navigasi-aman",
+        description:
+          "Menambahkan menu opsi (DropdownMenu) di TopAppBar halaman edit untuk aksi Hapus, lalu kembali ke daftar dengan popBackStack().",
+        objective: "Mampu memasang DropdownMenu tiga-titik di TopAppBar saat mengedit catatan.",
+        concept: `## Aksi Hapus di \`TopAppBar\`
+Saat \`id != null\`, tampilkan tombol ikon tiga-titik (\`Icons.Default.MoreVert\`) yang membuka \`DropdownMenu\` berisi pilihan **Hapus**. Setelah menghapus, panggil \`navController.popBackStack()\`.`,
+        thinkingSteps: [
+          "Sembunyikan tombol Hapus apabila id == null (mode tambah baru).",
+        ],
+        instructions: [
+          "Tambahkan IconButton(MoreVert) dan DropdownMenu pada TopAppBar di DetailCatatanScreen.",
+          "Hubungkan aksi Hapus ke viewModel.hapus(id) lalu navController.popBackStack().",
+        ],
+        code: [
+          {
+            filename: "MenuHapusTopBar.kt",
+            language: "kotlin",
+            code: `if (id != null) {
+    var bukaMenu by remember { mutableStateOf(false) }
+    IconButton(onClick = { bukaMenu = true }) {
+        Icon(Icons.Default.MoreVert, contentDescription = "Lainnya")
+        DropdownMenu(expanded = bukaMenu, onDismissRequest = { bukaMenu = false }) {
+            DropdownMenuItem(
+                text = { Text("Hapus") },
+                onClick = {
+                    bukaMenu = false
+                    viewModel.hapus(id)
+                    navController.popBackStack()
+                }
+            )
+        }
+    }
+}`,
+          },
+        ],
+        promptTujuan: "Memahami manajemen state bukaMenu pada DropdownMenu di Jetpack Compose.",
+        promptKonteks: "Saya menambahkan DropdownMenu hapus di TopAppBar halaman detail.",
+        promptInstruksi: ["Jelaskan fungsi onDismissRequest pada DropdownMenu."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Aksi Tambah, Baca, Edit, dan Hapus bekerja di memori.",
+        promptValidasi: "Menekan Hapus menghilangkan item dari daftar dan kembali ke Layar Utama.",
+        expectedResult: "CRUD lengkap sudah berjalan di memori sebelum disambungkan ke Room Database.",
+        validationCheck: ["DropdownMenu hanya muncul di mode Edit.", "Item terhapus dari daftar."],
+      }),
+    ],
+  },
+
+  // =========================================================================
+  // MODUL 9: PENYIMPANAN PERMANEN DENGAN ROOM DATABASE (KSP)
+  // =========================================================================
+  {
+    id: "modul-9",
+    course_id: COURSE_INFO.id,
+    module_number: 9,
+    title: "Penyimpanan Permanen Room Database (KSP)",
+    slug: "modul-9-room-database-ksp",
+    description:
+      "Mengonfigurasi Room Database dengan KSP, membuat @Entity, @Dao dengan Flow, @Database Singleton, ViewModelFactory, dan CRUD SQLite lokal permanen.",
+    estimated_minutes: 80,
+    difficulty_level: "Menengah",
+    is_published: true,
+    order_index: 9,
+    created_at: CREATED_AT,
+    lessons: [
+      makeLesson({
+        id: "m9-l1",
+        moduleId: "modul-9",
+        num: 1,
+        title: "Konfigurasi Plugin KSP & Dependensi Room di Gradle",
+        slug: "konfigurasi-ksp-dan-room-gradle",
+        description:
+          "Menambahkan plugin dev.google.devtools.ksp dan library room-runtime, room-ktx, serta room-compiler ke Version Catalog.",
+        objective: "Mampu memasang Room Database dengan KSP (bukan kapt lama) tanpa error kompilasi.",
+        concept: `## Mengapa Pakai KSP (*Kotlin Symbol Processing*)?
+Room membaca anotasi \`@Entity\`, \`@Dao\`, dan \`@Database\` untuk membuatkan kode SQLite otomatis saat build. Di Kotlin modern, gunakan **KSP** (jauh lebih cepat dari \`kapt\`):
+- Daftarkan plugin \`com.google.devtools.ksp\` di root \`build.gradle.kts\` (\`apply false\`) dan di \`app/build.gradle.kts\`.
+- Gunakan \`ksp(libs.androidx.room.compiler)\` untuk memproses anotasi.`,
+        thinkingSteps: [
+          "Pastikan versi KSP cocok dengan versi Kotlin yang dipakai di libs.versions.toml.",
+        ],
+        instructions: [
+          "Tambahkan room dan ksp ke gradle/libs.versions.toml.",
+          "Aktifkan alias(libs.plugins.devtools.ksp) di app/build.gradle.kts dan tambahkan 3 dependensi Room.",
+          "Klik Sync Now dan pastikan tidak ada error versi KSP.",
+        ],
+        code: [
+          {
+            filename: "gradle/libs.versions.toml",
+            language: "toml",
+            code: `[versions]
+room = "2.7.1"
+ksp = "2.3.10-1.0.30"
+
+[libraries]
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+[plugins]
+devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }`,
+          },
+          {
+            filename: "app/build.gradle.kts",
+            language: "kotlin",
+            code: `dependencies {
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+}`,
+          },
+        ],
+        promptTujuan: "Menyesuaikan versi KSP dengan versi Kotlin di proyek Android.",
+        promptKonteks: "Saya memasang Room Database dengan KSP di libs.versions.toml.",
+        promptInstruksi: ["Jelaskan aturan pencocokan prefix versi KSP dengan versi Kotlin dan cara mengecek jika terjadi error versi KSP."],
+        promptBatasan: ["Maksimal 3 poin singkat."],
+        promptHasilAkhir: "Room dan KSP terpasang rapi di Gradle.",
+        promptValidasi: "Gradle Sync sukses tanpa pesan versi KSP tidak cocok.",
+        expectedResult: "Anotasi @Entity, @Dao, dan @Database siap digunakan.",
+        validationCheck: ["Sync Gradle berhasil."],
+      }),
+      makeLesson({
+        id: "m9-l2",
+        moduleId: "modul-9",
+        num: 2,
+        title: "Membuat Tabel @Entity (Catatan) & @Dao (CatatanDao)",
+        slug: "membuat-entity-dan-dao-room",
+        description:
+          "Menjadikan data class Catatan sebagai tabel SQLite dengan @Entity dan membuat query CRUD reaktif di interface @Dao.",
+        objective: "Mampu menulis @Entity dengan PrimaryKey autoGenerate dan @Dao memakai suspend fun + Flow.",
+        concept: `## Entity & DAO
+- **\`@Entity(tableName = "catatan")\`:** Mengubah \`data class Catatan\` menjadi tabel database, dengan \`@PrimaryKey(autoGenerate = true) val id: Long = 0L\`.
+- **\`@Dao\`:** Interface berisi perintah SQL:
+  - \`@Insert\`, \`@Update\`, \`@DeleteById\` memakai \`suspend fun\` (berjalan di background thread agar UI tidak macet).
+  - \`@Query("SELECT * FROM catatan ORDER BY id DESC")\` mengembalikan \`Flow<List<Catatan>>\` agar daftar otomatis terbarui saat ada perubahan data!`,
+        thinkingSteps: [
+          "Gunakan suspend fun untuk operasi tulis (@Insert, @Update, @Query DELETE).",
+          "Jangan pakai suspend pada fungsi yang mengembalikan Flow<...>.",
+        ],
+        instructions: [
+          "Tambahkan anotasi @Entity dan @PrimaryKey pada model/Catatan.kt.",
+          "Buat interface database/CatatanDao.kt berisi insert, update, getAll(), getById(), dan deleteById().",
+        ],
+        code: [
+          {
+            filename: "model/Catatan.kt",
+            language: "kotlin",
+            code: `@Entity(tableName = "catatan")
+data class Catatan(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
+    val judul: String,
+    val isi: String,
+    val kategori: String
+)`,
+          },
+          {
+            filename: "database/CatatanDao.kt",
+            language: "kotlin",
+            code: `@Dao
+interface CatatanDao {
+    @Insert
+    suspend fun insert(catatan: Catatan)
+
+    @Update
+    suspend fun update(catatan: Catatan)
+
+    @Query("SELECT * FROM catatan ORDER BY id DESC")
+    fun getCatatan(): Flow<List<Catatan>>
+
+    @Query("SELECT * FROM catatan WHERE id = :id")
+    suspend fun getCatatanById(id: Long): Catatan?
+
+    @Query("DELETE FROM catatan WHERE id = :id")
+    suspend fun deleteById(id: Long)
+}`,
+          },
+        ],
+        promptTujuan: "Memahami kenapa query getCatatan(): Flow<List<Catatan>> tidak memakai kata kunci suspend.",
+        promptKonteks: "Saya menulis CatatanDao.kt di Room Database.",
+        promptInstruksi: ["Jelaskan perbedaan fungsi suspend fun (satu kali panggil) dengan Flow (aliran data berkelanjutan) di Room DAO."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "CatatanEntity dan CatatanDao siap dihubungkan ke AppDatabase.",
+        promptValidasi: "Query @Dao terbaca tanpa warning SQL merah.",
+        expectedResult: "Lapisan tabel dan query SQLite selesai dibuat.",
+        validationCheck: ["PrimaryKey autoGenerate = true terpasang.", "Semua query tulis memakai suspend."],
+      }),
+      makeLesson({
+        id: "m9-l3",
+        moduleId: "modul-9",
+        num: 3,
+        title: "Membuat @Database Singleton & ViewModelFactory",
+        slug: "appdatabase-singleton-dan-viewmodelfactory",
+        description:
+          "Membuat kelas abstrak RoomDatabase dengan pola Singleton (1 koneksi untuk seluruh app) dan ViewModelFactory untuk menyuntikkan DAO.",
+        objective: "Mampu membuat AppDatabase.getInstance(context) dan ViewModelFactory agar ViewModel bisa mengakses DAO.",
+        concept: `## Pola Singleton & Factory
+Membuka banyak koneksi database sekaligus boros memori. Gunakan \`@Volatile private var INSTANCE: AppDatabase?\` dengan \`synchronized(this)\` agar hanya ada **1 objek database** di seluruh aplikasi.
+
+Karena \`ViewModel\` tidak boleh langsung memegang \`Context\`, kita meneruskan \`CatatanDao\` lewat constructor ViewModel menggunakan **\`ViewModelProvider.Factory\`**.`,
+        thinkingSteps: [
+          "Daftarkan Catatan::class di @Database(entities = [Catatan::class], version = 1, exportSchema = false).",
+          "Buat kelas util/ViewModelFactory.kt untuk meneruskan CatatanDao ke ViewModel.",
+        ],
+        instructions: [
+          "Buat file database/CatatanDb.kt dengan pola Singleton.",
+          "Buat util/ViewModelFactory.kt untuk menginstansiasi MainViewModel(dao) dan DetailViewModel(dao).",
+        ],
+        code: [
+          {
+            filename: "database/CatatanDb.kt",
+            language: "kotlin",
+            code: `@Database(entities = [Catatan::class], version = 1, exportSchema = false)
+abstract class CatatanDb : RoomDatabase() {
+    abstract val dao: CatatanDao
+
+    companion object {
+        @Volatile
+        private var INSTANCE: CatatanDb? = null
+
+        fun getInstance(context: Context): CatatanDb {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        CatatanDb::class.java,
+                        "catatan.db"
+                    ).build()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+}`,
+          },
+        ],
+        promptTujuan: "Memahami fungsi @Volatile dan synchronized(this) pada Singleton RoomDatabase.",
+        promptKonteks: "Saya membuat kelas CatatanDb : RoomDatabase() di Android.",
+        promptInstruksi: ["Jelaskan dengan singkat kenapa kita memakai context.applicationContext alih-alih Activity context di Room.databaseBuilder."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Database lokal aman dari memory leak dan siap dipanggil dari UI.",
+        promptValidasi: "Build APK / Rebuild Project berhasil men-generate CatatanDb_Impl oleh KSP.",
+        expectedResult: "Koneksi SQLite lokal lewat Room sudah siap digunakan ViewModel.",
+        validationCheck: ["CatatanDb.kt dan ViewModelFactory.kt terkompilasi bersih."],
+      }),
+      makeLesson({
+        id: "m9-l4",
+        moduleId: "modul-9",
+        num: 4,
+        title: "Menghubungkan CRUD Room ke ViewModel & Layar Compose",
+        slug: "crud-room-viewmodel-dan-compose",
+        description:
+          "Menjalankan operasi insert, update, delete di viewModelScope.launch(Dispatchers.IO) dan menampilkan Flow Room ke layar Compose.",
+        objective: "Mampu menyimpan, mengubah, dan menghapus catatan secara permanen di database HP.",
+        concept: `## Coroutines di \`ViewModel\`
+Operasi tulis ke database tidak boleh berjalan di *Main Thread* (UI Thread). Di dalam \`ViewModel\`, jalankan \`dao.insert(...)\`, \`dao.update(...)\`, dan \`dao.deleteById(...)\` di dalam \`viewModelScope.launch(Dispatchers.IO) { ... }\`.
+
+Untuk membaca \`Flow<List<Catatan>>\`, ubah menjadi \`StateFlow\` memakai \`.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), emptyList())\`.`,
+        thinkingSteps: [
+          "Gunakan viewModelScope.launch(Dispatchers.IO) untuk setiap operasi tulis database.",
+          "Uji menutup aplikasi penuh lalu membuka ulang untuk membuktikan data tersimpan di SQLite.",
+        ],
+        instructions: [
+          "Perbarui CatatanViewModel agar menerima dao: CatatanDao dan memakai stateIn + Dispatchers.IO.",
+          "Sambungkan ViewModelFactory ke viewModel(factory = ...) di layar Compose.",
+          "Jalankan di Emulator, tambah/edit/hapus catatan, lalu tutup dan buka ulang aplikasi.",
+        ],
+        code: [
+          {
+            filename: "CatatanViewModel.kt",
+            language: "kotlin",
+            code: `class CatatanViewModel(private val dao: CatatanDao) : ViewModel() {
+    val daftar: StateFlow<List<Catatan>> = dao.getCatatan().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = emptyList()
+    )
+
+    fun insert(judul: String, isi: String, kategori: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dao.insert(Catatan(judul = judul, isi = isi, kategori = kategori))
+        }
+    }
+
+    fun update(id: Long, judul: String, isi: String, kategori: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dao.update(Catatan(id = id, judul = judul, isi = isi, kategori = kategori))
+        }
+    }
+
+    fun delete(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            dao.deleteById(id)
+        }
+    }
+}`,
+          },
+        ],
+        promptTujuan: "Memahami parameter SharingStarted.WhileSubscribed(5000L) pada stateIn.",
+        promptKonteks: "Saya menghubungkan Flow dari Room DAO ke StateFlow di CatatanViewModel.",
+        promptInstruksi: ["Jelaskan kenapa angka 5000L (5 detik) sering dipakai pada WhileSubscribed saat layar HP diputar."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "CRUD penuh berjalan permanen menggunakan Room Database.",
+        promptValidasi: "Data catatan tetap ada setelah aplikasi ditutup paksa dan dibuka lagi.",
+        expectedResult: "Aplikasi CatatanBelajar menyimpan seluruh data secara permanen di HP.",
+        validationCheck: ["Tambah, Edit, dan Hapus tersimpan permanen di Room SQLite."],
+      }),
+    ],
+  },
+
+  // =========================================================================
+  // MODUL 10: DIALOG KONFIRMASI (ALERTDIALOG) & PREFERENSI (DATASTORE)
+  // =========================================================================
+  {
+    id: "modul-10",
+    course_id: COURSE_INFO.id,
+    module_number: 10,
+    title: "Dialog Konfirmasi & Preferensi (AlertDialog & DataStore)",
+    slug: "modul-10-dialog-dan-preferences",
+    description:
+      "Menambahkan AlertDialog konfirmasi sebelum menghapus data, menyimpan preferensi tampilan List/Grid dengan Jetpack DataStore, membangun APK, dan merilis ke GitHub.",
+    estimated_minutes: 70,
+    difficulty_level: "Menengah",
+    is_published: true,
+    order_index: 10,
+    created_at: CREATED_AT,
+    lessons: [
+      makeLesson({
+        id: "m10-l1",
+        moduleId: "modul-10",
+        num: 1,
+        title: "Membuat AlertDialog Konfirmasi Sebelum Menghapus Data",
+        slug: "alertdialog-konfirmasi-hapus",
+        description:
+          "Mencegah pengguna menghapus catatan secara tidak sengaja dengan memunculkan AlertDialog Material 3.",
+        objective: "Mampu mengendalikan tampil/sembunyinya AlertDialog memakai state Boolean.",
+        concept: `## Pola \`AlertDialog\` di Compose
+Saat pengguna menekan menu **Hapus**, jangan langsung memanggil \`viewModel.delete(id)\`. Ubah state \`tampilDialog = true\` terlebih dahulu:
+- \`onDismissRequest\`: Tutup dialog saat pengguna mengetuk luar dialog (\`tampilDialog = false\`).
+- \`confirmButton\`: Tombol **Hapus** yang benar-benar menghapus data dan kembali.
+- \`dismissButton\`: Tombol **Batal** yang hanya menutup dialog.`,
+        thinkingSteps: [
+          "Tambahkan state var tampilDialog by remember { mutableStateOf(false) } di DetailCatatanScreen.",
+        ],
+        instructions: [
+          "Buat komponen DisplayAlertDialog(onDismiss, onConfirm) di ui/component/.",
+          "Hubungkan menu Hapus di TopAppBar agar menyetel tampilDialog = true.",
+          "Uji menekan Batal (data tetap ada) dan menekan Hapus (data terhapus).",
+        ],
+        code: [
+          {
+            filename: "DisplayAlertDialog.kt",
+            language: "kotlin",
+            code: `@Composable
+fun DisplayAlertDialog(
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit
+) {
+    AlertDialog(
+        text = { Text("Yakin ingin menghapus catatan ini?") },
+        confirmButton = {
+            TextButton(onClick = onConfirmation) { Text("Hapus") }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismissRequest) { Text("Batal") }
+        },
+        onDismissRequest = onDismissRequest
+    )
+}`,
+          },
+        ],
+        promptTujuan: "Memahami kontrol state Boolean untuk menampilkan dialog di Jetpack Compose.",
+        promptKonteks: "Saya menambahkan AlertDialog konfirmasi hapus di DetailCatatanScreen.",
+        promptInstruksi: ["Jelaskan kenapa di Compose kita memakai 'if (tampilDialog) { AlertDialog(...) }' alih-alih memanggil fungsi dialog.show()."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Penghapusan data aman dari klik tidak sengaja.",
+        promptValidasi: "Dialog muncul sebelum hapus; Batal tidak menghapus data.",
+        expectedResult: "Pengguna mendapat konfirmasi sebelum catatan dihapus permanen.",
+        validationCheck: ["Tombol Batal menutup dialog.", "Tombol Hapus menghapus data dari Room."],
+      }),
+      makeLesson({
+        id: "m10-l2",
+        moduleId: "modul-10",
+        num: 2,
+        title: "Menambahkan Dependensi Jetpack DataStore Preferences",
+        slug: "dependensi-datastore-preferences",
+        description:
+          "Memasang library androidx.datastore:datastore-preferences untuk menggantikan SharedPreferences dengan dukungan Kotlin Coroutines & Flow.",
+        objective: "Mampu menambahkan DataStore Preferences ke Version Catalog Gradle.",
+        concept: `## Mengapa DataStore Lebih Baik dari SharedPreferences?
+**Jetpack DataStore** menyimpan preferensi kecil (seperti pilihan tampilan List vs Grid) secara **asinkron** memakai \`Flow\` dan \`Coroutines\`, sehingga aman dari macet (*ANR*) di *Main Thread*.`,
+        thinkingSteps: [
+          "Tambahkan datastore-preferences ke gradle/libs.versions.toml dan app/build.gradle.kts.",
+        ],
+        instructions: [
+          "Tambahkan androidx-datastore-preferences ke libs.versions.toml dan build.gradle.kts.",
+          "Klik Sync Now.",
+        ],
+        code: [
+          {
+            filename: "gradle/libs.versions.toml",
+            language: "toml",
+            code: `[versions]
+datastore = "1.1.4"
+
+[libraries]
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }`,
+          },
+        ],
+        promptTujuan: "Memahami keunggulan DataStore Preferences dibanding SharedPreferences.",
+        promptKonteks: "Saya menambahkan androidx-datastore-preferences ke proyek Android Compose.",
+        promptInstruksi: ["Sebutkan 2 keunggulan DataStore Preferences dibanding SharedPreferences lama."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Library DataStore siap digunakan.",
+        promptValidasi: "Gradle Sync selesai tanpa error.",
+        expectedResult: "DataStore Preferences tersedia di proyek.",
+        validationCheck: ["Sync Gradle berhasil."],
+      }),
+      makeLesson({
+        id: "m10-l3",
+        moduleId: "modul-10",
+        num: 3,
+        title: "Menyimpan Preferensi Tampilan List/Grid dengan DataStore",
+        slug: "menyimpan-preferensi-dengan-datastore",
+        description:
+          "Membuat kelas SettingsDataStore untuk menyimpan pilihan mode tampilan (List atau Grid) agar diingat saat aplikasi dibuka kembali.",
+        objective: "Mampu membaca Flow<Boolean> dan menulis Preferences di DataStore.",
+        concept: `## Membaca & Menulis \`DataStore\`
+Buat ekstensi \`val Context.dataStore by preferencesDataStore(name = "settings_pref")\` sekali saja di tingkat top-level file.
+- **Membaca:** \`context.dataStore.data.map { prefs -> prefs[IS_LIST_KEY] ?: true }\`
+- **Menulis:** \`context.dataStore.edit { prefs -> prefs[IS_LIST_KEY] = isList }\` (di dalam \`CoroutineScope\`).`,
+        thinkingSteps: [
+          "Pastikan preferencesDataStore hanya dideklarasikan SATU kali untuk nama file yang sama.",
+        ],
+        instructions: [
+          "Buat kelas util/SettingsDataStore.kt.",
+          "Hubungkan layoutFlow.collectAsState(true) ke LayarUtama.",
+          "Uji ubah ke mode Grid, tutup aplikasi penuh, lalu buka lagi — mode Grid tetap bertahan!",
+        ],
+        code: [
+          {
+            filename: "util/SettingsDataStore.kt",
+            language: "kotlin",
+            code: `val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings_pref")
+
+class SettingsDataStore(private val context: Context) {
+    companion object {
+        private val IS_LIST = booleanPreferencesKey("is_list")
+    }
+
+    val layoutFlow: Flow<Boolean> = context.dataStore.data.map { preferences ->
+        preferences[IS_LIST] ?: true
+    }
+
+    suspend fun saveLayout(isList: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[IS_LIST] = isList
+        }
+    }
+}`,
+          },
+        ],
+        promptTujuan: "Memahami aturan singleton preferencesDataStore di Kotlin Android.",
+        promptKonteks: "Saya membuat SettingsDataStore.kt memakai by preferencesDataStore.",
+        promptInstruksi: ["Jelaskan error apa yang muncul jika preferencesDataStore dideklarasikan di dalam body Composable yang dipanggil berkali-kali."],
+        promptBatasan: ["Maksimal 2 paragraf."],
+        promptHasilAkhir: "Preferensi List/Grid tersimpan permanen di perangkat.",
+        promptValidasi: "Mode Grid tetap aktif setelah aplikasi ditutup dan dibuka kembali.",
+        expectedResult: "Preferensi tampilan pengguna tersimpan dengan DataStore.",
+        validationCheck: ["Mode tampilan tersimpan lintas sesi aplikasi."],
+      }),
+      makeLesson({
+        id: "m10-l4",
+        moduleId: "modul-10",
+        num: 4,
+        title: "Uji Akhir, Build APK & Push Proyek ke GitHub",
+        slug: "uji-akhir-build-apk-dan-github",
+        description:
+          "Melakukan pengujian menyeluruh, membangun file APK rilis uji (Build APK), menulis README.md, dan mengunggah ke GitHub.",
+        objective: "Mampu membungkus proyek menjadi file .apk dan mempublikasikannya ke repository GitHub publik.",
+        concept: `## Finalisasi & Publikasi Karya
+1. **Uji Alur Lengkap:** Tambah catatan, lihat di List & Grid, tutup/buka aplikasi, edit catatan, coba Batal di AlertDialog, lalu Hapus catatan.
+2. **Build APK:** Menu **Build → Build Bundle(s) / APK(s) → Build APK(s)** → klik **locate** untuk mengambil \`app-debug.apk\`.
+3. **Push ke GitHub:** Buat repository publik di GitHub, sertakan \`README.md\`, lalu kirim link repository, screenshot aplikasi, dan link APK di halaman **Kumpulan Karya**.`,
+        thinkingSteps: [
+          "Pastikan repository GitHub berstatus Public dan berisi build.gradle.kts serta folder app/.",
+        ],
+        instructions: [
+          "Uji seluruh fitur Modul 1–10 di Emulator atau HP fisik.",
+          "Bangun file .apk lewat menu Build APK(s).",
+          "Push proyek ke GitHub dan kirimkan karya melalui halaman Kumpulan Karya ComposeLab.",
+        ],
+        promptTujuan: "Menyusun README.md rapi yang merangkum fitur yang sudah dibangun di Modul 1–10.",
+        promptKonteks: "Saya telah menyelesaikan aplikasi CatatanBelajar dengan Jetpack Compose, Navigation, Room, AlertDialog, dan DataStore.",
+        promptInstruksi: ["Buat draf README.md singkat berisi judul, daftar fitur, dan teknologi yang dipakai."],
+        promptBatasan: ["Gunakan format Markdown bersih."],
+        promptHasilAkhir: "Dokumentasi README.md dan karya siap dikumpulkan.",
+        promptValidasi: "Repository GitHub publik, file APK teruji, dan form Kumpulan Karya terkirim.",
+        expectedResult: "Seluruh proyek Modul 1–10 selesai dibangun dan dipublikasikan.",
+        validationCheck: ["Build APK berhasil.", "Repository GitHub berstatus Public.", "Formulir Kumpulan Karya terkirim."],
       }),
     ],
   },
