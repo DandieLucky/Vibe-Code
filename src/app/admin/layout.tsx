@@ -63,7 +63,7 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-paper flex flex-col md:flex-row">
       {/* Admin Sidebar */}
-      <aside className="w-full md:w-64 bg-paper-2 text-ink-2 border-r border-rule shrink-0 flex flex-col justify-between">
+      <aside className="w-full md:w-64 md:h-screen md:sticky md:top-0 md:overflow-y-auto bg-paper-2 text-ink-2 border-b md:border-b-0 md:border-r border-rule shrink-0 flex flex-col justify-between">
         <div>
           {/* Admin Header */}
           <div className="p-6 border-b border-rule flex items-center justify-between">
