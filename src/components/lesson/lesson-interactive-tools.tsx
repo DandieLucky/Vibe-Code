@@ -219,10 +219,10 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
       )}
 
       {/* 2. Catatan Pribadi Siswa */}
-      <div className="rounded-2xl border border-rule bg-sheet p-6 shadow-xs">
+      <div className="rounded-2xl border border-rule bg-sheet p-6">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <StickyNote className="w-4 h-4 text-amber-500" />
+            <StickyNote className="w-4 h-4 text-accent" />
             <h3 className="text-sm font-bold text-ink">
               Catatan Pribadi untuk Materi Ini
             </h3>
@@ -255,25 +255,25 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
       </div>
 
       {/* 3. Action Bar: Bookmark & Mark as Completed */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-ink text-sheet shadow-md">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-paper-2 border border-rule text-ink">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={toggleBookmark}
             className={`p-2.5 rounded-xl border transition-colors ${
               isBookmarked
-                ? "bg-amber-500/20 text-amber-300 border-amber-400/40"
-                : "bg-umber text-paper-3 border-rule hover:text-sheet"
+                ? "bg-accent-soft text-accent border-accent/30"
+                : "bg-sheet text-ink-2 border-rule hover:text-ink"
             }`}
             title={isBookmarked ? "Hapus dari Bookmark" : "Simpan ke Bookmark"}
           >
-            <Bookmark className={`w-5 h-5 ${isBookmarked ? "fill-amber-400" : ""}`} />
+            <Bookmark className={`w-5 h-5 ${isBookmarked ? "fill-accent" : ""}`} />
           </button>
           <div>
-            <div className="text-xs font-semibold text-paper">
+            <div className="text-xs font-semibold text-ink">
               {isBookmarked ? "Tersimpan di Bookmark" : "Simpan materi untuk dibuka lagi nanti"}
             </div>
-            <div className="text-[11px] text-paper-3">
+            <div className="text-[11px] text-muted">
               Progres tersimpan di browser &amp; database akun Anda
             </div>
           </div>
@@ -283,8 +283,8 @@ export function LessonInteractiveTools({ lessonId, quiz }: LessonInteractiveTool
           type="button"
           onClick={toggleComplete}
           variant={isCompleted ? "teal" : "accent"}
-          className={`font-bold px-6 py-2.5 text-sm shadow-md transition-colors ${
-            isCompleted ? "bg-emerald-600 hover:bg-emerald-700 ring-2 ring-emerald-300" : ""
+          className={`font-bold px-6 py-2.5 text-sm transition-colors ${
+            isCompleted ? "bg-emerald-600 hover:bg-emerald-700 text-sheet" : ""
           }`}
         >
           <CheckCircle2 className="w-4 h-4 mr-2" />

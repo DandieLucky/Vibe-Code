@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   ChevronRight,
+  ChevronDown,
   Clock,
   BookOpen,
   Target,
@@ -15,35 +16,33 @@ import {
   ExternalLink,
   ArrowLeft,
   ArrowRight,
-  ShieldAlert,
   Code2,
+  CheckCircle2,
+  Compass,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getCurriculumModules } from "@/lib/data-access/curriculum";
 import { AntigravityPromptCard } from "@/components/lesson/antigravity-prompt-card";
-
-export const dynamic = "force-dynamic";
 import { CodeBlock } from "@/components/lesson/code-block";
 import { LessonInteractiveTools } from "@/components/lesson/lesson-interactive-tools";
 import { MarkdownContent } from "@/components/ui/markdown-content";
+import { LessonOutline, type OutlineSection } from "@/components/lesson/lesson-outline";
+
+export const dynamic = "force-dynamic";
 
 interface LessonPageProps {
   params: Promise<{ moduleSlug: string; lessonSlug: string }>;
 }
 
 export default async function LessonDetailPage({ params }: LessonPageProps) {
-  // Gerbang kurikulum: materi hanya terbuka setelah login.
-  // Dicek di server supaya isi pelajaran tidak pernah dikirim ke browser
-  // sebelum hak akses terbukti.
   const supabase = await createServerSupabaseClient();
-  // Tanpa Supabase (mode demo/lokal) materi tetap tampil; gerbang login
-  // hanya berlaku saat Supabase aktif.
   if (supabase) {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) redirect("/login?redirect=" + encodeURIComponent("/kurikulum"));
   }
-
 
   const modules = await getCurriculumModules({ includeUnpublished: false });
   const { moduleSlug, lessonSlug } = await params;
@@ -62,7 +61,7 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
 
   const lesson = currentModule.lessons[currentLessonIndex];
 
-  // Calculate previous and next lessons across all modules
+  // Previous & next lesson navigation across modules
   let prevLesson: { moduleSlug: string; lesson: typeof lesson } | null = null;
   let nextLesson: { moduleSlug: string; lesson: typeof lesson } | null = null;
 
@@ -72,7 +71,6 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
       lesson: currentModule.lessons[currentLessonIndex - 1],
     };
   } else {
-    // Check previous module
     const currentModuleIndex = modules.findIndex((m) => m.id === currentModule.id);
     if (currentModuleIndex > 0) {
       const prevMod = modules[currentModuleIndex - 1];
@@ -91,7 +89,6 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
       lesson: currentModule.lessons[currentLessonIndex + 1],
     };
   } else {
-    // Check next module
     const currentModuleIndex = modules.findIndex((m) => m.id === currentModule.id);
     if (currentModuleIndex < modules.length - 1) {
       const nextMod = modules[currentModuleIndex + 1];
@@ -104,11 +101,25 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
     }
   }
 
+  // Build dynamic outline sections for the sticky sidebar
+  const outlineSections: OutlineSection[] = [];
+  if (lesson.objective) outlineSections.push({ id: "tujuan", label: "Tujuan Pembelajaran" });
+  if (lesson.concept_explanation) outlineSections.push({ id: "konsep", label: "Konsep & Teori" });
+  if (lesson.step_instructions?.length) outlineSections.push({ id: "langkah", label: "Langkah Praktik" });
+  if (lesson.thinking_steps?.length) outlineSections.push({ id: "pikirkan-dulu", label: "Alur Logika AI" });
+  if (lesson.antigravity_prompt) outlineSections.push({ id: "prompt-ai", label: "Prompt AI 6-Bagian" });
+  if (lesson.code_snippets?.length) outlineSections.push({ id: "kode", label: "Kode Referensi" });
+  if (lesson.expected_result || lesson.validation_check?.length) {
+    outlineSections.push({ id: "validasi", label: "Hasil & Validasi" });
+  }
+  if (lesson.common_errors?.length) outlineSections.push({ id: "kesalahan", label: "Kendala Umum" });
+  outlineSections.push({ id: "evaluasi", label: "Evaluasi & Selesai" });
+
   return (
-    <div className="bg-paper min-h-screen py-8 sm:py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-1.5 text-xs text-muted mb-6 flex-wrap">
+    <div className="bg-paper min-h-screen py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-1.5 text-xs text-muted mb-5 flex-wrap">
           <Link href="/beranda" className="hover:text-ink">
             Beranda
           </Link>
@@ -124,15 +135,15 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
             Modul {currentModule.module_number}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-          <span className="font-semibold text-ink truncate max-w-[200px]">
+          <span className="font-semibold text-ink truncate max-w-[240px]">
             {lesson.title}
           </span>
         </nav>
 
         {/* Lesson Header Banner */}
-        <header className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs mb-8">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className="text-xs font-bold px-2.5 py-0.5 rounded bg-accent-soft text-accent border border-rule">
+        <header className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 mb-8">
+          <div className="flex flex-wrap items-center gap-2.5 mb-3">
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded-md bg-accent-soft text-accent border border-rule">
               Modul {currentModule.module_number}, Materi {lesson.lesson_number}
             </span>
             <Badge
@@ -143,7 +154,7 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
                   ? "info"
                   : "warning"
               }
-              className="text-[10px]"
+              className="text-[11px]"
             >
               {currentModule.difficulty_level}
             </Badge>
@@ -156,294 +167,346 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
           <h1 className="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight leading-snug">
             {lesson.title}
           </h1>
-          <p className="mt-2 text-sm sm:text-base text-ink-2 leading-relaxed">
+          <p className="mt-2.5 text-sm sm:text-base text-ink-2 leading-relaxed max-w-3xl">
             {lesson.description}
           </p>
         </header>
 
-        {/* 1. Tujuan Pembelajaran & 2. Prasyarat */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {lesson.objective && (
-            <div
-              className={`rounded-xl border border-rule bg-paper-2 p-5 ${
-                !lesson.prerequisites || lesson.prerequisites.length === 0 ? "md:col-span-2" : ""
-              }`}
-            >
-              <div className="flex items-center gap-2 text-ink font-bold text-xs mb-2">
-                <Target className="w-4 h-4 text-accent" />
-                <span>Tujuan Pembelajaran</span>
-              </div>
-              <p className="text-xs sm:text-sm text-ink leading-relaxed font-medium">
-                {lesson.objective}
-              </p>
-            </div>
-          )}
+        {/* 2-Column Main Layout: Content Left + Sticky Outline Right */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-8 lg:items-start">
+          {/* Primary Reading & Practice Column */}
+          <div className="space-y-6 min-w-0">
+            {/* 1. Tujuan Pembelajaran */}
+            {lesson.objective && (
+              <section
+                id="tujuan"
+                className="scroll-mt-24 rounded-2xl border border-rule border-l-4 border-l-accent bg-sheet p-5 sm:p-6"
+              >
+                <div className="flex items-center gap-2 text-ink font-bold text-xs mb-2">
+                  <Target className="w-4 h-4 text-accent" />
+                  <span>Tujuan Pembelajaran</span>
+                </div>
+                <p className="text-sm sm:text-base text-ink leading-relaxed font-medium">
+                  {lesson.objective}
+                </p>
+              </section>
+            )}
 
-          {lesson.prerequisites && lesson.prerequisites.length > 0 && (
-            <div className="rounded-xl border border-rule bg-sheet p-5">
-              <div className="flex items-center gap-2 text-ink-2 font-bold text-xs mb-2">
-                <FileCheck2 className="w-4 h-4 text-muted" />
-                <span>Prasyarat Materi</span>
-              </div>
-              <ul className="space-y-1.5 text-xs text-ink-2">
-                {lesson.prerequisites.map((req, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5">
-                    <span className="text-accent font-bold">•</span>
-                    <span>{req}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-
-        {/* 3. Penjelasan Konsep */}
-        {lesson.concept_explanation && (
-          <section className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs mb-8">
-            <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-accent" />
-              <span>Penjelasan Konsep &amp; Teori Dasar</span>
-            </h2>
-            <MarkdownContent content={lesson.concept_explanation} />
-          </section>
-        )}
-
-        {/* 4. Persiapan Praktik */}
-        {lesson.preparation && lesson.preparation.length > 0 && (
-          <section className="rounded-xl border border-amber-200 bg-amber-50/40 p-5 mb-8">
-            <h3 className="text-xs font-bold text-amber-900 flex items-center gap-2 mb-2.5">
-              <Lightbulb className="w-4 h-4 text-amber-600" />
-              <span>Persiapan Sebelum Praktik</span>
-            </h3>
-            <ul className="space-y-1.5 text-xs text-amber-950">
-              {lesson.preparation.map((prep, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="font-mono font-bold text-amber-600">{idx + 1}.</span>
-                  <span>{prep}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {/* 5. Instruksi Langkah demi Langkah */}
-        {lesson.step_instructions && lesson.step_instructions.length > 0 && (
-          <section className="rounded-2xl border border-rule bg-sheet p-6 sm:p-8 shadow-xs mb-8">
-            <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2 mb-4">
-              <ListOrdered className="w-5 h-5 text-accent" />
-              <span>Instruksi Praktik Langkah demi Langkah</span>
-            </h2>
-            <div className="space-y-3">
-              {lesson.step_instructions.map((step, idx) => (
-                <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-paper border border-rule">
-                  <span className="flex items-center justify-center h-6 w-6 rounded-full bg-ink text-sheet font-bold text-xs shrink-0 mt-0.5">
-                    {idx + 1}
+            {/* 2. Prasyarat Materi (Collapsible Secondary Block) */}
+            {lesson.prerequisites && lesson.prerequisites.length > 0 && (
+              <details className="group rounded-xl border border-rule bg-paper-2">
+                <summary className="flex items-center justify-between gap-2 px-5 py-3.5 cursor-pointer list-none text-xs font-bold text-ink select-none">
+                  <span className="flex items-center gap-2">
+                    <FileCheck2 className="w-4 h-4 text-accent" />
+                    <span>Prasyarat Sebelum Memulai ({lesson.prerequisites.length})</span>
                   </span>
-                  <p className="text-xs sm:text-sm text-ink leading-relaxed">
-                    {step}
+                  <ChevronDown className="w-4 h-4 text-muted transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="px-5 pb-4 pt-1 border-t border-rule">
+                  <ul className="space-y-1.5 text-xs sm:text-sm text-ink-2 mt-2">
+                    {lesson.prerequisites.map((req, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-accent font-bold">•</span>
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            )}
+
+            {/* 3. Penjelasan Konsep & Teori Dasar */}
+            {lesson.concept_explanation && (
+              <section
+                id="konsep"
+                className="scroll-mt-24 rounded-2xl border border-rule bg-sheet p-6 sm:p-8"
+              >
+                <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2 mb-4 pb-3 border-b border-rule">
+                  <BookOpen className="w-5 h-5 text-accent" />
+                  <span>Penjelasan Konsep &amp; Teori Dasar</span>
+                </h2>
+                <MarkdownContent content={lesson.concept_explanation} />
+              </section>
+            )}
+
+            {/* 4. Persiapan Sebelum Praktik */}
+            {lesson.preparation && lesson.preparation.length > 0 && (
+              <section className="rounded-2xl border border-rule bg-paper-2 p-5 sm:p-6">
+                <h3 className="text-xs sm:text-sm font-bold text-ink flex items-center gap-2 mb-3">
+                  <Compass className="w-4 h-4 text-accent" />
+                  <span>Persiapan Sebelum Praktik</span>
+                </h3>
+                <ul className="space-y-2 text-xs sm:text-sm text-ink-2">
+                  {lesson.preparation.map((prep, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5">
+                      <span className="font-mono font-bold text-accent shrink-0">
+                        {idx + 1}.
+                      </span>
+                      <span className="leading-relaxed">{prep}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* 5. Instruksi Praktik Langkah demi Langkah (Flat rows, no card-in-card) */}
+            {lesson.step_instructions && lesson.step_instructions.length > 0 && (
+              <section
+                id="langkah"
+                className="scroll-mt-24 rounded-2xl border border-rule bg-sheet overflow-hidden"
+              >
+                <div className="px-6 py-4 bg-paper-2 border-b border-rule">
+                  <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+                    <ListOrdered className="w-5 h-5 text-accent" />
+                    <span>Instruksi Praktik Langkah demi Langkah</span>
+                  </h2>
+                </div>
+                <div className="divide-y divide-rule">
+                  {lesson.step_instructions.map((step, idx) => (
+                    <div key={idx} className="flex items-start gap-3.5 px-6 py-4">
+                      <span className="flex items-center justify-center h-6 w-6 rounded-full bg-ink text-sheet font-bold text-xs shrink-0 mt-0.5">
+                        {idx + 1}
+                      </span>
+                      <p className="text-xs sm:text-sm text-ink leading-relaxed">
+                        {step}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* 5.5 Pikirkan Dulu: Alur Logika Sebelum Prompting AI */}
+            {lesson.thinking_steps && lesson.thinking_steps.length > 0 && (
+              <section
+                id="pikirkan-dulu"
+                className="scroll-mt-24 rounded-2xl border border-rule border-l-4 border-l-ink bg-sheet overflow-hidden"
+              >
+                <div className="px-6 py-4 bg-paper-2 border-b border-rule flex flex-wrap items-center justify-between gap-2">
+                  <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+                    <Lightbulb className="w-5 h-5 text-accent" />
+                    <span>Pikirkan Dulu: Rancang Alur Logika</span>
+                  </h2>
+                  <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-accent-soft text-accent border border-rule">
+                    Wajib Dipahami Sebelum Prompting
+                  </span>
+                </div>
+                <div className="p-6">
+                  <p className="text-xs sm:text-sm text-ink-2 mb-4 leading-relaxed">
+                    Jangan langsung menyalin prompt ke AI. Pahami urutan logika di bawah ini agar Anda tahu{" "}
+                    <strong className="text-ink">mengapa</strong> kode tersebut dibuat dan bisa mendeteksi jika AI keliru:
+                  </p>
+                  <ol className="divide-y divide-rule border-t border-rule">
+                    {lesson.thinking_steps.map((thought, idx) => (
+                      <li key={idx} className="flex items-start gap-3 py-3.5">
+                        <span className="flex items-center justify-center h-6 w-6 rounded-full bg-accent-soft text-accent font-bold text-xs shrink-0 mt-0.5">
+                          {idx + 1}
+                        </span>
+                        <span className="text-xs sm:text-sm text-ink leading-relaxed font-medium">
+                          {thought}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </section>
+            )}
+
+            {/* 6. Prompt AI Terstruktur */}
+            {lesson.antigravity_prompt && (
+              <section id="prompt-ai" className="scroll-mt-24">
+                <div className="mb-3">
+                  <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+                    <Code2 className="w-5 h-5 text-accent" />
+                    <span>Prompt AI Terstruktur (Formula 6-Bagian)</span>
+                  </h2>
+                  <p className="text-xs text-muted mt-0.5">
+                    Gunakan prompt ini setelah memahami alur logika di atas.
                   </p>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
+                <AntigravityPromptCard prompt={lesson.antigravity_prompt} lessonTitle={lesson.title} />
+              </section>
+            )}
 
-        {/* 5.5 Blok Pikirkan Dulu (Alur Logika Sebelum Prompting AI) */}
-        {lesson.thinking_steps && lesson.thinking_steps.length > 0 && (
-          <section className="rounded-2xl border-2 border-rule bg-paper-2 p-6 sm:p-7 shadow-xs mb-8">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <h2 className="text-base sm:text-lg font-extrabold text-ink flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-accent" />
-                <span>Pikirkan Dulu: Rancang Alur Logika Sebelum Prompting</span>
-              </h2>
-              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-accent-soft text-accent border border-rule">
-                Wajib Dipahami Siswa
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm text-ink-2 mb-4 leading-relaxed">
-              Jangan langsung menyalin prompt ke AI. Jawab dan pahami urutan logika di bawah ini agar kamu tahu <strong>mengapa</strong> kode tersebut dibuat dan bisa mendeteksi jika AI keliru:
-            </p>
-            <div className="space-y-2.5">
-              {lesson.thinking_steps.map((thought, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-start gap-3 p-3.5 rounded-xl bg-sheet border border-rule"
-                >
-                  <span className="flex items-center justify-center h-6 w-6 rounded-full bg-accent text-sheet font-bold text-xs shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <p className="text-xs sm:text-sm text-ink leading-relaxed font-medium">
-                    {thought}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* 6. Prompt Terstruktur untuk Diskusi AI */}
-        {lesson.antigravity_prompt && (
-          <section className="mb-8">
-            <div className="mb-2">
-              <h2 className="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
-                <Code2 className="w-5 h-5 text-accent" />
-                <span>Prompt AI Terstruktur (Formula 6-Bagian)</span>
-              </h2>
-              <p className="text-xs text-muted mt-0.5">
-                Gunakan prompt ini setelah memahami alur di atas. Minta AI menjelaskan fungsi tiap bagian kode sebelum kamu menempelkannya ke Android Studio.
-              </p>
-            </div>
-            <AntigravityPromptCard prompt={lesson.antigravity_prompt} lessonTitle={lesson.title} />
-          </section>
-        )}
-
-        {/* 7. Kode Program jika ada */}
-        {lesson.code_snippets && lesson.code_snippets.length > 0 && (
-          <section className="mb-8">
-            <h2 className="text-base font-bold text-ink mb-2">
-              Kode Program Referensi
-            </h2>
-            {lesson.code_snippets.map((snip, idx) => (
-              <CodeBlock
-                key={idx}
-                filename={snip.filename}
-                language={snip.language}
-                code={snip.code}
-              />
-            ))}
-          </section>
-        )}
-
-        {/* 8. Hasil yang Diharapkan & 9. Cara Memeriksa Keberhasilan */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {lesson.expected_result && (
-            <div className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-5">
-              <h3 className="text-xs font-bold text-emerald-900 flex items-center gap-2 mb-2">
-                <span>Hasil yang Diharapkan</span>
-              </h3>
-              <p className="text-xs sm:text-sm text-ink leading-relaxed font-medium">
-                {lesson.expected_result}
-              </p>
-            </div>
-          )}
-
-          {lesson.validation_check && lesson.validation_check.length > 0 && (
-            <div className="rounded-xl border border-rule bg-paper-2 p-5">
-              <h3 className="text-xs font-bold text-ink flex items-center gap-2 mb-2">
-                <span>Cara Memeriksa Keberhasilan</span>
-              </h3>
-              <ul className="space-y-1.5 text-xs text-ink-2">
-                {lesson.validation_check.map((chk, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5">
-                    <span className="text-emerald-600 font-bold">✓</span>
-                    <span>{chk}</span>
-                  </li>
+            {/* 7. Kode Program Referensi */}
+            {lesson.code_snippets && lesson.code_snippets.length > 0 && (
+              <section id="kode" className="scroll-mt-24">
+                <h2 className="text-base sm:text-lg font-bold text-ink mb-2">
+                  Kode Program Referensi
+                </h2>
+                {lesson.code_snippets.map((snip, idx) => (
+                  <CodeBlock
+                    key={idx}
+                    filename={snip.filename}
+                    language={snip.language}
+                    code={snip.code}
+                  />
                 ))}
-              </ul>
-            </div>
-          )}
-        </div>
+              </section>
+            )}
 
-        {/* 10. Kesalahan yang Sering Terjadi & Solusi */}
-        {lesson.common_errors && lesson.common_errors.length > 0 && (
-          <section className="rounded-2xl border border-rose-100 bg-rose-50/30 p-6 mb-8">
-            <h3 className="text-xs font-bold text-rose-900 flex items-center gap-2 mb-3">
-              <AlertTriangle className="w-4 h-4 text-rose-600" />
-              <span>Kesalahan yang Sering Terjadi &amp; Solusinya</span>
-            </h3>
-            <div className="space-y-3">
-              {lesson.common_errors.map((err, idx) => (
-                <div key={idx} className="p-3.5 rounded-xl bg-sheet border border-rose-200/80 space-y-1">
-                  <div className="text-xs font-bold text-rose-900 flex items-center gap-1.5">
-                    <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0" />
-                    <span>{err.error}</span>
-                  </div>
-                  <div className="text-xs text-ink-2 pl-5">
-                    <strong className="text-ink font-semibold">Solusi: </strong>
-                    {err.solution}
-                  </div>
+            {/* 8. Hasil yang Diharapkan & 9. Cara Memeriksa Keberhasilan */}
+            {(lesson.expected_result || (lesson.validation_check && lesson.validation_check.length > 0)) && (
+              <section
+                id="validasi"
+                className="scroll-mt-24 rounded-2xl border border-rule bg-sheet overflow-hidden"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-rule">
+                  {lesson.expected_result && (
+                    <div className="p-5 sm:p-6">
+                      <h3 className="text-xs font-bold text-ink flex items-center gap-2 mb-2">
+                        <CheckCircle2 className="w-4 h-4 text-accent" />
+                        <span>Hasil yang Diharapkan</span>
+                      </h3>
+                      <p className="text-xs sm:text-sm text-ink-2 leading-relaxed">
+                        {lesson.expected_result}
+                      </p>
+                    </div>
+                  )}
+
+                  {lesson.validation_check && lesson.validation_check.length > 0 && (
+                    <div className="p-5 sm:p-6 bg-paper/50">
+                      <h3 className="text-xs font-bold text-ink flex items-center gap-2 mb-2">
+                        <FileCheck2 className="w-4 h-4 text-accent" />
+                        <span>Cara Memeriksa Keberhasilan</span>
+                      </h3>
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-ink-2">
+                        {lesson.validation_check.map((chk, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <span className="text-accent font-bold">✓</span>
+                            <span>{chk}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
-              ))}
+              </section>
+            )}
+
+            {/* 10. Kesalahan yang Sering Terjadi & Solusi (Collapsible) */}
+            {lesson.common_errors && lesson.common_errors.length > 0 && (
+              <details
+                id="kesalahan"
+                className="scroll-mt-24 group rounded-2xl border border-rule bg-sheet overflow-hidden"
+              >
+                <summary className="flex items-center justify-between gap-2 px-6 py-4 bg-paper-2 cursor-pointer list-none text-xs sm:text-sm font-bold text-ink select-none">
+                  <span className="flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-accent" />
+                    <span>
+                      Kendala yang Sering Terjadi &amp; Solusinya ({lesson.common_errors.length})
+                    </span>
+                  </span>
+                  <ChevronDown className="w-4 h-4 text-muted transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="divide-y divide-rule border-t border-rule">
+                  {lesson.common_errors.map((err, idx) => (
+                    <div key={idx} className="px-6 py-4 space-y-1">
+                      <div className="text-xs sm:text-sm font-bold text-ink flex items-start gap-2">
+                        <span className="text-accent font-mono shrink-0">!</span>
+                        <span>{err.error}</span>
+                      </div>
+                      <div className="text-xs sm:text-sm text-ink-2 pl-4">
+                        <strong className="text-ink font-semibold">Solusi: </strong>
+                        {err.solution}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            )}
+
+            {/* 11. Tantangan Latihan Mandiri */}
+            {lesson.exercise && (
+              <section className="rounded-2xl border border-rule bg-paper-2 p-5 sm:p-6">
+                <h3 className="text-xs sm:text-sm font-bold text-ink flex items-center gap-2 mb-2">
+                  <Lightbulb className="w-4 h-4 text-accent" />
+                  <span>Tantangan Latihan Mandiri</span>
+                </h3>
+                <p className="text-xs sm:text-sm text-ink-2 leading-relaxed">
+                  {lesson.exercise}
+                </p>
+              </section>
+            )}
+
+            {/* 12. Evaluasi Pemahaman, Catatan Pribadi & Tandai Selesai */}
+            <div id="evaluasi" className="scroll-mt-24">
+              <LessonInteractiveTools lessonId={lesson.id} quiz={lesson.quiz} />
             </div>
-          </section>
-        )}
 
-        {/* 11. Latihan Praktik Mandiri */}
-        {lesson.exercise && (
-          <section className="rounded-xl border border-rule bg-sheet p-5 mb-8">
-            <h3 className="text-xs font-bold text-ink flex items-center gap-2 mb-2">
-              <Lightbulb className="w-4 h-4 text-amber-500" />
-              <span>Tantangan Latihan Mandiri</span>
-            </h3>
-            <p className="text-xs sm:text-sm text-ink-2 leading-relaxed">
-              {lesson.exercise}
-            </p>
-          </section>
-        )}
+            {/* 13. Referensi Dokumentasi Resmi */}
+            {lesson.references && lesson.references.length > 0 && (
+              <div className="p-5 rounded-2xl border border-rule bg-paper-2">
+                <span className="text-xs font-bold text-ink block mb-2.5">
+                  Referensi Dokumentasi Terkait
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {lesson.references.map((ref, idx) => (
+                    <a
+                      key={idx}
+                      href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-accent hover:underline bg-sheet px-3 py-1.5 rounded-lg border border-rule"
+                    >
+                      <span>{ref.title}</span>
+                      <ExternalLink className="w-3 h-3 text-muted" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
 
-        {/* 12. Evaluasi Pemahaman Quiz & Catatan Pribadi & Tombol Tandai Selesai */}
-        <LessonInteractiveTools
-          lessonId={lesson.id}
-          quiz={lesson.quiz}
-        />
+            {/* 14. Navigasi Materi Sebelumnya & Berikutnya */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-rule">
+              {prevLesson ? (
+                <Link href={`/kurikulum/${prevLesson.moduleSlug}/${prevLesson.lesson.slug}`}>
+                  <Button variant="outline" size="sm" className="gap-2">
+                    <ArrowLeft className="w-4 h-4" />
+                    <span className="hidden sm:inline">Sebelumnya: </span>
+                    <span className="truncate max-w-[180px]">{prevLesson.lesson.title}</span>
+                  </Button>
+                </Link>
+              ) : (
+                <div />
+              )}
 
-        {/* 13. Referensi Dokumentasi Resmi */}
-        {lesson.references && lesson.references.length > 0 && (
-          <div className="p-4 rounded-xl border border-rule bg-paper-2 mb-10">
-            <span className="text-[11px] font-bold text-muted block mb-2">
-              Referensi Dokumentasi Terkait:
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {lesson.references.map((ref, idx) => (
-                <a
-                  key={idx}
-                  href={ref.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-accent hover:underline bg-sheet px-3 py-1.5 rounded-lg border border-rule"
-                >
-                  <span>{ref.title}</span>
-                  <ExternalLink className="w-3 h-3 text-muted" />
-                </a>
-              ))}
+              {nextLesson ? (
+                <Link href={`/kurikulum/${nextLesson.moduleSlug}/${nextLesson.lesson.slug}`}>
+                  <Button variant="accent" size="sm" className="gap-2 font-bold">
+                    <span className="hidden sm:inline">Berikutnya: </span>
+                    <span className="truncate max-w-[180px]">{nextLesson.lesson.title}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/kumpulan-karya">
+                  <Button variant="teal" size="sm" className="gap-2 font-bold">
+                    <span>Kumpulkan Karya Anda</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
-        )}
 
-        {/* 14. Navigasi Materi Sebelumnya & Berikutnya */}
-        <div className="flex items-center justify-between pt-6 border-t border-rule">
-          {prevLesson ? (
-            <Link
-              href={`/kurikulum/${prevLesson.moduleSlug}/${prevLesson.lesson.slug}`}
-            >
-              <Button variant="outline" size="sm" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Materi Sebelumnya: </span>
-                <span className="truncate max-w-[150px]">{prevLesson.lesson.title}</span>
-              </Button>
-            </Link>
-          ) : (
-            <div />
-          )}
-
-          {nextLesson ? (
-            <Link
-              href={`/kurikulum/${nextLesson.moduleSlug}/${nextLesson.lesson.slug}`}
-            >
-              <Button variant="accent" size="sm" className="gap-2 font-bold">
-                <span className="hidden sm:inline">Materi Berikutnya: </span>
-                <span className="truncate max-w-[150px]">{nextLesson.lesson.title}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          ) : (
-            <Link href="/kumpulan-karya">
-              <Button variant="teal" size="sm" className="gap-2 font-bold">
-                <span>Kumpulkan Karya Anda</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          )}
+          {/* Sticky Outline & Module Switcher Sidebar */}
+          <div className="mt-8 lg:mt-0">
+            <LessonOutline
+              sections={outlineSections}
+              moduleSlug={currentModule.slug}
+              moduleNumber={currentModule.module_number}
+              moduleTitle={currentModule.title}
+              currentLessonId={lesson.id}
+              lessons={currentModule.lessons.map((l) => ({
+                id: l.id,
+                lesson_number: l.lesson_number,
+                title: l.title,
+                slug: l.slug,
+                estimated_minutes: l.estimated_minutes,
+              }))}
+            />
+          </div>
         </div>
       </div>
     </div>
