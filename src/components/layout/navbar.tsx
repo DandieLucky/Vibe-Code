@@ -81,6 +81,10 @@ export function Navbar() {
         ? pathname === "/beranda" || pathname === "/"
         : pathname === href || pathname.startsWith(`${href}/`);
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-colors duration-200 border-b ${scrolled
