@@ -321,6 +321,23 @@ export default function AdminCurriculumCMSPage() {
     });
   };
 
+  const handleResetDefaults = async () => {
+    if (
+      !confirm(
+        "Sinkronkan database dengan 7 modul kurikulum bawaan terbaru? Perubahan kustom sebelumnya di database akan diganti."
+      )
+    ) {
+      return;
+    }
+    const res = await callCurriculumApi({ action: "reset_defaults" });
+    if (res) {
+      if (Array.isArray(res.modules) && res.modules.length > 0) {
+        setSelectedModuleId(res.modules[0].id);
+      }
+      showNotice("ok", "Database berhasil disinkronkan dengan 7 modul kurikulum pemula.");
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Page Header */}
@@ -338,6 +355,16 @@ export default function AdminCurriculumCMSPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleResetDefaults}
+            disabled={isLoading || isSaving}
+            className="gap-1.5 text-xs"
+          >
+            <span>Sinkronkan Bawaan (7 Modul)</span>
+          </Button>
           <Button
             type="button"
             variant="outline"

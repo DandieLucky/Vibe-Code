@@ -159,3 +159,4 @@ fun main() {
 1. Saya sudah menuliskan tebakan *Predict* sebelum menjalankan kode.
 2. Saya memahami mengapa `val` menghasilkan error `Val cannot be reassigned`.
 3. Saya berhasil mengubah kode secara manual sehingga mencetak `Poin: 15, Nyawa: 2`.
+

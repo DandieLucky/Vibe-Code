@@ -134,6 +134,14 @@ export async function seedDefaultCurriculumToDb(): Promise<boolean> {
   return true;
 }
 
+export async function resetDefaultCurriculumInDb(): Promise<boolean> {
+  const admin = createAdminClient();
+  if (!admin) return false;
+  await admin.from("lessons").delete().neq("id", "");
+  await admin.from("modules").delete().neq("id", "");
+  return seedDefaultCurriculumToDb();
+}
+
 /**
  * Mengambil seluruh modul & materi kurikulum dari Supabase (jika tersedia),
  * dengan seed otomatis dari MODULES_DATA saat tabel masih kosong dan fallback

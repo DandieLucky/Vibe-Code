@@ -5,7 +5,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { COURSE_INFO } from "@/lib/data/curriculum-data";
 import {
   getCurriculumModules,
-  seedDefaultCurriculumToDb,
+  resetDefaultCurriculumInDb,
   slugifyText,
 } from "@/lib/data-access/curriculum";
 
@@ -248,7 +248,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === "reset_defaults") {
-      await seedDefaultCurriculumToDb();
+      await resetDefaultCurriculumInDb();
       revalidateCurriculumRoutes();
       const modules = await getCurriculumModules({ includeUnpublished: true });
       return NextResponse.json({ ok: true, modules });
