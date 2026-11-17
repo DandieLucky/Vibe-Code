@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { GeminiMasterContextCard } from "@/components/lesson/gemini-master-context-card";
 import { MODULES_DATA, type FullModule } from "@/lib/data/curriculum-data";
 
 interface LearningStage {
@@ -171,6 +172,9 @@ export default function KurikulumList({ modules = MODULES_DATA }: { modules?: Fu
             ))}
           </div>
         </div>
+
+        {/* Master Context Prompt for Gemini */}
+        <GeminiMasterContextCard />
 
         {/* 3 Learning Stages */}
         <div className="space-y-12">

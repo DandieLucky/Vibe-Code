@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sparkles, Terminal, ShieldAlert, CheckCircle2, FileCode, Target, Check } from "lucide-react";
+import { Sparkles, Terminal, ShieldAlert, CheckCircle2, FileCode, Target, Check, ChevronDown } from "lucide-react";
 import { CopyButton } from "@/components/ui/copy-button";
 import { AntigravityPromptFormat } from "@/types/database";
+import { GEMINI_MASTER_CONTEXT_PROMPT } from "@/lib/data/gemini-master-context";
 
 interface AntigravityPromptCardProps {
   prompt: AntigravityPromptFormat;
@@ -74,6 +75,28 @@ export function AntigravityPromptCard({ prompt }: AntigravityPromptCardProps) {
           />
         </div>
       </div>
+
+      {/* Quick Master Context Drawer (for fresh Gemini chat sessions) */}
+      <details className="group border-b border-rule bg-paper">
+        <summary className="flex flex-wrap items-center justify-between gap-2 px-5 py-2.5 cursor-pointer list-none text-xs text-ink-2 hover:text-ink select-none">
+          <span className="flex items-center gap-1.5 font-medium">
+            <ChevronDown className="w-3.5 h-3.5 text-muted transition-transform group-open:rotate-180" />
+            <span>Mulai chat Gemini baru? Salin <strong className="text-ink">Master Context Proyek</strong> dulu di sini</span>
+          </span>
+          <CopyButton
+            textToCopy={GEMINI_MASTER_CONTEXT_PROMPT}
+            variant="outline"
+            label="Salin Master Context"
+            copiedLabel="Tersalin!"
+            className="text-[11px] py-1 px-2.5"
+          />
+        </summary>
+        <div className="p-4 bg-ink border-t border-rule">
+          <pre className="text-paper font-mono text-[11px] overflow-x-auto whitespace-pre-wrap leading-relaxed">
+            {GEMINI_MASTER_CONTEXT_PROMPT}
+          </pre>
+        </div>
+      </details>
 
       {/* Body */}
       {activeTab === "structured" ? (
