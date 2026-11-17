@@ -25,6 +25,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { MarkdownContent } from "@/components/ui/markdown-content";
 import type { Lesson } from "@/types/database";
 
 export interface BlogspotLessonDraft {
@@ -94,100 +95,6 @@ export function lessonToDraft(moduleId: string, lesson?: Lesson, nextNumber = 1)
     promptValidasi: lesson.antigravity_prompt?.validasi || "",
     code_snippets: lesson.code_snippets ? [...lesson.code_snippets] : [],
   };
-}
-
-function renderMarkdownPreview(source: string): React.ReactNode {
-  if (!source.trim()) {
-    return (
-      <p className="text-sm text-muted italic">
-        Belum ada isi materi. Mulai menulis di tab Tulis Materi untuk melihat pratinjau.
-      </p>
-    );
-  }
-
-  const formatInline = (text: string) => {
-    const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*)/g);
-    return parts.map((part, idx) => {
-      if (part.startsWith("`") && part.endsWith("`") && part.length >= 2) {
-        return (
-          <code
-            key={idx}
-            className="px-1.5 py-0.5 rounded bg-paper-2 border border-rule font-mono text-xs text-ink"
-          >
-            {part.slice(1, -1)}
-          </code>
-        );
-      }
-      if (part.startsWith("**") && part.endsWith("**") && part.length >= 4) {
-        return <strong key={idx}>{part.slice(2, -2)}</strong>;
-      }
-      if (part.startsWith("*") && part.endsWith("*") && part.length >= 2) {
-        return <em key={idx}>{part.slice(1, -1)}</em>;
-      }
-      return <React.Fragment key={idx}>{part}</React.Fragment>;
-    });
-  };
-
-  const blocks = source.split(/```([\s\S]*?)```/g);
-  return (
-    <div className="space-y-3 text-sm text-ink-2 leading-relaxed">
-      {blocks.map((block, bIdx) => {
-        if (bIdx % 2 === 1) {
-          const lines = block.split("\n");
-          const codeBody = lines.slice(1).join("\n") || block;
-          return (
-            <pre
-              key={bIdx}
-              className="p-4 rounded-xl bg-ink text-paper font-mono text-xs overflow-x-auto border border-umber"
-            >
-              <code>{codeBody.trim()}</code>
-            </pre>
-          );
-        }
-
-        return block
-          .split("\n")
-          .map((line, lIdx) => {
-            const trimmed = line.trim();
-            if (!trimmed) return <div key={`${bIdx}-${lIdx}`} className="h-1" />;
-            if (trimmed.startsWith("### ")) {
-              return (
-                <h4 key={`${bIdx}-${lIdx}`} className="text-base font-bold text-ink pt-2">
-                  {formatInline(trimmed.slice(4))}
-                </h4>
-              );
-            }
-            if (trimmed.startsWith("## ")) {
-              return (
-                <h3 key={`${bIdx}-${lIdx}`} className="text-lg font-extrabold text-ink pt-3">
-                  {formatInline(trimmed.slice(3))}
-                </h3>
-              );
-            }
-            if (/^[-*]\s+/.test(trimmed)) {
-              return (
-                <div key={`${bIdx}-${lIdx}`} className="flex items-start gap-2 pl-2">
-                  <span className="text-accent font-bold">•</span>
-                  <span>{formatInline(trimmed.replace(/^[-*]\s+/, ""))}</span>
-                </div>
-              );
-            }
-            if (/^\d+\.\s+/.test(trimmed)) {
-              const numMatch = trimmed.match(/^(\d+\.)\s+(.*)$/);
-              return (
-                <div key={`${bIdx}-${lIdx}`} className="flex items-start gap-2 pl-2">
-                  <span className="font-mono text-xs font-bold text-accent pt-0.5">
-                    {numMatch?.[1]}
-                  </span>
-                  <span>{formatInline(numMatch?.[2] || trimmed)}</span>
-                </div>
-              );
-            }
-            return <p key={`${bIdx}-${lIdx}`}>{formatInline(trimmed)}</p>;
-          });
-      })}
-    </div>
-  );
 }
 
 interface BlogspotLessonEditorProps {
@@ -500,7 +407,10 @@ export function BlogspotLessonEditor({
             />
           ) : (
             <div className="p-5 min-h-[280px] bg-sheet">
-              {renderMarkdownPreview(draft.concept_explanation)}
+              <MarkdownContent
+                content={draft.concept_explanation}
+                emptyText="Belum ada isi materi. Mulai menulis di tab Tulis Materi untuk melihat pratinjau."
+              />
             </div>
           )}
         </div>

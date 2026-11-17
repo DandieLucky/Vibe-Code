@@ -63,12 +63,12 @@ export function Navbar() {
       ? [
         { href: "/dashboard", label: "Dashboard", icon: GraduationCap },
         { href: "/tutorial", label: "Tutorial", icon: BookOpen },
-        { href: "/kurikulum", label: "Kurikulum 6 Modul" },
+        { href: "/kurikulum", label: "Kurikulum 10 Modul" },
         { href: "/kumpulan-karya", label: "Kumpulan Karya", badge: "Wajib" },
       ]
       : [
         { href: "/beranda", label: "Beranda" },
-        { href: "/beranda#kurikulum", label: "Kurikulum 6 Modul" },
+        { href: "/beranda#kurikulum", label: "Kurikulum 10 Modul" },
         { href: "/beranda#karya", label: "Alur Pelatihan" },
       ];
 

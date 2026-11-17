@@ -51,7 +51,7 @@ export default async function ModuleDetailPage({ params }: ModulePageProps) {
 
   return (
     <div className="bg-paper min-h-screen py-10 sm:py-14">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-muted mb-4">
           <Link href="/" className="hover:text-ink">

@@ -26,6 +26,7 @@ import { AntigravityPromptCard } from "@/components/lesson/antigravity-prompt-ca
 export const dynamic = "force-dynamic";
 import { CodeBlock } from "@/components/lesson/code-block";
 import { LessonInteractiveTools } from "@/components/lesson/lesson-interactive-tools";
+import { MarkdownContent } from "@/components/ui/markdown-content";
 
 interface LessonPageProps {
   params: Promise<{ moduleSlug: string; lessonSlug: string }>;
@@ -105,7 +106,7 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
 
   return (
     <div className="bg-paper min-h-screen py-8 sm:py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-1.5 text-xs text-muted mb-6 flex-wrap">
           <Link href="/beranda" className="hover:text-ink">
@@ -163,7 +164,11 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
         {/* 1. Tujuan Pembelajaran & 2. Prasyarat */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           {lesson.objective && (
-            <div className="rounded-xl border border-rule bg-paper-2 p-5">
+            <div
+              className={`rounded-xl border border-rule bg-paper-2 p-5 ${
+                !lesson.prerequisites || lesson.prerequisites.length === 0 ? "md:col-span-2" : ""
+              }`}
+            >
               <div className="flex items-center gap-2 text-ink font-bold text-xs mb-2">
                 <Target className="w-4 h-4 text-accent" />
                 <span>Tujuan Pembelajaran</span>
@@ -199,9 +204,7 @@ export default async function LessonDetailPage({ params }: LessonPageProps) {
               <BookOpen className="w-5 h-5 text-accent" />
               <span>Penjelasan Konsep &amp; Teori Dasar</span>
             </h2>
-            <div className="text-sm text-ink-2 leading-relaxed space-y-3 whitespace-pre-line">
-              {lesson.concept_explanation}
-            </div>
+            <MarkdownContent content={lesson.concept_explanation} />
           </section>
         )}
 

@@ -6,59 +6,79 @@ import { getCurriculumModules } from "@/lib/data-access/curriculum";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "ComposeLab — Platform Belajar Pemrograman Terstruktur & AI Prompting",
+  title: "ComposeLab — Platform Belajar Android Kotlin & Jetpack Compose",
   description:
-    "Platform pembelajaran pemrograman terstruktur dengan pendekatan berpikir komputasional dan prompting AI 6-bagian.",
+    "Kurikulum 10 modul Android Kotlin, Jetpack Compose, Navigation, ViewModel, Room Database, dan DataStore Preferences bersama LLM Gemini.",
 };
 
 const MODULES_SUMMARY = [
   {
     num: "01",
-    title: "Berpikir Komputasional & Prompting AI",
-    desc: "Memecah masalah aplikasi menjadi alur logika sebelum menyusun prompt 6-bagian.",
+    title: "Pengenalan Android Studio & Proyek Pertama",
+    desc: "Menyiapkan Android Studio, Version Catalog (libs.versions.toml), MainActivity, dan Emulator.",
   },
   {
     num: "02",
-    title: "Persiapan Lingkungan & Bahasa Pemrograman",
-    desc: "Instalasi perangkat kerja, struktur proyek modern, dan dasar bahasa pemrograman.",
+    title: "Membangun Aplikasi Pertama & Tata Letak Dasar",
+    desc: "Mengenal val/var, Column, Row, State remember, serta Scaffold dan TopAppBar Material 3.",
   },
   {
     num: "03",
-    title: "Antarmuka Pengguna & Navigasi Layar",
-    desc: "Membangun antarmuka modern, pengelolaan state, dan navigasi antar halaman.",
+    title: "Bekerja dengan Gambar, Ikon & Resource",
+    desc: "Mengelola res/drawable, Image dengan ContentScale, Material Icons, dan strings.xml.",
   },
   {
     num: "04",
-    title: "Autentikasi & Pengelolaan Sesi",
-    desc: "Integrasi autentikasi modern dan penyimpanan sesi pengguna secara aman.",
+    title: "Menerima Input Pengguna & Validasi Form",
+    desc: "OutlinedTextField, RadioButton, validasi isError/supportingText, dan State Hoisting.",
   },
   {
     num: "05",
-    title: "Basis Data Lokal & Operasi CRUD",
-    desc: "Simpan, baca real-time, ubah, hapus, dan filter data aplikasi.",
+    title: "Navigasi Antar Layar (Navigation Compose)",
+    desc: "Menambahkan navigation-compose, rute Screen, NavHost, dan tombol Back di TopAppBar.",
   },
   {
     num: "06",
-    title: "Debugging, Build Rilis & Pengumpulan Karya",
-    desc: "Membaca log error, ekspor paket rilis, push ke GitHub, dan kumpulkan karya.",
+    title: "ViewModel, StateFlow & Debugging Logcat",
+    desc: "Memisahkan logika ke ViewModel, StateFlow, membedah error Logcat, dan FloatingActionButton.",
+  },
+  {
+    num: "07",
+    title: "Daftar Dapat Digulir (Scrollable List & Grid)",
+    desc: "Membuat model data class, Card item, LazyColumn dengan key, dan LazyVerticalGrid.",
+  },
+  {
+    num: "08",
+    title: "Navigasi dengan Mengirim Data (Route Arguments)",
+    desc: "Mengirim ID lewat navArgument, halaman Tambah/Edit dengan LaunchedEffect, dan menu hapus.",
+  },
+  {
+    num: "09",
+    title: "Penyimpanan Permanen Room Database (KSP)",
+    desc: "Konfigurasi KSP, @Entity, @Dao dengan Flow, @Database Singleton, dan CRUD SQLite.",
+  },
+  {
+    num: "10",
+    title: "Dialog Konfirmasi & Preferensi (AlertDialog & DataStore)",
+    desc: "AlertDialog konfirmasi hapus, DataStore Preferences List/Grid, Build APK, dan push GitHub.",
   },
 ];
 
 const SCHEDULE = [
   {
     day: "Tahap 1",
-    title: "Modul 1 sampai 3",
-    desc: "Cara berpikir terstruktur, persiapan perangkat kerja, dasar bahasa pemrograman, dan antarmuka aplikasi.",
+    title: "Modul 1 sampai 4 — Fondasi & UI Input",
+    desc: "Android Studio, tata letak dasar Jetpack Compose, resource gambar/teks, serta form input dan validasi.",
   },
   {
     day: "Tahap 2",
-    title: "Modul 4 dan 5",
-    desc: "Integrasi autentikasi modern serta pembuatan database lokal lengkap dengan fitur Create, Read, Update, dan Delete.",
+    title: "Modul 5 sampai 8 — Navigasi & Daftar Data",
+    desc: "Navigation Compose, ViewModel & StateFlow, LazyColumn/Grid, serta pengiriman data antar layar.",
   },
   {
     day: "Tahap 3",
-    title: "Modul 6 — Pengerjaan Mandiri & Pengumpulan",
-    desc: "Penyempurnaan aplikasi masing-masing peserta, uji coba, push GitHub, dan pengumpulan karya di ComposeLab.",
+    title: "Modul 9 dan 10 — Room, DataStore & Rilis",
+    desc: "Penyimpanan permanen Room Database (KSP), AlertDialog, DataStore Preferences, Build APK, dan push GitHub.",
   },
 ];
 
@@ -82,7 +102,7 @@ export default async function BerandaPage() {
             <div>
               <h1>Bangun aplikasi Android dengan nalar</h1>
               <p className="bloom-lead">
-                Pelatihan Android: Kotlin, Compose, Room, dan Google Login.
+                Kurikulum 10 modul bertahap: Kotlin, Jetpack Compose, Navigation, ViewModel, Room Database, dan DataStore.
               </p>
 
               <div className="bloom-actions">
@@ -148,9 +168,9 @@ export default async function BerandaPage() {
         <div className="bloom-container">
           <div className="bloom-schedule-grid">
             <div>
-              <p className="bloom-serif-figure">6</p>
+              <p className="bloom-serif-figure">10</p>
               <p className="bloom-serif-caption">
-                Modul terpadu dari fondasi logika, autentikasi, dan database hingga proyek aplikasi siap rilis.
+                Modul terpadu dari Android Studio, Compose UI, Navigation, ViewModel, hingga Room Database dan DataStore.
               </p>
               <div className="bloom-actions">
                 <Link href="/register" className="bloom-cta-secondary">
@@ -174,11 +194,11 @@ export default async function BerandaPage() {
         </div>
       </section>
 
-      {/* 6 Modul Kurikulum */}
+      {/* Modul Kurikulum */}
       <section id="kurikulum" className="bloom-section">
         <div className="bloom-container">
           <div className="bloom-section-head">
-            <h2>Kurikulum terstruktur dan modular</h2>
+            <h2>{modulesSummary.length} modul kurikulum Android Compose</h2>
             <p className="bloom-section-sub">
               Ringkas, namun tetap memuat detail kode, konsep, dan troubleshooting.{" "}
               <Link href="/kurikulum" className="bloom-link">

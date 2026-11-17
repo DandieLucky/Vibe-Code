@@ -38,27 +38,27 @@ export function Footer() {
             <ul className="space-y-2.5 text-xs">
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 1: Prompting &amp; Logika
+                  Modul 1: Android Studio &amp; Gemini
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 3: Antarmuka &amp; Navigasi
+                  Modul 5: Navigation Compose
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 4: Autentikasi Modern
+                  Modul 7: Scrollable List &amp; Grid
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors font-semibold text-accent">
-                  Modul 5: Database Lokal &amp; CRUD
+                  Modul 9: Room Database &amp; CRUD
                 </Link>
               </li>
               <li>
                 <Link href="/kurikulum" className="hover:text-accent transition-colors">
-                  Modul 6: Build Rilis &amp; GitHub
+                  Modul 10: AlertDialog &amp; DataStore
                 </Link>
               </li>
             </ul>

@@ -7,38 +7,36 @@ const STAGES = [
     id: "alur",
     label: "1. Pikirkan Alur",
     title: "Rancang data sebelum menulis prompt",
-    code: `Aplikasi: Manajemen Catatan & Tugas
-User Login: Autentikasi Akun -> email pengguna
-Data Lokal:
-  - id: Int (PrimaryKey)
-  - userEmail: String
-  - kategori: String
-  - judulTugas: String
-  - tenggat: String
-  - selesai: Boolean`,
+    code: `Aplikasi: Catatan & Target Belajar
+Layar Utama : LazyColumn / LazyVerticalGrid
+Layar Detail: OutlinedTextField + RadioButton + AlertDialog
+Data Lokal (Room):
+  - id: Long (PrimaryKey autoGenerate)
+  - judul: String
+  - isi: String
+  - kategori: String`,
   },
   {
     id: "prompt",
-    label: "2. Prompt 6-Bagian",
-    title: "Instruksi presisi ke AI, bukan menebak",
-    code: `[TUJUAN] Buat model data & akses database lokal.
-[KONTEKS] Arsitektur terstruktur, penyimpanan lokal, reaktif.
-[INSTRUKSI] Gunakan aliran data reaktif agar daftar tugas
-otomatis terbarui saat data ditambah atau dihapus.
-[BATASAN] Filter berdasarkan userEmail yang login.
-[VALIDASI] Pastikan build sukses tanpa error kompilasi.`,
+    label: "2. Prompt Gemini",
+    title: "Instruksi terstruktur ke Gemini, bukan menebak",
+    code: `[TUJUAN] Buat @Dao dengan query reaktif Flow<List<Catatan>>.
+[KONTEKS] Kotlin, Jetpack Compose, Room KSP, ViewModel.
+[INSTRUKSI] Gunakan Flow agar daftar catatan otomatis terbarui
+saat data ditambah, diubah, atau dihapus.
+[BATASAN] Operasi insert/update/delete wajib suspend fun.
+[VALIDASI] Build proyek sukses tanpa error KSP.`,
   },
   {
     id: "compose",
-    label: "3. Hasil Implementasi",
-    title: "Kode terstruktur siap diuji",
-    code: `@Entity(tableName = "tasks")
-data class TaskEntity(
-  @PrimaryKey(autoGenerate = true) val id: Int = 0,
-  val userEmail: String,
-  val kategori: String,
-  val judulTugas: String,
-  val selesai: Boolean = false
+    label: "3. Kode Room & UI",
+    title: "Kode Kotlin terstruktur siap diuji di Android Studio",
+    code: `@Entity(tableName = "catatan")
+data class Catatan(
+  @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+  val judul: String,
+  val isi: String,
+  val kategori: String
 )`,
   },
 ] as const;
@@ -74,10 +72,10 @@ export function SakuSiswaWorkbench() {
           Kotlin + Compose
         </div>
         <div className="bloom-clip" style={{ ["--lane-color" as string]: "var(--lane-2)" }}>
-          Room Database (KSP)
+          Navigation + ViewModel
         </div>
         <div className="bloom-clip" style={{ ["--lane-color" as string]: "var(--lane-3)" }}>
-          Google Login
+          Room (KSP) + DataStore
         </div>
       </div>
     </div>
