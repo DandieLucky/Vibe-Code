@@ -334,7 +334,10 @@ export default function AdminCurriculumCMSPage() {
       if (Array.isArray(res.modules) && res.modules.length > 0) {
         setSelectedModuleId(res.modules[0].id);
       }
-      showNotice("ok", "Database berhasil disinkronkan dengan 7 modul kurikulum pemula.");
+      showNotice(
+        "ok",
+        res.warning || "Database berhasil disinkronkan dengan 7 modul kurikulum pemula."
+      );
     }
   };
 

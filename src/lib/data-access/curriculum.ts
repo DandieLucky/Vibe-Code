@@ -17,6 +17,10 @@ type LessonContentJson = Omit<
   | "created_at"
 >;
 
+const DEFAULT_LESSON_BY_ID = new Map<string, Lesson>(
+  MODULES_DATA.flatMap((m) => m.lessons.map((l) => [l.id, l] as const))
+);
+
 export function extractLessonContentJson(lesson: Lesson): LessonContentJson {
   const {
     id: _id,
@@ -45,8 +49,17 @@ export function slugifyText(input: string): string {
 }
 
 function mapDbRowToLesson(row: any): Lesson {
-  const content: LessonContentJson =
-    row.content_json && typeof row.content_json === "object" ? row.content_json : {};
+  const hasJson =
+    row.content_json &&
+    typeof row.content_json === "object" &&
+    Object.keys(row.content_json).length > 0;
+  const fallbackContent = !hasJson
+    ? (() => {
+        const def = DEFAULT_LESSON_BY_ID.get(String(row.id));
+        return def ? extractLessonContentJson(def) : {};
+      })()
+    : {};
+  const content: LessonContentJson = hasJson ? row.content_json : fallbackContent;
 
   return {
     id: String(row.id),
@@ -63,9 +76,15 @@ function mapDbRowToLesson(row: any): Lesson {
   };
 }
 
-export async function seedDefaultCurriculumToDb(): Promise<boolean> {
+export interface SeedResult {
+  ok: boolean;
+  error?: string;
+  warning?: string;
+}
+
+export async function seedDefaultCurriculumToDb(): Promise<SeedResult> {
   const admin = createAdminClient();
-  if (!admin) return false;
+  if (!admin) return { ok: false, error: "Kunci server Supabase belum terpasang." };
 
   const { error: courseErr } = await admin.from("courses").upsert(
     {
@@ -81,64 +100,89 @@ export async function seedDefaultCurriculumToDb(): Promise<boolean> {
 
   if (courseErr) {
     console.error("[curriculum] gagal seed course:", courseErr.message);
-    return false;
+    return { ok: false, error: `Gagal menyimpan course: ${courseErr.message}` };
   }
 
-  for (const mod of MODULES_DATA) {
-    const { error: modErr } = await admin.from("modules").upsert(
-      {
-        id: mod.id,
-        course_id: COURSE_INFO.id,
-        module_number: mod.module_number,
-        title: mod.title,
-        slug: mod.slug,
-        description: mod.description,
-        estimated_minutes: mod.estimated_minutes,
-        difficulty_level: mod.difficulty_level,
-        is_published: mod.is_published,
-        order_index: mod.order_index,
-      },
-      { onConflict: "id" }
-    );
+  const modulePayload = MODULES_DATA.map((mod) => ({
+    id: mod.id,
+    course_id: COURSE_INFO.id,
+    module_number: mod.module_number,
+    title: mod.title,
+    slug: mod.slug,
+    description: mod.description,
+    estimated_minutes: mod.estimated_minutes,
+    difficulty_level: mod.difficulty_level,
+    is_published: mod.is_published,
+    order_index: mod.order_index,
+  }));
 
-    if (modErr) {
-      console.error("[curriculum] gagal seed module:", mod.id, modErr.message);
-      return false;
-    }
+  const { error: modErr } = await admin
+    .from("modules")
+    .upsert(modulePayload, { onConflict: "id" });
 
-    for (const lesson of mod.lessons) {
-      const contentJson = extractLessonContentJson(lesson);
-      const { error: lessonErr } = await admin.from("lessons").upsert(
-        {
-          id: lesson.id,
-          module_id: mod.id,
-          lesson_number: lesson.lesson_number,
-          title: lesson.title,
-          slug: lesson.slug,
-          description: lesson.description,
-          estimated_minutes: lesson.estimated_minutes,
-          order_index: lesson.order_index,
-          is_published: lesson.is_published,
-          content_json: contentJson,
-        },
-        { onConflict: "id" }
-      );
+  if (modErr) {
+    console.error("[curriculum] gagal seed modules:", modErr.message);
+    return { ok: false, error: `Gagal menyimpan modul: ${modErr.message}` };
+  }
 
-      if (lessonErr) {
-        console.error("[curriculum] gagal seed lesson:", lesson.id, lessonErr.message);
-        return false;
+  const lessonPayload = MODULES_DATA.flatMap((mod) =>
+    mod.lessons.map((lesson) => ({
+      id: lesson.id,
+      module_id: mod.id,
+      lesson_number: lesson.lesson_number,
+      title: lesson.title,
+      slug: lesson.slug,
+      description: lesson.description,
+      estimated_minutes: lesson.estimated_minutes,
+      order_index: lesson.order_index,
+      is_published: lesson.is_published,
+      content_json: extractLessonContentJson(lesson),
+    }))
+  );
+
+  const { error: lessonErr } = await admin
+    .from("lessons")
+    .upsert(lessonPayload, { onConflict: "id" });
+
+  if (lessonErr) {
+    // Jika kolom content_json belum dibuat di Supabase, simpan tanpa content_json
+    // agar modul & materi tetap langsung muncul (konten bawaan digabung dari kode).
+    if (lessonErr.message.includes("content_json")) {
+      const baseLessons = lessonPayload.map(({ content_json: _c, ...rest }) => rest);
+      const { error: baseErr } = await admin
+        .from("lessons")
+        .upsert(baseLessons, { onConflict: "id" });
+      if (baseErr) {
+        return { ok: false, error: `Gagal menyimpan materi: ${baseErr.message}` };
       }
+      return {
+        ok: true,
+        warning:
+          "7 modul berhasil disinkronkan, tetapi migrasi kolom content_json belum dijalankan di Supabase. Jalankan SQL di supabase/migrations/20261117000002_custom_curriculum_cms.sql agar editan isi artikel ikut tersimpan.",
+      };
     }
+
+    console.error("[curriculum] gagal seed lessons:", lessonErr.message);
+    return { ok: false, error: `Gagal menyimpan materi: ${lessonErr.message}` };
   }
 
-  return true;
+  return { ok: true };
 }
 
-export async function resetDefaultCurriculumInDb(): Promise<boolean> {
+export async function resetDefaultCurriculumInDb(): Promise<SeedResult> {
   const admin = createAdminClient();
-  if (!admin) return false;
-  await admin.from("lessons").delete().neq("id", "");
-  await admin.from("modules").delete().neq("id", "");
+  if (!admin) return { ok: false, error: "Kunci server Supabase belum terpasang." };
+
+  const { error: delLessonsErr } = await admin.from("lessons").delete().neq("id", "");
+  if (delLessonsErr) {
+    return { ok: false, error: `Gagal menghapus materi lama: ${delLessonsErr.message}` };
+  }
+
+  const { error: delModsErr } = await admin.from("modules").delete().neq("id", "");
+  if (delModsErr) {
+    return { ok: false, error: `Gagal menghapus modul lama: ${delModsErr.message}` };
+  }
+
   return seedDefaultCurriculumToDb();
 }
 
@@ -177,8 +221,6 @@ export async function getCurriculumModules(options?: {
       return fallback();
     }
 
-    // Jika masih berisi katalog referensi lama (12 modul web) dan belum dimigrasi,
-    // bersihkan atau anggap belum di-seed dengan materi aktif.
     const isStalePlaceholder =
       Array.isArray(moduleRows) &&
       moduleRows.length > 0 &&
@@ -199,7 +241,7 @@ export async function getCurriculumModules(options?: {
             .eq("course_id", "b319caba-00e0-534e-874c-c75238f99baf");
         }
         const seeded = await seedDefaultCurriculumToDb();
-        if (seeded) {
+        if (seeded.ok) {
           const refreshed = await admin
             .from("modules")
             .select("*")
@@ -260,4 +302,3 @@ export async function getCurriculumModules(options?: {
     return fallback();
   }
 }
-

@@ -248,10 +248,20 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === "reset_defaults") {
-      await resetDefaultCurriculumInDb();
+      const seedRes = await resetDefaultCurriculumInDb();
+      if (!seedRes.ok) {
+        return NextResponse.json(
+          { error: seedRes.error || "Gagal menyinkronkan kurikulum bawaan." },
+          { status: 500 }
+        );
+      }
       revalidateCurriculumRoutes();
       const modules = await getCurriculumModules({ includeUnpublished: true });
-      return NextResponse.json({ ok: true, modules });
+      return NextResponse.json({
+        ok: true,
+        warning: seedRes.warning,
+        modules,
+      });
     }
 
     return NextResponse.json({ error: "Aksi tidak dikenali." }, { status: 400 });
